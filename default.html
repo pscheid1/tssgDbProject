@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <style>
+  body {
+      position: relative; 
+  }
+  /* bring the sections 50px below the top to allow for the navbar just above. */
+  #section1 {padding-top:50px;}
+  #section2 {padding-top:50px;}
+  #section3 {padding-top:50px;} 
+  #section4 {padding-top:50px;}
+  #section5 {padding-top:50px;}
+
+  #myScrollspy {
+      position: relative; 
+     /* top: 50px; */
+/*      height: 200px; */
+      overflow: auto;
+/*      font-size: 28px; */
+      font-family: "Times New Roman", Times, serif;
+      font-size: 15px;
+  }
+
+p.a {
+  font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    color: black;
+    background: white
+}
+li {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    color: black;
+    background: white
+}
+
+
+h1 {
+  font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
+    color: black;
+    background: white
+  
+}
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: purple;
+  margin-top:50px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+
+
+  </style>
+</head>
+<!--body data-spy="scroll" data-target=".navbar" position="relative"--> <!-- data-offset="50"-->
+<body data-spy="scroll" data-target="#myNavbar" position="relative"> <!-- data-offset="50"-->
+
+    <!--div class="top-img" style="padding-bottom: 100px"-->
+  <div class="top-img background-color: white background-repeat: no-repeat">
+    <div class="row" style="margin: 10px">
+      <div class="col-sm-6">
+        <img src="Images/Logo_TSSG.png" alt="">
+      </div>
+      <div class="col-sm-6">
+        <div id="Slide" class="container-fluid text-center bg-ltblue">
+          <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+          </div>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox" align="text-center">
+            <div class="item active">
+              <p> we develop web and mobile applications </p>
+            </div>
+            <div class="item">
+              <p> we perform software quality assurance </p>
+            </div>
+            <div class="item">
+              <p> we perform data analytics </p>
+            </div>
+          </div> <!-- slide wrapper -->
+        </div> <!-- Slide --> 
+      </div> <!-- col-sm-6 -->
+    </div> <!-- row -->
+
+  <!-- Left and right carousel controls -->
+  <!--a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a-->
+
+
+  <!--nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="padding-top: 100px"-->
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="margin-top: 100px">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">TSSG</a>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <a class="nav-item nav-link" href="#section1">General Meeting</a>
+              <a class="nav-item nav-link" href="#section2">Web Development</a>
+              <a class="nav-item nav-link" href="#section3">Mobile Development</a>
+              <a class="nav-item nav-link" href="#section4">QA Study</a>
+              <a class="nav-item nav-link" href="#section5">Data Analytics</a>
+            </ul>
+        </div>
+    </div>
+</nav>  
+
+<div id="myScrollspy">
+  <div id="section1" class="container-fluid">
+    <hr>
+    <h1>GENERAL MEETING INFORMATION</h1>
+    <br>
+  <p>The TSSG General Meeting is on Wednesdays, It Is An All-Team Meeting For Introductions, Updates and Discussions</p>
+  <p> Before joining, you must attend, in-person, one TSSG general meeting.</p>
+  <p>Wed 12:30 – 5pm, Acton Library Except 4th Wed at Chelmsford Library, General Manager: Andy Leuper</p>
+  <ul>
+      <li>Anyone interested in any aspect of the software development life cycle is welcome to attend </li>
+      <li>Developers, web designers, project managers, support persons and those interested in learning about these and other roles are welcome</li>
+      <li>If you are not sure where you may fit in, we will help you to figure it out</li>
+  </ul>
+  <p>Sample Wednesday Agenda</p> 
+  <ul>
+    <li>12:30 to 1:00 pm:  <strong>Intros, Announcements and recruiting updates</strong></li> 
+    <li>1:00 to 2:10 pm:   <strong>Web Application Project (PHP, JavaScript, HTML5)</strong></li> 
+    <li>2:10 to 2:20 pm:   <strong>Break</strong></li>
+    <li>2:20 to 3:30 pm:   <strong>Mobile Application Project (Java, Android)</strong></li> 
+    <li>3:30 to 3:40 pm:   <strong>Break</strong></li> 
+    <li>3:40 to 5:00 pm:   <strong>Data Analytics Project (Python, R, Hadoop)</strong></li> 
+  </ul>
+  <br>
+  <h1>Basic structure of each project section:</h1>
+  <ul>
+    <li>Scrum</li>
+    <li>Program or Technology review</li>
+    <li>Review, Analyze and Update user stories</li>
+  </ul>        
+
+  </div>
+  <hr>
+  <div id="section2" class="container-fluid text-left">
+    <h1>THE WEBSITE APPLICATION DEVELOPMENT TEAM</h1>
+    <p>Mon 1:30 – 3:30pm, Online, Team Lead: Jim Turner</p>            
+    <p>As web professionals we develop web applications using current technologies to learn and explore. 
+        We have found that active involvement in projects enhances our members’ opportunities for new roles or new challenges. 
+        All are welcome if they have an interest in Web Application Development. 
+    </p>
+    <p>PROJECTS:</p>
+
+    <p>Musicians Manager</p> 
+    <ul>
+        <li>Laravel – Experimental version</li> 
+        <li>PHP – Live version with a real-world customer</li>
+        <li>MEAN Stack - Experimental version</li>
+    </ul>
+    <p>Website Development</p>
+    <p>TECHNOLOGIES:</p>
+    <ul> 
+      <li>Agile/Scrum model using CA Agile (Rally) Project Management</li>
+      <li>Subversion (SVN) and GitHub source code repositories</li>
+      <li>LARAVEL (PHP framework)</li> 
+      <li>Bootstrap</li> 
+      <li>JQuery</li>
+      <li>PHP</li>
+      <li>MySQL db</li>
+      <li>JavaScript</li>
+      <li>HTML5</li>
+      <li>CSS3</li>
+      <li>MEAN (MongoDB, Express, Angular, Node.js)</li>
+      <li>Jenkins (Continuous Integration)</li>
+      <li>Selenium & Selenium Grid test automation</li>
+      <li>Cucumber/Behavior Driven Development (BDD)</li>
+      <li>User Experience Design</li>
+      <li>Responsive Design</li>
+    </ul>        
+  </div>
+  <hr>
+  <div id="section3" class="container-fluid text-left">
+    <h1>THE MOBILE APPLICATION DEVELOPMENT TEAM</h1>
+    <p>Tue 10 – 1pm, Acton Library and Online, Team Lead: Mark Pralat</p>       
+    <p>As mobile application development professionals we develop applications using current technologies. 
+        The group currently focuses on Android development and welcomes other mobile technologies. 
+        All are welcome if they have an interest in mobile development, from inception to release and beyond. 
+    </p>
+    <p>PROJECT MANAGEMENT USING AGILE/SCRUM, KANBAN METHODS</p> 
+  <p>PROJECTS:</p>
+  <ul>        
+    <li>EventBoss</li> 
+    <li>SleepAnalyzer</li> 
+    <li>INDIVIDUAL PROJECTS:</li>
+    <li>Mobile Robot</li> 
+  </ul>        
+
+    <p>TECHNOLOGIES:</p>
+    <ul> 
+    <li>Agile/Scrum, Kanban SeeNowDo</li>
+    <li>Android</li>
+    <li>Java, XML, Material Design</li> 
+    <li>Android Studio, Gradle</li> 
+    <li>Eclipse Git, GitHub, Subversion (SVN)</li>
+    <li>MIT App Inventor</li>
+    <li>Appium, Selenium</li>
+    <li>Coming soon: Android Things (IoT), Kotlin</li>
+    </ul>        
+  </div>
+  <hr>
+  <div id="section4" class="container-fluid text-left">
+    <h1>THE QUALITY ASSURANCE STUDY AND DISCUSSION GROUP</h1> 
+    <p>Thu 10 – Noon, Online, Team Lead: Ray Bloom</p>
+    <p>As Quality Assurance (QA) professionals, we explore and learn current technologies within various platforms to expand our skill sets. 
+            We help investigate QA issues encountered by study group members. Any member of TSSG with an interest in QA is welcome to participate. 
+    </p>
+
+    <p>TECHNOLOGIES:</p>
+    <ul> 
+    <li>Selenium, Appium</li>
+    <li>Java, Python</li>
+    <li>Junit, TestNG, PyUnit (“unittest”)</li> 
+    <li>Maven, Gradle</li> 
+    <li>Jenkins Continuous Integration Server</li>
+    <li>Docker, Azure, AWS, VirtualBox, other approaches to virtualization</li>
+    <li>Cucumber, Geb, Spock, Behavior Driven Development (BDD)</li>
+    </ul>        
+  </div>
+  <hr>
+  <div id="section5" class="container-fluid text-left">
+    <h1>THE DATA ANALYTICS DEVELOPMENT TEAM</h1>
+    <p>Fri 1 – 3pm, Acton Library and Online, Team Lead: Norm Heckman</p>
+    <p>TECHNOLOGIES:</p>
+    <ul>
+    <li>Project Management using Agile/Scrum model. </li>
+    <li>JQuery</li>
+    <li>Yahoo widgets</li>
+    <li>YAML (CSS framework)</li>
+    <li>Subversion (SVN - source code repository),</li>
+    <li>Tortoise (Windows GUI interface for Subversion)</li>
+    <li>LARAVEL (PHP framework)</li>
+    <li>PHP</li>
+    <li>MySQL db</li>
+    <li>Javascript</li>
+    <li>HTML5</li>
+    <li>CSS3</li>
+    <li>Bootstrap</li>
+    <li>GitHub</li>
+    <li>MEAN stack </li>
+    <li>MongoDB</li>
+    <li>Express</li>
+    <li>Angular</li>
+    <li>Jenkins</li>
+    <li>Selenium & Selenium Grid test automation</li>
+    <li>Cucumber and BDD</li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+
+<div id="footer"></div>
+
+</html>
