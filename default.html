@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -7,55 +7,61 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <style>
   body {
-      position: relative; 
+    position: relative; 
+    padding-top: 160px; /* brings the top of each section below the logo and navbar */
+    
+    /* all body text defaults to Times, black letters and white background */
+    font-family: "Times New Roman", Times, serif;
+    color: black;
+    background: white
   }
+
+
   /* bring the sections 50px below the top to allow for the navbar just above. */
-  #section1 {padding-top:50px;}
+  /*#section1 {padding-top:50px;}
   #section2 {padding-top:50px;}
   #section3 {padding-top:50px;} 
   #section4 {padding-top:50px;}
-  #section5 {padding-top:50px;}
+  #section5 {padding-top:50px;} 
+*/
 
   #myScrollspy {
       position: relative; 
      /* top: 50px; */
-/*      height: 200px; */
-      overflow: auto;
+      height: 500px;
+      overflow: auto; 
 /*      font-size: 28px; */
       font-family: "Times New Roman", Times, serif;
       font-size: 15px;
   }
 
 p.a {
-  font-family: "Times New Roman", Times, serif;
     font-size: 15px;
-    color: black;
-    background: white
-}
-li {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 15px;
-    color: black;
-    background: white
 }
 
+li {
+    font-size: 15px;
+}
 
 h1 {
-  font-family: "Times New Roman", Times, serif;
     font-size: 18px;
-    color: black;
-    background: white
-  
 }
+
 /* Set the fixed height of the footer here */
 #footer {
   height: 60px;
-  background-color: purple;
-  margin-top:50px;
+  background-color: #0000ab; /* match the blue of the logo */
+  /* margin-top:50px; */ /* Remove this line? To avoid space between the last section and the footer. */
   padding-top:20px;
   padding-bottom:20px;
 }
 
+/* carousel text */
+.car-text {
+  min-height: 50px;
+  background-color: black; /* help see where the carousel is on the screen while debugging */
+  color: white
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -63,72 +69,69 @@ h1 {
 
   </style>
 </head>
-<!--body data-spy="scroll" data-target=".navbar" position="relative"--> <!-- data-offset="50"-->
-<body data-spy="scroll" data-target="#myNavbar" position="relative"> <!-- data-offset="50"-->
-
-    <!--div class="top-img" style="padding-bottom: 100px"-->
-  <div class="top-img background-color: white background-repeat: no-repeat">
-    <div class="row" style="margin: 10px">
-      <div class="col-sm-6">
+<body data-spy="scroll" data-target="#myNavbar"> 
+<div class="top-image-navbar-block fixed-top">
+  <div class="top-img" style="background-color: white;">
+    <div class="d-flex flex-row">  <!-- style="margin: 10px" -->
+      <div class="col-sm-6 align-self-center">
         <img src="Images/Logo_TSSG.png" alt="">
       </div>
-      <div class="col-sm-6">
-        <div id="Slide" class="container-fluid text-center bg-ltblue">
+      <div class="col-sm-6 align-self-center">
+        <div id="Slide" class="container-fluid text-center"> <!-- bg-ltblue -->
           <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-          </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner text-center" role="listbox">
+              <div class="carousel-item active">
+                <p class="car-text"> we develop web and mobile applications </p>
+              </div>
+              <div class="carousel-item">
+                <p class="car-text"> we perform software quality assurance </p>
+              </div>
+              <div class="carousel-item">
+                <p class="car-text"> we perform data analytics </p>
+              </div>
+            </div>
+            <!-- slide wrapper -->
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
           </div>
+          <!-- Slide -->
+        </div>
+        <!-- col-sm-6 -->
+      </div>
+      <!-- row -->
+    </div> <!-- d-flex flex-row -->
 
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner" role="listbox" align="text-center">
-            <div class="item active">
-              <p> we develop web and mobile applications </p>
-            </div>
-            <div class="item">
-              <p> we perform software quality assurance </p>
-            </div>
-            <div class="item">
-              <p> we perform data analytics </p>
-            </div>
-          </div> <!-- slide wrapper -->
-        </div> <!-- Slide --> 
-      </div> <!-- col-sm-6 -->
-    </div> <!-- row -->
-
-  <!-- Left and right carousel controls -->
-  <!--a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a-->
-
-
-  <!--nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="padding-top: 100px"-->
-    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="margin-top: 100px">
+    <!--nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="padding-top: 100px"-->
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #0000ab"  id="myNavbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">TSSG</a>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <a class="nav-item nav-link" href="#section1">General Meeting</a>
-              <a class="nav-item nav-link" href="#section2">Web Development</a>
-              <a class="nav-item nav-link" href="#section3">Mobile Development</a>
-              <a class="nav-item nav-link" href="#section4">QA Study</a>
-              <a class="nav-item nav-link" href="#section5">Data Analytics</a>
-            </ul>
+        <div class="collapse navbar-collapse"> <!--  id="myNavbar"-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" 
+                  aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>            
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="#section1">General Meeting</a></li>        
+            <li class="nav-item"><a class="nav-link" href="#section2">Web Development</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section3">Mobile Development</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section4">QA Study</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section5">Data Analytics</a></li>
+          </ul>
         </div>
-    </div>
-</nav>  
-
-<div id="myScrollspy">
-  <div id="section1" class="container-fluid">
-    <hr>
+      </div> <!-- container-fluid -->
+    </nav> <!-- navbar -->
+  </div> <!-- top-image -->
+  </div> <!-- fixed-top -->
+<div id="myScrollspy" data-spy="scroll" data-target="#myNavbar"> <!--id="myScrollspy" -->
+  <div id="section1" class="container-fluid background-color: #ffffff overflow: scroll">
+    <!--hr-->
     <h1>GENERAL MEETING INFORMATION</h1>
     <br>
   <p>The TSSG General Meeting is on Wednesdays, It Is An All-Team Meeting For Introductions, Updates and Discussions</p>
@@ -157,8 +160,8 @@ h1 {
   </ul>        
 
   </div>
-  <hr>
-  <div id="section2" class="container-fluid text-left">
+  <!--hr-->
+  <div id="section2" class="container-fluid text-left" style="background-color: #fafafa" role="navigation">
     <h1>THE WEBSITE APPLICATION DEVELOPMENT TEAM</h1>
     <p>Mon 1:30 – 3:30pm, Online, Team Lead: Jim Turner</p>            
     <p>As web professionals we develop web applications using current technologies to learn and explore. 
@@ -194,8 +197,8 @@ h1 {
       <li>Responsive Design</li>
     </ul>        
   </div>
-  <hr>
-  <div id="section3" class="container-fluid text-left">
+  <!--hr-->
+  <div id="section3" class="container-fluid text-left" style="background-color: #f6f6f6">
     <h1>THE MOBILE APPLICATION DEVELOPMENT TEAM</h1>
     <p>Tue 10 – 1pm, Acton Library and Online, Team Lead: Mark Pralat</p>       
     <p>As mobile application development professionals we develop applications using current technologies. 
@@ -223,8 +226,8 @@ h1 {
     <li>Coming soon: Android Things (IoT), Kotlin</li>
     </ul>        
   </div>
-  <hr>
-  <div id="section4" class="container-fluid text-left">
+  <!--hr-->
+  <div id="section4" class="container-fluid text-left" style="background-color: #f1f1f1" role="navigation">
     <h1>THE QUALITY ASSURANCE STUDY AND DISCUSSION GROUP</h1> 
     <p>Thu 10 – Noon, Online, Team Lead: Ray Bloom</p>
     <p>As Quality Assurance (QA) professionals, we explore and learn current technologies within various platforms to expand our skill sets. 
@@ -242,8 +245,8 @@ h1 {
     <li>Cucumber, Geb, Spock, Behavior Driven Development (BDD)</li>
     </ul>        
   </div>
-  <hr>
-  <div id="section5" class="container-fluid text-left">
+  <!--hr-->
+  <div id="section5" class="container-fluid text-left" style="background-color: #ededed" role="navigation">
     <h1>THE DATA ANALYTICS DEVELOPMENT TEAM</h1>
     <p>Fri 1 – 3pm, Acton Library and Online, Team Lead: Norm Heckman</p>
     <p>TECHNOLOGIES:</p>
@@ -272,12 +275,12 @@ h1 {
     </ul>
   </div>
 
-</div>
+</div> <!-- myScrollspy -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-</body>
 
 <div id="footer"></div>
+</body>
 
 </html>
