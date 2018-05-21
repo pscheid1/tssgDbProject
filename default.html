@@ -11,11 +11,10 @@
     padding-top: 160px; /* brings the top of each section below the logo and navbar */
     
     /* all body text defaults to Times, black letters and white background */
-    font-family: "Times New Roman", Times, serif;
+    font-family: arial, sans-serif;
     color: black;
     background: white
   }
-
 
   /* bring the sections 50px below the top to allow for the navbar just above. */
   /*#section1 {padding-top:50px;}
@@ -24,14 +23,16 @@
   #section4 {padding-top:50px;}
   #section5 {padding-top:50px;} 
 */
-
+  .tssg-logo {
+    max-width: 30%;
+  }
   #myScrollspy {
       position: relative; 
      /* top: 50px; */
       height: 500px;
       overflow: auto; 
 /*      font-size: 28px; */
-      font-family: "Times New Roman", Times, serif;
+      font-family: arial, sans-serif;
       font-size: 15px;
   }
 
@@ -63,6 +64,24 @@ h1 {
   color: white
 }
 
+.group-section {
+  background-color: #c8f7df; /* #99ffcc; rgb(183, 224, 238); */
+  color: black;
+  font-family: arial, sans-serif;
+}
+
+.blinking{
+    animation:blinkingText 0.8s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #000;    }
+    49%{    color: transparent; }
+    50%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #000;    }
+}
+
+
 /* Custom page CSS
 -------------------------------------------------- */
 
@@ -72,9 +91,9 @@ h1 {
 <body data-spy="scroll" data-target="#myNavbar"> 
 <div class="top-image-navbar-block fixed-top">
   <div class="top-img" style="background-color: white;">
-    <div class="d-flex flex-row">  <!-- style="margin: 10px" -->
+    <div class="d-flex flex-row row">  <!-- style="margin: 10px" -->
       <div class="col-sm-6 align-self-center">
-        <img src="Images/Logo_TSSG.png" alt="">
+        <img class="d_block img-fluid tssg-logo" src="Images/Logo_TSSG.png" alt="">
       </div>
       <div class="col-sm-6 align-self-center">
         <div id="Slide" class="container-fluid text-center"> <!-- bg-ltblue -->
@@ -109,59 +128,84 @@ h1 {
     </div> <!-- d-flex flex-row -->
 
     <!--nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="padding-top: 100px"-->
-    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #0000ab"  id="myNavbar">
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #0000ab">
       <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="#">TSSG</a>
-        <div class="collapse navbar-collapse"> <!--  id="myNavbar"-->
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" 
-                  aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>            
+        <div class="collapse navbar-collapse"  id="myNavbar">
+          <!--  id="myNavbar"-->
           <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="#section1">General Meeting</a></li>        
-            <li class="nav-item"><a class="nav-link" href="#section2">Web Development</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section3">Mobile Development</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section4">QA Study</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section5">Data Analytics</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section1">General Meeting</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section2">Web Development</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section3">Mobile Development</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section4">QA Study</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section5">Data Analytics</a>
+            </li>
           </ul>
         </div>
-      </div> <!-- container-fluid -->
-    </nav> <!-- navbar -->
-  </div> <!-- top-image -->
+      </div>
+      <!-- container-fluid -->
+    </nav>
+    <!-- navbar --></div> <!-- top-image -->
   </div> <!-- fixed-top -->
 <div id="myScrollspy" data-spy="scroll" data-target="#myNavbar"> <!--id="myScrollspy" -->
   <div id="section1" class="container-fluid background-color: #ffffff overflow: scroll">
     <!--hr-->
     <h1>GENERAL MEETING INFORMATION</h1>
     <br>
-  <p>The TSSG General Meeting is on Wednesdays, It Is An All-Team Meeting For Introductions, Updates and Discussions</p>
-  <p> Before joining, you must attend, in-person, one TSSG general meeting.</p>
-  <p>Wed 12:30 – 5pm, Acton Library Except 4th Wed at Chelmsford Library, General Manager: Andy Leuper</p>
-  <ul>
+    <p>The TSSG General Meeting is on Wednesdays, It is an all-team meeting for introductions, updates and discussions</p>
+    <p> Before joining, you must attend, in-person, one TSSG general meeting. <span class="">Please note that the group generally meets in the Eastern Massachusetts area.</span></p>
+    <p>Wed 12:30 – 5pm, Acton Library Except 4th Wed at Chelmsford Library, General Manager: Andy Leuper</p>
+    <ul>
       <li>Anyone interested in any aspect of the software development life cycle is welcome to attend </li>
-      <li>Developers, web designers, project managers, support persons and those interested in learning about these and other roles are welcome</li>
+      <li>Developers, web designers, project managers, support persons and those interested in learning about these and other roles
+        are welcome</li>
       <li>If you are not sure where you may fit in, we will help you to figure it out</li>
-  </ul>
-  <p>Sample Wednesday Agenda</p> 
-  <ul>
-    <li>12:30 to 1:00 pm:  <strong>Intros, Announcements and recruiting updates</strong></li> 
-    <li>1:00 to 2:10 pm:   <strong>Web Application Project (PHP, JavaScript, HTML5)</strong></li> 
-    <li>2:10 to 2:20 pm:   <strong>Break</strong></li>
-    <li>2:20 to 3:30 pm:   <strong>Mobile Application Project (Java, Android)</strong></li> 
-    <li>3:30 to 3:40 pm:   <strong>Break</strong></li> 
-    <li>3:40 to 5:00 pm:   <strong>Data Analytics Project (Python, R, Hadoop)</strong></li> 
-  </ul>
-  <br>
-  <h1>Basic structure of each project section:</h1>
-  <ul>
-    <li>Scrum</li>
-    <li>Program or Technology review</li>
-    <li>Review, Analyze and Update user stories</li>
-  </ul>        
-
+    </ul>
+    <p>Sample Wednesday Agenda</p>
+    <ul>
+      <li>12:30 to 1:00 pm:
+        <strong>Intros, Announcements and recruiting updates</strong>
+      </li>
+      <li>1:00 to 2:10 pm:
+        <strong>Web Application Project (PHP, JavaScript, HTML5)</strong>
+      </li>
+      <li>2:10 to 2:20 pm:
+        <strong>Break</strong>
+      </li>
+      <li>2:20 to 3:30 pm:
+        <strong>Mobile Application Project (Java, Android)</strong>
+      </li>
+      <li>3:30 to 3:40 pm:
+        <strong>Break</strong>
+      </li>
+      <li>3:40 to 5:00 pm:
+        <strong>Data Analytics Project (Python, R, Hadoop)</strong>
+      </li>
+    </ul>
+    <br>
+    <h1>Basic structure of each project section:</h1>
+    <ul>
+      <li>Scrum</li>
+      <li>Program or Technology review</li>
+      <li>Review, Analyze and Update user stories</li>
+    </ul>
+  
   </div>
   <!--hr-->
-  <div id="section2" class="container-fluid text-left" style="background-color: #fafafa" role="navigation">
+  <div id="section2" class="container-fluid text-left group-section"  role="navigation">
     <h1>THE WEBSITE APPLICATION DEVELOPMENT TEAM</h1>
     <p>Mon 1:30 – 3:30pm, Online, Team Lead: Jim Turner</p>            
     <p>As web professionals we develop web applications using current technologies to learn and explore. 
@@ -200,31 +244,31 @@ h1 {
   <!--hr-->
   <div id="section3" class="container-fluid text-left" style="background-color: #f6f6f6">
     <h1>THE MOBILE APPLICATION DEVELOPMENT TEAM</h1>
-    <p>Tue 10 – 1pm, Acton Library and Online, Team Lead: Mark Pralat</p>       
-    <p>As mobile application development professionals we develop applications using current technologies. 
-        The group currently focuses on Android development and welcomes other mobile technologies. 
-        All are welcome if they have an interest in mobile development, from inception to release and beyond. 
+    <p>Tue 10 – 1pm, Acton Library and Online, Team Lead: Mark Pralat</p>
+    <p>As mobile application development professionals we develop applications using current technologies. The group currently
+      focuses on Android development and welcomes other mobile technologies. All are welcome if they have an interest in mobile
+      development, from inception to release and beyond.
     </p>
-    <p>PROJECT MANAGEMENT USING AGILE/SCRUM, KANBAN METHODS</p> 
-  <p>PROJECTS:</p>
-  <ul>        
-    <li>EventBoss</li> 
-    <li>SleepAnalyzer</li> 
-    <li>INDIVIDUAL PROJECTS:</li>
-    <li>Mobile Robot</li> 
-  </ul>        
-
+    <p>PROJECT MANAGEMENT USING AGILE/SCRUM, KANBAN METHODS</p>
+    <p>PROJECTS:</p>
+    <ul>
+      <li>EventBoss</li>
+      <li>SleepAnalyzer</li>
+      <li>INDIVIDUAL PROJECTS:</li>
+      <li>Mobile Robot</li>
+    </ul>
+  
     <p>TECHNOLOGIES:</p>
-    <ul> 
-    <li>Agile/Scrum, Kanban SeeNowDo</li>
-    <li>Android</li>
-    <li>Java, XML, Material Design</li> 
-    <li>Android Studio, Gradle</li> 
-    <li>Eclipse Git, GitHub, Subversion (SVN)</li>
-    <li>MIT App Inventor</li>
-    <li>Appium, Selenium</li>
-    <li>Coming soon: Android Things (IoT), Kotlin</li>
-    </ul>        
+    <ul>
+      <li>Agile/Scrum, Kanban SeeNowDo</li>
+      <li>Android</li>
+      <li>Java, XML, Material Design</li>
+      <li>Android Studio, Gradle</li>
+      <li>Eclipse Git, GitHub, Subversion (SVN)</li>
+      <li>MIT App Inventor</li>
+      <li>Appium, Selenium</li>
+      <li>Coming soon: Android Things (IoT), Kotlin</li>
+    </ul>
   </div>
   <!--hr-->
   <div id="section4" class="container-fluid text-left" style="background-color: #f1f1f1" role="navigation">
