@@ -24,9 +24,9 @@
   #section5 {padding-top:50px;} 
 */
   .tssg-logo {
-    max-width: 30%;
+    max-width: 50%;
   }
-  #myScrollspy {
+  #OHmyScrollspy { /* I changed the name because I am no longer using it */
       position: relative; 
      /* top: 50px; */
       height: 500px;
@@ -64,12 +64,7 @@ h1 {
   color: white
 }
 
-.group-section {
-  background-color: #c8f7df; /* #99ffcc; rgb(183, 224, 238); */
-  color: black;
-  font-family: arial, sans-serif;
-}
-
+/* blinking animation - not being used */
 .blinking{
     animation:blinkingText 0.8s infinite;
 }
@@ -81,6 +76,10 @@ h1 {
     100%{   color: #000;    }
 }
 
+/* This will color the background of each section, the "even" numbered ones */
+section:nth-of-type(even) {
+  background-color: #c8f7df;
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -88,7 +87,7 @@ h1 {
 
   </style>
 </head>
-<body data-spy="scroll" data-target="#myNavbar"> 
+<body data-spy="scroll" data-target="#myNavbar" data-offset="150"> 
 <div class="top-image-navbar-block fixed-top">
   <div class="top-img" style="background-color: white;">
     <div class="d-flex flex-row row">  <!-- style="margin: 10px" -->
@@ -130,11 +129,12 @@ h1 {
     <!--nav class="navbar navbar-expand-md fixed-top navbar-light bg-light" style="padding-top: 100px"-->
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #0000ab">
       <div class="container-fluid">
+          <a class="navbar-brand" href="#">TSSG</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false"
           aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">TSSG</a>
+        
         <div class="collapse navbar-collapse"  id="myNavbar">
           <!--  id="myNavbar"-->
           <ul class="nav navbar-nav ml-auto">
@@ -160,8 +160,8 @@ h1 {
     </nav>
     <!-- navbar --></div> <!-- top-image -->
   </div> <!-- fixed-top -->
-<div id="myScrollspy" data-spy="scroll" data-target="#myNavbar"> <!--id="myScrollspy" -->
-  <div id="section1" class="container-fluid background-color: #ffffff overflow: scroll">
+<!-- <div id="myScrollspy" data-spy="scroll" data-target="#myNavbar"> id="myScrollspy" -->
+  <section id="section1" class="container-fluid">
     <!--hr-->
     <h1>GENERAL MEETING INFORMATION</h1>
     <br>
@@ -203,9 +203,9 @@ h1 {
       <li>Review, Analyze and Update user stories</li>
     </ul>
   
-  </div>
+  </section>
   <!--hr-->
-  <div id="section2" class="container-fluid text-left group-section"  role="navigation">
+  <section id="section2" class="container-fluid text-left "  role="navigation">
     <h1>THE WEBSITE APPLICATION DEVELOPMENT TEAM</h1>
     <p>Mon 1:30 – 3:30pm, Online, Team Lead: Jim Turner</p>            
     <p>As web professionals we develop web applications using current technologies to learn and explore. 
@@ -240,9 +240,9 @@ h1 {
       <li>User Experience Design</li>
       <li>Responsive Design</li>
     </ul>        
-  </div>
+  </section>
   <!--hr-->
-  <div id="section3" class="container-fluid text-left" style="background-color: #f6f6f6">
+  <section id="section3" class="container-fluid text-left" >
     <h1>THE MOBILE APPLICATION DEVELOPMENT TEAM</h1>
     <p>Tue 10 – 1pm, Acton Library and Online, Team Lead: Mark Pralat</p>
     <p>As mobile application development professionals we develop applications using current technologies. The group currently
@@ -269,9 +269,9 @@ h1 {
       <li>Appium, Selenium</li>
       <li>Coming soon: Android Things (IoT), Kotlin</li>
     </ul>
-  </div>
+  </section>
   <!--hr-->
-  <div id="section4" class="container-fluid text-left" style="background-color: #f1f1f1" role="navigation">
+  <section id="section4" class="container-fluid text-left" role="navigation">
     <h1>THE QUALITY ASSURANCE STUDY AND DISCUSSION GROUP</h1> 
     <p>Thu 10 – Noon, Online, Team Lead: Ray Bloom</p>
     <p>As Quality Assurance (QA) professionals, we explore and learn current technologies within various platforms to expand our skill sets. 
@@ -288,9 +288,9 @@ h1 {
     <li>Docker, Azure, AWS, VirtualBox, other approaches to virtualization</li>
     <li>Cucumber, Geb, Spock, Behavior Driven Development (BDD)</li>
     </ul>        
-  </div>
+  </section>
   <!--hr-->
-  <div id="section5" class="container-fluid text-left" style="background-color: #ededed" role="navigation">
+  <section id="section5" class="container-fluid text-left"  role="navigation">
     <h1>THE DATA ANALYTICS DEVELOPMENT TEAM</h1>
     <p>Fri 1 – 3pm, Acton Library and Online, Team Lead: Norm Heckman</p>
     <p>TECHNOLOGIES:</p>
@@ -317,7 +317,7 @@ h1 {
     <li>Selenium & Selenium Grid test automation</li>
     <li>Cucumber and BDD</li>
     </ul>
-  </div>
+  </section>
 
 </div> <!-- myScrollspy -->
 
