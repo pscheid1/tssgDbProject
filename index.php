@@ -83,14 +83,9 @@
       background-color: #88c8cc;
     }
 
-
-  .anchor {
-    position: relative;
-  }
-
   #schedule {
     position: relative;
-    top: 0px;
+    top: 0;
   }
 
   .anchor a {
@@ -98,6 +93,12 @@
     left: 0;
      top: -90px; /* a test value for now */
   }
+
+  .anchor {
+    position: relative;
+    top: 0;
+  }
+
 
   .schedule-1:hover {
     background-color: red;
@@ -199,13 +200,13 @@
     <h1><strong>GENERAL MEETING INFORMATION</strong></h1>
     <br>
     <div class="row">
-    <div class="col-sm-9">
+    <div class="col-9">
     <p>The TSSG General Meeting is on Wednesdays. It is an all-team meeting for introductions, updates and discussions</p>
     <p> Before joining, you must attend, in-person, one TSSG general meeting.
       <span class="">Please note that the group generally meets in the Eastern Massachusetts area.</span>
     </p>
     </div>
-    <div class="col-sm-3" style="margin-top: 60px">
+    <div class="col-3"  style="margin-top: 60px">
     <a href="#section2">
         <img class="img-fluid schedule-1" src="Images/icon-calendar5.png" alt="Schedule" data-toggle="tooltip" title="Wednesday Weekly Meeting Schedule"> 
     </a>
