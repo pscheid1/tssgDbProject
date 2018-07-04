@@ -211,7 +211,7 @@
     </div>
     <div class="col-3" >
     <a href="#section2" class="schedule-link">
-        <img class="img-fluid schedule-1" src="Images/icon-calendar_v2.png" alt="Schedule" data-toggle="tooltip" title="Wednesday Weekly Meeting Schedule"> 
+        <img class="img-fluid schedule-1" src="Images/icon-calendar5.png" alt="Schedule" data-toggle="tooltip" title="Wednesday Weekly Meeting Schedule"> 
     </a>
     </div>
     </div> <!-- row -->
