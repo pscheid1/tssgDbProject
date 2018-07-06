@@ -83,27 +83,30 @@
       background-color: #88c8cc;
     }
 
-  #schedule {
-    position: relative;
-    top: 0;
-  }
+    .anchor {
+      position: relative;
+    }
 
-  .anchor a {
-    position: absolute;
-    left: 0;
-     top: -90px; /* a test value for now */
-  }
+    #schedule {
+      position: relative;
+      top: 0;
+    }
 
-  .anchor {
-    position: relative;
-    top: 0;
-  }
+    .anchor a {
+      position: absolute;
+      left: 0;
+      top: -90px; /* a test value for now */
+    }
 
+    .anchor .schedule-link {
+      position: relative;
+      top: 0;
+    }
 
-  .schedule-1:hover {
-    background-color: red;
-    color: red;
-  }
+    .schedule-1:hover {
+      background-color: red;
+      color: red;
+    }
 
     /* Custom page CSS
 -------------------------------------------------- */
@@ -206,8 +209,8 @@
       <span class="">Please note that the group generally meets in the Eastern Massachusetts area.</span>
     </p>
     </div>
-    <div class="col-3"  style="margin-top: 60px">
-    <a href="#section2">
+    <div class="col-3" >
+    <a href="#section2" class="schedule-link">
         <img class="img-fluid schedule-1" src="Images/icon-calendar5.png" alt="Schedule" data-toggle="tooltip" title="Wednesday Weekly Meeting Schedule"> 
     </a>
     </div>
