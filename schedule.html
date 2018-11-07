@@ -1,73 +1,102 @@
-<!-- Force a reload the current page, without using the cache.
-	Need to load jquery and add script to this page?
-window.location.reload(true); -->
+<!DOCTYPE html>
+<html lang="en">
 
-<!--table align="center" border="2" cellpadding="2" cellspacing="2" style="width: 400px;" summary="Update Dates, Locations and Meeting Times"-->
-<table border="2" cellpadding="2" cellspacing="2" style="float: center" summary="Update Dates, Locations and Meeting Times">
-  <!-- removing caption "GENERAL MEETING SCHEDULE" -->
-    <!--caption><span style="font-size:24px;"><strong><span style="font-family:arial"></span></strong></span></caption-->
-    <thead>
-      <tr>
-        <th bgcolor="black" scope="col"></th>
-        <th bgcolor="black" scope="col"><span style="font-size:22px;"><span style="font-family:arial,helvetica,sans-serif;" style="text-align: center;"><strong><font color="#ffffff">WEDNESDAY</font></strong></span></span></th>
-        <th bgcolor="black" scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
+<head>
+  <title>TSSG - Meeting Schedule</title>
+  <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG4TD9Z');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="Scripts/siteFunctions.js"></script>
 
-		<tr> <!-- Icon for Acton Library -->
-			<td style="text-align: center;"><span style="font-family:arial;">NOV</span><br />
-			<span style="font-size:48px;"><font face="arial">7</font></span><br />
-			<span style="font-family:arial;">2018</span></td>
-			<td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/6wmSZBydHVU2">
-                        <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
-                        style="height: 100px; width: 154px;" /></a></td>
-			<td style="text-align: center;">
-			<p><font face="arial">12:30<br />
-			to<br />
-			5pm</font></p>
-			</td>
-		</tr>		
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Styles/styles.css">
+</head>
 
-		<tr> <!-- Icon for Acton Library -->
-			<td style="text-align: center;"><span style="font-family:arial;">NOV</span><br />
-			<span style="font-size:48px;"><font face="arial">14</font></span><br />
-			<span style="font-family:arial;">2018</span></td>
-			<td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/6wmSZBydHVU2">
-                        <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
-                        style="height: 100px; width: 154px;" /></a></td>
-			<td style="text-align: center;">
-			<p><font face="arial">12:30<br />
-			to<br />
-			5pm</font></p>
-			</td>
-		</tr>		
+<body onLoad="loadSections()" data-spy="scroll" data-target="#myNavbar">
 
-		<tr> <!-- Icon for Acton Library -->
-			<td style="text-align: center;"><span style="font-family:arial;">NOV</span><br />
-			<span style="font-size:48px;"><font face="arial">21</font></span><br />
-			<span style="font-family:arial;">2018</span></td>
-			<td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/6wmSZBydHVU2">
-                        <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
-                        style="height: 100px; width: 154px;" /></a></td>
-			<td style="text-align: center;">
-			<p><font face="arial">12:30<br />
-			to<br />
-			4:30pm</font></p>
-			</td>
-		</tr>		
+  <div id="pageHeader">
+  </div>
+  <div id="content" style="text-align:center;">
+    <section id="subScheduleId" class="container-fluid text-left group-section" role="navigation">
+      <h1><strong>TSSG WEEKLY MEETING SCHEDULE</strong></h1>
+          <!--?php include("schedule.php"); ?   REPLACED PHP with JQUERY -->
+          <div id="incSchedule"></div>
+        <br>
+    </section>
 
-		<!-- Notes for libraries to copy and paste future dates-->
-			<!-- td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/NRQS3LpAZ812">
-                        <img alt="Chelmsford Public Library" src="Images/icon-lib-chelmsford.png" 
-                        style="height: 100px; width: 154px;" /></a></td -->
-			<!-- td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/g6UWTKVDTx62">
-			<img alt="Hopkinton Public Library" src="Images/icon-lib-hopkinton.png" 
-			style="height: 100px; width: 154px;" /></a></td -->
-			<!-- td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/6wmSZBydHVU2">
-                        <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
-                        style="height: 100px; width: 154px;" /></a></td -->
-	
+    <div id="scheduleWrapper">
+      <div id="meeting1" class="scheduleItem">
+        <table border="2" cellpadding="2" cellspacing="2" style="text-align:center;">
+      		<tr> <!-- Icon for Acton Library -->
+      			<td style="text-align: center;"><span style="font-family:arial;">SEP</span><br />
+    	   		  <span style="font-size:48px;"><font face="arial">12</font></span><br />
+    		  	 <span style="font-family:arial;">2018</span>
+            </td>
+            <td style="text-align: center;">
+              <a id="schedule" href="https://goo.gl/maps/6wmSZBydHVU2">
+                <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
+                 style="height: 100px; width: 154px;" />
+              </a>
+            </td>
+    			  <td style="text-align: center;">
+    			     <p><font face="arial">12:30<br />
+    			     to<br />
+    			     5pm</font></p>
+    			  </td>
+    		  </tr>	
+        </table>	
+      </div> <!-- end div meeting1 -->
 
-    </tbody>
-  </table>
+      <div id="meeting2" class="scheduleItem">
+        <table border="2" cellpadding="2" cellspacing="2" style="text-align:center;">
+    		<tr> <!-- Icon for Acton Library -->
+    			<td style="text-align: center;"><span style="font-family:arial;">SEP</span><br />
+    			   <span style="font-size:48px;"><font face="arial">19</font></span><br />
+    			   <span style="font-family:arial;">2018</span>
+          </td>
+    			<td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/6wmSZBydHVU2">
+             <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
+              style="height: 100px; width: 154px;" /></a>
+          </td>
+    			<td style="text-align: center;">
+    			   <p><font face="arial">12:30<br />
+    			   to<br />
+    			   5pm</font></p>
+    			</td>
+    		</tr>		
+
+        </table>  
+      </div> <!-- end div meeting1 -->
+
+      <div id="meeting3" class="scheduleItem">
+        <table border="2" cellpadding="2" cellspacing="2" style="text-align:center;">
+        <tr> <!-- Icon for Chelmsford Library --> 
+    			<td style="text-align: center;"><span style="font-family:arial;">SEP</span><br />
+    			<span style="font-size:48px;"><font face="arial">26</font></span><br />
+    			<span style="font-family:arial;">2018</span></td>
+    			<td style="text-align: center;"><a id="schedule" href="https://goo.gl/maps/5r8hpPRyd4n">
+                            <img alt="" src="Images/icon-lib-chelmsford.png" 
+                            style="width: 154px; height: 100px;" /></a></td>
+    			<td style="text-align: center;">
+    			<p><font face="arial">12:30<br />
+    			to<br />
+    			5pm</font></p>
+    			</td>
+    		</tr>  
+      </table>
+      </div> <!-- end meeting3 -->
+    </div> <!-- end schedule Wrapper -->
+  </div>  <!-- end Content -->
+
+  <div id="pageFooter" style="margin-top:3em;"></div>
+</body>
+
+</html>

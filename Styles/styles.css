@@ -1,5 +1,297 @@
 /*CSS Document */
+
+/* Styles for TSSG Main Website */
+
 @viewport {
      width: device-width;
      zoom:1;
+}
+
+    body {
+      position: relative;
+      padding-top: 105px;
+      /* brings the top of each section below the logo and navbar */
+      /* all body text defaults to Arial, black letters and white background */
+      font-family: arial, sans-serif;
+      color: black;
+      background: white
+    }
+
+
+    .tssg-logo {
+      max-width: 30%; 
+    }
+
+
+    p {
+      font-size: 16px;
+    }
+
+    li {
+      font-size: 16px;
+    }
+
+    h1 {
+      font-size: 18px;
+      text-decoration: underline;
+      margin-bottom:1em;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    /* Set the fixed height of the footer here */
+
+
+    /* carousel text */
+
+    .car-text {
+      min-height: 30px;
+      background-color: black;
+      /* help see where the carousel is on the screen while debugging */
+      color: white
+    }
+
+    /* blinking animation - not being used */
+
+    .blinking {
+      animation: blinkingText 0.8s infinite;
+    }
+
+    @keyframes blinkingText {
+      0%   { color: #000;      }
+      49%  { color: transparent; }
+      50%  { color: transparent; }
+      99%  { color: transparent; }
+      100% { color: #000;      }
+    }
+
+    /* This will color the background of each section, the "even" numbered ones */
+
+    div.anchor:nth-of-type(odd) {
+      background-color: #88c8cc;
+    }
+
+    .anchor {
+      position: relative;
+    }
+
+    #schedule {
+      position: relative;
+      top: 0;
+    }
+
+    .anchor a {
+      position: absolute;
+      left: 0;
+      top: -90px; /* a test value for now */
+    }
+
+    .anchor .schedule-link {
+      position: relative;
+      top: 0;
+    }
+
+    .schedule-1:hover {
+      background-color: silver;
+    }
+
+/* Page Header styles.  */
+
+#pageHeader {
+  height:15%;
+  background-color: rgb(57, 123, 247);
+}
+
+
+
+/* Page Footer styles.  (NOTE: As of 10/28/2018, styles for the footer nav bar are not used, 
+  since the footer nav bar was removed, but the styles are left in case they're needed 
+  at some future date.  ) 
+*/
+
+ /*   #pageFooter {
+      display: inline-block;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      color:#AAAAAA;
+      background-color:white;
+      left: 0;
+      text-align: center;
+      border-top: 4px solid rgb(57, 123, 247);   
+      margin-top: 4px;
+      padding-top: 4px;
+
+      text-align:center;
+      background-color: #0000ab;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+/*    My styles for the icon nav bar in the footer were disabled 11/7, while I test Paul's version.
+
+    #link-bar-wrapper {
+      display:table;
+      width:60%;
+      max-width:500px;
+      max-height:100px;
+      background-color:white;
+      text-align: left;
+      margin: auto;
+    }
+
+    .sticky-image-wrapper {
+      display:table-row;
+    }
+
+    .linkCell {
+      display: table-cell;
+      text-align: center;
+      margin:10px;
+    }
+
+    .link-icon {
+      max-width:50px;
+      padding: 5px;
+      }
+
+    .link-icon img {
+       border:5px solid white; 
+    }
+
+    .currentPage img {
+      border:5px solid green; 
+    } */
+
+    #copyrightLine {
+      font-size:10px;
+      font-style: italic;
+    }
+
+
+    /* Custom page CSS
+-------------------------------------------------- */
+
+#content {
+  margin: 0 5% 10% 5%;
+}
+
+#missionStatement {
+/*  margin: 25px 50px;
+  border: 3px double black;
+  border-radius: 15px; */
+  padding: 15px 25px;
+}
+
+#missionStatement h1 {
+  font-weight: bold;
+}
+
+
+/* page title classes */
+
+.pageTitle {
+  display: table;
+
+}
+
+.titleRow {
+  display: table-row;
+}
+
+.titleIcon {
+  display:table-cell;
+}
+
+.page-icon {
+  width:100px;
+  height:100px;
+}
+
+
+
+.titleText {
+  padding-left:25px;
+  vertical-align: top;
+  display: table-cell;
+}
+
+.titleMtgText {
+  font-style: italic;
+}
+
+/* ---------------------------------
+  Styles for the tesimonials page 
+  */
+
+.testimonialEntry {
+  border-top: 2px solid blue;
+}
+
+.testimonialIndex {
+  font-style: italic; 
+}
+
+
+.testimonialText {
+  padding:0 8%;
+
+}
+
+.testimonialSignature {
+  text-align:right;
+  padding-right:5%;
+}
+
+/* ----------------------
+Styles for the Schedule page
+
+*/
+
+#scheduleWrapper {
+  text-align: center;
+/*  width:80%;
+  margin: auto; */
+}
+
+.scheduleItem {
+  float:left;
+  margin: 5px;
+
+}
+
+/* Paul's styles for the icon nav bar in the footer. */
+
+#pageFooter {
+  display: inline-block;
+  background-color: rgb(57, 123, 247);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-height: 100px;
+  left: 0;
+  text-align: center;
+  margin-top: 4px;
+  padding-bottom:4px;
+  padding-top: 6px;
+} 
+
+#pageFooter img {
+  width: 8%;
+  max-width: 50px;
+  max-height: 50px;
+  padding: 4px;
+  margin: 0 2% 1% 2%;
+  background-color: white;
+}
+
+.currentPage {
+  border: 4px solid black;
+
+  /* border: 4px solid rgb(57, 123, 247); */
+
+  /* background-color: rgb(57, 123, 247); */
+
 }
