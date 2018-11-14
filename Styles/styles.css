@@ -19,7 +19,8 @@
 
 
     .tssg-logo {
-      max-width: 30%; 
+/*      max-width: 30%;  */
+      max-height:50px;
     }
 
 
@@ -168,6 +169,16 @@
     #copyrightLine {
       font-size:10px;
       font-style: italic;
+      color:gray;
+    }
+
+    #contactLink {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    #contactLink:hover {
+      color:white;
     }
 
 
@@ -175,7 +186,7 @@
 -------------------------------------------------- */
 
 #content {
-  margin: 0 5% 10% 5%;
+  margin: 0 5% 15% 5%;
 }
 
 #missionStatement {
@@ -266,7 +277,7 @@ Styles for the Schedule page
 
 #pageFooter {
   display: inline-block;
-  background-color: rgb(57, 123, 247);
+  background-color: #0000ab;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -278,7 +289,7 @@ Styles for the Schedule page
   padding-top: 6px;
 } 
 
-#pageFooter img {
+.link-icon {
   width: 8%;
   max-width: 50px;
   max-height: 50px;
@@ -288,10 +299,8 @@ Styles for the Schedule page
 }
 
 .currentPage {
-  border: 4px solid black;
-
-  /* border: 4px solid rgb(57, 123, 247); */
-
-  /* background-color: rgb(57, 123, 247); */
+    background-color: #0AB6C2; 
+/*    border: 4px solid #0AB6C2; */
 
 }
+

@@ -70,3 +70,8 @@ function displayTestimonial(entry,index) {
   // and finally, add the container div to the document as a child of Content
   document.getElementById("content").appendChild(thisEntry);
 }
+
+
+function displayContactBox() {
+  alert("We do not have a contact email address.  If you have any questions, \n please come to our next Wednesday general meeting.");
+}
