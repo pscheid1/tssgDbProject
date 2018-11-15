@@ -20,7 +20,7 @@
 
     .tssg-logo {
 /*      max-width: 30%;  */
-      max-height:50px;
+      max-height:55px;
     }
 
 
@@ -105,66 +105,10 @@
   background-color: rgb(57, 123, 247);
 }
 
+.nav-link {
+  cursor: pointer;
+}
 
-
-/* Page Footer styles.  (NOTE: As of 10/28/2018, styles for the footer nav bar are not used, 
-  since the footer nav bar was removed, but the styles are left in case they're needed 
-  at some future date.  ) 
-*/
-
- /*   #pageFooter {
-      display: inline-block;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      color:#AAAAAA;
-      background-color:white;
-      left: 0;
-      text-align: center;
-      border-top: 4px solid rgb(57, 123, 247);   
-      margin-top: 4px;
-      padding-top: 4px;
-
-      text-align:center;
-      background-color: #0000ab;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-
-/*    My styles for the icon nav bar in the footer were disabled 11/7, while I test Paul's version.
-
-    #link-bar-wrapper {
-      display:table;
-      width:60%;
-      max-width:500px;
-      max-height:100px;
-      background-color:white;
-      text-align: left;
-      margin: auto;
-    }
-
-    .sticky-image-wrapper {
-      display:table-row;
-    }
-
-    .linkCell {
-      display: table-cell;
-      text-align: center;
-      margin:10px;
-    }
-
-    .link-icon {
-      max-width:50px;
-      padding: 5px;
-      }
-
-    .link-icon img {
-       border:5px solid white; 
-    }
-
-    .currentPage img {
-      border:5px solid green; 
-    } */
 
     #copyrightLine {
       font-size:10px;
@@ -299,8 +243,8 @@ Styles for the Schedule page
 }
 
 .currentPage {
-    background-color: #0AB6C2; 
-/*    border: 4px solid #0AB6C2; */
+    background-color: #88c8cc; 
+    border: 4px solid #88c8cc; */
 
 }
 
