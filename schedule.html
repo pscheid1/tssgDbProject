@@ -15,10 +15,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script src="Scripts/siteFunctions.js"></script>
-  <script src="Scripts/scheduleDates.js"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="Styles/styles.css">
+  <link rel="stylesheet" href="Styles/scheduleStyles.css">
 </head>
 
 <body onLoad="loadSections()" data-spy="scroll" data-target="#myNavbar">
@@ -44,48 +44,7 @@
               <th bgcolor="black" scope="col"></th>
             </tr>
           </thead>
-          <tbody>
-            <tr> <!-- Schedule Item 1 -->
-              <td style="text-align: center;"><span style="font-family:arial;">SEP</span><br />
-              <span style="font-size:48px;"><font face="arial">12</font></span><br />
-              <span style="font-family:arial;">2018</span></td>
-              <td style="text-align: center;"><a id="schedule1" href="https://goo.gl/maps/6wmSZBydHVU2">
-                                <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
-                                style="height: 100px; width: 154px;" /></a></td>
-              <td style="text-align: center;">
-              <p><font face="arial">12:30<br />
-              to<br />
-              5pm</font></p>
-              </td>
-            </tr>   
-
-            <tr> <!-- Schedule Item 2 -->
-              <td style="text-align: center;"><span style="font-family:arial;">SEP</span><br />
-              <span style="font-size:48px;"><font face="arial">19</font></span><br />
-              <span style="font-family:arial;">2018</span></td>
-              <td style="text-align: center;"><a id="schedule2" href="https://goo.gl/maps/6wmSZBydHVU2">
-                                <img alt="Acton Memorial Library" src="Images/icon-lib-acton.png" 
-                                style="height: 100px; width: 154px;" /></a></td>
-              <td style="text-align: center;">
-              <p><font face="arial">12:30<br />
-              to<br />
-              5pm</font></p>
-              </td>
-            </tr>   
-
-            <tr> <!-- Schedule Item 3 --> 
-              <td style="text-align: center;"><span style="font-family:arial;">SEP</span><br />
-              <span style="font-size:48px;"><font face="arial">26</font></span><br />
-              <span style="font-family:arial;">2018</span></td>
-              <td style="text-align: center;"><a id="schedule3" href="https://goo.gl/maps/5r8hpPRyd4n">
-                                <img alt="" src="Images/icon-lib-chelmsford.png" 
-                                style="width: 154px; height: 100px;" /></a></td>
-              <td style="text-align: center;">
-              <p><font face="arial">12:30<br />
-              to<br />
-              5pm</font></p>
-              </td>
-            </tr>  
+          <tbody id="scheduleBody">
 
           </tbody>
         </table>
@@ -94,5 +53,7 @@
 
   <div id="pageFooter" style="margin-top:3em;"></div>
 </body>
+
+<script src="Scripts/scheduleDates.js"></script>
 
 </html>
