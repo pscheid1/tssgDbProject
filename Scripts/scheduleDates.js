@@ -6,44 +6,47 @@
 function Location (name, locationGraphic, mapLink,label) {
    /* Constructor method for objects of type Location.  A location requires a name, a graphic to use as the icon, a map link, and a label for the Alt and Title attributes.  
    */ 
-	this.name = name;
-	this.locationGraphic = locationGraphic;
-	this.mapLink = mapLink;
+  this.name = name;
+  this.locationGraphic = locationGraphic;
+  this.mapLink = mapLink;
    this.label = label;
 }
 
 var acton = new Location("Acton","Images/icon-lib-acton.png", "https://goo.gl/maps/6wmSZBydHVU2","Acton Memorial Library");
 var chelmsford = new Location("Chelmsford","Images/icon-lib-chelmsford.png","https://goo.gl/maps/5r8hpPRyd4n","Chelmsford Library");
+var cancelled = new Location("Cancelled","Images/icon-lib-NOmeeting.png","","Meeting Cancelled");
 
-/* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  Each Schedule object consists of a name, month (as the three-letter abbreviation), day (one or two digits), year, start time (as a string), end time (as a string), and a location which is one of the previously defined Location objects.
+/* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  
+ Each Schedule object consists of a name, month (as the three-letter abbreviation), day (one or two digits), year, start time (as a string), end time (as a string), 
+ and a location which is one of the previously defined Location objects.
 */
 var scheduleArray = [ 
     {
       "name": "item1",
       "month": "NOV",
-      "day": 7,
-      "year": 2018,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
-    },
-    {
-      "name": "item2",
-      "month": "NOV",
-      "day": 14,
-      "year": 2018,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
-    },
-    {
-      "name": "item3",
-      "month": "NOV",
       "day": 21,
       "year": 2018,
       "startTime": "12:30",
       "endTime": "5PM",
+      "location": cancelled
+    },
+    {
+      "name": "item2",
+      "month": "NOV",
+      "day": 28,
+      "year": 2018,
+      "startTime": "12:30",
+      "endTime": "5PM",
       "location": chelmsford
+    },
+    {
+      "name": "item3",
+      "month": "DEC",
+      "day": 5,
+      "year": 2018,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": acton
     }
 ];
  
@@ -53,7 +56,7 @@ var scheduleTable = document.getElementById("scheduleBody");
 scheduleArray.forEach(displaySchedule);
 
 function displaySchedule(entry,index) {
-	// build a table-row node that contains the needed HTML for a Schedule entry, 
+  // build a table-row node that contains the needed HTML for a Schedule entry, 
    // inserting data from the array row where necessary.
    var newRow = scheduleTable.insertRow(index);
    var dateCell = newRow.insertCell(0);
