@@ -17,7 +17,7 @@ var chelmsford = new Location("Chelmsford","Images/icon-lib-chelmsford.png","htt
 
 /* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  Each Schedule object consists of a name, month (as the three-letter abbreviation), day (one or two digits), year, start time (as a string), end time (as a string), and a location which is one of the previously defined Location objects.
 */
-var scheduleArray = [
+var scheduleArray = [ 
     {
       "name": "item1",
       "month": "NOV",
