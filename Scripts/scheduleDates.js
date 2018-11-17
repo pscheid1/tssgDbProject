@@ -4,17 +4,23 @@
 
 
 function Location (name, locationGraphic, mapLink,label) {
-   /* Constructor method for objects of type Location.  A location requires a name, a graphic to use as the icon, a map link, and a label for the Alt and Title attributes.  
+   /* Constructor method for objects of type Location.  A location requires a name, a graphic to use as the icon, a map link, and a label for the Alt and Title attributes.
    */ 
   this.name = name;
   this.locationGraphic = locationGraphic;
   this.mapLink = mapLink;
-   this.label = label;
+  this.label = label;
 }
+
+/* Create all objects of class Location here.  They're created as separate, named  objects, instead of an array of objects, in order to simplify their use in later code.  In the future they might become part of a data request to a server script, or they might be left like this.
+*/
 
 var acton = new Location("Acton","Images/icon-lib-acton.png", "https://goo.gl/maps/6wmSZBydHVU2","Acton Memorial Library");
 var chelmsford = new Location("Chelmsford","Images/icon-lib-chelmsford.png","https://goo.gl/maps/5r8hpPRyd4n","Chelmsford Library");
 var cancelled = new Location("Cancelled","Images/icon-lib-NOmeeting.png","","Meeting Cancelled");
+var hopkinton = new Location("Hopkinton","Images/icon-lib-hopkinton.png","https://goo.gl/maps/QYW9A3VBayS2","Hopkinton Public Library");
+var lexington = new Location("Lexington","Images/icon-lib-lexington.png","https://goo.gl/maps/4y785Pjxq4H2","Lexington Community Center");
+var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","https://goo.gl/maps/UQjhdjHa41x","Albert J. Sargent Memorial Library");
 
 /* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  
  Each Schedule object consists of a name, month (as the three-letter abbreviation), day (one or two digits), year, start time (as a string), end time (as a string), 
