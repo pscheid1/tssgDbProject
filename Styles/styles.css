@@ -248,3 +248,11 @@ Styles for the Schedule page
 
 }
 
+
+/* Test style to hide footer when screen height is less than 600 pixels. */
+
+@media screen and (max-height: 400px) {
+  #pageFooter {
+    display: none;
+  }
+}
