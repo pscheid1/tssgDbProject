@@ -1,0 +1,16 @@
+# Set the default behavior, in case people dont have core.eol set.
+* text=lf
+
+# Explicitly declare text files you want to always be normalized and converted
+# to Linux line endings on checkout.
+*.html text
+*.txt text
+*.js text
+
+# Declare files that will always have CRLF line endings on checkout
+# *.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+
