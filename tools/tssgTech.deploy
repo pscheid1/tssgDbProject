@@ -17,12 +17,14 @@ then echo "$(_date) tssgTech.deploy: Successfully completed a git pull." >> "${l
 else echo "$(_date) tssgTech.deploy: ERROR.  Unable to do a git pull." >> "${logFilePathName}" ; exit 2
 fi
 
-# Deploy the latest tssgTech source code to technologynursery.org/tssgTech
+# Deploy the latest tssgTech source code to technologynursery.org/tssgTechStagedMaster
 cd "$basePath"
-if docker cp "${basePath}/tssgTech" nc-nginx:/usr/share/nginx/html/
+mv tssgTech tssgTechStagedMaster
+if docker cp "tssgTechStagedMaster" nc-nginx:/usr/share/nginx/html/
 then echo "$(_date) tssgTech.deploy: Successfully deployed tssgTech to nc-nginx" >> "${logFilePathName}"
 else echo "$(_date) tssgTech.deploy: ERROR.  Unable to deploy tssgTech to nc-nginx" >> "${logFilePathName}" ; exit 3
 fi
+mv tssgTechStagedMaster tssgTech
 
 # Get the latest multipage branch source code
 cd "$basePath/tssgTech"
@@ -38,7 +40,7 @@ fi
 # Deploy the multipage source code to technologynursery.org/tssgTechMultipage
 cd "$basePath/tssgTech"
 mv site tssgTechMultipage
-if docker cp "${basePath}/tssgTech/tssgTechMultipage" nc-nginx:/usr/share/nginx/html/
+if docker cp "tssgTechMultipage" nc-nginx:/usr/share/nginx/html/
 then echo "$(_date) tssgTech.deploy: Successfully deployed tssgTechMultipage to nc-nginx" >> "${logFilePathName}"
 else echo "$(_date) tssgTech.deploy: ERROR.  Unable to deploy tssgTechMultipage to nc-nginx" >> "${logFilePathName}" ; exit 6
 fi
