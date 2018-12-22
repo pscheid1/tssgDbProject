@@ -1,0 +1,160 @@
+import groovy.io.FileType
+import groovy.xml.MarkupBuilder
+
+plugins {
+    id "idea"
+    id "groovy"
+    id "com.energizedwork.webdriver-binaries" version "1.4"
+    id "com.energizedwork.idea-base" version "1.4"
+}
+
+ext {
+    // The drivers we want to use
+    //drivers = ["firefox", "chrome"]
+    //drivers = ["firefox","firefoxLinux"]
+    drivers = ["chrome"]
+
+    ext {
+        groovyVersion = '2.4.12'
+        gebVersion = '2.2'
+        seleniumVersion = '3.6.0'
+        chromeDriverVersion = '2.32'
+        geckoDriverVersion = '0.18.0'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // If using Spock, need to depend on geb-spock
+    testCompile "org.gebish:geb-spock:$gebVersion"
+    testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
+        exclude group: "org.codehaus.groovy"
+    }
+    testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
+
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testCompile "org.gebish:geb-junit4:$gebVersion"
+
+    // Drivers
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+
+}
+
+webdriverBinaries {
+    chromedriver chromeDriverVersion
+    geckodriver geckoDriverVersion
+}
+
+drivers.each { driver ->
+    task "${driver}Test"(type: Test) {
+        reports {
+            html.destination = reporting.file("$name/tests")
+            junitXml.destination = file("$buildDir/test-results/$name")
+        }
+
+        outputs.upToDateWhen { false }  // Always run tests
+
+        systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
+        systemProperty "geb.env", driver
+
+        // If you wanted to set the baseUrl in your build…
+        // systemProperty "geb.build.baseUrl", "http://myapp.com"
+        systemProperties System.properties
+
+    }
+}
+
+test {
+    dependsOn drivers.collect { tasks["${it}Test"] }
+    enabled = false
+    systemProperties System.properties
+
+}
+
+tasks.withType(Test) {
+    maxHeapSize = "1g"
+    jvmArgs '-XX:MaxMetaspaceSize=128m'
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.memoryMaximumSize = '256m'
+}
+
+task reportSnaps << {
+    def list = []
+
+    def dir = new File("build/reports")
+    dir.eachFileRecurse (FileType.FILES) { file ->
+        if (file.path.contains("/geb/")) {
+            list << file
+        }
+    }
+
+    list.each {
+        println it.path
+    }
+
+    generateScreenshotsReportsPage(list)
+}
+
+//reportSnaps.mustRunAfter firefoxTest
+reportSnaps.mustRunAfter chromeTest
+
+/**
+ * Generate an html page that contains links to the Report Screnshots
+ * and other report artifact files.
+ *
+ * @param list - A list of report artifact File objects.
+ */
+void generateScreenshotsReportsPage(list) {
+
+    def reportArtifactsHtmlFile = new File('build/reports/reportArtifacts.html')
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    def now = new Date()
+    html.html {
+        head {
+            title "Report Screen Shots"
+        }
+        body(id: "main") {
+            h2 id: "report-files",  "Report Artifact Files"
+            ul {
+                list.each { reportArtifactFile ->
+                    li {
+                        // Build link and extract the filename from the path
+                        a( href: removeFirstTwoDirectoriesFromPath(reportArtifactFile.path),
+                                removeFirstTwoDirectoriesFromPath(reportArtifactFile.path) )    // display relative path
+                        //reportArtifactFile.path.split(File.separator)[-1] )           // display just filename
+                    }
+                }
+            }
+            h3 "Report Generated Time"
+            p now
+        }
+    }
+    reportArtifactsHtmlFile.write writer.toString()
+}
+
+/**
+ * Removes the first two directories from the path
+ *
+ * @parm reportFile -The reportFile
+ */
+String removeFirstTwoDirectoriesFromPath(String reportArtifactFilePath) {
+    String reportFileNewPath = ""
+    reportArtifactFilePath.split(File.separator)[2..-1].each {
+        // Rebuild the path
+        reportFileNewPath += ( it + File.separator )
+    }
+    // Return path with last character from path removed
+    reportFileNewPath[0..-2]
+}
+
+apply from: "gradle/ci.gradle"
