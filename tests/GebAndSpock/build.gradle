@@ -157,4 +157,4 @@ String removeFirstTwoDirectoriesFromPath(String reportArtifactFilePath) {
     reportFileNewPath[0..-2]
 }
 
-apply from: "gradle/ci.gradle"
+//apply from: "gradle/ci.gradle"
