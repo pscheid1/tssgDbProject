@@ -21,7 +21,13 @@ environments {
     // run via “./gradlew chromeTest”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
     chrome {
-        driver = { new ChromeDriver() }
+        //driver = { new ChromeDriver() }
+        driver = {
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome()
+            //capabilities.setVersion("67.0.3396.87")
+            capabilities.setPlatform(Platform.LINUX)
+            new RemoteWebDriver( new URL("http://hub.technologynursery.org/wd/hub"), capabilities )
+        }
     }
 	
     // run via “./gradlew firefoxTest”
