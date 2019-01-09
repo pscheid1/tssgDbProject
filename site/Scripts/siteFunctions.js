@@ -54,7 +54,11 @@ function displayTestimonial(entry,index) {
   var thisText = document.createElement('p');
   var thisSignature = document.createElement('p');
   // load the three fields of a testimonial into the appropriate, just-created elements
-  thisIndex.innerHTML = "Entry #" + (index + 1);
+  /* NOTE: thisIndex is now holding the testimonial title. Better to show a title than 
+           testimonial #1, #2, #3... Not changing thisIndex to thisTitle yet. JS 1/8/2019
+  */
+  //  thisIndex.innerHTML = "Entry #" + (index + 1);
+  thisIndex.innerHTML = entry.title;
   thisSignature.innerHTML = "Signed - " + entry.name + ", " + entry.date;
   thisText.innerHTML = entry.text;
 
