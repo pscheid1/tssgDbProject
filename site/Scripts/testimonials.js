@@ -4,17 +4,17 @@
 //   Ordered in the array by most recent entry first. 
 
 var testimonials = [
-     {   
-		title: "TSSG Mobile Team Helped Me",
-		name: "Shawn F.",
-		text: "<p>When I joined the Technical Skills Share Group I had only a basic understanding of Android development but I joined the Mobile group anyhow as that's where my interests lay. I resolved to engage in online education, research and development and dove into the code of the Mobile Group's current Android project to gain understanding and experience. Over time I gained insight and expertise with the help of many TSSG members and due to this I was able to secure a contract position building an Android application from scratch.</p> <p>Although only my first opportunity for employment working on an Android project, I see this as a starting point of many other future opportunities all due to my involvement in TSSG.</p>",
-		date: "10/03/2018"
-	},
 	{   
 		title: "Refocused and Landed!",
 		name: "Jim D.",
 		text: "<p>I was concerned about being out of work and how that would look on my resume.  One of the interview questions that I was being asked was “What have you been doing since your last position?”.  Yes, Many say that it is OK to say that I have been looking for work.  I didn’t feel good about responding this way.</p> <p>I had heard that volunteering is a better answer but it still didn’t feel like me. I joined the Technical Skill Share Group (TSSG) in 2009.  I had heard about the group from Acton Networkers.   A group that allows you to help others while fine tuning your own skill was my answer.  The group helped me refocus my goal for a new position.  In 2011 I landed at a Health Care Insurance Company as a Project Coordinator.  This is the role I practiced while at TSSG.  I quickly advanced and became a Business Systems Analyst that worked out of the PMO.</p>",
 		date: "10/10/2018"
+	},
+     {   
+		title: "TSSG Mobile Team Helped Me",
+		name: "Shawn F.",
+		text: "<p>When I joined the Technical Skills Share Group I had only a basic understanding of Android development but I joined the Mobile group anyhow as that's where my interests lay. I resolved to engage in online education, research and development and dove into the code of the Mobile Group's current Android project to gain understanding and experience. Over time I gained insight and expertise with the help of many TSSG members and due to this I was able to secure a contract position building an Android application from scratch.</p> <p>Although only my first opportunity for employment working on an Android project, I see this as a starting point of many other future opportunities all due to my involvement in TSSG.</p>",
+		date: "10/03/2018"
 	}
 	/*
 	,

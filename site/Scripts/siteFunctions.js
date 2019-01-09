@@ -59,7 +59,8 @@ function displayTestimonial(entry,index) {
   */
   //  thisIndex.innerHTML = "Entry #" + (index + 1);
   thisIndex.innerHTML = entry.title;
-  thisSignature.innerHTML = "Signed - " + entry.name + ", " + entry.date;
+//  thisSignature.innerHTML = "Signed - " + entry.name + ", " + entry.date;
+  thisSignature.innerHTML = entry.name + ", " + entry.date;
   thisText.innerHTML = entry.text;
 
   // set the classes for the four new elements.  
