@@ -4,6 +4,7 @@ import Pages.TSSGTechDataAnalyticsPage
 import Pages.TSSGTechDevOpsPage
 import Pages.TSSGTechHomePage
 import Pages.TSSGTechMobilePage
+import Pages.TSSGTechTestimonialsPage
 import Pages.TSSGTechSchedulePage
 import Pages.TSSGTechWebPage
 import Pages.TSSGTechQAPage
@@ -50,6 +51,7 @@ class TSSGTechSpec extends GebReportingSpec {
             menuItem       | page
             "homeLinkIcon" | TSSGTechHomePage
             "generalMenu"  | TSSGTechHomePage
+            "testimonialsMenu" | TSSGTechTestimonialsPage
             "scheduleMenu" | TSSGTechSchedulePage
             "webMenu"      | TSSGTechWebPage
             "mobileMenu"   | TSSGTechMobilePage
