@@ -14,13 +14,22 @@ The build is setup to work with Firefox and Chrome. Have a look at the `build.gr
 
 The following command will launch the test with the individual browser:
 
-    ./gradlew firefoxTest
+    ./gradlew chromeTest
 
 To run with all, you can run:
 
     ./gradlew test
 
 Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Windows.
+
+## Options
+
+The default url to be tested is the dev endpoint (currently represents the tssgTechMultipage branch).
+To change the baseUrl, set to either dev, qa, or prod environments.
+
+For example, to run the qa environment (currently represents the tssgTechStagedMaster branch):
+
+    ./gradlew chromeTest -Dgeb.build.baseUrl=qa
 
 ## Questions and issues
 
