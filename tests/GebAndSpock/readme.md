@@ -31,6 +31,10 @@ For example, to run the qa environment (currently represents the tssgTechStagedM
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=qa
 
+To run the dev environment (currently represents the multipage branch):
+
+    ./gradlew chromeTest -Dgeb.build.baseUrl=dev
+
 ## Questions and issues
 
 Please ask questions on [Geb user mailing list][mailing_list] and raise issues in [Geb issue tracker][issue_tracker].
