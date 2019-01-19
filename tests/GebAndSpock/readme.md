@@ -1,4 +1,4 @@
-# Example Geb and Gradle Project
+# Geb and Gradle Project
 
 This project was derived from geb/geb-example-gradle.
 
