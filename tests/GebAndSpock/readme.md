@@ -27,13 +27,17 @@ Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Window
 The default url to be tested is the dev endpoint (currently represents the tssgTechMultipage branch).
 To change the baseUrl, set to either dev, qa, or prod environments.
 
-For example, to run the qa environment (currently represents the tssgTechStagedMaster branch):
+To run tests in the dev environment (currently represents the multipage branch):
+
+    ./gradlew chromeTest -Dgeb.build.baseUrl=dev
+
+To run tests in the qa environment (currently represents the tssgTechStagedMaster branch):
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=qa
 
-To run the dev environment (currently represents the multipage branch):
+To run tests in the prod environment (currently represents the master branch):
 
-    ./gradlew chromeTest -Dgeb.build.baseUrl=dev
+    ./gradlew chromeTest -Dgeb.build.baseUrl=prod
 
 ## Questions and issues
 
