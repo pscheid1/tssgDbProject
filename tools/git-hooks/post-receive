@@ -1,0 +1,32 @@
+#!/bin/bash
+#help post-receive                               # After a push, run the Jenkins tests for the multipage branch
+
+msg () { # type, message
+   echo "$(date +%F_%T) post-receive: $1 $2" | tee -a /var/log/git-hooks.log
+}
+
+msg START "..."
+
+msg INFO "Determining branch ..."
+
+if ! [ -t 0 ]; then
+  read -a ref
+fi
+
+IFS='/' read -ra REF <<< "${ref[2]}"
+branch="${REF[2]}"
+
+case "$branch" in
+  master)
+    msg INFO 'Branch master was pushed'
+    ;;
+
+  multipage)
+    msg INFO 'Branch multipage was pushed'
+    msg INFO 'Executing Jenkins project "dev chromeTest"'
+    curl http://jenkins.technologynursery.org/view/Geb%20and%20Spock%20Tests/job/dev%20chromeTest/build?token=buildMe
+    ;;
+esac
+
+msg END "."
+
