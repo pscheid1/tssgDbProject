@@ -10,6 +10,8 @@ This incorporates Geb into a Gradle build. It shows the use of Spock and JUnit 4
 
 The build is setup to work with Firefox and Chrome. Have a look at the `build.gradle` and the `src/test/resources/GebConfig.groovy` files.
 
+These tests will run against the multipage branch on https://technologynursery.org/tssgTechMultipage
+
 ## Usage
 
 The following command will launch the test with the individual browser:
