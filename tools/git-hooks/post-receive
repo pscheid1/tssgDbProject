@@ -23,8 +23,8 @@ case "$branch" in
 
   multipage)
     msg INFO 'Branch multipage was pushed'
-    msg INFO 'Executing Jenkins project "dev chromeTest"'
-    curl http://jenkins.technologynursery.org/view/Geb%20and%20Spock%20Tests/job/dev%20chromeTest/build?token=buildMe
+    msg INFO 'Executing Jenkins project "Deploy multipage to nc-nginx tssgTechMultipage"'
+    curl http://jenkins.technologynursery.org/view/Deploys/job/tssgTech%20Deploy%20multipage%20to%20nc-nginx%20tssgTechMultipage/build?token=buildMe
     ;;
 esac
 
