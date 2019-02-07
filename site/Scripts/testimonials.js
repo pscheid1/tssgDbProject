@@ -5,6 +5,12 @@
 
 var testimonials = [
 	{   
+		title: "A Breath of Fresh Air",
+		name: "Joel S.",
+		text: "<p>For each of the TSSG meetings that I attended, it was always encouraging to get together with teams of like-minded professionals and work on a project together. The ability to learn new technology and get hands-on experience with people that were welcoming and knowledgeable was incredibly valuable to my state of mind during my job search.</p> <p>I'm sure that I will apply some of what I learned from TSSG to my new job as a software developer. And I expect to keep in contact with TSSG and its members.</p>",
+		date: "02/05/2019"
+	},
+	{   
 		title: "Refocused and Landed!",
 		name: "Jim D.",
 		text: "<p>I was concerned about being out of work and how that would look on my resume.  One of the interview questions that I was being asked was “What have you been doing since your last position?”.  Yes, Many say that it is OK to say that I have been looking for work.  I didn’t feel good about responding this way.</p> <p>I had heard that volunteering is a better answer but it still didn’t feel like me. I joined the Technical Skill Share Group (TSSG) in 2009.  I had heard about the group from Acton Networkers.   A group that allows you to help others while fine tuning your own skill was my answer.  The group helped me refocus my goal for a new position.  In 2011 I landed at a Health Care Insurance Company as a Project Coordinator.  This is the role I practiced while at TSSG.  I quickly advanced and became a Business Systems Analyst that worked out of the PMO.</p>",
