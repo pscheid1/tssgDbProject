@@ -18,13 +18,13 @@ else echo "$(_date) tssgTech.deploy: ERROR.  Unable to do a git pull." >> "${log
 fi
 
 # Deploy the latest tssgTech source code to technologynursery.org/tssgTechStagedMaster
-cd "$basePath"
-mv tssgTech tssgTechStagedMaster
+cd "$basePath/tssgTech"
+mv site tssgTechStagedMaster
 if docker cp "tssgTechStagedMaster" nc-nginx:/usr/share/nginx/html/
 then echo "$(_date) tssgTech.deploy: Successfully deployed tssgTechStagedMaster to nc-nginx" >> "${logFilePathName}"
 else echo "$(_date) tssgTech.deploy: ERROR.  Unable to deploy tssgTechStagedMaster to nc-nginx" >> "${logFilePathName}" ; exit 3
 fi
-mv tssgTechStagedMaster tssgTech
+mv tssgTechStagedMaster site
 
 ## Get the latest multipage branch source code
 #cd "$basePath/tssgTech"
