@@ -5,9 +5,15 @@
 
 var testimonials = [
 	{   
+		title: "Really enjoyed attending",
+		name: "Kathy F.",
+		text: "<p>Hi All. I joined this group the end of October 2018 and went to a few Wednesday meetings in Acton. I had a job at the time with flex hours so I could attend. However, lost that job in mid-December and just started a new one where I am now mostly on-site. As a result I am unable to attend these meetings any more for the foreseeable future. Just wanted to say that I really enjoyed the few I attended, and hope that sometime in the future I will be able to participate again. Wishing you all the best.</p>",
+		date: "02/18/2019"
+	},
+	{   
 		title: "A Breath of Fresh Air",
 		name: "Joel S.",
-		text: "<p>For each of the TSSG meetings that I attended, it was always encouraging to get together with teams of like-minded professionals and work on a project together. The ability to learn new technology and get hands-on experience with people that were welcoming and knowledgeable was incredibly valuable to my state of mind during my job search.</p> <p>I'm sure that I will apply some of what I learned from TSSG to my new job as a software developer. And I expect to keep in contact with TSSG and its members.</p>",
+		text: "<p>For each of the TSSG meetings that I attended, it was always encouraging to get together with teams of like-minded professionals and work on a project together. The ability to learn new technology and get hands-on experience with people that were welcoming and knowledgeable was incredibly valuable to my state of mind during my job search.</p>",
 		date: "02/05/2019"
 	},
 	{   
