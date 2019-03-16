@@ -1,5 +1,21 @@
 import groovy.io.FileType
 import groovy.xml.MarkupBuilder
+import groovy.json.JsonOutput
+import org.apache.tools.ant.taskdefs.condition.Os
+
+import static groovyx.net.http.HttpBuilder.configure
+//import static groovyx.net.http.ContentTypes.JSON
+import groovyx.net.http.HttpBuilder
+//import static groovy.json.JsonOutput.prettyPrint
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'io.github.http-builder-ng', name: 'http-builder-ng-core', version: '0.18.0'
+    }
+}
 
 plugins {
     id "idea"
@@ -75,17 +91,112 @@ test {
 
 }
 
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.memoryMaximumSize = '256m'
+}
+
+def xrayTestExecutionsJson
+
+// Initialize and accumulate the test case execution results per test key
 tasks.withType(Test) {
     maxHeapSize = "1g"
     jvmArgs '-XX:MaxMetaspaceSize=128m'
     testLogging {
         exceptionFormat = 'full'
     }
+
+    // Setup variables to use for getting Xray to import test results
+    def testKeyMatcher
+    def testKey
+    def testStatus
+    def xrayTestExecution =  [
+            testKey: '',
+            //start: '',
+            //finish: '',
+            comment: '',
+            status: ''
+    ]
+    def xrayTestExecutions = [
+            info: [
+                    summary: 'TE: Execution of automated tests for release v1.0',
+                    description: 'This execution is automaticallly created when importing execution results from an external source',
+                    version: '',
+                    user: 'Ralph Navarro',
+                    revision: '',
+                    //startDate: '',
+                    //finishDate: '',
+                    testPlanKey: 'SPIN-4',
+                    testEnvironments: ['prod']
+            ],
+            tests: [
+            ]
+    ]
+
+    // Pass system properties to the Geb JVM from the Gradle JVM
+    systemProperties['browser.location'] = System.properties['browser.location']
+    systemProperties['geb.build.baseUrl'] = System.properties['geb.build.baseUrl']
+
+    onOutput { desc, event ->
+        println "event.message: ${event.message}"
+        testKeyMatcher = event.message =~ /SPIN-\d+/
+        if (testKeyMatcher) {
+            testKey = testKeyMatcher.group()
+            //logger.quiet "Test Event Message: ${testKeyMatcher.group()}: ${event.message}"
+        }
+    }
+
+    // Collect the test key, name, and status after each test run
+    afterTest { desc, result ->
+        logger.quiet "Executed test ${testKey}: ${desc.name} [${desc.className}] with result: ${result.resultType}"
+        xrayTestExecution.testKey = testKey
+        xrayTestExecution.comment = "${desc.name} [${desc.className}]"
+        // Translate test results into Xray test statuses
+        switch (result.resultType) {
+            case 'SUCCESS':
+                xrayTestExecution.status = 'PASS'
+                break
+            case 'FAILURE':
+                xrayTestExecution.status = 'FAIL'
+                //xrayTestExecution.comment += "\nEvent Message: Start ${event.message}"
+                break
+            default:
+                xrayTestExecution.status = 'TODO'
+                break
+        }
+        xrayTestExecutions.tests << xrayTestExecution
+        xrayTestExecution =  [
+                testKey: '',
+                //start: '',
+                //finish: '',
+                comment: '',
+                status: ''
+        ]
+        if (result.resultType == 'FAILURE') {
+            logger.quiet "Event Message: Start ${event.message}"
+        }
+        xrayTestExecutionsJson = JsonOutput.toJson(xrayTestExecutions)
+    }
 }
 
-tasks.withType(GroovyCompile) {
-    groovyOptions.forkOptions.memoryMaximumSize = '256m'
+// Call xray to import the test execution results
+task xrayImport {
+    description 'Call xray to import the test execution results.  Requires jira.auth property.'
+    doLast {
+        println JsonOutput.prettyPrint(xrayTestExecutionsJson)
+
+        def xrayResult = HttpBuilder.configure {
+            request.uri = 'http://technologynursery.org:8082'
+            request.uri.path = '/rest/raven/1.0/import/execution'
+            request.headers['Authorization'] = 'Basic ' + System.properties['jira.auth']
+            request.contentType = 'application/json'
+            request.body = xrayTestExecutionsJson
+        }.post()
+        //println "Result = " + xrayResult
+    }
 }
+
+//xrayImport.mustRunAfter firefoxTest
+xrayImport.mustRunAfter chromeTest
 
 task reportSnaps << {
     def list = []
