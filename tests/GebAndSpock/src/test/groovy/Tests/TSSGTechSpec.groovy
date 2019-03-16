@@ -19,7 +19,7 @@ class TSSGTechSpec extends GebReportingSpec {
         println "baseUrl = ${baseUrl}"
     }
 
-    def "can get to the home page"() {
+    def "Can get to the TSSG home page"() {
         when:
             to TSSGTechHomePage
         then:
