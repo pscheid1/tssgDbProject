@@ -98,6 +98,13 @@
       background-color: silver;
     }
 
+	/*If the screen size is 350px wide or less, set the font-size of .cart-text to 3.7vw */
+	@media screen and (max-width: 340px) {
+		.car-text {
+			font-size: 4vw;
+		}
+	}
+    /* blinking animation - not being used */
 /* Page Header styles.  */
 
 #pageHeader {

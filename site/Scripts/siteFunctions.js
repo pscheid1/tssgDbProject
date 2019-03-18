@@ -12,6 +12,7 @@ function loadSections() {
         $('.navbar-collapse').collapse('hide');
     }
   });
+   $('.carousel').carousel(1);
 } // end function loadSections
 
 
