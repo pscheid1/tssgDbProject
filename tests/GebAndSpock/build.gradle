@@ -13,7 +13,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'io.github.http-builder-ng', name: 'http-builder-ng-core', version: '0.18.0'
+        //classpath group: 'io.github.http-builder-ng', name: 'http-builder-ng-core', version: '0.18.0'
+        classpath group: 'io.github.http-builder-ng', name: 'http-builder-ng-core', version: '1.0.3'
     }
 }
 
@@ -118,15 +119,15 @@ tasks.withType(Test) {
     ]
     def xrayTestExecutions = [
             info: [
-                    summary: 'TE: Execution of automated tests for release v1.0',
+                    summary: 'TE: Execution of automated tests for release v3.2.1',
                     description: 'This execution is automaticallly created when importing execution results from an external source',
-                    version: '',
+                    version: '3.2.1',
                     user: 'Ralph Navarro',
-                    revision: '',
+                    revision: '3.2.0',
                     //startDate: '',
                     //finishDate: '',
-                    testPlanKey: 'SPIN-4',
-                    testEnvironments: ['prod']
+                    //testPlanKey: 'SPIN-4',
+                    testEnvironments: ['dev']
             ],
             tests: [
             ]
@@ -138,7 +139,7 @@ tasks.withType(Test) {
 
     onOutput { desc, event ->
         println "event.message: ${event.message}"
-        testKeyMatcher = event.message =~ /SPIN-\d+/
+        testKeyMatcher = event.message =~ /TWS-\d+/
         if (testKeyMatcher) {
             testKey = testKeyMatcher.group()
             //logger.quiet "Test Event Message: ${testKeyMatcher.group()}: ${event.message}"
@@ -183,15 +184,20 @@ task xrayImport {
     description 'Call xray to import the test execution results.  Requires jira.auth property.'
     doLast {
         println JsonOutput.prettyPrint(xrayTestExecutionsJson)
+        def username = 'your jira username'
+        def password = 'your jira password'
+        def creds = "$username:$password".bytes.encodeBase64()
 
         def xrayResult = HttpBuilder.configure {
-            request.uri = 'http://technologynursery.org:8082'
-            request.uri.path = '/rest/raven/1.0/import/execution'
-            request.headers['Authorization'] = 'Basic ' + System.properties['jira.auth']
+            request.uri = 'http://jira.web.technologynursery.org'
+            //request.headers['Authorization'] = 'Basic ' + System.properties['jira.auth']
+            request.headers['Authorization'] = "Basic $creds"
             request.contentType = 'application/json'
+        }.post {
+            request.uri.path = '/rest/raven/1.0/import/execution'
             request.body = xrayTestExecutionsJson
-        }.post()
-        //println "Result = " + xrayResult
+        }
+        println "Result = " + xrayResult
     }
 }
 
