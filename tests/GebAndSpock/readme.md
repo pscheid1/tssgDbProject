@@ -42,6 +42,18 @@ To run tests in the prod environment (currently represents the master branch):
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=prod
 
+To run tests in the webflowqa environment (currently represents the webflow branch):
+
+    ./gradlew chromeTest -Dgeb.build.baseUrl=webflowqa
+    
+To run xrayImport task, set the jira.username, jira.password, jira.author System properties
+
+    ./gradlew chromeTest \
+        xrayImport \
+        -Djira.username=navarror \
+        -Djira.password=p@ssw0rd \
+        -Djira.test.executor='Ralph Navarro'
+
 ## Questions and issues
 
 Please ask questions on [Geb user mailing list][mailing_list] and raise issues in [Geb issue tracker][issue_tracker].

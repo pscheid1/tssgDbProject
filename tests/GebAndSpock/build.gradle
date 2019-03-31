@@ -120,14 +120,14 @@ tasks.withType(Test) {
     def xrayTestExecutions = [
             info: [
                     summary: 'TE: Execution of automated tests for release v3.2.1',
-                    description: 'This execution is automaticallly created when importing execution results from an external source',
+                    description: 'This execution is automatically created when importing execution results from an external source',
                     version: '3.2.1',
-                    user: 'Ralph Navarro',
+                    //user: System.properties['jira.test.executor'],
                     revision: '3.2.0',
                     //startDate: '',
                     //finishDate: '',
                     //testPlanKey: 'SPIN-4',
-                    testEnvironments: ['dev']
+                    testEnvironments: [System.properties['geb.build.baseUrl']]
             ],
             tests: [
             ]
@@ -184,8 +184,8 @@ task xrayImport {
     description 'Call xray to import the test execution results.  Requires jira.auth property.'
     doLast {
         println JsonOutput.prettyPrint(xrayTestExecutionsJson)
-        def username = 'your jira username'
-        def password = 'your jira password'
+        def username = System.properties['jira.username']
+        def password = System.properties['jira.password']
         def creds = "$username:$password".bytes.encodeBase64()
 
         def xrayResult = HttpBuilder.configure {
