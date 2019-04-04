@@ -30,15 +30,6 @@ var scheduleArray = [
     {
       "name": "item1",
       "month": "APR",
-      "day": 03,
-      "year": 2019,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
-    },
-    {
-      "name": "item2",
-      "month": "APR",
       "day": 10,
       "year": 2019,
       "startTime": "12:30",
@@ -46,13 +37,22 @@ var scheduleArray = [
       "location": boxborough
     },
     {
-      "name": "item3",
+      "name": "item2",
       "month": "APR",
       "day": 17,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
       "location": hopkinton
+    },
+    {
+      "name": "item3",
+      "month": "APR",
+      "day": 24,
+      "year": 2019,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": acton
     }
 ];
  
