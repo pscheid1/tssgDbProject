@@ -206,16 +206,18 @@ xrayImport.mustRunAfter chromeTest
 
 task reportSnaps << {
     def list = []
+    def unixPath
 
     def dir = new File("build/reports")
     dir.eachFileRecurse (FileType.FILES) { file ->
-        if (file.path.contains("/geb/")) {
+        unixPath = file.path.replace("\\","/")
+        if (unixPath.contains("/geb/")) {
             list << file
         }
     }
 
     list.each {
-        println it.path
+        println it.path.replace("\\","/")
     }
 
     generateScreenshotsReportsPage(list)
