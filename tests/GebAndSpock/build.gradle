@@ -268,9 +268,16 @@ void generateScreenshotsReportsPage(list) {
  */
 String removeFirstTwoDirectoriesFromPath(String reportArtifactFilePath) {
     String reportFileNewPath = ""
-    reportArtifactFilePath.split(File.separator)[2..-1].each {
+    def sep
+    if (File.separator != "/") {
+        sep = "\\"
+    } else {
+        sep = "/"
+    }
+    
+    reportArtifactFilePath.split(sep)[2..-1].each {
         // Rebuild the path
-        reportFileNewPath += ( it + File.separator )
+        reportFileNewPath += ( it + sep )
     }
     // Return path with last character from path removed
     reportFileNewPath[0..-2]
