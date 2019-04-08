@@ -29,26 +29,26 @@ var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","htt
 var scheduleArray = [ 
     {
       "name": "item1",
-      "month": "MAR",
-      "day": 20,
+      "month": "APR",
+      "day": 10,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": acton
+      "location": boxborough
     },
     {
       "name": "item2",
-      "month": "MAR",
-      "day": 27,
+      "month": "APR",
+      "day": 17,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": chelmsford
+      "location": hopkinton
     },
     {
       "name": "item3",
       "month": "APR",
-      "day": 03,
+      "day": 24,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
