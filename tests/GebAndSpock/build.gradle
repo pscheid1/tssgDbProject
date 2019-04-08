@@ -248,8 +248,8 @@ void generateScreenshotsReportsPage(list) {
                 list.each { reportArtifactFile ->
                     li {
                         // Build link and extract the filename from the path
-                        a( href: removeFirstTwoDirectoriesFromPath(reportArtifactFile.path),
-                                removeFirstTwoDirectoriesFromPath(reportArtifactFile.path) )    // display relative path
+                        a( href: removeFirstTwoDirectoriesFromPath(reportArtifactFile.path.replace("\\","/")),
+                                removeFirstTwoDirectoriesFromPath(reportArtifactFile.path.replace("\\","/")) )    // display relative path
                         //reportArtifactFile.path.split(File.separator)[-1] )           // display just filename
                     }
                 }
@@ -268,9 +268,9 @@ void generateScreenshotsReportsPage(list) {
  */
 String removeFirstTwoDirectoriesFromPath(String reportArtifactFilePath) {
     String reportFileNewPath = ""
-    reportArtifactFilePath.split(File.separator)[2..-1].each {
+    reportArtifactFilePath.split('/')[2..-1].each {
         // Rebuild the path
-        reportFileNewPath += ( it + File.separator )
+        reportFileNewPath += ( it + '/' )
     }
     // Return path with last character from path removed
     reportFileNewPath[0..-2]
