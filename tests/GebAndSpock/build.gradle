@@ -88,17 +88,21 @@ tasks.withType(GroovyCompile) {
 }
 
 task reportSnaps << {
+    def listUnsorted = []
     def list = []
+    def unixPath
 
     def dir = new File("build/reports")
     dir.eachFileRecurse (FileType.FILES) { file ->
-        if (file.path.contains("/geb/")) {
-            list << file
+        unixPath = file.path.replace("\\","/")
+        if (unixPath.contains("/geb/")) {
+            listUnsorted << file
         }
     }
 
+    list = listUnsorted.sort()
     list.each {
-        println it.path
+        println it.path.replace("\\","/")
     }
 
     generateScreenshotsReportsPage(list)

@@ -29,32 +29,32 @@ var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","htt
 var scheduleArray = [ 
     {
       "name": "item1",
-      "month": "MAR",
-      "day": 20,
-      "year": 2019,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
-    },
-    {
-      "name": "item2",
-      "month": "MAR",
-      "day": 27,
-      "year": 2019,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": chelmsford
-    },
-    {
-      "name": "item3",
       "month": "APR",
-      "day": 03,
+      "day": 24,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
       "location": acton
-    }
-];
+    },
+    {
+        "name": "item2",
+        "month": "MAY",
+        "day": 01,
+        "year": 2019,
+        "startTime": "12:30",
+        "endTime": "5PM",
+        "location": acton
+      },
+      {
+        "name": "item3",
+        "month": "MAY",
+        "day": 08,
+        "year": 2019,
+        "startTime": "12:30",
+        "endTime": "5PM",
+        "location": acton
+      }
+  ];
  
 var scheduleTable = document.getElementById("scheduleBody");
 
