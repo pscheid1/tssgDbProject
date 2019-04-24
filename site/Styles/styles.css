@@ -116,6 +116,18 @@
   cursor: pointer;
 }
 
+/* class declaration for 'Go to Beta Site' menu item */
+.beta-menuItem {
+  cursor: pointer;
+  color: blue;
+  background-color: white;
+  border-radius: 8px; /* rounded corners */
+}
+
+.beta-menuItem:hover {
+  color: blue;
+  font-weight: bold;
+} 
 
     #copyrightLine {
       font-size:10px;
