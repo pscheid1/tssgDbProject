@@ -47,7 +47,7 @@ var scheduleArray = [
       },
       {
         "name": "item3",
-        "month": "APR",
+        "month": "MAY",
         "day": 15,
         "year": 2019,
         "startTime": "12:30",
