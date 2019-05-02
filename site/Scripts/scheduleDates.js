@@ -27,17 +27,9 @@ var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","htt
  and a location which is one of the previously defined Location objects.
 */
 var scheduleArray = [ 
-    {
-        "name": "item1",
-        "month": "MAY",
-        "day": 01,
-        "year": 2019,
-        "startTime": "12:30",
-        "endTime": "5PM",
-        "location": acton
-      },
+
       {
-        "name": "item2",
+        "name": "item1",
         "month": "MAY",
         "day": 08,
         "year": 2019,
@@ -46,15 +38,23 @@ var scheduleArray = [
         "location": acton
       },
       {
-        "name": "item3",
+        "name": "item2",
         "month": "MAY",
         "day": 15,
         "year": 2019,
         "startTime": "12:30",
         "endTime": "5PM",
         "location": acton
-      }
-    ];
+      },
+      {
+        "name": "item3",
+        "month": "MAY",
+        "day": 22,
+        "year": 2019,
+        "startTime": "12:30",
+        "endTime": "5PM",
+        "location": chelmsford
+      },    ];
  
 var scheduleTable = document.getElementById("scheduleBody");
 
