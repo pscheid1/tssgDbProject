@@ -12,7 +12,7 @@ class TSSGTechQAPage extends TSSGTechBasePage {
     }
 
     static content = {
-        titleText { $("strong", text: "QUALITY ASSURANCE STUDY AND DISCUSSION GROUP") }
+        titleText { $("strong", text: "QUALITY ASSURANCE STUDY GROUP") }
         titleIcon { $("#qa-icon", src: "Images/icon_quality.png") }
     }
 }
