@@ -66,6 +66,9 @@ switch (baseUrl) {
     case ["qa", "stagedMaster"]:
         baseUrl = "https://technologynursery.org/tssgTechStagedMaster/"
         break
+    case ["webflowqa"]:
+        baseUrl = "https://technologynursery.org/tssgTechWebflow/"
+        break
     case ["prod", "tssgTech"]:
         baseUrl = "https://technologynursery.org/tssgTech/"
         break

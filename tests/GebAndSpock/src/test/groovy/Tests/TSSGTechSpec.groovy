@@ -14,18 +14,27 @@ import spock.lang.Unroll
 import spock.lang.IgnoreRest
 
 class TSSGTechSpec extends GebReportingSpec {
+    def testKey
+    def testResult
+
+    def cleanup() {
+        //testResult = () ? "PASS" : "FAIL"
+        println "cleanup(): ${testKey} ${specificationContext.currentIteration.name} "
+    }
 
     def setupSpec() {
         println "baseUrl = ${baseUrl}"
     }
 
+    //@IgnoreRest
     def "Can get to the TSSG home page"() {
+        testKey = "TWS-69"
         when:
             to TSSGTechHomePage
         then:
             at TSSGTechHomePage
     }
-/*
+
     def "can get to the mobile section"() {
         when:
             to TSSGTechHomePage
@@ -34,7 +43,7 @@ class TSSGTechSpec extends GebReportingSpec {
             at TSSGTechMobilePage
 
     }
-*/
+
     //@IgnoreRest
     @Unroll
     def "selecting header menu #menuItem goes to #page.name"() {
@@ -78,4 +87,5 @@ class TSSGTechSpec extends GebReportingSpec {
             "devopsFooterIcon"   | TSSGTechDevOpsPage
 
     }
+
 }
