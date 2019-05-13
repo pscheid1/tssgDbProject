@@ -12,8 +12,7 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        //classpath group: 'io.github.http-builder-ng', name: 'http-builder-ng-core', version: '0.18.0'
+    dependencies { 
         classpath group: 'io.github.http-builder-ng', name: 'http-builder-ng-core', version: '1.0.3'
     }
 }
@@ -58,7 +57,6 @@ dependencies {
     // Drivers
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
-
 }
 
 webdriverBinaries {
@@ -117,17 +115,19 @@ tasks.withType(Test) {
             comment: '',
             status: ''
     ]
+    def version = ['bash', '-c', 'git tag | tail -1'].execute().text
+    def revision = ['bash', '-c', 'git describe --tags'].execute().text
     def xrayTestExecutions = [
             info: [
-                    summary: 'TE: Execution of automated tests for release v3.2.1',
+                    summary: "TE: Execution of automated tests for release ${version[0..-2]}",
                     description: 'This execution is automatically created when importing execution results from an external source',
-                    version: '3.2.1',
+                    version: "${version}"[1..-2],
                     //user: System.properties['jira.test.executor'],
-                    revision: '3.2.0',
+                    revision: "${revision}"[1..-2]
                     //startDate: '',
                     //finishDate: '',
                     //testPlanKey: 'SPIN-4',
-                    testEnvironments: [System.properties['geb.build.baseUrl']]
+                    //testEnvironments: [System.properties['geb.build.baseUrl']]
             ],
             tests: [
             ]
@@ -186,17 +186,21 @@ task xrayImport {
         println JsonOutput.prettyPrint(xrayTestExecutionsJson)
         def username = System.properties['jira.username']
         def password = System.properties['jira.password']
-        def creds = "$username:$password".bytes.encodeBase64()
+        def creds = "${username}:${password}".bytes.encodeBase64()
 
-        def xrayResult = HttpBuilder.configure {
+        def jiraWeb = HttpBuilder.configure {
             request.uri = 'http://jira.web.technologynursery.org'
             //request.headers['Authorization'] = 'Basic ' + System.properties['jira.auth']
             request.headers['Authorization'] = "Basic $creds"
+            //request.auth.basic username, password
             request.contentType = 'application/json'
-        }.post {
+        }
+        
+        def xrayResult = jiraWeb.post {
             request.uri.path = '/rest/raven/1.0/import/execution'
             request.body = xrayTestExecutionsJson
         }
+        
         println "Result = " + xrayResult
     }
 }
