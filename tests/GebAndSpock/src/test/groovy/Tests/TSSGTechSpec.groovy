@@ -28,25 +28,17 @@ class TSSGTechSpec extends GebReportingSpec {
 
     //@IgnoreRest
     def "Can get to the TSSG home page"() {
-        testKey = "TWS-69"
+        testKey = "TWS-87"
         when:
             to TSSGTechHomePage
         then:
             at TSSGTechHomePage
     }
 
-    def "can get to the mobile section"() {
-        when:
-            to TSSGTechHomePage
-            mobileMenu.click()
-        then:
-            at TSSGTechMobilePage
-
-    }
-
     //@IgnoreRest
     @Unroll
     def "selecting header menu #menuItem goes to #page.name"() {
+        testKey = "TWS-30"
         when:
             to TSSGTechHomePage
             "${menuItem}"().click()
@@ -72,6 +64,7 @@ class TSSGTechSpec extends GebReportingSpec {
 
     @Unroll
     def "selecting footer icon #footerIcon goes to #page.name"() {
+        testKey = "TWS-189"
         when:
             to TSSGTechHomePage
             "${footerIcon}"().click()
