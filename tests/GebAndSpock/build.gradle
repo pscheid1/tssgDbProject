@@ -83,12 +83,13 @@ drivers.each { driver ->
     }
 }
 
-test {
-    dependsOn drivers.collect { tasks["${it}Test"] }
-    enabled = false
-    systemProperties System.properties
-
-}
+// Checking if this code is needed.
+//test {
+//    dependsOn drivers.collect { tasks["${it}Test"] }
+//    enabled = false
+//    systemProperties System.properties
+//
+//}
 
 tasks.withType(GroovyCompile) {
     groovyOptions.forkOptions.memoryMaximumSize = '256m'
@@ -115,8 +116,41 @@ tasks.withType(Test) {
             comment: '',
             status: ''
     ]
-    def version = ['bash', '-c', 'git tag | tail -1'].execute().text
-    def revision = ['bash', '-c', 'git describe --tags'].execute().text
+
+    // Check which OS is installed.
+    // Make assumptions that either Git Bash is installed on Windows,
+    // or bash is installed on Linux.
+    def bashPlatforms = [Linux:'bash', Windows:'c:/Program Files/Git/bin/bash.exe']
+    def osName = System.properties['os.name']
+    println "os.name = " + osName
+    def bashPathName
+
+    switch (osName) {
+        case ~/^Windows.*/:
+            bashPathName = bashPlatforms.Windows
+            break
+        case 'Linux':
+            bashPathName = bashPlatforms.Linux
+            break
+        default:
+            bashPathName
+            throw new GradleException("Platform \"${osName}\" is not known!")
+            break
+    }
+
+    // Test that bash is available.
+    println "pwd = " + [bashPathName, '-c', 'pwd'].execute().text
+    println "path = " + [bashPathName, '-c', 'echo $PATH'].execute().text
+    println "git version = " + [bashPathName, '-c', 'git --version'].execute().text
+
+    // Get the latest version tag for this branch.
+    def version = [bashPathName, '-c', 'git tag | tail -1'].execute().text
+    println "version = " + version
+
+    // Get the latest revision tag for this branch.
+    def revision = [bashPathName, '-c', 'git describe --tags'].execute().text
+    println "revision = " + revision
+
     def xrayTestExecutions = [
             info: [
                     summary: "TE: Execution of automated tests for release ${version[0..-2]}",

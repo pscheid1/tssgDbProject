@@ -4,8 +4,6 @@ This project was derived from geb/geb-example-gradle.
 
 ## Description
 
-This incorporates Geb into a Gradle build. It shows the use of Spock and JUnit 4 tests.
-
 The build is setup to work with Firefox and Chrome. Have a look at the `build.gradle` and the `src/test/resources/GebConfig.groovy` files.
 
 These tests will run against the multipage branch on https://technologynursery.org/tssgTechMultipage
@@ -14,6 +12,10 @@ Change to kick off build for demo. VM Options for -Dgeb.build.baseUrl are:
 * qa or stagedMaster -> tssgTechStagedMaster
 * webflowqa          -> tssgTechWebflow
 * prod or tssgTech   -> tssgTech
+
+## Prerequisite
+* If running on Windows, must have Git for Windows installed in the default path (https://gitforwindows.org/).  Git Bash is utilized by the xrayImport task.
+* If running from Linux, ensure that bash is in the path.
 
 ## Usage
 
