@@ -1,3 +1,2 @@
-tests/GebAndSpock/.gradle/
-tests/GebAndSpock/build/
-
+.idea/
+.gradle/
