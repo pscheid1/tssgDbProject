@@ -1,0 +1,81 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { MeetingAddComponent } from './meeting-add/meeting-add.component';
+import { MeetingEditComponent } from './meeting-edit/meeting-edit.component';
+import { MeetingGetComponent } from './meeting-get/meeting-get.component';
+import { MeetingService } from './_services/meeting.service';
+import { VenueAddComponent } from './venue-add/venue-add.component';
+import { VenueGetComponent } from './venue-get/venue-get.component';
+import { VenueEditComponent } from './venue-edit/venue-edit.component';
+import { VenueService } from './_services/venue.service';
+
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+
+import { JwtInterceptor } from './_helpers/Jwt.Interceptor';
+import { ErrorInterceptor } from './_helpers/Error.Interceptor';
+import { TssgErrorHandler } from './_helpers/tssg.ErrorHandler';
+import { HomeComponent } from './user-home/home.component';
+import { AdminComponent } from './user-admin/admin.component';
+import { LoginComponent } from './user-login/login.component';
+import { LogoutComponent } from './user-logout/logout.component';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UserGetComponent } from './user-get/user-get.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './navbar/navbar.component';
+
+@NgModule({
+   declarations: [
+      AppComponent,
+      MeetingAddComponent,
+      MeetingEditComponent,
+      MeetingGetComponent,
+      VenueAddComponent,
+      VenueGetComponent,
+      VenueEditComponent,
+      HomeComponent,
+      AdminComponent,
+      LoginComponent,
+      LogoutComponent,
+      UserCreateComponent,
+      UserGetComponent,
+      UserEditComponent,
+      NavbarComponent
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      SlimLoadingBarModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      FormsModule,
+      NgbModule,
+      BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
+      TimepickerModule.forRoot(),
+      BrowserAnimationsModule
+   ],
+   providers: [
+      MeetingService,
+      VenueService,
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      { provide: ErrorHandler, useClass: TssgErrorHandler }
+   ],
+   bootstrap: [
+      AppComponent
+   ]
+})
+
+export class AppModule {}

@@ -1,0 +1,23 @@
+<form #userForm="ngForm">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">User</h4>
+    </div>
+    <div class="panel-body">
+      Current user from secure api end point:
+      <ul *ngIf="currentUser">
+        <li style="font-weight:bold">{{currentUser.firstname}} {{currentUser.lastname}}</li>
+        <li>Your role is: <strong>{{currentUser.role}}</strong></li>
+        <li>You are logged in with Angular 7 & JWT</li>
+      </ul>
+      <ul *ngIf="!currentUser">
+        <li style="font-weight:bold">Currently you are not logged in.</li>
+      </ul>
+    </div>
+    <br />
+    <br />
+    <div id="errMsg" *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <div><a id="bottom" href="#bottom"></a>&nbsp;
+    </div>
+  </div>
+</form>

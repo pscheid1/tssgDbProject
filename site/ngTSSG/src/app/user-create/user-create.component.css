@@ -1,0 +1,11 @@
+.panel {
+  margin-right: 10%;
+  width: 40%;
+}
+
+label {
+  font-weight: 500;
+}
+ input {
+   width: 40ch;
+ }
