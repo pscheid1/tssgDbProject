@@ -1,0 +1,12 @@
+#!bash
+#scheduledb.install
+
+docker-compose down
+docker volume rm scheduledb_mongodb
+
+docker-compose up -d
+sleep 10s
+
+# Initializing the tssg-tech database.
+docker exec -it scheduledb_mongo_1 bash -c "cd /root; mongorestore -u root -p sch3dul3db --authenticationDatabase admin --authenticationMechanism SCRAM-SHA-1 --db tssg-tech tssg-tech"
+

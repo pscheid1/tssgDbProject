@@ -1,0 +1,4 @@
+FROM mongo:4.0.11-xenial
+LABEL maintainer="Thomas ODea <todea865@gmail.com>"
+RUN mkdir /root/tssg-tech
+COPY tssg-tech /root/tssg-tech/
