@@ -1,12 +1,23 @@
-#!bash
+#!/usr/bin/env bash
 #scheduledb.install
 
+echo "BEGIN Clean up and Install the schedule db services ..."
+
+echo "INFO Stop and remove any existing scheduledb containers ..."
 docker-compose down
+
+echo "INFO Remove any persistent volume for mongodb ..."
 docker volume rm scheduledb_mongodb
 
+echo "INFO Start up all containers ..."
 docker-compose up -d
+
+echo "INFO Wait 10s for mongodb to normalize ..."
 sleep 10s
 
-# Initializing the tssg-tech database.
+echo "INFO Initialize the tssg-tech mongo database ..."
 docker exec -it scheduledb_mongo_1 bash -c "cd /root; mongorestore -u root -p sch3dul3db --authenticationDatabase admin --authenticationMechanism SCRAM-SHA-1 --db tssg-tech tssg-tech"
 
+echo "INFO Mongo can be accessed on port 27017"
+echo "INFO Mongo Express can be accessed on port 8081"
+echo "END ... done."
