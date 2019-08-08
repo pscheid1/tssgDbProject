@@ -68,7 +68,7 @@ export class MeetingEditComponent implements OnInit {
     });
   }
 
-  cancel(meetingForm: NgForm) {
+  cancel() {
     //  the router.navigate call will cause the return data to be passed back to venue-get.component
     if (this.route.snapshot.data.type === 'schedule') {
       this.router.navigate(['meeting/schedule']);

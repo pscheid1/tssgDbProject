@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Venue } from 'src/app/_models/Venue';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VenueService } from '../_services/venue.service';
+import { Venue } from 'src/app/_models/Venue';
 
 @Component({
   selector: 'app-venue-edit',
@@ -42,12 +42,12 @@ export class VenueEditComponent implements OnInit {
     });
   }
 
-  cancel(userForm: NgForm) {
+  cancel() {
     this.router.navigate(['venue']);
   }
 
-  updateVenue(venueForm: NgForm) {
-    console.log('venue-edit.component.updateVenue');
+  updateVenue(venueForm: any) {
+    // console.log('venue-edit.component.updateVenue');
     this.vs.updateVenue(this.venue)
       .then(res => {
         this.router.navigate(['venue']);

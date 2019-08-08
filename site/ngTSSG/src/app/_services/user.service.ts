@@ -8,23 +8,21 @@ import {
 } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/_models/user';
-
-
-const uri = 'http://localhost:7010/users';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
   error = '';
   user = new User();
-  // returnUrl: string;
+  private uri: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
   ) {
-
+    this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/users';
   }
 
   private extractData(res: HttpResponse<User>) {
@@ -37,20 +35,20 @@ export class UserService {
   }
 
   getAll() {
-    return this.http.get<User[]>(`${uri}`);
+    return this.http.get<User[]>(`${this.uri}`);
   }
 
   getCurrent() {
-    return this.http.get<User>(`${uri}/current`);
+    return this.http.get<User>(`${this.uri}/current`);
   }
 
   getById(_id: string) {
     console.log('user.service.getById: _id = ' + _id);
-    return this.http.get(`${uri}/edit/` + _id);
+    return this.http.get(`${this.uri}/edit/` + _id);
   }
 
   async deleteUser(_id: string) {
-    return await this.http.get(`${uri}/delete/${_id}`)
+    return await this.http.get(`${this.uri}/delete/${_id}`)
     // return await this.http.get(`${uri}/delete/5d0516139da64c4facd357fb`)
     .toPromise()
     .then(this.extractData)
@@ -58,14 +56,14 @@ export class UserService {
   }
 
   async registerUser(obj: User) {
-    return await this.http.post(`${uri}/register/`, obj)
+    return await this.http.post(`${this.uri}/register/`, obj)
     .toPromise()
     .then(this.extractData)
     .catch(this.handleErrorPromise);
   }
 
   async updateUser(obj: User) {
-    return await this.http.post(`${uri}/update/`, obj)
+    return await this.http.post(`${this.uri}/update/`, obj)
     .toPromise()
     .then(this.extractData)
     .catch(this.handleErrorPromise);

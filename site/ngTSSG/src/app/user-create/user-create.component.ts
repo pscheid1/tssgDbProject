@@ -37,7 +37,7 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit() { }
 
-  cancel(userForm: NgForm) {
+  cancel() {
     this.router.navigate(['/']);
   }
 

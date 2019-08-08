@@ -34,7 +34,7 @@ export class VenueAddComponent implements OnInit {
   ngOnInit() {
   }
 
-  cancel(venueForm: NgForm) {
+  cancel() {
     this.router.navigate(['/']);
   }
 

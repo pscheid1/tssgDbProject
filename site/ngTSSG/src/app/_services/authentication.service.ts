@@ -2,19 +2,20 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { User } from 'src/app/_models/user';
-
-const uri = "http://localhost:7010";
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
+  private uri: string;
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT;
   }
 
   public get currentUserValue(): User {
@@ -23,7 +24,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     // return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })
-    return this.http.post<any>(`${uri}/users/authenticate`, { username, password })
+    return this.http.post<any>(`${this.uri}/users/authenticate`, { username, password })
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.token) {

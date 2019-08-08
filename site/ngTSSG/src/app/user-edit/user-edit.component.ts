@@ -79,7 +79,7 @@ export class UserEditComponent implements OnInit {
     });
   }
 
-  cancel(userForm: NgForm) {
+  cancel() {
     if (this.route.snapshot.data.type === 'admin') {
       this.router.navigate(['user/admin']);
     } else {
@@ -87,7 +87,7 @@ export class UserEditComponent implements OnInit {
     }
   }
 
-  updateUser(userForm: NgForm) {
+  updateUser(userForm: any) {
     this.us.updateUser(this.user)
       .then(res => {
         if (this.route.snapshot.data.type === 'admin') {

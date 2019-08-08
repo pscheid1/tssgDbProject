@@ -63,7 +63,7 @@ export class MeetingAddComponent implements OnInit {
     });
   }
 
-  cancel(meetingForm: NgForm) {
+  cancel( ) {
     this.router.navigate(['/']);
   }
 
