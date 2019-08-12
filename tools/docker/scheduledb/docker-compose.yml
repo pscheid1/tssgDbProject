@@ -7,6 +7,7 @@ services:
     image: tssg-mongo:0.1
     build:
       context: .
+      dockerfile: mongo-Dockerfile
     restart: always
     volumes:
       - mongodb:/data/db
@@ -22,6 +23,21 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: sch3dul3db
+
+  frontend:
+    image: node:lts
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ../../../site/ngTSSG:/home/node/app
+    expose:
+      - "7020"
+    ports:
+      - 7020:7020
+    #command: "npm start"
+    command: "/bin/bash"
     
 volumes:
   mongodb:
