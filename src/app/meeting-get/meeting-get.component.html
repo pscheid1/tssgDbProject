@@ -1,0 +1,50 @@
+<form #meetingForm="ngForm">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">{{heading}}</h4>
+      <p>This page can only be accessed by administrators.</p>
+    </div>
+      <table class="table-fixed">
+        <thead>
+          <tr>
+            <th>Meeting Id</th>
+            <th>Venue</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Comments</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- three empty lines will push first display line below  -->
+          <tr>&nbsp;</tr>
+          <tr>&nbsp;</tr>
+          <tr>&nbsp;</tr>
+          <tr *ngFor="let meeting of meetings">
+            <td>{{meeting._id}}</td>
+            <td>{{meeting.venue}}</td>
+            <td>{{meeting.meetingDate | date: 'E LLL dd'}}</td>
+            <td>{{meeting.startTime | date: 'hh:mm aaaaa'}}</td>
+            <td>{{meeting.endTime | date: 'hh:mm aaaaa'}}</td>
+            <td>{{meeting.comments}}</td>
+            <!--
+            pass control to venue-edit.components constructor via app-routing.module.ts
+            this will retrieve venue and display in venue-edit.component.html
+          -->
+            <td><a [routerLink]="['edit', meeting._id]" class="btn btn-primary btn-sm">Edit</a></td>
+
+            <td><a (click)="deleteMeeting(meeting._id)" class="btn btn-danger btn-sm">Del</a></td>
+          </tr>
+          <tr *ngIf="!meetings">
+            <td colspan="10">Loading data. Please wait... </td>
+          </tr>
+          <tr *ngIf="meetings && meetings.length==0">
+            <td colspan="10">No meetings to display</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</form>
