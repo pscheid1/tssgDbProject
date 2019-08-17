@@ -16,7 +16,7 @@ export class MeetingGetComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ms: MeetingService
-  ) {}bbbb
+  ) {}
 
   ngOnInit() {
     if (this.router.url === '/meeting/schedule') {
