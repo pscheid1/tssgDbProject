@@ -23,26 +23,25 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    // return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })
+    // return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password }) // get uri from config file. no longer used
+    alert('uri: ' + this.uri);
     return this.http.post<any>(`${this.uri}/users/authenticate`, { username, password })
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.token) {
-          // console.log('authentication.service.login: successful #######################################');
           // console.log('user: ' + JSON.stringify(user));
           // console.log('token: ' + user.token);
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
         }
-        // console.log('authentication.service.login: user =  ' + JSON.stringify(user) + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+        // console.log('authentication.service.login: user =  ' + JSON.stringify(user));
         return user;
       }));
   }
 
   logout() {
     // remove user from local storage to log user out
-    // console.log('authentication.service.logout: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
