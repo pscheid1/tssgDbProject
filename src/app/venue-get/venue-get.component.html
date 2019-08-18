@@ -40,7 +40,7 @@
         -->
             <td><a [routerLink]="['edit', venue._id]" class="btn btn-primary btn-sm">Edit</a></td>
 
-            <td><a (click)="deleteVenue(venue._id)" class="btn btn-danger btn-sm">Del</a></td>
+            <td><a (click)="deleteVenue(venue._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
           </tr>
           <tr *ngIf="!venues">
             <td colspan="10">Loading data. Please wait... </td>

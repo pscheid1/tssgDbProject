@@ -39,7 +39,7 @@
             <td>{{user.mobile}}</td>
             <td>{{!user.inActive}}</td>
             <td><a [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>
-            <td><a (click)="deleteUser(user._id)" class="btn btn-danger btn-sm">Del</a></td>
+            <td><a (click)="deleteUser(user._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
           </tr>
           <tr *ngIf="!users">
             <td colspan="5">Loading data. Please wait... </td>
