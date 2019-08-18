@@ -44,7 +44,7 @@ export class UserCreateComponent implements OnInit {
   createUser(usrForm: NgForm) {
     this.us.registerUser(this.user)
       .then(res => {
-        this.router.navigate(['user/admin']);
+        this.router.navigate(['user/get-all']);
       })
       .catch(err => {
         this.error = err;

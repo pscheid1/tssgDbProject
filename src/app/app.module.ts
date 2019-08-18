@@ -19,11 +19,11 @@ import { JwtInterceptor } from './_helpers/Jwt.Interceptor';
 import { ErrorInterceptor } from './_helpers/Error.Interceptor';
 import { TssgErrorHandler } from './_helpers/tssg.ErrorHandler';
 import { HomeComponent } from './user-home/home.component';
-import { AdminComponent } from './user-admin/admin.component';
+import { UserGetAllComponent } from './user-get-all/user-get-all.component';
 import { LoginComponent } from './user-login/login.component';
 import { LogoutComponent } from './user-logout/logout.component';
 import { UserCreateComponent } from './user-create/user-create.component';
-import { UserGetComponent } from './user-get/user-get.component';
+import { UserGetCurrComponent } from './user-get-curr/user-get-curr.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -41,11 +41,11 @@ import { NavbarComponent } from './navbar/navbar.component';
       VenueGetComponent,
       VenueEditComponent,
       HomeComponent,
-      AdminComponent,
+      UserGetAllComponent,
       LoginComponent,
       LogoutComponent,
       UserCreateComponent,
-      UserGetComponent,
+      UserGetCurrComponent,
       UserEditComponent,
       NavbarComponent
    ],

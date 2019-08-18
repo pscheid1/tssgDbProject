@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserGetComponent } from './user-get.component';
+import { UserGetAllComponent } from './user-get-all.component';
 
-describe('UserGetComponent', () => {
-  let component: UserGetComponent;
-  let fixture: ComponentFixture<UserGetComponent>;
+describe('UserGetAllComponent', () => {
+  let component: UserGetAllComponent;
+  let fixture: ComponentFixture<UserGetAllComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserGetComponent ]
+      declarations: [ UserGetAllComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserGetComponent);
+    fixture = TestBed.createComponent(UserGetAllComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,11 +7,11 @@ import { MeetingAddComponent } from './meeting-add/meeting-add.component';
 import { MeetingEditComponent } from './meeting-edit/meeting-edit.component';
 import { MeetingGetComponent } from './meeting-get/meeting-get.component';
 import { HomeComponent } from './user-home/home.component';
-import { AdminComponent } from './user-admin/admin.component';
+import { UserGetAllComponent } from './user-get-all/user-get-all.component';
 import { LoginComponent } from './user-login/login.component';
 import { LogoutComponent } from './user-logout/logout.component';
 import { UserCreateComponent } from './user-create/user-create.component';
-import { UserGetComponent } from './user-get/user-get.component';
+import { UserGetCurrComponent } from './user-get-curr/user-get-curr.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { Role } from './_models/role';
@@ -106,23 +106,23 @@ const routes: Routes = [
     data: { roles: [Role.Admin] }
   },
  {
-    path: 'user/admin',
-    component: AdminComponent,
+    path: 'user/get-all',
+    component: UserGetAllComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
   {
     path: 'user/get',
-    component: UserGetComponent,
+    component: UserGetCurrComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.User] }
   },
   {
     // the router id syntax (:name) will set the params variable name (params.name)
-    path: 'user/admin/edit/:_id',
+    path: 'user/get-all/edit/:_id',
     component: UserEditComponent,
     canActivate: [AuthGuard],
-    data: { type: 'admin', roles: [Role.Admin] }
+    data: { type: 'get-all', roles: [Role.Admin] }
   },
   {
     // the router id syntax (:name) will set the params variable name (params.name)

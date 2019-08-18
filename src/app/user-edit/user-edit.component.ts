@@ -53,8 +53,8 @@ export class UserEditComponent implements OnInit {
       this.errorMsg = '';
     }
 
-    // user-edit.component is called by both user-get.component and user-admin.component
-    // user-admin.component has role admin and can change the role of any account
+    // user-edit.component is called by both user-get.component and user-get-all.component
+    // user-get-all.component has role admin and can change the role of any account
     // user-edit.component has role user and can not change the role of any account, even it's own
     // based on the current user role we enable/disable the role input fields
     // get the role of the current user
@@ -80,8 +80,8 @@ export class UserEditComponent implements OnInit {
   }
 
   cancel() {
-    if (this.route.snapshot.data.type === 'admin') {
-      this.router.navigate(['user/admin']);
+    if (this.route.snapshot.data.type === 'get-all') {
+      this.router.navigate(['user/get-all']);
     } else {
       this.router.navigate(['user/get']);
     }
@@ -90,8 +90,8 @@ export class UserEditComponent implements OnInit {
   updateUser(userForm: any) {
     this.us.updateUser(this.user)
       .then(res => {
-        if (this.route.snapshot.data.type === 'admin') {
-          this.router.navigate(['user/admin']);
+        if (this.route.snapshot.data.type === 'get-all') {
+          this.router.navigate(['user/get-all']);
         } else {
           this.router.navigate(['user/get']);
         }

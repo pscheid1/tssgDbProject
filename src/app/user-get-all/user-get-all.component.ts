@@ -5,12 +5,12 @@ import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
-  selector: 'app-user-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-user-get-all',
+  templateUrl: './user-get-all.component.html',
+  styleUrls: ['./user-get-all.component.css']
 })
 
-export class AdminComponent implements OnInit {
+export class UserGetAllComponent implements OnInit {
     users: User[] = [];
     errorMsg = '';
 

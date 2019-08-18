@@ -6,12 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
-  selector: 'app-user-get',
-  templateUrl: './user-get.component.html',
-  styleUrls: ['./user-get.component.css']
+  selector: 'app-user-get-curr',
+  templateUrl: './user-get-curr.component.html',
+  styleUrls: ['./user-get-curr.component.css']
 })
 
-export class UserGetComponent implements OnInit {
+export class UserGetCurrComponent implements OnInit {
   currentUser: User;
   userFromApi: User;
   errorMsg = '';
