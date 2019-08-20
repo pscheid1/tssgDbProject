@@ -1,6 +1,6 @@
 {
-  "name": "tssgDbApi",
-  "version": "1.0.0",
+  "name": "tssgdbapi",
+  "version": "0.0.0",
   "description": "CRUD, Node, Mongoose",
   "main": "index.js",
   "scripts": {
