@@ -7,7 +7,7 @@
       <div class="form-group" [class.has-error]="username.invalid && username.touched"
         [class.has-success]="username.valid">
         <label for="username" class="control-label"> Username</label>
-        <input required id="username" name="username" type="text" class="form-control" [(ngModel)]="user.username"
+        <input autofocus required id="username" name="username" type="text" class="form-control" [(ngModel)]="user.username"
           #username="ngModel">
         <span class="alert alert-danger" *ngIf="username.invalid && username.touched">
           Username is required
