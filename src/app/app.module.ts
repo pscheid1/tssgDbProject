@@ -30,6 +30,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
+import { TeamAddComponent } from './team-add/team-add.component';
+import { TeamEditComponent } from './team-edit/team-edit.component';
+import { TeamGetComponent } from './team-get/team-get.component';
 
 @NgModule({
    declarations: [
@@ -47,7 +50,10 @@ import { NavbarComponent } from './navbar/navbar.component';
       UserCreateComponent,
       UserGetCurrComponent,
       UserEditComponent,
-      NavbarComponent
+      NavbarComponent,
+      TeamAddComponent,
+      TeamEditComponent,
+      TeamGetComponent
    ],
    imports: [
       BrowserModule,

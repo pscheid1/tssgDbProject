@@ -13,6 +13,10 @@ import { LogoutComponent } from './user-logout/logout.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserGetCurrComponent } from './user-get-curr/user-get-curr.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { TeamAddComponent } from './team-add/team-add.component';
+import { TeamEditComponent } from './team-edit/team-edit.component';
+import { TeamGetComponent } from './team-get/team-get.component';
+
 import { AuthGuard } from './_guards/auth.guard';
 import { Role } from './_models/role';
 
@@ -91,6 +95,33 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { type: 'schedule', roles: [Role.Admin] }
   },
+  {
+    path: 'team/create',
+    component: TeamAddComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+  {
+    // the router id syntax (:name) will set the params variable name (params.name)
+    path: 'team/edit/:_id',
+    component: TeamEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+  {
+    // the router id syntax (:name) will set the params variable name (params.name)
+    path: 'team/delete/:id',
+    component: TeamEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+  {
+    path: 'team',
+    component: TeamGetComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+
   {
     path: 'user/login',
     component: LoginComponent
