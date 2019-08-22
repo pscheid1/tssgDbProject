@@ -5,6 +5,7 @@ const cors = require('cors');
 const meeting = require('./routes/meeting.route');
 const venue = require('./routes/venue.route');
 const user = require('./routes/user.route');
+const team = require('./routes/team.route');
 const mongoose = require('mongoose');
 const errorHandler = require('./_helpers/error-handler');
 
@@ -69,6 +70,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/meetings', meeting);
 app.use('/venues', venue);
 app.use('/users', user);
+app.use('/teams', team);
 
 // global error handler
 app.use(errorHandler);

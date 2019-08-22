@@ -14,6 +14,7 @@ userRouter
 .post('/update', authorize([Role.Admin, Role.User]), user_controller.update)
 // findAll limited to roll Admin
 .get('/', authorize([Role.Admin]), user_controller.findAll)
+.get('/list', authorize([Role.Admin]), user_controller.listUsers)
 // getCurrent retrieves the user imbeded in the token regardless of role
 .get('/current', authorize([]), user_controller.getCurrent)
 // getById - Read/Update for user's account

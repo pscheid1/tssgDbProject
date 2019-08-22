@@ -43,35 +43,40 @@ module.exports = {
       .then(user => {
         if (req.body.password) {
           user.hash = bcrypt.hashSync(req.body.password, 10);
-        // save user - only need this save if we are updating the password
-        user.save();
+          // save user - only need this save if we are updating the password
+          user.save();
         }
         res.json(user)
       })
-      .catch(err =>
-        {
-          // console.log('user.controller.update: err = ' + err);
-          next(err);
-        });
+      .catch(err => {
+        // console.log('user.controller.update: err = ' + err);
+        next(err);
+      });
   },
 
   findAll: async function (req, res, next) {
     await User.find({}).select('-hash')
       .then(users => res.json(users))
-      .catch(err =>
-         {
-          // console.log('user.controller.update: err = ' + err);
-          next(err);
-        });
+      .catch(err => {
+        // console.log('user.controller.update: err = ' + err);
+        next(err);
+      });
   },
-/*
-  findAll: async function (req, res) {
-    await User.find({}, function (err, users) {
-    }).select('-hash')
+
+  // because _id is unique we don't have to worry about duplicates
+  // returns a list of user id's, fistname and lastname only, sorted on lastname
+  listUsers: async function (req, res, next) {
+    await User.find({role: { $ne: 'Contact' }})
+      .sort({lastname:1})
+      // .select({ hash: 0})
+      .select({firstname: 1, lastname: 1})
       .then(users => res.json(users))
-      .catch(err => res.status(422).json(err.message));
+      .catch(err => {
+        // console.log('user.controller.update: err = ' + err);
+        next(err);
+      });
+
   },
- */
 
   getCurrent: async function (req, res, next) {
     // console.log('user.controller.getCurrent: _id = ' + req.user._id);
