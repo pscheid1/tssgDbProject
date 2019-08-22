@@ -43,7 +43,9 @@ export class TeamAddComponent implements OnInit {
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < this.ul.length; i++) {
         this.member = this.ul[i].firstname + ' ' + this.ul[i].lastname;
-        this.leaderList.push(this.member);
+        if (this.ul[i].role === 'Admin') {
+          this.leaderList.push(this.member);
+        }
         this.memberList.push(this.member);
       }
     });
