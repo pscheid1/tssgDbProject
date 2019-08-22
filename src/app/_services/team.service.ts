@@ -40,7 +40,7 @@ export class TeamService {
   }
 
   // request a list of current team id's
-  listteams() {
+  listTeams() {
     return this.http.get(`${this.uri}/teams`);
   }
 

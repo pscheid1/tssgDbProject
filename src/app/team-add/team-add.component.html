@@ -24,17 +24,17 @@
 
       <div class="form-group">
         <label for="teamlead" class="control-label"> Team Lead (select one)</label>
-        <select required id="teamlead" name="teamlead" class="form-control" [(ngModel)]="team.teamLead"
+        <select id="teamlead" name="teamlead" class="form-control" [(ngModel)]="team.teamLead"
           #teamlead="ngModel">
-          <option *ngFor="let teamLead of users" [value]="teamLead"> {{teamLead}}</option>
+          <option *ngFor="let teamLead of leaderList" [value]="teamLead"> {{teamLead}}</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="teamlead" class="control-label"> Team Members (select many)</label>
-        <select required id="teamlead" name="teamlead" class="form-control" [(ngModel)]="team.teamLead"
-          #teamlead="ngModel">
-          <option *ngFor="let teamLead of users" [value]="teamLead"> {{teamLead}}</option>
+        <label for="members" class="control-label"> Team Members (select multiple - Ctrl-select)</label>
+        <select multiple id="members" name="members" class="form-control" [(ngModel)]="team.members"
+          #members="ngModel">
+          <option *ngFor="let members of memberList" [value]="members"> {{members}}</option>
         </select>
       </div>
 

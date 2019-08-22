@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormBuilder, FormGroup, NgModel } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router'; // added by PS
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MeetingService } from '../_services/meeting.service';
 import Meeting from 'src/app/_models/Meeting';
 import { VenueService } from '../_services/venue.service';

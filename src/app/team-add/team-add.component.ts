@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../_services/team.service';
 import { Team } from 'src/app/_models/Team';
+// import { User } from 'src/app/_models/User';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-team-add',
@@ -21,30 +23,45 @@ export class TeamAddComponent implements OnInit {
 
   errorMsg = '';
 
-  users = ['Bugs Bunny', 'Donald Duck', 'Elmer Fudd'];
+  // leaderList = ['Bugs Bunny', 'Donald Duck', 'Elmer Fudd'];
+  // memberList = ['Bugs Bunny', 'Donald Duck', 'Elmer Fudd', 'Porky Pig', 'Mickey Mouse', 'Gyro Gearloose'];
+  leaderList = new Array();
+  memberList = new Array();
+  ul: any;
+  member: string;
 
-constructor(
-  private route: ActivatedRoute,
-  private router: Router,
-  private vs: TeamService) {
-}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private ts: TeamService,
+    private us: UserService) {
+  }
 
-ngOnInit() {
-}
-
-cancel() {
-  this.router.navigate(['/']);
-}
-
-addTeam(teamForm: NgForm) {
-  this.vs.addteam(this.team)
-    .then(res => {
-      this.router.navigate(['team']);
-    })
-    .catch(err => {
-      this.errorMsg = err;
+  ngOnInit() {
+    this.us.listUsers().subscribe(u => {
+      this.ul = u;
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < this.ul.length; i++) {
+        this.member = this.ul[i].firstname + ' ' + this.ul[i].lastname;
+        this.leaderList.push(this.member);
+        this.memberList.push(this.member);
+      }
     });
-}
+  }
+
+  cancel() {
+    this.router.navigate(['/']);
+  }
+
+  addTeam(teamForm: NgForm) {
+    this.ts.addteam(this.team)
+      .then(res => {
+        this.router.navigate(['team']);
+      })
+      .catch(err => {
+        this.errorMsg = err;
+      });
+  }
 
 }
 

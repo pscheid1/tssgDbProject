@@ -42,8 +42,13 @@ export class UserService {
     return this.http.get<User>(`${this.uri}/current`);
   }
 
+  // request a list of current users - id, firstname, lastname only
+  listUsers() {
+    return this.http.get(`${this.uri}/list`);
+  }
+
   getById(_id: string) {
-    console.log('user.service.getById: _id = ' + _id);
+    // console.log('user.service.getById: _id = ' + _id);
     return this.http.get(`${this.uri}/edit/` + _id);
   }
 
