@@ -3,16 +3,17 @@ const Schema = mongoose.Schema;    // see not below.
 
 let MeetingSchema = new Schema({
 
-    _id: { type: String, required: true },          // unique id for his meeting
-    venue: {                                        // _id of venue item
+    _id: { type: String, required: true, trim: true },      // unique id for his meeting
+    venue: {                                                // _id of venue item
         type: Schema.Types.String,
-        ref: 'venue',                               // links meeting to a venue
-        required: true
+        ref: 'venue', 
+        required: true,
+        trim: true                                          // links meeting to a venue
     },
-    meetingDate: { type: Date, required: true },    // Date of the meeting. Time component is always 0.
-    startTime: { type: Date, required: true },      // Meeting start date and time
-    endTime: { type: Date, required: true },        // Meeting end date and time
-    comments: {type: String, required: true}       // Free format text
+    meetingDate: { type: Date, required: true },            // Date of the meeting. Time component is always 0.
+    startTime: { type: Date, required: true },              // Meeting start date and time
+    endTime: { type: Date, required: true },                // Meeting end date and time                     
+    comments: {type: String, required: true, trim: true}    // Free format text
 
 }, { autoIndex: true });
 
