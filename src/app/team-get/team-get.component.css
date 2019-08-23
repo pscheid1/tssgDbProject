@@ -23,7 +23,7 @@ td {
 
 .panel-heading {
   position: fixed;
-  width: 98%;
+  /* width: 98%; */
   z-index: 50;
   background-color: white;
 }

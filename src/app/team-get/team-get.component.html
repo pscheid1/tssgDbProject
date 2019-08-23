@@ -38,7 +38,7 @@
 
               <td><a (click)="deleteTeam(team._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
             </tr>
-            <tr *ngIf="!venues">
+            <tr *ngIf="!teams">
               <td colspan="10">Loading data. Please wait... </td>
             </tr>
             <tr *ngIf="teams && teams.length==0">

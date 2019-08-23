@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export class Team {
+export default class Team {
   _id: string;
   description: string;
   teamLead: string;
