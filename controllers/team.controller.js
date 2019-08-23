@@ -1,22 +1,5 @@
 const Team = require("../models/team.model");
 
-function toarray(s) {
-    let teamIds = new Array();
-    var tempStr;
-    var i1;
-    var i2;
-
-    for (i = 0; i < s.length; i++) {
-        tempStr = s[i].toString();
-        i1 = tempStr.indexOf("'");
-        i2 = tempStr.lastIndexOf("'");
-        if (i1 === -1 || i2 === -1) continue;
-        teamIds.push(tempStr.substring(++i1, i2));
-    }
-
-    return teamIds;
-};
-
 module.exports = {
 
     create: async function (req, res, next) {
