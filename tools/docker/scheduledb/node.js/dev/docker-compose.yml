@@ -5,14 +5,16 @@ services:
     build:
       context: .
       dockerfile: node-dev.Dockerfile
-    image: "node-dev:0.0.0"
+    image: "node-dev:0.1.0"
     user: "node"
     working_dir: /home/node/app
+    stdin_open: true
+    tty: true
     environment:
      - NODE_ENV=production
     volumes:
      - ./app:/home/node/app
     expose:
      - "8888"
-    command: "/usr/bin/env bash"
+       # command: "/usr/bin/env bash"
 
