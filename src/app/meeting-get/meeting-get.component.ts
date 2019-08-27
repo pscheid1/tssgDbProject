@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MeetingGetComponent implements OnInit {
   meetings: Meeting[];
   heading = '';
+  errorMsg = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +33,25 @@ export class MeetingGetComponent implements OnInit {
     }
   }
 
+  // deleteMeeting(_id) {
+  //   this.ms.deleteMeeting(_id).subscribe(res => {
+  //     this.ngOnInit(); // added by ps to refresh the page after deletion.
+  //   });
+
   deleteMeeting(_id) {
-    this.ms.deleteMeeting(_id).subscribe(res => {
-      this.ngOnInit(); // added by ps to refresh the page after deletion.
-    });
+    this.ms.deleteMeeting(_id)
+      .then(res => {
+        this.ngOnInit(); // added by ps to refresh the page after deletion.
+      })                    //;
+      .catch(err => {
+        this.errorMsg = err;
+        // ensure href does not already contain '#bottom'
+        // if not, add '#bottom' to scroll page to bottom to
+        // insure error message is visable
+        if ((window.location.href).indexOf('#bottom') < 0) {
+          window.location.href = window.location.href + '#bottom';
+        }
+      });
+
   }
 }

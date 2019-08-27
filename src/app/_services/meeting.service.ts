@@ -24,9 +24,31 @@ export class MeetingService {
     return body || {};
   }
 
-  private handleErrorPromise(error: HttpErrorResponse | any) {
-    return Promise.reject(error.message || error);
+  private handleErrorPromise(error: Error | HttpErrorResponse) {
+    if (error instanceof HttpErrorResponse) {
+      // Server or connection error happened
+      if (!navigator.onLine) {
+        // Handle offline error
+        console.error('meeging.service.handleErrorPromise offline error: ' + error);
+      } else {
+        // Handle Http Error (error.status === 403, 404...)
+        // alert('Http Error');
+        HttpErrorResponse.toString();
+        console.error('meeting.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
+      }
+    } else {
+      console.error('meeting.service.handleErrorPromise Error: ' + error);
+      console.error('meeting.service.handleErrorPromise Error: name ' + error.name + ' - message ' + error.message);
+    }
+
+    return Promise.reject(error || error.message);
   }
+
+
+
+  // private handleErrorPromise(error: HttpErrorResponse | any) {
+  //   return Promise.reject(error.message || error);
+  // }
 
   async addMeeting(obj: Meeting) {
     // console.log('meeting date: ' + obj.meetingDate);
@@ -68,8 +90,16 @@ export class MeetingService {
     );
   }
 
+  // deleteMeeting(_id) {
+  //   return this.http.get(`${this.uri}/delete/${_id}`);
+  // }
+
   deleteMeeting(_id) {
-    return this.http.get(`${this.uri}/delete/${_id}`);
+    console.error('Meeting.service.ts - _id:' + _id);
+    return this.http.get(`${this.uri}/delete/${_id}`)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleErrorPromise);
   }
 
   // post meeting data to update back to the node server. called from meeting-edit.component.ts
