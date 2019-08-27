@@ -74,9 +74,19 @@ module.exports = {
 
   // delete a specific entry by _id
   delete: function (req, res) {
-    Venue.findByIdAndDelete(req.params._id)
-      .then(venue => res.json(venue + ": deleted"))
-      .catch(err => res.status(422).json(err));
+    req.params._id = 'abc123ABC456';
+    console.log('venue *********************: ' + req.params._id);
+    Venue.findByIdAndDelete(req.params._id)    
+      .then(venue => {
+        console.log('venue.controller.delete: ' + venue._id + ' deleted.');
+        res.json(venue + ": deleted");
+      })
+      .catch(err => {
+        console.log('venue.controller.delete - err: ' + err.name + ':' + err.message);
+        err.message = ' Not Found - ' + err.message;
+        console.log('venue.controller.delete - err: ' + err.name + ':' + err.message);
+        res.status(404).json(err.code);
+      });
   },
 
   //Simple version, without validation or sanitation
