@@ -30,9 +30,30 @@ export class UserService {
     return body || {};
   }
 
-  private handleErrorPromise (error: HttpErrorResponse | any) {
-    return Promise.reject(error.message || error);
+  private handleErrorPromise(error: Error | HttpErrorResponse) {
+    if (error instanceof HttpErrorResponse) {
+      // Server or connection error happened
+      if (!navigator.onLine) {
+        // Handle offline error
+        console.error('user.service.handleErrorPromise offline error: ' + error);
+      } else {
+        // Handle Http Error (error.status === 403, 404...)
+        // alert('Http Error');
+        HttpErrorResponse.toString();
+        console.error('user.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
+      }
+    } else {
+      console.error('user.service.handleErrorPromise Error: ' + error);
+      console.error('user.service.handleErrorPromise Error: name ' + error.name + ' - message ' + error.message);
+    }
+
+    return Promise.reject(error || error.message);
   }
+
+
+  // private handleErrorPromise (error: HttpErrorResponse | any) {
+  //   return Promise.reject(error.message || error);
+  // }
 
   getAll() {
     return this.http.get<User[]>(`${this.uri}`);
@@ -53,6 +74,7 @@ export class UserService {
   }
 
   async deleteUser(_id: string) {
+    console.error('Meeting.service.ts - _id:' + _id);
     return await this.http.get(`${this.uri}/delete/${_id}`)
     // return await this.http.get(`${uri}/delete/5d0516139da64c4facd357fb`)
     .toPromise()

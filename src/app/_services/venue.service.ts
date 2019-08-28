@@ -82,9 +82,9 @@ export class VenueService {
   //   return this.http.get(`${this.uri}/delete/${_id}`);
   // }
 
-  deleteVenue(_id) {
+  async deleteVenue(_id) {
     console.error('venue.service.ts - _id:' + _id);
-    return this.http.get(`${this.uri}/delete/${_id}`)
+    return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);

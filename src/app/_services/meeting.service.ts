@@ -29,7 +29,7 @@ export class MeetingService {
       // Server or connection error happened
       if (!navigator.onLine) {
         // Handle offline error
-        console.error('meeging.service.handleErrorPromise offline error: ' + error);
+        console.error('meeting.service.handleErrorPromise offline error: ' + error);
       } else {
         // Handle Http Error (error.status === 403, 404...)
         // alert('Http Error');
@@ -94,9 +94,9 @@ export class MeetingService {
   //   return this.http.get(`${this.uri}/delete/${_id}`);
   // }
 
-  deleteMeeting(_id) {
+  async deleteMeeting(_id) {
     console.error('Meeting.service.ts - _id:' + _id);
-    return this.http.get(`${this.uri}/delete/${_id}`)
+    return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);

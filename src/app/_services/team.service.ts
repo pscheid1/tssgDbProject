@@ -23,9 +23,31 @@ export class TeamService {
     return body || {};
   }
 
-  private handleErrorPromise (error: HttpErrorResponse | any) {
-    return Promise.reject(error.message || error);
+  private handleErrorPromise(error: Error | HttpErrorResponse) {
+    if (error instanceof HttpErrorResponse) {
+      // Server or connection error happened
+      if (!navigator.onLine) {
+        // Handle offline error
+        console.error('team.service.handleErrorPromise offline error: ' + error);
+      } else {
+        // Handle Http Error (error.status === 403, 404...)
+        // alert('Http Error');
+        HttpErrorResponse.toString();
+        console.error('team.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
+      }
+    } else {
+      console.error('team.service.handleErrorPromise Error: ' + error);
+      console.error('team.service.handleErrorPromise Error: name ' + error.name);
+      console.error('team.service.handleErrorPromise Error: message ' + error.message);
+    }
+
+    return Promise.reject(error || error.message);
   }
+
+
+  // private handleErrorPromise (error: HttpErrorResponse | any) {
+  //   return Promise.reject(error.message || error);
+  // }
 
   async addteam(obj: Team){
     return await this.http.post(`${this.uri}/add`, obj)
@@ -54,8 +76,16 @@ export class TeamService {
             // .get(this.uri + '/edit/' + _id);
     }
 
-  deleteteam(_id) {
-    return this.http.get(`${this.uri}/delete/${_id}`);
+  // async deleteteam(_id) {
+  //   return await this.http.get(`${this.uri}/delete/${_id}`);
+  // }
+
+  async deleteteam(_id) {
+    console.error('team.service.ts - _id:' + _id);
+    return await this.http.get(`${this.uri}/delete/${_id}`)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleErrorPromise);
   }
 
   async updateteam(obj: Team) {
