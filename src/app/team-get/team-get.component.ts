@@ -23,17 +23,12 @@ errorMsg = '';
     });
   }
 
-  // deleteTeam(_id) {
-  //   this.ts.deleteteam(_id).subscribe(res => {
-  //     this.ngOnInit(); // added by ps to refresh the page after deletion.
-  //   });
-  // }
-
   deleteTeam(_id) {
+    this.errorMsg = '';
     this.ts.deleteteam(_id)
       .then(res => {
         this.ngOnInit(); // added by ps to refresh the page after deletion.
-      })                    //;
+      })
       .catch(err => {
         // err is an instance of TypeError.  I have not found any way to
         // get meaningful information back.  I'm forcing the 'Not Found' below

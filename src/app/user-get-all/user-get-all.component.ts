@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -26,6 +25,7 @@ export class UserGetAllComponent implements OnInit {
     }
 
     deleteUser(_id) {
+      this.errorMsg = '';
       this.us.deleteUser(_id)
       .then(res => {
         this.ngOnInit(); // refresh the page after deletion.
@@ -41,7 +41,6 @@ export class UserGetAllComponent implements OnInit {
         if ((window.location.href).indexOf('#bottom') < 0) {
           window.location.href = window.location.href + '#bottom';
         }
-      })
+      });
     }
-
 }

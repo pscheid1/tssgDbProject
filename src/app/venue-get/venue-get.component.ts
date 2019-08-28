@@ -25,10 +25,11 @@ export class VenueGetComponent implements OnInit {
   }
 
   deleteVenue(_id) {
+    this.errorMsg = '';
     this.vs.deleteVenue(_id)
       .then(res => {
-        this.ngOnInit(); // added by ps to refresh the page after deletion.
-      })                    //;
+        this.ngOnInit();
+      })
       .catch(err => {
         // err is an instance of TypeError.  I have not found any way to
         // get meaningful information back.  I'm forcing the 'Not Found' below
