@@ -53,8 +53,8 @@ module.exports = {
 
   // because _id is unique we don't have to worry about duplicates
   // returns a list of venue id's only
-  listVenues: function (req, res, next) {
-    Venue.find({}, { _id: 1 }, function (err, venue) { })
+  listVenues: async function (req, res, next) {
+    await Venue.find({}, { _id: 1 }, function (err, venue) { })
       .sort({ _id: 1 })
       // toarray() returns a sorted list of venue _id's
       .then(venues => res.json(toarray(venues)))

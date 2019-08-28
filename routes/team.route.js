@@ -9,7 +9,7 @@ const team_controller = require('../controllers/team.controller');
 teamRouter
 
 .get('/', authorize([Role.Admin]), team_controller.findAll)
-// .get('/users', authorize([Role.Admin]), user_controller.listUsers)
+.get('/teams', authorize([Role.Admin]), team_controller.listTeams)
 .get('/edit/:_id', authorize([Role.Admin]), team_controller.findOne)
 .post('/update', authorize([Role.Admin]), team_controller.update)
 .post('/add', authorize([Role.Admin]), team_controller.create)

@@ -4,11 +4,17 @@ const Schema = mongoose.Schema;    // see not below.
 let MeetingSchema = new Schema({
 
     _id: { type: String, required: true, trim: true },      // unique id for his meeting
-    venue: {                                                // _id of venue item
+    team: {                                                 // _id of team
         type: Schema.Types.String,
-        ref: 'venue', 
+        ref: 'team',                                        // links meeting to a team 
         required: true,
-        trim: true                                          // links meeting to a venue
+        trim: true
+    },
+    venue: {                                                // _id of venue
+        type: Schema.Types.String,
+        ref: 'venue',                                       // links meeting to a venue
+        required: true,
+        trim: true
     },
     meetingDate: { type: Date, required: true },            // Date of the meeting. Time component is always 0.
     startTime: { type: Date, required: true },              // Meeting start date and time

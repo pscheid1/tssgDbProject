@@ -15,7 +15,7 @@ module.exports = {
   create: async function (req, res, next) {
     // update date component of startTime (timepicker will create it with today's date)
     req.body.startTime = updateDate(req.body.meetingDate, req.body.startTime);
-    // update date component of endTime http://chelmsfordlibrary.evanced.info/signup/Calendar
+    // update date component of endTime (timepicker will create it with today's date)
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
     await Meeting.create(req.body)
       .then(newMeeting => res.json(newMeeting))
@@ -80,7 +80,7 @@ module.exports = {
       .sort({ startTime: 1 })
       .limit(3)
       .then(meetings => res.json(meetings))
-      .catch(err => res.status(422).json(err.message));
+      .catch(err => res.status(404).json(err.message));
   },
 
   // webSchedule is identical to schedule (above) except
@@ -92,7 +92,7 @@ module.exports = {
       .limit(3)
       .populate('venue')
       .then(meetings => res.json(meetings))
-      .catch(err => res.status(422).json(err.message));
+      .catch(err => res.status(404).json(err.message));
   },
 
 
