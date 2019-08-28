@@ -60,10 +60,10 @@ module.exports = {
   },
 
   // delete a specific entry by _id
-  delete: function (req, res) {
+  delete: async function (req, res) {
     req.params._id = 'abc123ABC456';
     console.log('meeting *********************: ' + req.params._id);
-    Meeting.findByIdAndDelete(req.params._id)
+    await Meeting.findByIdAndDelete(req.params._id)
       .then(meeting => {
       console.log('meeting.controller.delete: ' + meeting._id + ' deleted.');
       res.json(meeting + ": deleted");

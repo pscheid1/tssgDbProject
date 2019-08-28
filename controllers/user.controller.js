@@ -93,18 +93,35 @@ module.exports = {
       .catch(err => next(err));
   },
 
-  delete: async function (req, res) {
-    await User.findByIdAndDelete(req.params._id)
-      .then(successResponse => {
-        if (successResponse) {
-          // console.log('user.controller.delete success');
-          res.status(200).json('' + req.params._id + ' deleted.');
-        } else {
-          // console.log('user.controller.delete failed');
-          res.status(404).json({ 'error': 'delete ' + req.params._id + ' failed.' });
-        }
-      });
-  }
+  // delete: async function (req, res) {
+  //   await User.findByIdAndDelete(req.params._id)
+  //     .then(successResponse => {
+  //       if (successResponse) {
+  //         // console.log('user.controller.delete success');
+  //         res.status(200).json('' + req.params._id + ' deleted.');
+  //       } else {
+  //         // console.log('user.controller.delete failed');
+  //         res.status(404).json({ 'error': 'delete ' + req.params._id + ' failed.' });
+  //       }
+  //     });
+  // }
+
+    // delete a specific entry by _id
+    delete: async function (req, res) {
+      req.params._id = 'abc123ABC456';
+      console.log('user *********************: ' + req.params._id);
+      await User.findByIdAndDelete(req.params._id)
+        .then(user => {
+        console.log('user.controller.delete: ' + user._id + ' deleted.');
+        res.json(user + ": deleted");
+        })
+        .catch(err => {
+          console.log('user.controller.delete - err: ' + err.name + ':' + err.message);
+          err.message = ' Not Found - ' + err.message;
+          console.log('user.controller.delete - err: ' + err.name + ':' + err.message);
+          res.status(404).json(err.code);
+        });
+      }  
 };
 
 // User services
