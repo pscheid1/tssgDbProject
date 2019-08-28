@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MeetingService } from '../_services/meeting.service';
 import Meeting from 'src/app/_models/Meeting';
 import { VenueService } from '../_services/venue.service';
+import { TeamService } from '../_services/team.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 
@@ -19,6 +20,7 @@ export class MeetingAddComponent implements OnInit {
 
   meeting: Meeting = {
     _id: null,
+    team: null,
     venue: null,
     meetingDate: null,
     startTime: null,
@@ -28,6 +30,7 @@ export class MeetingAddComponent implements OnInit {
 
   newMeeting: Meeting = {
     _id: null,
+    team: null,
     venue: null,
     meetingDate: null,
     startTime: null,
@@ -40,13 +43,14 @@ export class MeetingAddComponent implements OnInit {
   sstep = 10;
 
   venues: any = [];
-
+  teams: any = [];
   errorMsg = '';
 
   constructor(
     private router: Router,
     private ms: MeetingService,
-    private vs: VenueService
+    private vs: VenueService,
+    private ts: TeamService
   ) {
     this.datePickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
@@ -58,12 +62,15 @@ export class MeetingAddComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.vs.listVenues().subscribe(v => {
+    this.vs.listVenues().subscribe(v => {
       this.venues = v;
+    });
+    this.ts.listTeams().subscribe(t => {
+      this.teams = t;
     });
   }
 
-  cancel( ) {
+  cancel() {
     this.router.navigate(['/']);
   }
 

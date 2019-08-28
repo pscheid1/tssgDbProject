@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MeetingService } from '../_services/meeting.service';
 import Meeting from 'src/app/_models/Meeting';
 import { VenueService } from '../_services/venue.service';
+import { TeamService } from '../_services/team.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
@@ -17,6 +18,7 @@ export class MeetingEditComponent implements OnInit {
 
   meeting: Meeting = {
     _id: null,
+    team: null,
     venue: null,
     meetingDate: null,
     startTime: null,
@@ -29,6 +31,7 @@ export class MeetingEditComponent implements OnInit {
   sstep = 10;
 
   venues: any = [];
+  teams: any = [];
 
   typeOf = '';
   errorMsg = '';
@@ -37,7 +40,8 @@ export class MeetingEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ms: MeetingService,
-    private vs: VenueService
+    private vs: VenueService,
+    private ts: TeamService
   ) {
     this.datePickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
@@ -50,6 +54,9 @@ export class MeetingEditComponent implements OnInit {
   // get the data from the node server and display in meeting-edit.component.html file
   // the params variable name is determined by path declaration using :variable in the app-routing.module.ts
   ngOnInit() {
+    this.ts.listTeams().subscribe(t => {
+      this.teams = t;
+    });
     this.vs.listVenues().subscribe(v => {
       this.venues = v;
       if (this.route.snapshot.data.type === 'schedule') {
