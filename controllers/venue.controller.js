@@ -19,12 +19,12 @@ function toarray(s) {
 
 module.exports = {
 
-  create: async function(req, res, next) {
+  create: async function (req, res, next) {
     await Venue.create(req.body)
-    .then(newVenue => res.json(newVenue))
-    .catch(err => {
-      next(err);
-    });
+      .then(newVenue => res.json(newVenue))
+      .catch(err => {
+        next(err);
+      });
   },
 
   update: async function (req, res, next) {
@@ -73,18 +73,13 @@ module.exports = {
   },
 
   // delete a specific entry by _id
-  delete: function (req, res) {
-    req.params._id = 'abc123ABC456';
-    console.log('venue *********************: ' + req.params._id);
-    Venue.findByIdAndDelete(req.params._id)    
+  delete: async function (req, res) {
+    await Venue.findByIdAndDelete(req.params._id)
       .then(venue => {
-        console.log('venue.controller.delete: ' + venue._id + ' deleted.');
-        res.json(venue + ": deleted");
+        // if removed, then removed venue is returned
+        res.status(200).json('' + venue._id + ': deleted.');
       })
       .catch(err => {
-        console.log('venue.controller.delete - err: ' + err.name + ':' + err.message);
-        err.message = ' Not Found - ' + err.message;
-        console.log('venue.controller.delete - err: ' + err.name + ':' + err.message);
         res.status(404).json(err.code);
       });
   },

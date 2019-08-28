@@ -47,29 +47,13 @@ module.exports = {
     },
 
     // delete a specific entry by _id
-    delete: function (req, res) {
-        req.params._id = 'abc123ABC456';
-        console.log('team *********************: ' + req.params._id);
-        Team.findByIdAndDelete(req.params._id)
+    delete: async function (req, res) {
+        await Team.findByIdAndDelete(req.params._id)
             .then(team => {
-                console.log('team.controller.delete: ' + team._id + ' deleted.');
-                res.json(team + ": deleted");
+                // if removed, then removed team is returned
+                res.status(200).json('' + team._id + ': deleted.');
             })
             .catch(err => {
-                // console.log(err instanceof TypeError);
-                // console.log(err.message);
-                // console.log(err.name);
-                // console.log(err.fileName);
-                // console.log(err.lineNumber);
-                // console.log(err.columnNumber);
-                // console.log(err.stack);
-                // This is dog shit.  Doesn't matter what is in err
-                // The returned message is meaningless.
-                // I don't know where I found the .code suffix but 
-                // it forces a message to be displayed.  Other wise, 
-                // it just displays a short expression for status code.
-                // Actually .code is meaningless.  You can put anything
-                // there.  .bullshit works just as well.
                 res.status(404).json(err.code);
             });
     },

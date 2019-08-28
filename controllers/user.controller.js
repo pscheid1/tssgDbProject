@@ -66,10 +66,10 @@ module.exports = {
   // because _id is unique we don't have to worry about duplicates
   // returns a list of user id's, fistname and lastname only, sorted on lastname
   listUsers: async function (req, res, next) {
-    await User.find({role: { $ne: 'Contact' }})
-      .sort({lastname:1})
+    await User.find({ role: { $ne: 'Contact' } })
+      .sort({ lastname: 1 })
       // .select({ hash: 0})
-      .select({firstname: 1, lastname: 1, role: 1})
+      .select({ firstname: 1, lastname: 1, role: 1 })
       .then(users => res.json(users))
       .catch(err => {
         // console.log('user.controller.update: err = ' + err);
@@ -93,35 +93,17 @@ module.exports = {
       .catch(err => next(err));
   },
 
-  // delete: async function (req, res) {
-  //   await User.findByIdAndDelete(req.params._id)
-  //     .then(successResponse => {
-  //       if (successResponse) {
-  //         // console.log('user.controller.delete success');
-  //         res.status(200).json('' + req.params._id + ' deleted.');
-  //       } else {
-  //         // console.log('user.controller.delete failed');
-  //         res.status(404).json({ 'error': 'delete ' + req.params._id + ' failed.' });
-  //       }
-  //     });
-  // }
-
-    // delete a specific entry by _id
-    delete: async function (req, res) {
-      req.params._id = 'abc123ABC456';
-      console.log('user *********************: ' + req.params._id);
-      await User.findByIdAndDelete(req.params._id)
-        .then(user => {
-        console.log('user.controller.delete: ' + user._id + ' deleted.');
-        res.json(user + ": deleted");
-        })
-        .catch(err => {
-          console.log('user.controller.delete - err: ' + err.name + ':' + err.message);
-          err.message = ' Not Found - ' + err.message;
-          console.log('user.controller.delete - err: ' + err.name + ':' + err.message);
-          res.status(404).json(err.code);
-        });
-      }  
+  // delete a specific entry by _id
+  delete: async function (req, res) {
+    await User.findByIdAndDelete(req.params._id)
+      .then(user => {
+        // if removed, then removed user is returned
+        res.status(200).json('' + user._id + ': deleted.');
+      })
+      .catch(err => {
+        res.status(404).json(err.code);
+      });
+  }
 };
 
 // User services

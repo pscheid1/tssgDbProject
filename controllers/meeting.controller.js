@@ -61,17 +61,12 @@ module.exports = {
 
   // delete a specific entry by _id
   delete: async function (req, res) {
-    req.params._id = 'abc123ABC456';
-    console.log('meeting *********************: ' + req.params._id);
     await Meeting.findByIdAndDelete(req.params._id)
       .then(meeting => {
-      console.log('meeting.controller.delete: ' + meeting._id + ' deleted.');
-      res.json(meeting + ": deleted");
+        // if removed, then removed meeting is returned
+        res.status(200).json('' + meeting._id + ': deleted.');
       })
       .catch(err => {
-        console.log('meeting.controller.delete - err: ' + err.name + ':' + err.message);
-        err.message = ' Not Found - ' + err.message;
-        console.log('meeting.controller.delete - err: ' + err.name + ':' + err.message);
         res.status(404).json(err.code);
       });
   },
