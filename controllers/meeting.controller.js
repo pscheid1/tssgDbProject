@@ -46,7 +46,7 @@ module.exports = {
   // return a list of all meeting entries
   findAll: function (req, res) {
     Meeting.find({}, function (err, meeting) { })
-      .sort({ meetingDate: 1, startTime: 1 })
+      .sort({ team: 1, meetingDate: 1, startTime: 1 })
       .then(meetings => res.json(meetings))
       .catch(err => res.status(422).json(err.message));
   },
@@ -71,28 +71,45 @@ module.exports = {
       });
   },
 
+  // schedule filters meetings by team and endTime with a limit of 3.
   // we compare aginst endTime becuase it has the meeting date and endTime.
   // meetingDate has no time component.  Using endTime is a less complicated
   // way to compare witn new Date() and get an entry for the current day
   // as long as the endTime is greater than the current time.
-  schedule: function (req, res, next) {
-    Meeting.find({ endTime: { $gt: new Date() } })
+  schedule: async function (req, res, next) {
+    await Meeting.find({ team: req.params.team, endTime: { $gt: new Date() } })
       .sort({ startTime: 1 })
       .limit(3)
+      // don't need to populate venue and team. we are only interested in the 
+      // link itself, not the contents they point to.
+      // .populate(['venue', 'team'])
       .then(meetings => res.json(meetings))
       .catch(err => res.status(404).json(err.message));
   },
 
+  // webSchedule is unrestricted (public access)
   // webSchedule is identical to schedule (above) except
-  // it populates the venue field with data from
-  // the venue collection
-  webSchedule: function (req, res, next) {
-    Meeting.find({ endTime: { $gt: new Date() } })
+  // it populates the team and venue fields with data from
+  // the their respective collection
+  webSchedule: async function (req, res, next) {
+    if (req.params.team === 'default') {
+      req.params.team = process.env.tssgApiDefaultTeam;
+    }
+    // console.log('meeting.controller.webSchedule: team = ' + req.params.team);
+    await Meeting.find({ team: req.params.team, endTime: { $gt: new Date() } })
       .sort({ startTime: 1 })
       .limit(3)
-      .populate('venue')
-      .then(meetings => res.json(meetings))
-      .catch(err => res.status(404).json(err.message));
+      .populate(['team', 'venue'])
+      .then(meetings => {
+        //  display meetings for debugging
+        // console.log(JSON.stringify({meetings}));
+        res.json(meetings);
+      })
+      .catch(err => {
+        // display error message for debugging
+        // console.log(err.message);
+        res.status(404).json(err.message);
+      });
   },
 
 

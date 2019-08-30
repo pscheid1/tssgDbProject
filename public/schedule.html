@@ -33,7 +33,7 @@ var scheduleData = null;
           scheduleData = this.responseText;
         }
       }
-      var xserver = location.origin + "/meetings/webSchedule";
+      var xserver = location.origin + "/meetings/webSchedule/default";
       xhttp.open("GET", xserver, false);
       xhttp.send();
 

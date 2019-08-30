@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -6,7 +7,6 @@ const meeting = require('./routes/meeting.route');
 const venue = require('./routes/venue.route');
 const user = require('./routes/user.route');
 const team = require('./routes/team.route');
-const mongoose = require('mongoose');
 const errorHandler = require('./_helpers/error-handler');
 
 const path = require('path');

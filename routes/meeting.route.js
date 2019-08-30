@@ -14,6 +14,7 @@ meetingRouter
 .post('/add', authorize([Role.Admin]), meeting_controller.create)
 .get('/delete/:_id', authorize([Role.Admin]), meeting_controller.delete)
 .get('/schedule', authorize([Role.Admin]),meeting_controller.schedule)
-.get('/webSchedule', meeting_controller.webSchedule)
+.get('/schedule/:team', authorize([Role.Admin]),meeting_controller.schedule)
+.get('/webSchedule/:team', meeting_controller.webSchedule)
 
 module.exports = meetingRouter;

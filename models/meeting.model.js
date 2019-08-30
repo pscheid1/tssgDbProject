@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const Team = require('../models/team.model');
+const Venue = require('../models/venue.model');
+
 const Schema = mongoose.Schema;    // see not below.
 
 let MeetingSchema = new Schema({
@@ -6,13 +9,13 @@ let MeetingSchema = new Schema({
     _id: { type: String, required: true, trim: true },      // unique id for his meeting
     team: {                                                 // _id of team
         type: Schema.Types.String,
-        ref: 'team',                                        // links meeting to a team 
+        ref: Team,                                        // links meeting to a team 
         required: true,
         trim: true
     },
     venue: {                                                // _id of venue
         type: Schema.Types.String,
-        ref: 'venue',                                       // links meeting to a venue
+        ref: Venue,                                       // links meeting to a venue
         required: true,
         trim: true
     },
