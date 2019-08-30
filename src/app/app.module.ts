@@ -33,6 +33,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TeamAddComponent } from './team-add/team-add.component';
 import { TeamEditComponent } from './team-edit/team-edit.component';
 import { TeamGetComponent } from './team-get/team-get.component';
+import { MeetingGetScheduleComponent } from './meeting-get-schedule/meeting-get-schedule.component';
 
 @NgModule({
    declarations: [
@@ -53,7 +54,8 @@ import { TeamGetComponent } from './team-get/team-get.component';
       NavbarComponent,
       TeamAddComponent,
       TeamEditComponent,
-      TeamGetComponent
+      TeamGetComponent,
+      MeetingGetScheduleComponent
    ],
    imports: [
       BrowserModule,

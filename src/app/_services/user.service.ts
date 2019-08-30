@@ -38,7 +38,6 @@ export class UserService {
         console.error('user.service.handleErrorPromise offline error: ' + error);
       } else {
         // Handle Http Error (error.status === 403, 404...)
-        // alert('Http Error');
         HttpErrorResponse.toString();
         console.error('user.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
       }

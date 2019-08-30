@@ -6,6 +6,7 @@ import { VenueGetComponent } from './venue-get/venue-get.component';
 import { MeetingAddComponent } from './meeting-add/meeting-add.component';
 import { MeetingEditComponent } from './meeting-edit/meeting-edit.component';
 import { MeetingGetComponent } from './meeting-get/meeting-get.component';
+import { MeetingGetScheduleComponent } from './meeting-get-schedule/meeting-get-schedule.component';
 import { HomeComponent } from './user-home/home.component';
 import { UserGetAllComponent } from './user-get-all/user-get-all.component';
 import { LoginComponent } from './user-login/login.component';
@@ -76,8 +77,15 @@ const routes: Routes = [
   },
   {
     // the router id syntax (:name) will set the params variable name (params.name)
-    path: 'meeting/schedule',
+    path: 'meeting/schedule/:team',
     component: MeetingGetComponent,
+    canActivate: [AuthGuard],
+    data: { type: 'schedule', roles: [Role.Admin] }
+  },
+  {
+    // the router id syntax (:name) will set the params variable name (params.name)
+    path: 'meeting/get/schedule',
+    component: MeetingGetScheduleComponent,
     canActivate: [AuthGuard],
     data: { type: 'schedule', roles: [Role.Admin] }
   },

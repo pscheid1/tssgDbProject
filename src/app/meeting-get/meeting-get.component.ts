@@ -17,13 +17,15 @@ export class MeetingGetComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ms: MeetingService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    if (this.router.url === '/meeting/schedule') {
-      this.heading = 'List Next 3 Meetings';
-      this.ms.getSchedule().subscribe((data: Meeting[]) => {
-        this.meetings = data;
+    if (this.route.snapshot.data.type === 'schedule') {
+      this.route.params.subscribe(params => {
+        this.heading = 'Meetings for Team: ' + params.team;
+        this.ms.getSchedule(`${params.team}`).subscribe((data: Meeting[]) => {
+          this.meetings = data;
+        });
       });
     } else {
       this.heading = 'List All Meetings';

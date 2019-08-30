@@ -31,23 +31,13 @@ export class TeamService {
         console.error('team.service.handleErrorPromise offline error: ' + error);
       } else {
         // Handle Http Error (error.status === 403, 404...)
-        // alert('Http Error');
         HttpErrorResponse.toString();
         console.error('team.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
       }
-    } else {
-      console.error('team.service.handleErrorPromise Error: ' + error);
-      console.error('team.service.handleErrorPromise Error: name ' + error.name);
-      console.error('team.service.handleErrorPromise Error: message ' + error.message);
     }
 
     return Promise.reject(error || error.message);
   }
-
-
-  // private handleErrorPromise (error: HttpErrorResponse | any) {
-  //   return Promise.reject(error.message || error);
-  // }
 
   async addteam(obj: Team){
     return await this.http.post(`${this.uri}/add`, obj)
@@ -69,16 +59,11 @@ export class TeamService {
   // send edit request to the node server. called from team-get.component.html
   // via app-routing.module.ts path match for 'team/edit/:_id'
   editteam(_id) {
-    // console.log('team.service.editteam: _id = ' + _id);
     return this
             .http
             .get(`${this.uri}/edit/` + _id);
             // .get(this.uri + '/edit/' + _id);
     }
-
-  // async deleteteam(_id) {
-  //   return await this.http.get(`${this.uri}/delete/${_id}`);
-  // }
 
   async deleteteam(_id) {
     console.error('team.service.ts - _id:' + _id);
