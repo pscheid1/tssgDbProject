@@ -10,7 +10,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- for now we put venue item last as it has the least wide dropdown menu.  bootstrap uses the widest (meetings) dropdown to
-        calculate position off all navbar menue items and therefore the dropdown positions
+        calculate position off all navbar menue items and therefore the dropdown positions.  If you change the order, you will
+        see the right most menue item push up against the right edge and possibly partially out of view.
     -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;">
       <ul class="navbar-nav ml-auto">
@@ -50,7 +51,8 @@
               Meeting</a>
             <a class="dropdown-item nav-link nb_style" routerLink="meeting" routerLinkActive="active">List All
               Meetings</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="meeting/get/schedule" routerLinkActive="active">List Team Meetings</a>
+            <a class="dropdown-item nav-link nb_style" routerLink="meeting/get/schedule" routerLinkActive="active">List
+              Team Meetings</a>
           </div>
         </li>
         <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
@@ -63,15 +65,6 @@
             <a class="dropdown-item nav-link nb_style" routerLink="venue" routerLinkActive="active">List Venues</a>
           </div>
         </li>
-        <!-- If we use this code, it extends the verticle menue which is not very attractive -->
-        <!-- Fake item to push right most dropdown menu away from right border -->
-        <!-- Could not get dropdown-menue-left to work -->
-        <!-- Looks like left edge of dropdown menu will not move left of parent -->
-        <!--<li class="nav-item dropdown">
-          <a class="nav-link nb_style">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </a>
-        </li>-->
       </ul>
     </div>
   </div>
