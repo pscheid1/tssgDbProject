@@ -12,6 +12,13 @@ let VenueSchema = new Schema({
     trim: true,
     required: true
   },
+  // person at venue to contact regarding scheduling issues
+  contact: {
+    type: Schema.Types.String,
+    ref: 'user',                // link to contact (database entry with role contact)
+    required: false,
+    trim: true
+  },
   // website url
   website: {
     type: String,

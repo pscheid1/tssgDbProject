@@ -65,10 +65,25 @@ module.exports = {
 
   // because _id is unique we don't have to worry about duplicates
   // returns a list of user id's, fistname and lastname only, sorted on lastname
+  // role = Contact is excluded
   listUsers: async function (req, res, next) {
     await User.find({ role: { $ne: 'Contact' } })
       .sort({ lastname: 1 })
-      // .select({ hash: 0})
+      .select({ firstname: 1, lastname: 1, role: 1 })
+      .then(users => res.json(users))
+      .catch(err => {
+        // console.log('user.controller.update: err = ' + err);
+        next(err);
+      });
+
+  },
+
+  // because _id is unique we don't have to worry about duplicates
+  // returns a list of user id's, fistname and lastname only, sorted on lastname
+  // role === Contact only
+  listContacts: async function (req, res, next) {
+    await User.find({ role: { $eq: 'Contact' } })
+      .sort({ lastname: 1 })
       .select({ firstname: 1, lastname: 1, role: 1 })
       .then(users => res.json(users))
       .catch(err => {
