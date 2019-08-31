@@ -63,8 +63,15 @@ export class UserService {
   }
 
   // request a list of current users - id, firstname, lastname only
+  // all users excluding role = Contact
   listUsers() {
     return this.http.get(`${this.uri}/list`);
+  }
+
+  // request a list of current users - id, firstname, lastname only
+  // all users with role = Contact only
+  listContacts() {
+    return this.http.get(`${this.uri}/contacts`);
   }
 
   getById(_id: string) {

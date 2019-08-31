@@ -21,6 +21,12 @@
           Venue description is required
         </span>
       </div>
+      <div class="form-group">
+        <label for="contact" class="control-label"> Contact (select one)</label>
+        <select id="contact" name="contact" class="form-control" [(ngModel)]="venue.contact" #teamlead="ngModel">
+          <option *ngFor="let contact of contactList" [value]="contact"> {{contact}}</option>
+        </select>
+      </div>
       <div class="form-group" [class.has-error]="website.invalid && website.touched"
         [class.has-success]="website.valid">
         <label for="website" class="control-label"> Website</label>

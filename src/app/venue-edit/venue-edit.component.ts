@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VenueService } from '../_services/venue.service';
 import { Venue } from 'src/app/_models/Venue';
-
+import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-venue-edit',
   templateUrl: './venue-edit.component.html',
@@ -13,6 +13,7 @@ export class VenueEditComponent implements OnInit {
   venue: Venue = {
     _id: null,
     description: null,
+    contact: null,
     website: null,
     calendar: null,
     address: null,
@@ -22,11 +23,15 @@ export class VenueEditComponent implements OnInit {
   };
 
   errorMsg = '';
+  contactList = new Array();
+  cl: any;
+  member: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private vs: VenueService
+    private vs: VenueService,
+    private us: UserService
   ) {
 
   }
@@ -34,6 +39,15 @@ export class VenueEditComponent implements OnInit {
   // get the data from the node server and display in venue-edit.component.html file
   // the params variable name is determined by path declaration using :variable in the app-routing.module.ts
   ngOnInit() {
+    this.us.listContacts().subscribe(u => {
+      this.cl = u;
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < this.cl.length; i++) {
+        this.member = this.cl[i].firstname + ' ' + this.cl[i].lastname;
+        this.contactList.push(this.member);
+      }
+    });
+
     // this.route.params.forEach(function (item) { });
     this.route.params.subscribe(params => {
       this.vs.editVenue(`${params._id}`).subscribe(res => {

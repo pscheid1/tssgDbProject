@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../_services/team.service';
 import Team from 'src/app/_models/Team';
-// import { User } from 'src/app/_models/User';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -23,8 +22,6 @@ export class TeamAddComponent implements OnInit {
 
   errorMsg = '';
 
-  // leaderList = ['Bugs Bunny', 'Donald Duck', 'Elmer Fudd'];
-  // memberList = ['Bugs Bunny', 'Donald Duck', 'Elmer Fudd', 'Porky Pig', 'Mickey Mouse', 'Gyro Gearloose'];
   leaderList = new Array();
   memberList = new Array();
   ul: any;

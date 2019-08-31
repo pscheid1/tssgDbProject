@@ -9,6 +9,7 @@
           <tr>
             <th>Venue</th>
             <th>Description</th>
+            <th>Contact</th>
             <!-- <th>Website</th> -->
             <!-- <th>Calendar</th> -->
             <th>Address</th>
@@ -28,6 +29,7 @@
           <tr *ngFor="let venue of venues">
             <td>{{venue._id}}</td>
             <td>{{venue.description}}</td>
+            <td>{{venue.contact}}</td>
             <!-- <td>{{venue.website}}</td> -->
             <!-- <td>{{venue.calendar}}</td> -->
             <td>{{venue.address}}</td>

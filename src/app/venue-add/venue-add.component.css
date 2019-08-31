@@ -6,6 +6,8 @@
 label {
   font-weight: 500;
 }
- input {
-   width: 40ch;
- }
+
+ .form-group {
+  width: 30ch;
+}
+

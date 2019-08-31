@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class Venue {
   _id: string;
   description: string;
+  contact: string;
   website: string;
   calendar: string;
   address: string;
