@@ -93,11 +93,11 @@ export class MeetingEditComponent implements OnInit {
     // console.log('meeting-edit.updateMeeting: meetingDate = ' + this.meeting.meetingDate);
     this.route.params.subscribe(params => {
       this.ms.updateMeeting(this.meeting);
-      //  the router.navigate call will cause the return data to be passed back to venue-get.component
-      if (this.route.snapshot.data.type === 'schedule') {
-        this.router.navigate(['meeting/schedule']);
-      } else {
+      //  the router.navigate call will cause the return data to be passed back to meeting-get.component
+      if (this.route.snapshot.data.type === 'edit') {
         this.router.navigate(['meeting']);
+      } else {
+        this.router.navigate([`meeting/schedule/${this.meeting.team}`]);
       }
     });
 

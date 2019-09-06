@@ -12,6 +12,7 @@ export class MeetingGetComponent implements OnInit {
   meetings: Meeting[];
   heading = '';
   errorMsg = '';
+  routerlink = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -20,6 +21,11 @@ export class MeetingGetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.route.snapshot.data.type === 'edit') {
+      this.routerlink = '/meeting/edit/';
+    } else {
+      this.routerlink = '/meeting/schedule/edit/';
+    }
     if (this.route.snapshot.data.type === 'schedule') {
       this.route.params.subscribe(params => {
         this.heading = 'Meetings for Team: ' + params.team;

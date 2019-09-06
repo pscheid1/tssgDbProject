@@ -36,8 +36,8 @@
             pass control to meeting-edit.components constructor via app-routing.module.ts
             this will retrieve meeting and display in meeting-edit.component.html
           -->
-            <td><a [routerLink]="['/meeting/schedule/edit', meeting._id]" class="btn btn-primary btn-sm">Edit</a></td>
-
+            <!-- <td><a [routerLink]="['/meeting/schedule/edit', meeting._id]" class="btn btn-primary btn-sm">Edit</a></td> -->
+            <td><a [routerLink]="routerlink + meeting._id" class="btn btn-primary btn-sm">Edit</a></td>
             <td><a (click)="deleteMeeting(meeting._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
           </tr>
           <tr *ngIf="!meetings">
