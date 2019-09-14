@@ -20,7 +20,7 @@ module.exports = {
     await Meeting.create(req.body)
       .then(newMeeting => res.json(newMeeting))
       .catch(err => {
-        next(err);
+        res.status(409).json({ name: 'Error', message: err.message });
       });
   },
 
@@ -32,31 +32,45 @@ module.exports = {
     req.body.startTime = updateDate(req.body.meetingDate, req.body.startTime);
     // ensure endTime date component agrees with meetingDate
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
-
     await Meeting.findByIdAndUpdate(req.body._id, req.body, { new: true })
       .then(meeting => {
-        res.json(meeting);
+        // a bad or nonexistent key is not considered an error?
+        if (meeting === null) {
+          throw new Error('Meeting ' + req.body._id + ' not found.');
+        } else {
+          res.json(meeting);
+        }
       })
       .catch(err => {
-        console.error('meeting.controller.update: err = ' + err);
-        next(err);
+        res.status(404).json({ name: 'Error', message: err.message });
       });
   },
 
   // return a list of all meeting entries
-  findAll: function (req, res) {
-    Meeting.find({}, function (err, meeting) { })
+  findAll: async function (req, res) {
+    await Meeting.find({}, function (err, meeting) { })
       .sort({ team: 1, meetingDate: 1, startTime: 1 })
       .then(meetings => res.json(meetings))
-      .catch(err => res.status(422).json(err.message));
+      .catch(err => {
+        res.status(404).json({ name: 'Error', message: err.message });
+      })
   },
 
   // return a specific meeting entry (currently by _id)
-  findOne: function (req, res) {
-    Meeting.findById(req.params._id, function (err, meeting) {
+  findOne: async function (req, res) {
+    await Meeting.findById(req.params._id, function (err, meeting) {
     })
-      .then(meeting => res.json(meeting))
-      .catch(err => res.status(422).json("Error: " + err));
+      .then(meeting => {
+        // a bad or nonexistent key is not considered an error?
+        if (meeting === null) {
+          throw new Error('Meeting ' + req.params._id + ' not found.');
+        } else {
+          res.json(meeting);
+        }
+      })
+      .catch(err => {
+        res.status(404).json({ name: 'Error', message:  err.message });
+      });
   },
 
   // delete a specific entry by _id
@@ -67,7 +81,7 @@ module.exports = {
         res.status(200).json('' + meeting._id + ': deleted.');
       })
       .catch(err => {
-        res.status(404).json(err.code);
+        res.status(404).json({ name: 'Error', message: "Meeting id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
       });
   },
 

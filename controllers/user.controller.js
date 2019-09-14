@@ -7,7 +7,7 @@ const Role = require('../_helpers/role');
 let secret = config.secret;
 
 module.exports = {
-
+  // Add user
   register: async function (req, res, next) {
     // console.log('user.controller.register: username = ' + req.body.username);
     await User.findOne(({ username: { $eq: req.body.username } }), function (err, usr) {
@@ -33,7 +33,9 @@ module.exports = {
     // console.log('user.controller.authenticate: username = ' + req.body.username);
     userAuth(req.body)
       .then(user => user ? res.status(200).json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
-      .catch(err => next(err));
+      .catch(err => {
+        res.status(400).json({ name: 'Error', message: err.message });
+      });
   },
 
   update: async function (req, res, next) {
@@ -59,7 +61,7 @@ module.exports = {
       .then(users => res.json(users))
       .catch(err => {
         // console.log('user.controller.update: err = ' + err);
-        next(err);
+        res.status(404).json({ name: 'Error', message: err.message });
       });
   },
 
@@ -70,12 +72,17 @@ module.exports = {
     await User.find({ role: { $ne: 'Contact' } })
       .sort({ lastname: 1 })
       .select({ firstname: 1, lastname: 1, role: 1 })
-      .then(users => res.json(users))
+      .then(users => {
+        // Ignore this case for now.
+        // if (users === null) {
+        //   throw new Error('No users found.');
+        // } else {
+        res.json(users);
+      })
       .catch(err => {
-        // console.log('user.controller.update: err = ' + err);
-        next(err);
+        // next(err);
+        res.status(404).json({ name: 'Error', message: err.message });
       });
-
   },
 
   // because _id is unique we don't have to worry about duplicates
@@ -88,24 +95,41 @@ module.exports = {
       .then(users => res.json(users))
       .catch(err => {
         // console.log('user.controller.update: err = ' + err);
-        next(err);
+        // next(err);
+        res.status(404).json({ name: 'Error', message: err.message });
       });
-
   },
 
   getCurrent: async function (req, res, next) {
-    // console.log('user.controller.getCurrent: _id = ' + req.user._id);
+    // console.log('user.controller.getCurrent _id: ' + req.user.sub);
     let eliminate = req.user.role === 'Admin' ? '-hash' : '-hash -role';
     await User.findById(req.user.sub).select(eliminate)
       .then(user => user ? res.json(user) : res.status(404).json(`Error: ${req.user.sub} Not Found`))
-      .catch(err => next(err));
+      .catch(err => {
+        res.status(404).json({ name: 'Error', message: err.message });
+      })
   },
 
   findOne: async function (req, res, next) {
-    // console.log('user.controller.findOne: _id = ' + req.params._id);
-    await User.findById(req.params._id).select('-hash')
-      .then(user => user ? res.json(user) : res.status(404).json(`Error: ${req.params._id} Not Found`))
-      .catch(err => next(err));
+    // console.log(req.params._id);
+    // req.params._id = '5ceeeb11b23b1e4a40d5bd3c';
+    await User.findById(req.params._id, function (err, user) {
+    })
+      .then(user => {
+        // a bad or nonexistent key is not considered an error?
+        if (user === null) {
+          throw new Error('User ' + req.params._id + ' not found.');
+        } else {
+          res.json(user);
+        }
+      })
+      .catch(err => {
+        res.status(404).json({ name: 'Error', message: err.message });
+      });
+
+    // await User.findById(req.params._id).select('-hash')
+    //   .then(user => user ? res.json(user) : res.status(404).json(`Error: ${req.params._id} Not Found`))
+    //   .catch(err => next(err));
   },
 
   // delete a specific entry by _id
@@ -116,7 +140,7 @@ module.exports = {
         res.status(200).json('' + user._id + ': deleted.');
       })
       .catch(err => {
-        res.status(404).json(err.code);
+        res.status(404).json({ name: 'Error', message: "Meeting id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
       });
   }
 };

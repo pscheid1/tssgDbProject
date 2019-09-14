@@ -28,7 +28,7 @@ let MeetingSchema = new Schema({
 
 // if autoIndex is true, mongoose will call sequentially each defined index
 // to create the indexes manually invoke createIndexes which will call this function.  (see createIndex call in meeting.controller)
-MeetingSchema.index({ venue: 1, meetingDate: 1, startTime: 1, endTime: 1 }, { unique: true, name: "dupMeeting" });
+MeetingSchema.index({ team: 1, venue: 1, meetingDate: 1, startTime: 1, endTime: 1 }, { unique: true, name: "dupMeeting" });
 
 MeetingSchema.on('index', function (error) {
 });

@@ -20,47 +20,53 @@ function toarray(s) {
 module.exports = {
 
     create: async function (req, res, next) {
-        // console.log('team.contorller.create: ' + req.body._id);
         await Team.create(req.body)
             .then(newTeam => res.json(newTeam))
             .catch(err => {
-                next(err);
+                res.status(409).json({ name: 'Error', message: err.message });
             });
     },
 
     update: async function (req, res, next) {
-        // console.log('team.controller.update._id: ' + req.body._id);
-        await Team.findByIdAndUpdate(req.body._id, req.body, { new: true }, function (err, team) {
-            if (err || !team) {
-                if (!err) {
-                    err = "Error: Unknown error (possible bad _id = " + req.body._id + ")";
+        await Team.findByIdAndUpdate(req.body._id, req.body, { new: true })
+            .then(team => {
+                // a bad or nonexistent key is not considered an error?
+                if (team === null) {
+                    throw new Error('Team ' + req.body._id + ' not found.');
+                } else {
+                    res.json(team);
                 }
-                // console.log('team.controller.update1 : err = ' + err);
-                next(err);
-            } else {
-                // console.log('team.controller.update2 : success');
-                res.json(team);
-            }
-        });
+            })
+            .catch(err => {
+                res.status(404).json({ name: 'Error', message: err.message });
+            });
     },
 
     // return a list of all team entries
-    findAll: function (req, res) {
-        Team.find({}, {}, function (err, team) {
+    findAll: async function (req, res) {
+        await Team.find({}, {}, function (err, team) {
         })
             .then(teams => res.json(teams))
-            .catch(err => res.status(422).json(err.message));
+            .catch(err => {
+                res.status(404).json({ name: 'Error', message: err.message });
+            })
     },
 
     // return a specific team entry (currently by _id)
-    findOne: function (req, res) {
-        Team.findById(req.params._id, function (err, team) {
-
+    findOne: async function (req, res) {
+        await Team.findById(req.params._id, function (err, team) {
         })
             .then(team => {
-                res.json(team);
+                // a bad or nonexistent key is not considered an error?
+                if (team === null) {
+                    throw new Error('Team ' + req.params._id + ' not found.');
+                } else {
+                    res.json(team);
+                }
             })
-            .catch(err => res.status(422).json("Error: "));
+            .catch(err => {
+                res.status(404).json({ name: 'Error', message: err.message });
+            });
     },
 
     // because _id is unique we don't have to worry about duplicates
@@ -81,7 +87,7 @@ module.exports = {
                 res.status(200).json('' + team._id + ': deleted.');
             })
             .catch(err => {
-                res.status(404).json(err.code);
+                res.status(404).json({ name: 'Error', message: "Meeting id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
             });
     },
 

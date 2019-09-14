@@ -23,54 +23,58 @@ module.exports = {
     await Venue.create(req.body)
       .then(newVenue => res.json(newVenue))
       .catch(err => {
-        next(err);
+        res.status(409).json({ name: 'Error', message: err.message });
       });
   },
 
   update: async function (req, res, next) {
-    // console.log('venue.controller.update._id: ' + req.body._id);
-    await Venue.findByIdAndUpdate(req.body._id, req.body, { new: true }, function (err, venue) {
-      if (err || !venue) {
-        if (!err) {
-          err = "Error: Unknown error (possible bad _id = " + req.body._id + ")";
+    await Venue.findByIdAndUpdate(req.body._id, req.body, { new: true })
+      .then(venue => {
+        // a bad or nonexistent key is not considered an error?
+        if (venue === null) {
+          throw new Error('Venue ' + req.body._id + ' not found.');
+        } else {
+          res.json(venue);
         }
-        // console.log('venue.controller.update1 : err = ' + err);
-        next(err);
-      } else {
-        // console.log('venue.controller.update2 : success');
-        res.json(venue);
-      }
-    });
+      })
+      .catch(err => {
+        res.status(404).json({ name: 'Error', message: err.message });
+      });
   },
 
   // return a list of all venue entries
-  findAll: function (req, res) {
-    Venue.find({}, {}, function (err, venue) {
+  findAll: async function (req, res) {
+    await Venue.find({}, {}, function (err, venue) {
     })
       .then(venues => res.json(venues))
-      .catch(err => res.status(422).json(err.message));
+      .catch(err => res.status(404).json(err.message));
   },
 
-  // because _id is unique we don't have to worry about duplicates
   // returns a list of venue id's only
   listVenues: async function (req, res, next) {
     await Venue.find({}, { _id: 1 }, function (err, venue) { })
       .sort({ _id: 1 })
       // toarray() returns a sorted list of venue _id's
       .then(venues => res.json(toarray(venues)))
-      .catch(err => res.status(422).json(err.message));
+      .catch(err => res.status(404).json(err.message));
   },
 
   // return a specific venue entry (currently by _id)
   findOne: function (req, res) {
     Venue.findById(req.params._id, function (err, venue) {
-
     })
-      .then(venue => {
+    .then(venue => {
+      // a bad or nonexistent key is not considered an error?
+      if (venue === null) {
+        throw new Error('Venue ' + req.body._id + ' not found.');
+      } else {
         res.json(venue);
-      })
-      .catch(err => res.status(422).json("Error: "));
-  },
+      }
+    })
+    .catch(err => {
+      res.status(404).json({ name: 'Error', message: "Venue id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
+    });
+},
 
   // delete a specific entry by _id
   delete: async function (req, res) {
@@ -80,7 +84,7 @@ module.exports = {
         res.status(200).json('' + venue._id + ': deleted.');
       })
       .catch(err => {
-        res.status(404).json(err.code);
+        res.status(404).json({ name: 'Error', message: "Venue id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
       });
   },
 
