@@ -58,7 +58,10 @@ export class VenueAddComponent implements OnInit {
         this.router.navigate(['venue']);
       })
       .catch(err => {
-        this.errorMsg = err;
+        this.errorMsg = err.status + ': ' + err.statusText;
+        if ((window.location.href).indexOf('#bottom') < 0) {
+          window.location.href = window.location.href + '#bottom';
+        }
       });
   }
 }

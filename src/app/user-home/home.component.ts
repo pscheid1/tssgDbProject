@@ -13,14 +13,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   currentUser: User;
   userFromApi: User;
-  error = '';
+  dspCreatedDate = '';
+  errorMsg = '';
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
+    private us: UserService,
     private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
@@ -28,12 +29,30 @@ export class HomeComponent {
 
   ngOnInit() {
     if (this.route.snapshot.data.type === 'authDenied') {
-      this.error = 'User is not authorized for this request.';
+      this.errorMsg = 'User is not authorized for this request.';
     } else {
-      this.error = '';
+      this.errorMsg = '';
     }
-    this.userService.getById(this.currentUser._id).pipe(first()).subscribe(user => {
-      this.userFromApi = user as User;
+    this.us.getById(this.currentUser._id)
+    .then(res => {
+      const usr = res as User;
+      if (usr.createdDate) {
+        this.dspCreatedDate = usr.createdDate.toString().substring(0, 10);
+      }
+      this.userFromApi = usr;
+    })
+    .catch(err => {
+      this.errorMsg = err.status + ': ' + err.statusText;
+      if (err.statusText.includes('Unknown')) {
+        this.errorMsg += ' - Possible no connection with backend server.';
+      }
+      if ((window.location.href).indexOf('#bottom') < 0) {
+        window.location.href = window.location.href + '#bottom';
+      }
     });
+
+    // this.userService.getById(this.currentUser._id).pipe(first()).subscribe(user => {
+    //   this.userFromApi = user as User;
+    // });
   }
 }

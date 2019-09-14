@@ -54,12 +54,27 @@ export class UserService {
   //   return Promise.reject(error.message || error);
   // }
 
-  getAll() {
-    return this.http.get<User[]>(`${this.uri}`);
+  async getAll() {
+    // return this.http.get<User[]>(`${this.uri}`);
+
+    return await this.http.get(`${this.uri}`)
+    .toPromise()
+    .then(this.extractData)
+    .catch(err => {
+      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
+    });
+
   }
 
-  getCurrent() {
-    return this.http.get<User>(`${this.uri}/current`);
+  async getCurrent() {
+    // return this.http.get<User>(`${this.uri}/current`);
+
+    return await this.http.get(`${this.uri}/current`)
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/current` });
+      });
   }
 
   // request a list of current users - id, firstname, lastname only
@@ -74,32 +89,42 @@ export class UserService {
     return this.http.get(`${this.uri}/contacts`);
   }
 
-  getById(_id: string) {
-    // console.log('user.service.getById: _id = ' + _id);
-    return this.http.get(`${this.uri}/edit/` + _id);
+  async getById(_id: string) {
+    // return this.http.get(`${this.uri}/edit/` + _id);
+    return await this.http.get(`${this.uri}/edit/${_id}`)
+    .toPromise()
+    .then(this.extractData)
+    .catch(err => {
+      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
+    });
   }
 
   async deleteUser(_id: string) {
-    console.error('Meeting.service.ts - _id:' + _id);
     return await this.http.get(`${this.uri}/delete/${_id}`)
-    // return await this.http.get(`${uri}/delete/5d0516139da64c4facd357fb`)
-    .toPromise()
-    .then(this.extractData)
-    .catch (this.handleErrorPromise);
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+      });
   }
 
   async registerUser(obj: User) {
     return await this.http.post(`${this.uri}/register/`, obj)
-    .toPromise()
-    .then(this.extractData)
-    .catch(this.handleErrorPromise);
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 409, statusText: err, url: `${this.uri}/register` });
+      });
   }
 
   async updateUser(obj: User) {
     return await this.http.post(`${this.uri}/update/`, obj)
-    .toPromise()
-    .then(this.extractData)
-    .catch(this.handleErrorPromise);
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/update` });
+      });
   }
-
 }
+
+

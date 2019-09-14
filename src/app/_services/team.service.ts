@@ -15,7 +15,7 @@ export class TeamService {
   private uri: string;
   constructor(private http: HttpClient) {
     this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/teams';
-   }
+  }
 
 
   private extractData(res: HttpResponse<Team>) {
@@ -39,11 +39,13 @@ export class TeamService {
     return Promise.reject(error || error.message);
   }
 
-  async addteam(obj: Team){
+  async addteam(obj: Team) {
     return await this.http.post(`${this.uri}/add`, obj)
-    .toPromise()
-    .then(this.extractData)
-    .catch(this.handleErrorPromise);
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 409, statusText: err, url: `${this.uri}/add` });
+      });
   }
 
   // request all teams from the node server
@@ -58,27 +60,31 @@ export class TeamService {
 
   // send edit request to the node server. called from team-get.component.html
   // via app-routing.module.ts path match for 'team/edit/:_id'
-  editteam(_id) {
-    return this
-            .http
-            .get(`${this.uri}/edit/` + _id);
-            // .get(this.uri + '/edit/' + _id);
-    }
+  async editTeam(_id) {
+    return await this.http.get(`${this.uri}/edit/${_id}`)
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
+      });
+  }
 
-  async deleteteam(_id) {
-    console.error('team.service.ts - _id:' + _id);
+  async deleteTeam(_id) {
     return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+      });
+
   }
 
   async updateteam(obj: Team) {
-    // obj._id = '5d0516139da64c4facd357fb';
-    // console.log('team.service.updateteam: _id = ' + obj._id);
     return await this.http.post(`${this.uri}/update/`, obj)
-    .toPromise()
-    .then(this.extractData)
-    .catch(this.handleErrorPromise);
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/update` });
+      });
   }
 }

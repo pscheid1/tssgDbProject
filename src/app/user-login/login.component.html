@@ -22,10 +22,11 @@
           Password is required
         </span>
       </div>
-      <div class="panel-footer">
+      <div class="form-group">
         <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Login</button>
       </div>
     </div>
   </div>
-  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 </form>
+<div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+<div><br/><br/><br/><br/><a id="bottom" href="#bottom"></a></div>

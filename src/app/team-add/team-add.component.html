@@ -48,17 +48,16 @@
         <input id="comments" name="comments" type="text" class="form-control" [(ngModel)]="team.comments"
           #comments="ngModel">
       </div>
-      <div class="panel-footer">
+      <div class="form-group">
         <button type="submit" class="btn btn-primary" [disabled]="teamForm.invalid">Save</button>
         &nbsp;
         <button type="reset" class="btn btn-success" (click)="cancel()">Cancel</button>
       </div>
     </div>
-    <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
   </div>
 </form>
 <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
-<div><a id="bottom" href="#bottom"></a>&nbsp;</div>
+<div><br/><br/><br/><br/><a id="bottom" href="#bottom"></a></div>
 <!--
   <br /><br />
   Angular Generated Form Model : {{teamForm.value | json}}

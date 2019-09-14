@@ -7,21 +7,26 @@ export class TssgErrorHandler implements ErrorHandler {
   }
 
   handleError(error: Error | HttpErrorResponse) {
-    console.log(error);
+    console.log('tssg.ErrorHandler.handleError: ' + error);
     if (error instanceof HttpErrorResponse) {
       // Server or connection error happened
       if (!navigator.onLine) {
         // Handle offline error
-        console.log('It happens: offline Error');
+        console.log('tssg.ErrorHandler.handleError: offline Error');
       } else {
         // Handle Http Error (error.status === 403, 404...)
-        console.log('It happens: Http Error');
+        console.log('tssg.ErrorHandler.handleError: Http Error');
       }
     } else {
       // Handle Client Error (Angular Error, ReferenceError...)
-      console.log('It happens: Client Error');
+      console.log('It happens: Client Error: ' + error.name + ': ' + error.message);
+      throw new HttpErrorResponse({ status: 404, statusText: error.message});
     }
     // Log the error anyway
-    console.log('It happens: ');
+    // console.log('tssg.ErrorHandler.handleError: error = ' + error);
+
+    // console.log('tssg.ErrorHandler.handleError: error.name = ' + error.name);
+
+    // console.log('tssg.ErrorHandler.handleError: error.message = ' + error.message);
   }
 }

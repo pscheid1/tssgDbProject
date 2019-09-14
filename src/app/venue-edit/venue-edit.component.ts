@@ -50,9 +50,19 @@ export class VenueEditComponent implements OnInit {
 
     // this.route.params.forEach(function (item) { });
     this.route.params.subscribe(params => {
-      this.vs.editVenue(`${params._id}`).subscribe(res => {
-        this.venue = res as Venue;
-      });
+      this.vs.editVenue(`${params._id}`)
+        .then(res => {
+          this.venue = res as Venue;
+        })
+        .catch(err => {
+          this.errorMsg = err.status + ': ' + err.statusText;
+          if (err.statusText.includes('Unknown')) {
+            this.errorMsg += ' - Possible no connection with backend server.';
+          }
+          if ((window.location.href).indexOf('#bottom') < 0) {
+            window.location.href = window.location.href + '#bottom';
+          }
+        });
     });
   }
 
@@ -61,16 +71,13 @@ export class VenueEditComponent implements OnInit {
   }
 
   updateVenue(venueForm: any) {
-    // console.log('venue-edit.component.updateVenue');
+    this.errorMsg = '';
     this.vs.updateVenue(this.venue)
       .then(res => {
         this.router.navigate(['venue']);
       })
       .catch(err => {
-        this.errorMsg = err;
-        // ensure href does not already contain '#bottom'
-        // if not, add '#bottom' to scroll page to bottom to
-        // insure error message is visable
+        this.errorMsg = err.status + ': ' + err.statusText;
         if ((window.location.href).indexOf('#bottom') < 0) {
           window.location.href = window.location.href + '#bottom';
         }

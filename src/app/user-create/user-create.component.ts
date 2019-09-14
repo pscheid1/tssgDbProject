@@ -25,7 +25,7 @@ export class UserCreateComponent implements OnInit {
     inActive: false,
     createdDate: new Date()
   };
-  error = '';
+  errorMsg = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,7 @@ export class UserCreateComponent implements OnInit {
   ngOnInit() { }
 
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(['user/get-all']);
   }
 
   createUser(usrForm: NgForm) {
@@ -47,7 +47,10 @@ export class UserCreateComponent implements OnInit {
         this.router.navigate(['user/get-all']);
       })
       .catch(err => {
-        this.error = err;
+        this.errorMsg = err.status + ': ' + err.statusText;
+        if ((window.location.href).indexOf('#bottom') < 0) {
+          window.location.href = window.location.href + '#bottom';
+        }
       });
   }
 }

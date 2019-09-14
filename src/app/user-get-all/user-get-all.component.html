@@ -41,10 +41,10 @@
           <td><a [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>
           <td><a (click)="deleteUser(user._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
         </tr>
-        <tr *ngIf="!users">
+        <tr *ngIf="!users && !errorMsg">
           <td colspan="5">Loading data. Please wait... </td>
         </tr>
-        <tr *ngIf="users && users.length==0" class="alert alert-danger">
+        <tr *ngIf="users && users.length==0 && !errorMsg" class="alert alert-danger">
           <td colspan="5">No Users to display</td>
         </tr>
       </tbody>
@@ -52,4 +52,4 @@
   </div>
 </form>
 <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
-<div><a id="bottom" href="#bottom"></a>&nbsp;</div>
+<div><br/><br/><br/><br/><a id="bottom" href="#bottom"></a></div>

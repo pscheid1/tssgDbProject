@@ -14,10 +14,7 @@
         <li style="font-weight:bold">Currently you are not logged in.</li>
       </ul>
     </div>
-    <br />
-    <br />
-    <div id="errMsg" *ngIf="error" class="alert alert-danger">{{error}}</div>
-    <div><a id="bottom" href="#bottom"></a>&nbsp;
-    </div>
   </div>
 </form>
+<div id="errMsg" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+<div><br /><br /><br /><br /><a id="bottom" href="#bottom"></a></div>

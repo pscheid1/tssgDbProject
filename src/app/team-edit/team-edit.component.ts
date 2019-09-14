@@ -51,24 +51,39 @@ export class TeamEditComponent implements OnInit {
       }
     });
     this.route.params.subscribe(params => {
-      this.ts.editteam(`${params._id}`).subscribe(res => {
-        this.team = res as Team;
-      });
+      this.ts.editTeam(`${params._id}`)
+        .then(res => {
+          this.team = res as Team;
+        })
+        .catch(err => {
+          this.errorMsg = err.status + ': ' + err.statusText;
+          if (err.statusText.includes('Unknown')) {
+            this.errorMsg += ' - Possible no connection with backend server.';
+          }
+          if ((window.location.href).indexOf('#bottom') < 0) {
+            window.location.href = window.location.href + '#bottom';
+          }
+        });
     });
-
   }
 
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(['team']);
   }
 
   // post updated meeting data back to node server via meeting.service.ts update
   updateTeam(teamForm: NgForm) {
-    this.route.params.subscribe(params => {
-      this.ts.updateteam(this.team);
-      //  the router.navigate call will cause the return data to be passed back to venue-get.component
-      this.router.navigate(['team']);
-    });
-
+    this.errorMsg = '';
+    this.ts.updateteam(this.team)
+      .then(result => {
+        //  the router.navigate call will cause the return data to be passed back to meeting-get.component or meeting
+        this.router.navigate(['team']);
+      })
+      .catch(err => {
+        this.errorMsg = err.status + ': ' + err.statusText;
+        if ((window.location.href).indexOf('#bottom') < 0) {
+          window.location.href = window.location.href + '#bottom';
+        }
+      });
   }
 }

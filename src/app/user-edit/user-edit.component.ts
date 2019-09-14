@@ -44,14 +44,16 @@ export class UserEditComponent implements OnInit {
     private us: UserService
   ) {
     this.currentUser = this.as.currentUserValue;
-    }
+  }
 
   ngOnInit() {
-    if (this.route.snapshot.data.type === 'authDenied') {
-      this.errorMsg = 'User is not authorized for this request.';
-    } else {
-      this.errorMsg = '';
-    }
+    // if (this.route.snapshot.data.type === 'authDenied') {
+    //   this.errorMsg = 'User is not authorized for this request.';
+    // } else {
+    //   this.errorMsg = '';
+    // }
+
+    this.errorMsg = '';
 
     // user-edit.component is called by both user-get.component and user-get-all.component
     // user-get-all.component has role admin and can change the role of any account
@@ -69,14 +71,33 @@ export class UserEditComponent implements OnInit {
 
     // this.route.params.forEach(function (item) { });
     this.route.params.subscribe(params => {
-      this.us.getById(`${params._id}`).pipe(first()).subscribe(user => {
-        const usr = user as User;
-        if (usr.createdDate) {
-          this.dspCreatedDate = usr.createdDate.toString().substring(0, 10);
-        }
-        this.user = user as User;
-      });
+      this.us.getById(`${params._id}`)
+        .then(user => {
+          const usr = user as User;
+          if (usr.createdDate) {
+            this.dspCreatedDate = usr.createdDate.toString().substring(0, 10);
+          }
+          this.user = user as User;
+        })
+        .catch(err => {
+          this.errorMsg = err.status + ': ' + err.statusText;
+          if (err.statusText.includes('Unknown')) {
+            this.errorMsg += ' - Possible no connection with backend server.';
+          }
+          if ((window.location.href).indexOf('#bottom') < 0) {
+            window.location.href = window.location.href + '#bottom';
+          }
+        });
     });
+
+
+    // this.us.getById(`${params._id}`).pipe(first()).subscribe(user => {
+    //   const usr = user as User;
+    //   if (usr.createdDate) {
+    //     this.dspCreatedDate = usr.createdDate.toString().substring(0, 10);
+    //   }
+    //   this.user = user as User;
+    // });
   }
 
   cancel() {

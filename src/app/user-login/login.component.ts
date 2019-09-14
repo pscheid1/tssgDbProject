@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
     inActive: false,
     createdDate: null
   };
-  error = '';
+
+  errorMsg = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(usrForm: NgForm): void {
     // console.log('login.component.onSubmit: ' + usrForm.value);
-    // console.log('login.component.onSubmit: ' + this.user);
+    // console.log('login.component.onSubmit: ' + this.user.username);
     this.as.login(this.user.username, this.user.password)
       .pipe(first())
       .subscribe(
@@ -56,7 +57,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error => {
-          this.error = error;
+          this.errorMsg = error.includes('Unknown') ? error +
+          ' - Possible no connection with backend server.' : error;
+          if ((window.location.href).indexOf('#bottom') < 0) {
+            window.location.href = window.location.href + '#bottom';
+          }
         });
   }
 }

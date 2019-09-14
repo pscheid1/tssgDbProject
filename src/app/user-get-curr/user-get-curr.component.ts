@@ -25,15 +25,31 @@ export class UserGetCurrComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.route.snapshot.data.type === 'authDenied') {
-      this.errorMsg = 'User is not authorized for this request.';
-    } else {
-      this.errorMsg = '';
-    }
+    // if (this.route.snapshot.data.type === 'authDenied') {
+    //   this.errorMsg = 'User is not authorized for this request.';
+    // } else {
+    //   this.errorMsg = '';
+    // }
 
-    this.us.getCurrent().pipe(first()).subscribe(user => {
-      // console.log('user-get.component.ngOnInit: ' + JSON.stringify({user}));
-      this.userFromApi = user;
+    this.errorMsg = '';
+
+    this.us.getCurrent()
+    .then(res => {
+      this.userFromApi = res as User;
+    })
+    .catch(err => {
+      this.errorMsg = err.status + ': ' + err.statusText;
+      if (err.statusText.includes('Unknown')) {
+        this.errorMsg += ' - Possible no connection with backend server.';
+      }
+      if ((window.location.href).indexOf('#bottom') < 0) {
+        window.location.href = window.location.href + '#bottom';
+      }
     });
+
+    // this.us.getCurrent().pipe(first()).subscribe(user => {
+    //   // console.log('user-get.component.ngOnInit: ' + JSON.stringify({user}));
+    //   this.userFromApi = user;
+    // });
   }
 }

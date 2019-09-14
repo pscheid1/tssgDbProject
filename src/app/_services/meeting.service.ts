@@ -11,13 +11,14 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MeetingService {
 
   private uri: string;
 
   constructor(private http: HttpClient) {
     this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/meetings';
-   }
+  }
 
   private extractData(res: HttpResponse<Meeting>) {
     const body = res;
@@ -25,6 +26,7 @@ export class MeetingService {
   }
 
   private handleErrorPromise(error: Error | HttpErrorResponse) {
+    // console.log('meeting.service.handleErrorPromise: ' + error);
     if (error instanceof HttpErrorResponse) {
       // Server or connection error happened
       if (!navigator.onLine) {
@@ -35,16 +37,22 @@ export class MeetingService {
         HttpErrorResponse.toString();
         console.error('meeting.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
       }
+      // the following statement will cause tssg.ErrorHandler.ts to be called
+      // return Promise.reject(error);
     }
 
-    return Promise.reject(error || error.message);
+    console.log('meeting.service.handleErrorPromise: ' + error);
+    // the following statement will cause tssg.ErrorHandler.ts to be called
+    // Promise.reject(error || error.message);
   }
 
   async addMeeting(obj: Meeting) {
     return await this.http.post(`${this.uri}/add`, obj)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 409, statusText: err, url: `${this.uri}/add` });
+      });
   }
 
   // request all meetings from the node server
@@ -54,12 +62,13 @@ export class MeetingService {
 
   // send edit request to the node server. called from meeting-get.component.html
   // via app-routing.module.ts path match for 'meeting/edit/:_id'
-  editMeeting(_id) {
-    return (
-      this.http
-        // .get(`${this.uri}/edit/` + _id);
-        .get(this.uri + '/edit/' + _id)
-    );
+  async editMeeting(_id) {
+    return await this.http.get(`${this.uri}/edit/${_id}`)
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
+      });
   }
 
   // request all meeting schedule (next 3 meetings) from the node server
@@ -69,27 +78,31 @@ export class MeetingService {
 
   // send edit request to the node server. called from meeting-get.component.html
   // via app-routing.module.ts path match for 'meeting/edit/:_id'
-  editSchedule(_id) {
-    return (
-      this.http
-        // .get(`${this.uri}/edit/` + _id);
-        .get(this.uri + '/edit/' + _id)
-    );
+  async editSchedule(_id) {
+    return await this.http.get(`${this.uri}/edit/${_id}`)
+    .toPromise()
+    .then(this.extractData)
+    .catch(err => {
+      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
+    });
   }
 
   async deleteMeeting(_id) {
     return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+      });
   }
 
   // post meeting data to update back to the node server. called from meeting-edit.component.ts
   async updateMeeting(obj: Meeting) {
-    // console.log('meeting.service.updateMeeting.meetingDate: ' + obj.meetingDate);
     return await this.http.post(`${this.uri}/update`, obj)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/update` });
+      });
   }
 }

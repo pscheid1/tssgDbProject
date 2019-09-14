@@ -35,6 +35,7 @@ export class TeamAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    // listUsers() returns all users except users with role == Contact
     this.us.listUsers().subscribe(u => {
       this.ul = u;
       // tslint:disable-next-line: prefer-for-of
@@ -49,7 +50,7 @@ export class TeamAddComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(['team']);
   }
 
   addTeam(teamForm: NgForm) {
@@ -58,7 +59,10 @@ export class TeamAddComponent implements OnInit {
         this.router.navigate(['team']);
       })
       .catch(err => {
-        this.errorMsg = err;
+        this.errorMsg = err.status + ': ' + err.statusText;
+        if ((window.location.href).indexOf('#bottom') < 0) {
+          window.location.href = window.location.href + '#bottom';
+        }
       });
   }
 

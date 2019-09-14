@@ -31,13 +31,7 @@ export class VenueGetComponent implements OnInit {
         this.ngOnInit();
       })
       .catch(err => {
-        // err is an instance of TypeError.  I have not found any way to
-        // get meaningful information back.  I'm forcing the 'Not Found' below
-        // because what is returned is dog shit.
-        this.errorMsg = 'Not Found: ' + err.message;
-        // ensure href does not already contain '#bottom'
-        // if not, add '#bottom' to scroll page to bottom to
-        // insure error message is visable
+        this.errorMsg = err.status + ': ' + err.statusText;
         if ((window.location.href).indexOf('#bottom') < 0) {
           window.location.href = window.location.href + '#bottom';
         }

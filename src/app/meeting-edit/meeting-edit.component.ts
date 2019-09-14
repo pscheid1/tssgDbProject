@@ -26,6 +26,8 @@ export class MeetingEditComponent implements OnInit {
     comments: null
   };
 
+  initialTeam = '';
+
   hstep = 1;
   mstep = 15;
   sstep = 10;
@@ -54,31 +56,62 @@ export class MeetingEditComponent implements OnInit {
   // get the data from the node server and display in meeting-edit.component.html file
   // the params variable name is determined by path declaration using :variable in the app-routing.module.ts
   ngOnInit() {
+    this.errorMsg = '';
     this.ts.listTeams().subscribe(t => {
       this.teams = t;
     });
     this.vs.listVenues().subscribe(v => {
       this.venues = v;
-      if (this.route.snapshot.data.type === 'schedule') {
-        this.route.params.subscribe(params => {
-          this.ms.editSchedule(`${params._id}`).subscribe(res => {
-            this.meeting = res as Meeting;
-          });
-        });
-      } else {
-        this.route.params.subscribe(params => {
-          this.ms.editMeeting(`${params._id}`).subscribe(res => {
-            this.meeting = res as Meeting;
-          });
-        });
-      }
     });
+    if (this.route.snapshot.data.type === 'schedule') {
+      this.route.params.subscribe(params => {
+        this.ms.editSchedule(`${params._id}`)
+          .then(res => {
+            this.meeting = res as Meeting;
+            // save initial team in case cancel is selected and data has been modified
+            this.initialTeam = this.meeting.team;
+          })
+          .catch(err => {
+            this.errorMsg = err.status + ': ' + err.statusText;
+            if (err.statusText.includes('Unknown')) {
+              this.errorMsg += ' - Possible no connection with backend server.';
+            }
+            if ((window.location.href).indexOf('#bottom') < 0) {
+              window.location.href = window.location.href + '#bottom';
+            }
+          });
+      });
+    } else {
+      this.route.params.subscribe(params => {
+        this.ms.editMeeting(`${params._id}`)
+          .then(res => {
+            this.meeting = res as Meeting;
+            // save initial team in case cancel is selected and data has been modified
+            this.initialTeam = this.meeting.team;
+          })
+          .catch(err => {
+            this.errorMsg = err.status + ': ' + err.statusText;
+            if (err.statusText.includes('Unknown')) {
+              this.errorMsg += ' - Possible no connection with backend server.';
+            }
+            if ((window.location.href).indexOf('#bottom') < 0) {
+              window.location.href = window.location.href + '#bottom';
+            }
+          });
+      });
+    }
   }
+
 
   cancel() {
     //  the router.navigate call will cause the return data to be passed back to venue-get.component
     if (this.route.snapshot.data.type === 'schedule') {
-      this.router.navigate(['meeting/schedule']);
+      if (this.initialTeam !== '') {
+        this.router.navigate([`meeting/schedule/${this.initialTeam}`]);
+      } else {
+        // if a page did not load, we have no initialTeam. use browser history
+        history.go(-2);
+      }
     } else {
       this.router.navigate(['meeting']);
     }
@@ -91,15 +124,22 @@ export class MeetingEditComponent implements OnInit {
     // this.typeOf = Object.prototype.toString.call(this.meeting.meetingDate).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
     // console.error('typeOf = ' + this.typeOf);
     // console.log('meeting-edit.updateMeeting: meetingDate = ' + this.meeting.meetingDate);
-    this.route.params.subscribe(params => {
-      this.ms.updateMeeting(this.meeting);
-      //  the router.navigate call will cause the return data to be passed back to meeting-get.component
-      if (this.route.snapshot.data.type === 'edit') {
-        this.router.navigate(['meeting']);
-      } else {
-        this.router.navigate([`meeting/schedule/${this.meeting.team}`]);
-      }
-    });
-
+    // this.route.params.subscribe(rtrn => {
+    this.errorMsg = '';
+    this.ms.updateMeeting(this.meeting)
+      .then(result => {
+        //  the router.navigate call will cause the return data to be passed back to meeting-get.component or meeting
+        if (this.route.snapshot.data.type === 'edit') {
+          this.router.navigate(['meeting']);
+        } else {
+          this.router.navigate([`meeting/schedule/${this.initialTeam}`]);
+        }
+      })
+      .catch(err => {
+        this.errorMsg = err.status + ': ' + err.statusText;
+        if ((window.location.href).indexOf('#bottom') < 0) {
+          window.location.href = window.location.href + '#bottom';
+        }
+      });
   }
 }

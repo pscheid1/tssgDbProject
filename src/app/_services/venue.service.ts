@@ -44,7 +44,9 @@ export class VenueService {
     return await this.http.post(`${this.uri}/add`, obj)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 409, statusText: err, url: `${this.uri}/add` });
+      });
   }
 
   // request all venues from the node server
@@ -60,24 +62,32 @@ export class VenueService {
   // send edit request to the node server. called from venue-get.component.html
   // via app-routing.module.ts path match for 'venue/edit/:_id'
   editVenue(_id) {
-    return this
-      .http
-      .get(`${this.uri}/edit/` + _id);
-    // .get(this.uri + '/edit/' + _id);
+    return this.http.get(`${this.uri}/edit/` + _id)
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
+      });
+
   }
 
   async deleteVenue(_id) {
-    console.error('venue.service.ts - _id:' + _id);
     return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        alert(err);
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+      });
+
   }
 
   async updateVenue(obj: Venue) {
     return await this.http.post(`${this.uri}/update/`, obj)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleErrorPromise);
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/update` });
+      });
   }
 }
