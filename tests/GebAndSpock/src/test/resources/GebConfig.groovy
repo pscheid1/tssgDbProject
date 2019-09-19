@@ -60,7 +60,10 @@ environments {
 // -Dgeb.build.baseUrl=qa
 baseUrl = System.properties['geb.build.baseUrl']
 switch (baseUrl) {
-    case ["dev", "multipage"]:
+    case ["dev", "scheduledb"]:
+        baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
+        break
+    case ["multipage"]:
         baseUrl = "https://technologynursery.org/tssgTechMultipage/"
         break
     case ["qa", "stagedMaster"]:
@@ -73,7 +76,7 @@ switch (baseUrl) {
         baseUrl = "https://technologynursery.org/tssgTech/"
         break
     default:
-        baseUrl = "https://technologynursery.org/tssgTechMultipage/"
+        baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
         break
 }
 

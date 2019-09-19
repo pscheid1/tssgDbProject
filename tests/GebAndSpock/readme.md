@@ -6,9 +6,10 @@ This project was derived from geb/geb-example-gradle.
 
 The build is setup to work with Firefox and Chrome. Have a look at the `build.gradle` and the `src/test/resources/GebConfig.groovy` files.
 
-These tests will run against the multipage branch on https://technologynursery.org/tssgTechMultipage
+These tests will run against the scheduledb branch on https://technologynursery.org/tssgTechScheduledb
 Change to kick off build for demo. VM Options for -Dgeb.build.baseUrl are:
-* The default        -> tssgTechMultipage
+* dev or <default>   -> tssgTechScheduledb
+* multipage          -> tssgTechMultipage
 * qa or stagedMaster -> tssgTechStagedMaster
 * webflowqa          -> tssgTechWebflow
 * prod or tssgTech   -> tssgTech
@@ -19,7 +20,10 @@ Change to kick off build for demo. VM Options for -Dgeb.build.baseUrl are:
 
 ## Usage
 
-The following command will launch the test with the individual browser:
+The following command will launch the test 
+against the default environment 
+with the specified browser 
+on the selenium grid:
 
     ./gradlew chromeTest
 
@@ -27,7 +31,7 @@ To run with all, you can run:
 
     ./gradlew test
 
-Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Windows.
+Replace `./gradlew` with `gradlew.bat` in the above examples if you are on Windows.
 
 ## Options
 
@@ -36,25 +40,25 @@ Replace `./gradlew` with `gradlew.bat` in the above examples if you're on Window
 The default url to be tested is the dev endpoint (currently represents the tssgTechMultipage branch).
 To change the baseUrl, set to either dev, qa, or prod environments.
 
-To run tests in the dev environment (currently represents the multipage branch):
+To run tests in the dev environment (currently represents the scheduledb branch on the tssgTechScheduledb endpoint):
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=dev
 
-To run tests in the qa environment (currently represents the tssgTechStagedMaster branch):
+To run tests in the qa environment (currently represents the master branch on the tssgTechStagedMaster endpoint):
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=qa
 
-To run tests in the prod environment (currently represents the master branch):
+To run tests in the prod environment (currently represents the master branch on the production endpoint):
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=prod
 
-To run tests in the webflowqa environment (currently represents the webflow branch):
+To run tests in the webflowqa environment (currently represents the webflow branch on the tssgTechWebflow endpoint):
 
     ./gradlew chromeTest -Dgeb.build.baseUrl=webflowqa
     
 ### Xray Import
 
-Get Xray to import the test results of each test.  Include the Jira testKey in each test.
+Xray can import the test results of each test.  Make sure to include the Jira testKey in each test.
     
 To run xrayImport task, set the jira.username, jira.password System properties for Jira.
 
