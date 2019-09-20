@@ -36,13 +36,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
-  // {
-  //   // the router id syntax (:name) will set the params variable name (params.name)
-  //   path: 'venue/delete/:id',
-  //   component: VenueEditComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { roles: [Role.Admin] }
-  // },
   {
     path: 'venue',
     component: VenueGetComponent,
@@ -62,13 +55,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { type: 'edit', roles: [Role.Admin] }
   },
-  // {
-  //   // the router id syntax (:name) will set the params variable name (params.name)
-  //   path: 'meeting/delete/:_id',
-  //   component: MeetingEditComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { type: 'edit', roles: [Role.Admin] }
-  // },
   {
     path: 'meeting',
     component: MeetingGetComponent,
@@ -96,13 +82,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { type: 'schedule', roles: [Role.Admin] }
   },
-  // {
-  //   // the router id syntax (:name) will set the params variable name (params.name)
-  //   path: 'meeting/schedule/delete/:_id',
-  //   component: MeetingEditComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { type: 'schedule', roles: [Role.Admin] }
-  // },
   {
     path: 'team/create',
     component: TeamAddComponent,
@@ -116,20 +95,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
-  // {
-  //   // the router id syntax (:name) will set the params variable name (params.name)
-  //   path: 'team/delete/:id',
-  //   component: TeamEditComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { roles: [Role.Admin] }
-  // },
   {
     path: 'team',
     component: TeamGetComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
-
   {
     path: 'user/login',
     component: LoginComponent
@@ -176,13 +147,13 @@ const routes: Routes = [
     data: { type: 'authDenied' }
   },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
-    data: { type: 'home'}
+    // data: { type: 'user/login'}
   },
   {
   // otherwise redirect to home
-  path: '**', redirectTo: '/'
+  path: '**', redirectTo: 'home'
   }
 ];
 

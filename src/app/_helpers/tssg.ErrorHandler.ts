@@ -19,14 +19,7 @@ export class TssgErrorHandler implements ErrorHandler {
       }
     } else {
       // Handle Client Error (Angular Error, ReferenceError...)
-      console.log('It happens: Client Error: ' + error.name + ': ' + error.message);
-      throw new HttpErrorResponse({ status: 404, statusText: error.message});
+      console.log('tssg.ErrorHandler.handleError: Client Error: ' + error.name + ': ' + error.message);
     }
-    // Log the error anyway
-    // console.log('tssg.ErrorHandler.handleError: error = ' + error);
-
-    // console.log('tssg.ErrorHandler.handleError: error.name = ' + error.name);
-
-    // console.log('tssg.ErrorHandler.handleError: error.message = ' + error.message);
   }
 }

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class LogoutComponent implements OnInit {
 
+  errorMsg = '';
+
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router

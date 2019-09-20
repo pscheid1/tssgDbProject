@@ -36,16 +36,19 @@ export class LoginComponent implements OnInit {
     private us: UserService,
     private as: AuthenticationService
   ) {
-    // redirect to home if already logged in
-    if (this.as.currentUserValue) {
-      this.router.navigate(['/']);
-    }
-
+    // // redirect to home if already logged in
+    // if (this.as.currentUserValue) {
+    //   this.router.navigate(['home']);
+    // }
   }
 
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    // redirect to home if already logged in
+    if (this.as.currentUserValue) {
+      this.router.navigate(['home']);
+    }
+  }
 
   onSubmit(usrForm: NgForm): void {
     // console.log('login.component.onSubmit: ' + usrForm.value);
@@ -54,11 +57,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/']);
+          this.router.navigate(['home']);
         },
         error => {
           this.errorMsg = error.includes('Unknown') ? error +
-          ' - Possible no connection with backend server.' : error;
+            ' - Possible no connection with backend server.' : error;
           if ((window.location.href).indexOf('#bottom') < 0) {
             window.location.href = window.location.href + '#bottom';
           }
