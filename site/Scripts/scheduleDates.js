@@ -21,21 +21,13 @@ var cancelled = new Location("Cancelled","Images/icon-lib-NOmeeting.png","","Mee
 var hopkinton = new Location("Hopkinton","Images/icon-lib-hopkinton.png","https://goo.gl/maps/QYW9A3VBayS2","Hopkinton Public Library");
 var lexington = new Location("Lexington","Images/icon-lib-lexington.png","https://goo.gl/maps/4y785Pjxq4H2","Lexington Community Center");
 var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","https://goo.gl/maps/UQjhdjHa41x","Albert J. Sargent Memorial Library");
+var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Determined");
 
 /* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  
  Each Schedule object consists of a name, month (as the three-letter abbreviation), day (one or two digits), year, start time (as a string), end time (as a string), 
  and a location which is one of the previously defined Location objects.
 */
 var scheduleArray = [ 
-      {
-        "name": "item1",
-        "month": "SEPTEMBER",
-        "day": 18,
-        "year": 2019,
-        "startTime": "12:30",
-        "endTime": "5PM",
-        "location": acton
-      },
       {
         "name": "item2",
         "month": "SEPTEMBER",
@@ -44,6 +36,24 @@ var scheduleArray = [
         "startTime": "12:30",
         "endTime": "5PM",
         "location": chelmsford
+      },
+      {
+        "name": "item3",
+        "month": "OCTOBER",
+        "day": 2,
+        "year": 2019,
+        "startTime": "12:30",
+        "endTime": "5PM",
+        "location": tobedetermined
+      },
+      {
+        "name": "item3",
+        "month": "OCTOBER",
+        "day": 9,
+        "year": 2019,
+        "startTime": "12:30",
+        "endTime": "5PM",
+        "location": tobedetermined
       }
     ];
  
