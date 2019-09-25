@@ -15,7 +15,7 @@ global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
 // default port setting
-let port = process.env.tssgApiPort || 3000;
+let port = process.env.tssgApiPort || 7010;
 // const port = process.env.NODE_ENV === 'production' ? 80 : process.env.tssgApiPort;
 
 /*
