@@ -29,18 +29,18 @@ var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Dete
 */
 var scheduleArray = [ 
       {
-        "name": "item2",
-        "month": "SEPTEMBER",
-        "day": 25,
+        "name": "item1",
+        "month": "OCTOBER",
+        "day": 2,
         "year": 2019,
         "startTime": "12:30",
         "endTime": "5PM",
         "location": chelmsford
       },
       {
-        "name": "item3",
+        "name": "item2",
         "month": "OCTOBER",
-        "day": 2,
+        "day": 9,
         "year": 2019,
         "startTime": "12:30",
         "endTime": "5PM",
@@ -49,7 +49,7 @@ var scheduleArray = [
       {
         "name": "item3",
         "month": "OCTOBER",
-        "day": 9,
+        "day": 16,
         "year": 2019,
         "startTime": "12:30",
         "endTime": "5PM",
