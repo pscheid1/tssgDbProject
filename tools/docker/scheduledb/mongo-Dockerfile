@@ -2,5 +2,15 @@
 
 FROM mongo:4.0.11-xenial
 LABEL maintainer="Thomas ODea <todea865@gmail.com>"
+
+# Set the directory to contain mongo files
+# as specified in the mongo config file below.
+RUN mkdir /var/lib/mongodb
+RUN chmod 777 /var/lib/mongodb
+
+# Set to use the mongo config file
+COPY mongod.conf /etc/mongod.conf
+
+# Place the initialized databases in the image
 RUN mkdir /root/tssg-tech
 COPY tssg-tech /root/tssg-tech/

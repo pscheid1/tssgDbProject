@@ -9,11 +9,14 @@ services:
       context: .
       dockerfile: mongo-Dockerfile
     restart: always
+    ports:
+      - 27017:27017
     volumes:
       - mongodb:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: sch3dul3db
+    command: --config /etc/mongod.conf
 
   mongo-express:
     image: mongo-express
