@@ -34,7 +34,7 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-        - ../../../scheduledb/tssgDbApi:/home/node/app
+        - ../../../scheduledb/DbApi:/home/node/app
     expose:
       - "7010"
     ports:
@@ -50,7 +50,7 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-        - ../../../scheduledb/tssgDbApp:/home/node/app
+        - ../../../scheduledb/DbApp:/home/node/app
     expose:
       - "4200"
     ports:

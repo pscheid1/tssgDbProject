@@ -12,6 +12,13 @@ docker volume rm scheduledb_mongodb
 echo "Rebuild the docker mongodb images ..."
 docker-compose build
 
+echo "Ensure node modules are installed ..."
+pushd ../../../scheduledb/DbApi
+npm install
+cd ../DbApp
+npm install
+popd
+
 echo "INFO Start up all containers ..."
 docker-compose up -d
 
