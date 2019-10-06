@@ -1,0 +1,54 @@
+<form #venueForm="ngForm">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">List All Teams</h4>
+        <p>This page can only be accessed by administrators.</p>
+      </div>
+        <table class="table-fixed">
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Description</th>
+              <th>Team Lead</th>
+              <th>Team Members</th>
+              <th>Zoom URI</th>
+              <th>Comments</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- three empty lines will push first display line below  -->
+            <tr>&nbsp;</tr>
+            <tr>&nbsp;</tr>
+            <tr>&nbsp;</tr>
+            <tr *ngFor="let team of teams">
+              <td>{{team._id}}</td>
+              <td>{{team.description}}</td>
+              <td>{{team.teamLead}}</td>
+              <td>{{team.members}}</td>
+              <td>{{team.zoomLink}}</td>
+              <td>{{team.comments}}</td>
+              <!--
+            pass control to venue-edit.components constructor via app-routing.module.ts
+            this will retrieve venue and display in venue-edit.component.html
+          -->
+              <td><a [routerLink]="['edit', team._id]" class="btn btn-primary btn-sm">Edit</a></td>
+
+              <td><a (click)="deleteTeam(team._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
+            </tr>
+            <tr *ngIf="!teams">
+              <td colspan="10">Loading data. Please wait... </td>
+            </tr>
+            <tr *ngIf="teams && teams.length==0">
+              <td colspan="10">No teams to display</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </form>
+  <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+  <div><br/><br/><br/><br/><a id="bottom" href="#bottom"></a></div>
+
+

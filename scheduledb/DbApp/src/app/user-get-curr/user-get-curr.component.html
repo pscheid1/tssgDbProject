@@ -1,0 +1,46 @@
+<form #userForm="ngForm">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">Current User</h4>
+    </div>
+    <table class="table-fixed">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Active</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- three empty lines will push first display line below  -->
+        <tr>&nbsp;</tr>
+        <tr>&nbsp;</tr>
+        <tr>&nbsp;</tr>
+        <tr *ngIf="userFromApi">
+          <td>{{userFromApi.username}}</td>
+          <td>{{userFromApi.firstname}}</td>
+          <td>{{userFromApi.lastname}}</td>
+          <td>{{userFromApi.email}}</td>
+          <td>{{userFromApi.mobile}}</td>
+          <td>{{!userFromApi.inActive}}</td>
+          <td><a [routerLink]="['edit', userFromApi._id]" class="btn btn-primary btn-sm">Edit</a></td>
+        </tr>
+        <tr *ngIf="!userFromApi && !errorMsg">
+          <td colspan="5">Loading data. Please wait... </td>
+        </tr>
+<!--
+        <tr *ngIf="!userFromApi && !errorMsg" class="alert alert-danger">
+          <td colspan="5">No User info to display</td>
+        </tr>
+  -->
+      </tbody>
+    </table>
+  </div>
+</form>
+<div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+<div><br /><br /><br /><br /><a id="bottom" href="#bottom"></a></div>
