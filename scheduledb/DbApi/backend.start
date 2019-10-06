@@ -1,0 +1,12 @@
+#!/bin/bash
+# backend.start                                  # Start the backend services
+
+timeout="25s"
+
+date
+echo "   Waiting ${timeout} seconds ..."
+sleep $timeout
+date
+
+npm run dev
+
