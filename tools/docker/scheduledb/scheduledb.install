@@ -15,8 +15,10 @@ docker-compose build
 echo "Ensure node modules are installed ..."
 pushd ../../../scheduledb/DbApi
 npm install
+npm audit fix
 cd ../DbApp
 npm install
+npm audit fix
 popd
 
 echo "INFO Start up all containers ..."
