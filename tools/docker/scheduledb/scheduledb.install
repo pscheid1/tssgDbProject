@@ -13,9 +13,11 @@ echo "Rebuild the docker mongodb images ..."
 docker-compose build
 
 echo "Ensure node modules are installed ..."
+echo "... on DbApi ..."
 pushd ../../../scheduledb/DbApi
 npm install
 npm audit fix
+echo "... on DbApp ..."
 cd ../DbApp
 npm install
 npm audit fix
@@ -24,8 +26,8 @@ popd
 echo "INFO Start up all containers ..."
 docker-compose up -d
 
-echo "INFO Wait 10s for mongodb to normalize ..."
-sleep 10s
+echo "INFO Wait 20s for mongodb to normalize ..."
+sleep 20s
 
 echo "INFO Initialize the tssg-tech mongo database ..."
 docker exec -it scheduledb_mongo_1 bash -c "\
