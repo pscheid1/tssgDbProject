@@ -1,35 +1,39 @@
 #!/usr/bin/env bash
 #scheduledb.install
 
-echo "BEGIN Clean up and Install the schedule db services ..."
+. ../../cmd.env
 
-echo "INFO Stop and remove any existing scheduledb containers ..."
+msg BEGIN "Clean up and Install the schedule db services ..."
+
+msg INFO "Stop and remove any existing scheduledb containers ..."
 docker-compose down
 
-echo "INFO Remove any persistent volume for mongodb ..."
+msg INFO "Remove any persistent volume for mongodb ..."
 docker volume rm scheduledb_mongodb
 
-echo "Rebuild the docker mongodb images ..."
+msg INFO "Rebuild the docker mongodb images ..."
 docker-compose build
 
-echo "Ensure node modules are installed ..."
-echo "... on DbApi ..."
+msg INFO "Ensure node modules are installed ..."
+
+msg INFO "... on DbApi ..."
 pushd ../../../scheduledb/DbApi
 npm install
 npm audit fix
-echo "... on DbApp ..."
+
+msg INFO "... on DbApp ..."
 cd ../DbApp
 npm install
 npm audit fix
 popd
 
-echo "INFO Start up all containers ..."
+msg INFO "Start up all containers ..."
 docker-compose up -d
 
-echo "INFO Wait 20s for mongodb to normalize ..."
+msg WAIT "Sleep 20s for mongodb to normalize ..."
 sleep 20s
 
-echo "INFO Initialize the tssg-tech mongo database ..."
+msg INFO "Initialize the tssg-tech mongo database ..."
 docker exec -it scheduledb_mongo_1 bash -c "\
     cd /root; \
     mongorestore \
@@ -40,6 +44,6 @@ docker exec -it scheduledb_mongo_1 bash -c "\
         --db tssg-tech \
         tssg-tech"
 
-echo "INFO Mongo can be accessed on port 27017"
-echo "INFO Mongo Express can be accessed on port 8081"
-echo "END ... done."
+msg INFO "Mongo can be accessed on port 27017"
+msg INFO "Mongo Express can be accessed on port 8081"
+msg END "... done."
