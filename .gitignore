@@ -2,10 +2,7 @@
 .gradle/
 build/
 out/
-tools/docker/scheduledb/tssg-tech.zip
-tools/docker/scheduledb/node.js/dev/app/package-lock.json
-tools/docker/scheduledb/TSSGDBAppDocumentation_2019-09-26.zip
-tools/docker/scheduledb/tssg-tech_2019-08-03.zip
-tools/docker/scheduledb/tssg-tech_2019-08-03/
-tools/docker/scheduledb/tssg-tech_2019-09-26.zip
+tmp/
+
+node_modules/
 
