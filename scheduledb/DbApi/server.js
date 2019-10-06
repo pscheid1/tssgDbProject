@@ -14,8 +14,8 @@ global.Root = __dirname;
 global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
-// default port setting
-let port = process.env.tssgApiPort || 7010;
+// default port setting = 7010
+let port = process.env.tssgApiPort || 7010 ;
 // const port = process.env.NODE_ENV === 'production' ? 80 : process.env.tssgApiPort;
 
 /*
@@ -50,15 +50,15 @@ const options = {
   family: 4 // Use IPv4, skip trying IPv6
 };
 
-let dev_db_url = 'mongodb://localhost:27017/tssg-tech';
+let dev_db_url = "mongodb://root:sch3dul3db@mongo:27017/tssg-tech?authSource=admin";
 let mongoDB = process.env.tssgMongoDB_URL || dev_db_url;
-console.log('mongoDB: ' + mongoDB);
+//console.log('mongoDB: ' + mongoDB);
 mongoose.connect(mongoDB, options);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function () {
-  console.log(mongoDB + " - we're connected!");
+  console.log("Connection to mongo is successful!");
   console.log();
 });
 
