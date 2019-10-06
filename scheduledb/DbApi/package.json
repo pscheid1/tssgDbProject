@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js --scripts-prepend-node-path",
-    "prod": "node server.js --scripts-prepend-node-path"
+    "dev1": "nodemon server.js --scripts-prepend-node-path",
+    "dev": "nodemon server.js",
+    "prod1": "node server.js --scripts-prepend-node-path",
+    "prod": "node server.js"
   },
   "author": "Paul S <paul.scheidemantel@gmail.com>",
   "license": "ISC",
