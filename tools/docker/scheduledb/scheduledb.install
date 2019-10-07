@@ -16,16 +16,16 @@ docker-compose build
 
 msg INFO "Ensure node modules are installed ..."
 
-msg INFO "... on DbApi ..."
-pushd DbApi
-npm install
-npm audit fix
+#msg INFO "... on DbApi ..."
+#pushd DbApi
+#npm install
+#npm audit fix
 
-msg INFO "... on DbApp ..."
-cd ../DbApp
-npm install
-npm audit fix
-popd
+#msg INFO "... on DbApp ..."
+#cd ../DbApp
+#npm install
+#npm audit fix
+#popd
 
 msg INFO "Start up all containers ..."
 docker-compose up -d
