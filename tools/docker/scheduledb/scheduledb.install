@@ -17,7 +17,7 @@ docker-compose build
 msg INFO "Ensure node modules are installed ..."
 
 msg INFO "... on DbApi ..."
-pushd ../../../scheduledb/DbApi
+pushd DbApi
 npm install
 npm audit fix
 

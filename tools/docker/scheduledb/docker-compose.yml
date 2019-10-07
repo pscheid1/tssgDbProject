@@ -28,20 +28,19 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: sch3dul3db
 
   backend:
-    image: node:lts
+    image: tssg-node-backend:1.0
+    build:
+        context: .
+        dockerfile: backend-Dockerfile
     user: "node"
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-    volumes:
-        - ../../../scheduledb/DbApi:/home/node/app
     expose:
       - "7010"
     ports:
       - 7010:7010
     command: /bin/bash backend.start
-    #command: "/usr/bin/time sleep 30s; npm run dev"
-    #command: "/bin/bash"
     
   frontend:
     image: node:lts

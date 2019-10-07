@@ -1,0 +1,12 @@
+# backend-Dockerfile
+
+FROM node:lts
+LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
+
+# Set the directory to contain node application files
+RUN mkdir /home/node/app
+RUN chmod 777 /home/node/app
+
+# Set to use the mongo config file
+COPY --chown=node:node DbApi /home/node/app/
+
