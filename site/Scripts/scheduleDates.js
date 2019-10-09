@@ -31,15 +31,6 @@ var scheduleArray = [
       {
         "name": "item1",
         "month": "OCTOBER",
-        "day": 9,
-        "year": 2019,
-        "startTime": "12:30",
-        "endTime": "5PM",
-        "location": boxborough
-      },
-      {
-        "name": "item2",
-        "month": "OCTOBER",
         "day": 16,
         "year": 2019,
         "startTime": "12:30",
@@ -47,15 +38,24 @@ var scheduleArray = [
         "location": boxborough
       },
       {
-      "name": "item3",
+      "name": "item2",
       "month": "OCTOBER",
       "day": 23,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
       "location": chelmsford
+    },
+    {
+      "name": "item3",
+      "month": "OCTOBER",
+      "day": 30,
+      "year": 2019,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": boxborough
     }
-  ];
+];
  
 var scheduleTable = document.getElementById("scheduleBody");
 
