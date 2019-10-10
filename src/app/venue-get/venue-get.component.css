@@ -7,8 +7,8 @@ btnc {
   position: -webkit-sticky;
   top: 120px;
   z-index: 50;
-  background-color: #000;
-  color: #fff;
+  background-color: white;
+  color: blue;
 }
 
 tr:hover {
@@ -17,13 +17,12 @@ tr:hover {
 
 td {
   /* border: 1px solid lightskyblue; */
-  /* width: 98%; */
   overflow: auto;
 }
 
 .panel-heading {
   position: fixed;
-  width: 98%;
+  width: 100%;   /* to enforce z-index */
   z-index: 50;
   background-color: white;
 }

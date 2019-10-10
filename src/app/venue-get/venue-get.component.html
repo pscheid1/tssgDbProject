@@ -7,16 +7,16 @@
       <table class="table-fixed">
         <thead>
           <tr>
-            <th>Venue</th>
-            <th>Description</th>
-            <th>Contact</th>
+            <th>Venue</th>&nbsp;
+            <th>Description</th>&nbsp;
+            <th>Contact</th>&nbsp;
             <!-- <th>Website</th> -->
             <!-- <th>Calendar</th> -->
-            <th>Address</th>
-            <th>Town</th>
-            <th>Location</th>
-            <th>Icon Image</th>
-            <th></th>
+            <th>Address</th>&nbsp;
+            <th>Town</th>&nbsp;
+            <th>Location</th>&nbsp;
+            <th>Icon Image</th>&nbsp;
+            <th></th>&nbsp;
             <th></th>
           </tr>
         </thead>
@@ -27,20 +27,20 @@
           <tr>&nbsp;</tr>
           <tr>&nbsp;</tr>
           <tr *ngFor="let venue of venues">
-            <td>{{venue._id}}</td>
-            <td>{{venue.description}}</td>
-            <td>{{venue.contact}}</td>
+            <td>{{venue._id}}</td>&nbsp;
+            <td>{{venue.description}}</td>&nbsp;
+            <td>{{venue.contact}}</td>&nbsp;
             <!-- <td>{{venue.website}}</td> -->
             <!-- <td>{{venue.calendar}}</td> -->
-            <td>{{venue.address}}</td>
-            <td>{{venue.town}}</td>
-            <td>{{venue.location}}</td>
-            <td>{{venue.iconimage}}</td>
+            <td>{{venue.address}}</td>&nbsp;
+            <td>{{venue.town}}</td>&nbsp;
+            <td>{{venue.location}}</td>&nbsp;
+            <td>{{venue.iconimage}}</td>&nbsp;
             <!--
           pass control to venue-edit.components constructor via app-routing.module.ts
           this will retrieve venue and display in venue-edit.component.html
         -->
-            <td><a [routerLink]="['edit', venue._id]" class="btn btn-primary btn-sm">Edit</a></td>
+            <td><a [routerLink]="['edit', venue._id]" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
 
             <td><a (click)="deleteVenue(venue._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
           </tr>
