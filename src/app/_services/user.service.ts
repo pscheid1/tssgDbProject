@@ -58,11 +58,11 @@ export class UserService {
     // return this.http.get<User[]>(`${this.uri}`);
 
     return await this.http.get(`${this.uri}`)
-    .toPromise()
-    .then(this.extractData)
-    .catch(err => {
-      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
-    });
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
+      });
 
   }
 
@@ -92,20 +92,23 @@ export class UserService {
   async getById(_id: string) {
     // return this.http.get(`${this.uri}/edit/` + _id);
     return await this.http.get(`${this.uri}/edit/${_id}`)
-    .toPromise()
-    .then(this.extractData)
-    .catch(err => {
-      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
-    });
-  }
-
-  async deleteUser(_id: string) {
-    return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
       });
+  }
+
+  async deleteUser(_id: string) {
+    if (confirm('Select OK to delete, or Cancel to return.')) {
+      return await this.http.get(`${this.uri}/delete/${_id}`)
+        .toPromise()
+        .then(this.extractData)
+        .catch(err => {
+          throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+        });
+    }
+    return;
   }
 
   async registerUser(obj: User) {

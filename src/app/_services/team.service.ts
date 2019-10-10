@@ -70,13 +70,15 @@ export class TeamService {
   }
 
   async deleteTeam(_id) {
-    return await this.http.get(`${this.uri}/delete/${_id}`)
-      .toPromise()
-      .then(this.extractData)
-      .catch(err => {
-        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
-      });
-
+    if (confirm('Select OK to delete, or Cancel to return.')) {
+      return await this.http.get(`${this.uri}/delete/${_id}`)
+        .toPromise()
+        .then(this.extractData)
+        .catch(err => {
+          throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+        });
+    }
+    return;
   }
 
   async updateteam(obj: Team) {
