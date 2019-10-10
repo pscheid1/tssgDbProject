@@ -4,7 +4,7 @@ import {
   HttpErrorResponse,
   HttpResponse
 } from '@angular/common/http';
-import { Venue } from 'src/app/_models/Venue';
+import { Venue } from 'src/app/_models/venue';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
