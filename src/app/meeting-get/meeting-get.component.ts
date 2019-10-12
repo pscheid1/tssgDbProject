@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Meeting from '../_models/meeting';
+import { Meeting } from '../_models/meeting';
 import { MeetingService } from '../_services/meeting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 

@@ -4,7 +4,7 @@ import {
   HttpErrorResponse,
   HttpResponse
 } from '@angular/common/http';
-import Meeting from 'src/app/_models/meeting';
+import { Meeting } from 'src/app/_models/meeting';
 import { environment } from 'src/environments/environment';
 
 
