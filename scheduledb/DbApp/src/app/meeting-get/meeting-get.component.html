@@ -7,14 +7,14 @@
       <table class="table-fixed">
         <thead>
           <tr>
-            <th>Meeting Id</th>
-            <th>Team</th>
-            <th>Venue</th>
-            <th>Date</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Comments</th>
-            <th></th>
+            <th>Meeting Id</th>&nbsp;
+            <th>Team</th>&nbsp;
+            <th>Venue</th>&nbsp;
+            <th>Date</th>&nbsp;
+            <th>Start</th>&nbsp;
+            <th>End</th>&nbsp;
+            <th>Comments</th>&nbsp;
+            <th></th>&nbsp;
             <th></th>
           </tr>
         </thead>
@@ -25,18 +25,18 @@
           <tr>&nbsp;</tr>
           <tr>&nbsp;</tr>
           <tr *ngFor="let meeting of meetings">
-            <td>{{meeting._id}}</td>
-            <td>{{meeting.team}}</td>
-            <td>{{meeting.venue}}</td>
-            <td>{{meeting.meetingDate | date: 'E LLL dd'}}</td>
-            <td>{{meeting.startTime | date: 'hh:mm aaaaa'}}</td>
-            <td>{{meeting.endTime | date: 'hh:mm aaaaa'}}</td>
-            <td>{{meeting.comments}}</td>
+            <td>{{meeting._id}}</td>&nbsp;
+            <td>{{meeting.team}}</td>&nbsp;
+            <td>{{meeting.venue}}</td>&nbsp;
+            <td>{{meeting.meetingDate | date: 'E LLL dd'}}</td>&nbsp;
+            <td>{{meeting.startTime | date: 'hh:mm aaaaa'}}</td>&nbsp;
+            <td>{{meeting.endTime | date: 'hh:mm aaaaa'}}</td>&nbsp;
+            <td>{{meeting.comments}}</td>&nbsp;
             <!--
             pass control to meeting-edit.components constructor via app-routing.module.ts
             this will retrieve meeting and display in meeting-edit.component.html
           -->
-            <td><a [routerLink]="routerlink + meeting._id" class="btn btn-primary btn-sm">Edit</a></td>
+            <td><a [routerLink]="routerlink + meeting._id" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
             <td><a (click)="deleteMeeting(meeting._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
           </tr>
           <tr *ngIf="!meetings">

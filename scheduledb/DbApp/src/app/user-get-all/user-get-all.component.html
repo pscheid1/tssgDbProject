@@ -5,23 +5,23 @@
       <p>This page can only be accessed by administrators.</p>
     </div>
     <table class="table-fixed">
-      <colgroup>
+      <!-- <colgroup>
         <col style="width:20%;">
         <col style="width:20%;">
         <col style="width:20%;">
         <col style="width:5%;">
         <col style="width:5%;">
-      </colgroup>
+      </colgroup> -->
       <thead>
         <tr>
-          <th>User Name</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Role</th>
-          <th>Email</th>
-          <th>Mobile</th>
-          <th>Active</th>
-          <th></th>
+          <th>User Name</th>&nbsp;
+          <th>First Name</th>&nbsp;
+          <th>Last Name</th>&nbsp;
+          <th>Role</th>&nbsp;
+          <th>Email</th>&nbsp;
+          <th>Mobile</th>&nbsp;
+          <th>Active</th>&nbsp;
+          <th></th>&nbsp;
           <th></th>
         </tr>
       </thead>
@@ -31,14 +31,14 @@
         <tr>&nbsp;</tr>
         <tr>&nbsp;</tr>
         <tr *ngFor="let user of users">
-          <td>{{user.username}}</td>
-          <td>{{user.firstname}}</td>
-          <td>{{user.lastname}}</td>
-          <td>{{user.role}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.mobile}}</td>
-          <td>{{!user.inActive}}</td>
-          <td><a [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>
+          <td>{{user.username}}</td>&nbsp;
+          <td>{{user.firstname}}</td>&nbsp;
+          <td>{{user.lastname}}</td>&nbsp;
+          <td>{{user.role}}</td>&nbsp;
+          <td>{{user.email}}</td>&nbsp;
+          <td>{{user.mobile}}</td>&nbsp;
+          <td>{{!user.inActive}}</td>&nbsp;
+          <td><a [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
           <td><a (click)="deleteUser(user._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
         </tr>
         <tr *ngIf="!users && !errorMsg">

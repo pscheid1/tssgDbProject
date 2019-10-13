@@ -4,7 +4,7 @@ import {
   HttpErrorResponse,
   HttpResponse
 } from '@angular/common/http';
-import { Venue } from 'src/app/_models/Venue';
+import { Venue } from 'src/app/_models/venue';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -72,14 +72,16 @@ export class VenueService {
   }
 
   async deleteVenue(_id) {
-    return await this.http.get(`${this.uri}/delete/${_id}`)
-      .toPromise()
-      .then(this.extractData)
-      .catch(err => {
-        alert(err);
-        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
-      });
-
+    if (confirm('Select OK to delete, or Cancel to return.')) {
+      return await this.http.get(`${this.uri}/delete/${_id}`)
+        .toPromise()
+        .then(this.extractData)
+        .catch(err => {
+          alert(err);
+          throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+        });
+    }
+    return;
   }
 
   async updateVenue(obj: Venue) {

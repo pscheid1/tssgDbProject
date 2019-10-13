@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VenueService } from '../_services/venue.service';
-import { Venue } from 'src/app/_models/Venue';
+import { Venue } from 'src/app/_models/venue';
 import { UserService } from '../_services/user.service';
 
 @Component({

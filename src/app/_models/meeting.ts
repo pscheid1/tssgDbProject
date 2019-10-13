@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
-export default class Meeting {
+export class Meeting {
   _id: string;
   team: string;
   venue: string;

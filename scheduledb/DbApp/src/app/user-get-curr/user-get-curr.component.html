@@ -6,12 +6,12 @@
     <table class="table-fixed">
       <thead>
         <tr>
-          <th>User Name</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Mobile</th>
-          <th>Active</th>
+          <th>User Name</th>&nbsp;
+          <th>First Name</th>&nbsp;
+          <th>Last Name</th>&nbsp;
+          <th>Email</th>&nbsp;
+          <th>Mobile</th>&nbsp;
+          <th>Active</th>&nbsp;
           <th></th>
         </tr>
       </thead>
@@ -22,12 +22,12 @@
         <tr>&nbsp;</tr>
         <tr>&nbsp;</tr>
         <tr *ngIf="userFromApi">
-          <td>{{userFromApi.username}}</td>
-          <td>{{userFromApi.firstname}}</td>
-          <td>{{userFromApi.lastname}}</td>
-          <td>{{userFromApi.email}}</td>
-          <td>{{userFromApi.mobile}}</td>
-          <td>{{!userFromApi.inActive}}</td>
+          <td>{{userFromApi.username}}</td>&nbsp;
+          <td>{{userFromApi.firstname}}</td>&nbsp;
+          <td>{{userFromApi.lastname}}</td>&nbsp;
+          <td>{{userFromApi.email}}</td>&nbsp;
+          <td>{{userFromApi.mobile}}</td>&nbsp;
+          <td>{{!userFromApi.inActive}}</td>&nbsp;
           <td><a [routerLink]="['edit', userFromApi._id]" class="btn btn-primary btn-sm">Edit</a></td>
         </tr>
         <tr *ngIf="!userFromApi && !errorMsg">

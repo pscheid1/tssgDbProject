@@ -7,13 +7,13 @@
         <table class="table-fixed">
           <thead>
             <tr>
-              <th>Team</th>
-              <th>Description</th>
-              <th>Team Lead</th>
-              <th>Team Members</th>
-              <th>Zoom URI</th>
-              <th>Comments</th>
-              <th></th>
+              <th>Team</th>&nbsp;
+              <th>Description</th>&nbsp;
+              <th>Team Lead</th>&nbsp;
+              <th>Team Members</th>&nbsp;
+              <th>Zoom URI</th>&nbsp;
+              <th>Comments</th>&nbsp;
+              <th></th>&nbsp;
               <th></th>
             </tr>
           </thead>
@@ -24,17 +24,17 @@
             <tr>&nbsp;</tr>
             <tr>&nbsp;</tr>
             <tr *ngFor="let team of teams">
-              <td>{{team._id}}</td>
-              <td>{{team.description}}</td>
-              <td>{{team.teamLead}}</td>
-              <td>{{team.members}}</td>
-              <td>{{team.zoomLink}}</td>
-              <td>{{team.comments}}</td>
+              <td>{{team._id}}</td>&nbsp;
+              <td>{{team.description}}</td>&nbsp;
+              <td>{{team.teamLead}}</td>&nbsp;
+              <td>{{team.members}}</td>&nbsp;
+              <td>{{team.zoomLink}}</td>&nbsp;
+              <td>{{team.comments}}</td>&nbsp;
               <!--
             pass control to venue-edit.components constructor via app-routing.module.ts
             this will retrieve venue and display in venue-edit.component.html
           -->
-              <td><a [routerLink]="['edit', team._id]" class="btn btn-primary btn-sm">Edit</a></td>
+              <td><a [routerLink]="['edit', team._id]" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
 
               <td><a (click)="deleteTeam(team._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
             </tr>

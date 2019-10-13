@@ -4,7 +4,7 @@ import {
   HttpErrorResponse,
   HttpResponse
 } from '@angular/common/http';
-import Meeting from 'src/app/_models/Meeting';
+import { Meeting } from 'src/app/_models/meeting';
 import { environment } from 'src/environments/environment';
 
 
@@ -80,20 +80,23 @@ export class MeetingService {
   // via app-routing.module.ts path match for 'meeting/edit/:_id'
   async editSchedule(_id) {
     return await this.http.get(`${this.uri}/edit/${_id}`)
-    .toPromise()
-    .then(this.extractData)
-    .catch(err => {
-      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
-    });
-  }
-
-  async deleteMeeting(_id) {
-    return await this.http.get(`${this.uri}/delete/${_id}`)
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
       });
+  }
+
+  async deleteMeeting(_id) {
+    if (confirm('Select OK to delete, or Cancel to return.')) {
+      return await this.http.get(`${this.uri}/delete/${_id}`)
+        .toPromise()
+        .then(this.extractData)
+        .catch(err => {
+          throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+        });
+    }
+    return;
   }
 
   // post meeting data to update back to the node server. called from meeting-edit.component.ts

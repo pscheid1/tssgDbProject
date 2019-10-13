@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MeetingService } from '../_services/meeting.service';
-import Meeting from 'src/app/_models/Meeting';
+import { Meeting } from 'src/app/_models/meeting';
 import { VenueService } from '../_services/venue.service';
 import { TeamService } from '../_services/team.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
