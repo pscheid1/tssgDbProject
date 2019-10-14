@@ -1,0 +1,17 @@
+# frontend-Dockerfile
+
+FROM node:lts
+LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
+
+# Set the directory to contain node application files
+SHELL ["/bin/bash", "-c"]
+RUN mkdir /home/node/app
+RUN chmod 777 /home/node/app
+
+# Copy the DbApp files
+COPY --chown=node:node DbApp /home/node/app/
+
+USER node
+RUN cd /home/node/app ; npm install
+RUN cd /home/node/app ; npm audit fix
+

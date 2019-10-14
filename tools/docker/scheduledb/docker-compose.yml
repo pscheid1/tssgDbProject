@@ -43,19 +43,21 @@ services:
     command: /bin/bash backend.start
     
   frontend:
-    image: node:lts
+    #image: node:lts
+    image: tssg-node-frontend:1.0
+    build:
+        context: .
+        dockerfile: frontend-Dockerfile
     user: "node"
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-    volumes:
-        - ../../../scheduledb/DbApp:/home/node/app
     expose:
       - "4200"
     ports:
       - 4200:4200
-    command: node_modules/@angular/cli/bin/ng serve
-    #command: "/bin/bash"
+    #command: node_modules/@angular/cli/bin/ng serve
+    command: /bin/bash frontend.start
     
 volumes:
   mongodb:
