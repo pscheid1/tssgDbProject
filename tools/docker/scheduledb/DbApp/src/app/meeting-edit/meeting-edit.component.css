@@ -1,0 +1,20 @@
+.panel {
+  margin-right: 10%;
+  /* width: 40%; */
+}
+
+label {
+  font-weight: 500;
+}
+
+.form-group {
+  width: 30ch;
+}
+
+.small-entry {
+  width: 14ch;
+}
+
+bs-datepicker-container {
+  z-index: 99 !important;
+}

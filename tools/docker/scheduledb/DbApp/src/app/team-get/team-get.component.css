@@ -1,0 +1,28 @@
+btnc {
+  background-color: bisque;
+}
+
+.table-fixed thead th {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 120px;
+  z-index: 50;
+  background-color: white;
+  color: blue
+}
+
+tr:hover {
+  background-color: #ffff99;
+}
+
+td {
+  /* border: 1px solid lightskyblue; */
+  overflow: auto;
+}
+
+.panel-heading {
+  position: fixed;
+  width: 100%;   /* to enforce z-index */
+  z-index: 50;
+  background-color: white;
+}

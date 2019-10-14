@@ -1,0 +1,55 @@
+<form #userForm="ngForm">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">List All Users</h4>
+      <p>This page can only be accessed by administrators.</p>
+    </div>
+    <table class="table-fixed">
+      <!-- <colgroup>
+        <col style="width:20%;">
+        <col style="width:20%;">
+        <col style="width:20%;">
+        <col style="width:5%;">
+        <col style="width:5%;">
+      </colgroup> -->
+      <thead>
+        <tr>
+          <th>User Name</th>&nbsp;
+          <th>First Name</th>&nbsp;
+          <th>Last Name</th>&nbsp;
+          <th>Role</th>&nbsp;
+          <th>Email</th>&nbsp;
+          <th>Mobile</th>&nbsp;
+          <th>Active</th>&nbsp;
+          <th></th>&nbsp;
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- three empty lines will push first display line below  -->
+        <tr>&nbsp;</tr>
+        <tr>&nbsp;</tr>
+        <tr>&nbsp;</tr>
+        <tr *ngFor="let user of users">
+          <td>{{user.username}}</td>&nbsp;
+          <td>{{user.firstname}}</td>&nbsp;
+          <td>{{user.lastname}}</td>&nbsp;
+          <td>{{user.role}}</td>&nbsp;
+          <td>{{user.email}}</td>&nbsp;
+          <td>{{user.mobile}}</td>&nbsp;
+          <td>{{!user.inActive}}</td>&nbsp;
+          <td><a [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
+          <td><a (click)="deleteUser(user._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
+        </tr>
+        <tr *ngIf="!users && !errorMsg">
+          <td colspan="5">Loading data. Please wait... </td>
+        </tr>
+        <tr *ngIf="users && users.length==0 && !errorMsg" class="alert alert-danger">
+          <td colspan="5">No Users to display</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
+<div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+<div><br/><br/><br/><br/><a id="bottom" href="#bottom"></a></div>
