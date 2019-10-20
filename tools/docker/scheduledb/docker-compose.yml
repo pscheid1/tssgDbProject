@@ -52,6 +52,7 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
+      - TSSGAPIURL
     expose:
       - "4200"
     ports:

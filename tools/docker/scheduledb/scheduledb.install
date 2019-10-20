@@ -11,6 +11,17 @@ docker-compose down
 msg INFO "Remove any persistent volume for mongodb ..."
 docker volume rm scheduledb_mongodb
 
+msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
+if [ ! -z "$DOCKER_HOST" ] ; then
+    msg INFO "... We are running in Docker Toolbox ..."
+    export TSSGAPIURL="http://192.168.99.100"
+else
+    msg INFO "... We are running in Linux ..."
+    export TSSGAPIURL="http://localhost"
+fi
+msg INFO "Set the appropriate value into src/environments/environment.ts ..."
+sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
+
 msg INFO "Rebuild the docker mongodb images ..."
 docker-compose build
 
