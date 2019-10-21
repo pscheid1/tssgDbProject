@@ -1,6 +1,0 @@
-[submodule "scheduledb/tssgDbApp"]
-	path = scheduledb/tssgDbApp
-	url = https://github.com/pscheid1/tssgDbApp.git
-[submodule "scheduledb/tssgDbApi"]
-	path = scheduledb/tssgDbApi
-	url = https://github.com/pscheid1/tssgDbApi.git
