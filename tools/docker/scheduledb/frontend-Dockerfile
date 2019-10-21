@@ -12,7 +12,7 @@ RUN chmod 777 /home/node/app
 COPY --chown=node:node DbApp /home/node/app/
 
 USER node
-RUN cd /home/node/app ; npm cache clean --force ; npm cache verify
+#RUN cd /home/node/app ; npm cache clean --force ; npm cache verify
 RUN cd /home/node/app ; npm install
 RUN cd /home/node/app ; npm audit fix
 
