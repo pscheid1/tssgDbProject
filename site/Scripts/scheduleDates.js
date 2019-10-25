@@ -28,17 +28,8 @@ var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Dete
  and a location which is one of the previously defined Location objects.
 */
 var scheduleArray = [ 
-      {
-      "name": "item1",
-      "month": "OCTOBER",
-      "day": 23,
-      "year": 2019,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": chelmsford
-    },
     {
-      "name": "item2",
+      "name": "item1",
       "month": "OCTOBER",
       "day": 30,
       "year": 2019,
@@ -47,9 +38,18 @@ var scheduleArray = [
       "location": boxborough
     },
     {
-      "name": "item3",
+      "name": "item2",
       "month": "NOVEMBER",
       "day": 6,
+      "year": 2019,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": acton
+    },
+    {
+      "name": "item3",
+      "month": "NOVEMBER",
+      "day": 13,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
