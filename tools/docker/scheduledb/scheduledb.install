@@ -12,9 +12,9 @@ msg INFO "Remove any persistent volume for mongodb ..."
 docker volume rm scheduledb_mongodb
 
 msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
-if [ ! -z "$DOCKER_HOST" ] ; then
+if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
     msg INFO "... We are running in Docker Toolbox ..."
-    export TSSGAPIURL="http://192.168.99.100"
+    export TSSGAPIURL="http://$(docker-machine ip)"
 else
     msg INFO "... We are running in Linux ..."
     export TSSGAPIURL="http://localhost"
