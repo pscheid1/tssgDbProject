@@ -35,7 +35,9 @@ services:
     user: "node"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
+      tssgMongoDB_URL: "mongodb://root:sch3dul3db@mongo:27017/tssg-tech?authSource=admin"
+      tssgApiURL: backend
     expose:
       - "7010"
     ports:

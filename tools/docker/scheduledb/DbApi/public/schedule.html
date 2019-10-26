@@ -14,7 +14,7 @@
 
   <script language="javascript">
 
-var scheduleData = null;
+    var scheduleData; // = null;
     var parsedData;
     var convertedData;
     var jsArray = [];
@@ -26,28 +26,37 @@ var scheduleData = null;
       m3: {}
     };
 
-    function loadSchedule() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          scheduleData = this.responseText;
-        }
-      }
-      var xserver = location.origin + "/meetings/webSchedule/default";
-      xhttp.open("GET", xserver, false);
-      xhttp.send();
 
-      if (scheduleData === null) {
+    function loadSchedule() {
+
+      var xhttp = new XMLHttpRequest();
+      var xserver = location.origin + "/meetings/webSchedule/WedGenMtg";
+      xhttp.open("GET", xserver, true);
+      xhttp.onreadystatechange = function () {
+        // console.log('readyState: ' + this.readyState + ' - ' + 'status: ' + this.status + ' - ' + 'statusText: ' + this.statusText);
+        if (this.readyState == 4) {
+          scheduleData = (this.status == 200) ? this.responseText : null;
+          processScheduleData();
+        };
+      }
+
+      xhttp.send();
+      return;
+    }
+
+    function processScheduleData() {
+      if (scheduleData === '[]' || scheduleData === null) {
         document.getElementById("m1image").setAttribute("alt", noSchedule);
         document.getElementById("m2image").setAttribute("alt", noSchedule);
         document.getElementById("m3image").setAttribute("alt", noSchedule);
         return;
       }
+
       // the call to meetings/webSchedule will return the next 3 scheduled meetings
       // break return result into an array of 3
       parsedData = JSON.parse(scheduleData);
       // iterate through the array, one for each meeting scheduled
-      for (var indx = 0; indx < 3; indx++) {
+      for (var indx = 0; indx < parsedData.length; indx++) {
         // stringify the selected meeting
         convertedData = JSON.stringify(parsedData[indx]);
         //remove leading and trailing brace
@@ -83,7 +92,6 @@ var scheduleData = null;
       }
 
       // Load the extraced scheduleData into the form elements.
-
       // parse meetingDate
       var dateArray = parseDate(meetings.m1['meetingDate']);
       // dateArray is now DDD,MMM,dd,yyyy i.e. Wed,May,01,2019
@@ -97,28 +105,33 @@ var scheduleData = null;
       document.getElementById("m1image").setAttribute("alt", meetings.m1['description']);
       document.getElementById("m1image").setAttribute("src", meetings.m1['iconimage']);
 
-      dateArray = parseDate(meetings.m2['meetingDate']);
+      if (parsedData.length > 1) {
+        dateArray = parseDate(meetings.m2['meetingDate']);
+        document.getElementById("m2month").innerHTML = dateArray[1];
+        document.getElementById("m2year").innerHTML = dateArray[3];
+        document.getElementById("m2day").innerHTML = dateArray[2];
+        document.getElementById("m2stime").innerHTML = formatTime(meetings.m2['startTime']);
+        document.getElementById("m2etime").innerHTML = formatTime(meetings.m2['endTime']);
+        document.getElementById("m2schedule").setAttribute("href", meetings.m2['location']);
+        document.getElementById("m2image").setAttribute("alt", meetings.m2['description']);
+        document.getElementById("m2image").setAttribute("src", meetings.m2['iconimage']);
+      } else {
+        document.getElementById("m2image").setAttribute("alt", noSchedule);
+      }
 
-      document.getElementById("m2month").innerHTML = dateArray[1];
-      document.getElementById("m2year").innerHTML = dateArray[3];
-      document.getElementById("m2day").innerHTML = dateArray[2];
-      document.getElementById("m2stime").innerHTML = formatTime(meetings.m2['startTime']);
-      document.getElementById("m2etime").innerHTML = formatTime(meetings.m2['endTime']);
-      document.getElementById("m2schedule").setAttribute("href", meetings.m2['location']);
-      document.getElementById("m2image").setAttribute("alt", meetings.m2['description']);
-      document.getElementById("m2image").setAttribute("src", meetings.m2['iconimage']);
-
-      dateArray = parseDate(meetings.m3['meetingDate']);
-
-      document.getElementById("m3month").innerHTML = dateArray[1];
-      document.getElementById("m3year").innerHTML = dateArray[3];
-      document.getElementById("m3day").innerHTML = dateArray[2];
-      document.getElementById("m3stime").innerHTML = formatTime(meetings.m3['startTime']);
-      document.getElementById("m3etime").innerHTML = formatTime(meetings.m3['endTime']);
-      document.getElementById("m3schedule").setAttribute("href", meetings.m3['location']);
-      document.getElementById("m3image").setAttribute("alt", meetings.m3['description']);
-      document.getElementById("m3image").setAttribute("src", meetings.m3['iconimage']);
-
+      if (parsedData.length > 2) {
+        dateArray = parseDate(meetings.m3['meetingDate']);
+        document.getElementById("m3month").innerHTML = dateArray[1];
+        document.getElementById("m3year").innerHTML = dateArray[3];
+        document.getElementById("m3day").innerHTML = dateArray[2];
+        document.getElementById("m3stime").innerHTML = formatTime(meetings.m3['startTime']);
+        document.getElementById("m3etime").innerHTML = formatTime(meetings.m3['endTime']);
+        document.getElementById("m3schedule").setAttribute("href", meetings.m3['location']);
+        document.getElementById("m3image").setAttribute("alt", meetings.m3['description']);
+        document.getElementById("m3image").setAttribute("src", meetings.m3['iconimage']);
+      } else {
+        document.getElementById("m3image").setAttribute("alt", noSchedule);
+      }
     }
 
     function saveProperty(key, element, mNo) {
@@ -194,7 +207,7 @@ var scheduleData = null;
     // < / s c r i p t>
 
     //----------------------------------------------------------------------------------------------------------------------
-</Script>
+  </Script>
 
 </head>
 
@@ -227,10 +240,9 @@ var scheduleData = null;
               <font face="arial"><span id="m1day"></span></font>
             </span><br />
             <span style="font-family:arial;"><span id="m1year"></span></span></td>
-            <td style="text-align: center;">
-              <a id="m1schedule" href="" >
-              <img id=m1image alt="" src=""
-                style="height: 100px; width: 154px;" /></a>
+          <td style="text-align: center;">
+            <a id="m1schedule" href="">
+              <img id=m1image alt="" src="" style="height: 100px; width: 154px;" /></a>
           </td>
           <td style="text-align: center;">
             <p>
@@ -249,8 +261,7 @@ var scheduleData = null;
             </span><br />
             <span style="font-family:arial;"><span id="m2year"></span></span></td>
           <td style="text-align: center;"><a id="m2schedule" href="">
-              <img id="m2image" alt="" src=""
-                style="height: 100px; width: 154px;" /></a></td>
+              <img id="m2image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
           <td style="text-align: center;">
             <p>
               <font face="arial"><span id="m2stime"></span><br />
@@ -268,8 +279,7 @@ var scheduleData = null;
             </span><br />
             <span style="font-family:arial;"><span id="m3year"></span></span></td>
           <td style="text-align: center;"><a id="m3schedule" href="">
-              <img id="m3image" alt="" src=""
-                style="height: 100px; width: 154px;" /></a></td>
+              <img id="m3image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
           <td style="text-align: center;">
             <p>
               <font face="arial"><span id="m3stime"></span><br />
