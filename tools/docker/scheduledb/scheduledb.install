@@ -60,7 +60,7 @@ do
 done
 
 msg INFO "Initialize the tssg-tech mongo database ..."
-docker exec -it scheduledb_mongo_1 bash -c "\
+docker exec scheduledb_mongo_1 bash -c "\
     cd /root; \
     mongorestore \
         -u root \
