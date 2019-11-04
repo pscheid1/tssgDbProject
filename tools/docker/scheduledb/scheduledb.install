@@ -15,8 +15,11 @@ msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
 if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
     msg INFO "... We are running in Docker Toolbox ..."
     export TSSGAPIURL="http://$(docker-machine ip)"
+elif [ "$(hostname)" == "Ubuntu-Studio-14" ] ; then
+    msg INFO "... We are running in a Linux server ..."
+    export TSSGAPIURL="http://backend.sdb.technologynursery.org"
 else
-    msg INFO "... We are running in Linux ..."
+    msg INFO "... We are running in a local Linux ..."
     export TSSGAPIURL="http://localhost"
 fi
 msg INFO "Set the appropriate value into src/environments/environment.ts ..."

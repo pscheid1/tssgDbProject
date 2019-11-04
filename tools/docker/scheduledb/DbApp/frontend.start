@@ -9,4 +9,4 @@ sleep $timeout
 date
 
 #npm run dev
-node_modules/@angular/cli/bin/ng serve --host 0.0.0.0 --port 4200
+node_modules/@angular/cli/bin/ng serve --host 0.0.0.0 --disableHostCheck true --port 4200
