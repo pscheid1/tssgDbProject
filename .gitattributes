@@ -1,5 +1,7 @@
 # Set the default behavior, in case people dont have core.eol set.
 * text=lf
+* text eol=lf
+* text eol=lf
 
 # Explicitly declare text files you want to always be normalized and converted
 # to Linux line endings on checkout.
