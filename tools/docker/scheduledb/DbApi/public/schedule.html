@@ -30,12 +30,13 @@
     function loadSchedule() {
 
       var xhttp = new XMLHttpRequest();
-      var xserver = location.origin + "/meetings/webSchedule/WedGenMtg";
+      var xserver = location.origin + "/meetings/webSchedule/default";
       xhttp.open("GET", xserver, true);
       xhttp.onreadystatechange = function () {
         // console.log('readyState: ' + this.readyState + ' - ' + 'status: ' + this.status + ' - ' + 'statusText: ' + this.statusText);
         if (this.readyState == 4) {
           scheduleData = (this.status == 200) ? this.responseText : null;
+          // console.error('>>>' + scheduleData + '<<<')
           processScheduleData();
         };
       }

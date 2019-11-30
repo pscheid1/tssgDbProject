@@ -1,37 +1,58 @@
 const Meeting = require("../models/meeting.model");
 
 function updateDate(newDate, newTime) {
-  // console.log('meeting.controller.updateDate - date: ' + newDate);
-  // console.log('meeting.controller.updateDate - time: ' + newTime);
+  if (md) console.log('meeting.controller.updateDate ^^^^^^^^^^^^^^^^^^^^^^^^^^');
+  if (md) console.log('meeting.controller.updateDate - newDate: ' + newDate);
+  if (md) console.log('meeting.controller.updateDate - newTime: ' + newTime);
+  // string to date
   let newDateTime = new Date(newDate);
+  // string to date
   let nt = new Date(newTime);
+  // console.log('meeting.controller.updateDate - nt: ' + nt);
   newDateTime.setHours(nt.getHours());
+  // console.log('meeting.controller.updateDate - nt.hours: ' + nt.getHours());
   newDateTime.setMinutes(nt.getMinutes());
+  newDateTime.setSeconds(0);
+  newDateTime.setMilliseconds(0);
+  if (md) console.log('leaving updateDate newDateTime: ' + newDateTime);
   return newDateTime;
 }
 
 module.exports = {
 
-  create: async function (req, res, next) {
+  create: async function (req, res) {
+    if (md) console.log('meeting.controller.create **************************');
+    if (md) console.log(req.body.meetingDate);
     // update date component of startTime (timepicker will create it with today's date)
+    // console.log('meeting.controller.create - startTime: ' + req.body.startTime);
     req.body.startTime = updateDate(req.body.meetingDate, req.body.startTime);
+    if (md) console.log('meeting.controller.create - startTime: ' + req.body.startTime);
     // update date component of endTime (timepicker will create it with today's date)
+    // console.log('meeting.controller.create - endTime: ' + req.body.endTime);
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
+    if (md) console.log('meeting.controller.create - endTime: ' + req.body.endTime);
+    if (md) console.log('meeting.controller.create: ' + JSON.stringify(req.body));
     await Meeting.create(req.body)
       .then(newMeeting => res.json(newMeeting))
       .catch(err => {
+        if (md) console.log('meeting.controller.create error:' + err.message);
         res.status(409).json({ name: 'Error', message: err.message });
       });
   },
 
-  update: async function (req, res, next) {
+  update: async function (req, res) {
+    if (md) console.log('meeting.controller.update ##########################');
+    if (md) console.log(req.body.meetingDate);
     // if meetingDate was changed, we need to update startTime and endTime
     // if startTime and/or endTime were changed, the timepicker will create the new
     // time with today's date
     // ensure startTime date component agrees with meetingDate
     req.body.startTime = updateDate(req.body.meetingDate, req.body.startTime);
+    if (md) console.log('meeting.controller.update startTime: ' + req.body.startTime);
     // ensure endTime date component agrees with meetingDate
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
+    if (md) console.log('meeting.controller.update endTime: ' + req.body.endTime);
+    if (md) console.log('meeting.controller.update: ' + JSON.stringify(req.body));
     await Meeting.findByIdAndUpdate(req.body._id, req.body, { new: true })
       .then(meeting => {
         // a bad or nonexistent key is not considered an error?
@@ -42,6 +63,7 @@ module.exports = {
         }
       })
       .catch(err => {
+        if (md) console.log('meeting.controller.update error:' + err.message);
         res.status(404).json({ name: 'Error', message: err.message });
       });
   },
@@ -53,7 +75,7 @@ module.exports = {
       .then(meetings => res.json(meetings))
       .catch(err => {
         res.status(404).json({ name: 'Error', message: err.message });
-      })
+      });
   },
 
   // return a specific meeting entry (currently by _id)
@@ -69,7 +91,7 @@ module.exports = {
         }
       })
       .catch(err => {
-        res.status(404).json({ name: 'Error', message:  err.message });
+        res.status(404).json({ name: 'Error', message: err.message });
       });
   },
 
@@ -90,7 +112,7 @@ module.exports = {
   // meetingDate has no time component.  Using endTime is a less complicated
   // way to compare witn new Date() and get an entry for the current day
   // as long as the endTime is greater than the current time.
-  schedule: async function (req, res, next) {
+  schedule: async function (req, res) {
     await Meeting.find({ team: req.params.team, endTime: { $gt: new Date() } })
       .sort({ startTime: 1 })
       .limit(3)
@@ -105,9 +127,9 @@ module.exports = {
   // webSchedule is identical to schedule (above) except
   // it populates the team and venue fields with data from
   // the their respective collection
-  webSchedule: async function (req, res, next) {
+  webSchedule: async function (req, res) {
     if (req.params.team === 'default') {
-      req.params.team = process.env.tssgApiDefaultTeam;
+      req.params.team = process.env.tssgApiDefaultTeam || 'WedGenMtg';
     }
     // console.log('meeting.controller.webSchedule: team = ' + req.params.team);
     await Meeting.find({ team: req.params.team, endTime: { $gt: new Date() } })
@@ -137,7 +159,9 @@ module.exports = {
       " - packageName: " +
       global.PackageName +
       " - __dirname: " +
-      __dirname
+      __dirname +
+      " - tssgApiMtgDebug: " +
+      global.md
     );
   }
 };

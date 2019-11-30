@@ -14,14 +14,11 @@ global.Root = __dirname;
 global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
+global.md = (process.env.tssgApiMtgDebug === 'true') ? Boolean(true)  : Boolean(null);
+
 // default port setting
 let port = process.env.tssgApiPort || 7010;
-let host = process.env.tssgApiURL.trim() || 'localhost';
-// express wants only the host, not protocol:host
-let pos = host.indexOf('://');
-if (pos !== -1) {
-  host = host.slice(pos + 3)
-}
+let host = process.env.tssgApiURL || 'localhost';
 
 // const port = process.env.NODE_ENV === 'production' ? 80 : process.env.tssgApiPort;
 
@@ -30,6 +27,7 @@ process any command line parameters.
 case is significant.
   valid parameters:
     -p | --port   <port number>
+    -h | --host   <host name or ip>
 */
 var argvs = require('optimist').argv;
 var index,
@@ -37,12 +35,23 @@ var index,
 for (index in argvs) {
   if (argvs.hasOwnProperty(index)) {
     value = argvs[index];
-    if (index === "p" || index === "port")
+    if (index === "p" || index === "port") {
       port = value;
+    }
+    if (index === "h" || index === "host") {
+      host = value;
+    }
   }
 }
 
+// express wants only the host, not protocol:host
+let pos = host.indexOf('://');
+if (pos !== -1) {
+  host = host.slice(pos + 3);
+}
+
 const options = {
+  useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

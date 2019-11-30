@@ -13,6 +13,6 @@ teamRouter
 .get('/edit/:_id', authorize([Role.Admin]), team_controller.findOne)
 .post('/update', authorize([Role.Admin]), team_controller.update)
 .post('/add', authorize([Role.Admin]), team_controller.create)
-.get('/delete/:_id', authorize([Role.Admin]), team_controller.delete)
+.get('/delete/:_id', authorize([Role.Admin]), team_controller.delete);
 
 module.exports = teamRouter;

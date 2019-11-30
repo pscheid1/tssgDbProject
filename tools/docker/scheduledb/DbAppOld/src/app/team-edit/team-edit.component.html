@@ -1,0 +1,66 @@
+<form #teamForm="ngForm" (ngSubmit)="updateTeam(teamForm)">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">Edit Team</h4>
+        <p>This page can only be accessed by administrators.</p>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label>Team Name (cannot be changed)</label>
+          <input disabled id="_id" name="_id" type="text" class="form-control" [(ngModel)]="team._id" #_id="ngModel">
+        </div>
+        <div class="form-group" [class.has-error]="description.invalid && description.touched"
+          [class.has-success]="description.valid">
+          <label for="_id" class="control-label"> Description</label>
+          <input required id="description" name="description" type="text" class="form-control"
+            [(ngModel)]="team.description" #description="ngModel">
+          <span class="alert alert-danger" *ngIf="description.invalid && description.touched">
+            Team description is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="teamlead" class="control-label"> Team Lead (select one)</label>
+          <select id="teamlead" name="teamlead" class="form-control" [(ngModel)]="team.teamLead"
+            #teamlead="ngModel">
+            <option *ngFor="let teamLead of leaderList" [value]="teamLead"> {{teamLead}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="members" class="control-label"> Team Members <br/>
+            <span style="font-style:italic">&nbsp;&nbsp;(Press Ctrl key, select/deselect to edit list)</span>
+          </label>
+          <select multiple id="members" name="members" class="form-control" [(ngModel)]="team.members"
+            #members="ngModel">
+            <option *ngFor="let members of memberList" [value]="members"> {{members}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="zoomlink" class="control-label"> Zoom Link</label>
+          <input id="zoomlink" name="zoomlink" type="text" class="form-control" [(ngModel)]="team.zoomLink"
+            #website="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="comments" class="control-label">Comments</label>
+          <input id="comments" name="comments" type="text" class="form-control" [(ngModel)]="team.comments"
+            #comments="ngModel">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="teamForm.invalid">Save</button>
+          &nbsp;
+          <button type="reset" class="btn btn-success" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+  <div><br/><br/><br/><br/><a id="bottom" href="#bottom"></a></div>
+  <!--
+    <br /><br />
+    Angular Generated Form Model : {{teamForm.value | json}}
+    <br /><br />
+    Our User Model : {{team | json}}
+     -->
+
