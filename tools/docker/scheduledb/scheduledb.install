@@ -45,19 +45,20 @@ msg INFO "Start up all containers ..."
 docker-compose up -d
 
 msg WAIT "Wait for mongodb to normalize. Check every 2s ..."
-maxTries=30
+maxTries=150
 try=0
 while [ "$(docker exec scheduledb_mongo_1 bash -c 'echo "db.runCommand(\"ping\").ok" | mongo localhost:27017/test --quiet')" != "1" ]
 do
     sleep 2s
     ((++try))
-    echo -n "$try "
+    msg INFO "$try "
     if [ $try -gt $maxTries ] ; then
         echo -e "\n"
         msg ERROR "Mongo took over 1 min to come up.  Exiting."
         exit
     fi
 done
+sleep 5s
 
 msg INFO "Initialize the tssg-tech mongo database ..."
 docker exec scheduledb_mongo_1 bash -c "\
