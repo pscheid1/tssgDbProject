@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Technical Skills Share Group (TSSG)</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="styles/tssgStyle.css">
+
+  <script language="javascript">
+
+    var scheduleData; // = null;
+    var parsedData;
+    var convertedData;
+    var jsArray = [];
+    var key;
+    const noSchedule = "Schedule is currently not available";
+    var meetings = {
+      m1: {},
+      m2: {},
+      m3: {}
+    };
+
+
+    function loadSchedule() {
+
+      var xhttp = new XMLHttpRequest();
+      var xserver = location.origin + "/meetings/webSchedule/WedGenMtg";
+      xhttp.open("GET", xserver, true);
+      xhttp.onreadystatechange = function () {
+        // console.log('readyState: ' + this.readyState + ' - ' + 'status: ' + this.status + ' - ' + 'statusText: ' + this.statusText);
+        if (this.readyState == 4) {
+          scheduleData = (this.status == 200) ? this.responseText : null;
+          processScheduleData();
+        };
+      }
+
+      xhttp.send();
+      return;
+    }
+
+    function processScheduleData() {
+      if (scheduleData === '[]' || scheduleData === null) {
+        document.getElementById("m1image").setAttribute("alt", noSchedule);
+        document.getElementById("m2image").setAttribute("alt", noSchedule);
+        document.getElementById("m3image").setAttribute("alt", noSchedule);
+        return;
+      }
+
+      // the call to meetings/webSchedule will return the next 3 scheduled meetings
+      // break return result into an array of 3
+      parsedData = JSON.parse(scheduleData);
+      // iterate through the array, one for each meeting scheduled
+      for (var indx = 0; indx < parsedData.length; indx++) {
+        // stringify the selected meeting
+        convertedData = JSON.stringify(parsedData[indx]);
+        //remove leading and trailing brace
+        convertedData = convertedData.substr(1, convertedData.length - 2);
+        // split into an array
+        jsArray = convertedData.split(',');
+        // iterate through the array & process each item (venue, description, etc.)
+        for (var pos in jsArray) {
+          var element = jsArray[pos];
+          // find the property key ending quote
+          var indx1 = element.indexOf('"', 1);
+          // extract the property key
+          key = element.substring(1, indx1);
+          // process the desired keys.  ignore any others
+          // originally I had a routine for each key.
+          // then I reduced it to two.
+          // then I figured out how to do them all in one.
+          switch (key) {
+            case "venue":
+            case "description":
+            case "address":
+            case "town":
+            case "location":
+            case "meetingDate":
+            case "startTime":
+            case "endTime":
+            case "iconimage":
+              saveProperty(key, element, indx);
+            default:
+              break;
+          }
+        }
+      }
+
+      // Load the extraced scheduleData into the form elements.
+      // parse meetingDate
+      var dateArray = parseDate(meetings.m1['meetingDate']);
+      // dateArray is now DDD,MMM,dd,yyyy i.e. Wed,May,01,2019
+
+      document.getElementById("m1month").innerHTML = dateArray[1];
+      document.getElementById("m1year").innerHTML = dateArray[3];
+      document.getElementById("m1day").innerHTML = dateArray[2];
+      document.getElementById("m1stime").innerHTML = formatTime(meetings.m1['startTime']);
+      document.getElementById("m1etime").innerHTML = formatTime(meetings.m1['endTime']);
+      document.getElementById("m1schedule").setAttribute("href", meetings.m1['location']);
+      document.getElementById("m1image").setAttribute("alt", meetings.m1['description']);
+      document.getElementById("m1image").setAttribute("src", meetings.m1['iconimage']);
+
+      if (parsedData.length > 1) {
+        dateArray = parseDate(meetings.m2['meetingDate']);
+        document.getElementById("m2month").innerHTML = dateArray[1];
+        document.getElementById("m2year").innerHTML = dateArray[3];
+        document.getElementById("m2day").innerHTML = dateArray[2];
+        document.getElementById("m2stime").innerHTML = formatTime(meetings.m2['startTime']);
+        document.getElementById("m2etime").innerHTML = formatTime(meetings.m2['endTime']);
+        document.getElementById("m2schedule").setAttribute("href", meetings.m2['location']);
+        document.getElementById("m2image").setAttribute("alt", meetings.m2['description']);
+        document.getElementById("m2image").setAttribute("src", meetings.m2['iconimage']);
+      } else {
+        document.getElementById("m2image").setAttribute("alt", noSchedule);
+      }
+
+      if (parsedData.length > 2) {
+        dateArray = parseDate(meetings.m3['meetingDate']);
+        document.getElementById("m3month").innerHTML = dateArray[1];
+        document.getElementById("m3year").innerHTML = dateArray[3];
+        document.getElementById("m3day").innerHTML = dateArray[2];
+        document.getElementById("m3stime").innerHTML = formatTime(meetings.m3['startTime']);
+        document.getElementById("m3etime").innerHTML = formatTime(meetings.m3['endTime']);
+        document.getElementById("m3schedule").setAttribute("href", meetings.m3['location']);
+        document.getElementById("m3image").setAttribute("alt", meetings.m3['description']);
+        document.getElementById("m3image").setAttribute("src", meetings.m3['iconimage']);
+      } else {
+        document.getElementById("m3image").setAttribute("alt", noSchedule);
+      }
+    }
+
+    function saveProperty(key, element, mNo) {
+      // console.log("savePropery - arguments: " + key + " - element: " + element + " - mNo: " + mNo);
+      // find end of key
+      if (key === 'venue') {
+        var indx1 = element.lastIndexOf(':');
+      } else {
+        var indx1 = element.indexOf(':');
+      }
+      if (indx1 > -1) {
+        // find beginning of property scheduleData
+        indx1 = element.indexOf('"', indx1);
+        if (indx1 > -1) {
+          // find pointer to ending quote mark
+          var indx2 = element.lastIndexOf('"');
+          if (indx2 > -1) {
+            // bump indx1 to drop leading quote mark
+            indx1++;
+            switch (mNo) {
+              case 0:
+                meetings.m1[`${key}`] = element.substring(indx1, indx2);
+                return;
+              case 1:
+                meetings.m2[`${key}`] = element.substring(indx1, indx2);
+                return;
+              case 2:
+                meetings.m3[`${key}`] = element.substring(indx1, indx2);
+                return;
+            }
+          }
+        }
+      }
+      switch (mNo) {
+        case 0:
+          meetings.m1[`${key}`] = '';
+          break;
+        case 1:
+          meetings.m2[`${key}`] = '';
+          break;
+        case 2:
+          meetings.m3[`${key}`] = '';
+          break;
+      }
+      return;
+    }
+
+    function parseDate(date) {
+
+      var dateStr = new Date(date).toDateString();
+      // convert to array
+      var dateArray = dateStr.split(' '); // DDD,MMM,dd,yyyy
+      return dateArray;
+    }
+
+    function formatTime(dateTime) {
+
+      var d = new Date(dateTime);
+      var time;
+      if (d.getHours() > 12) {
+        time = d.getHours() - 12;
+      } else {
+        time = d.getHours();
+      }
+      if (d.getMinutes() > 0) {
+        time += ":" + d.getMinutes();
+      }
+      if (d.getHours() > 12) {
+        time += " pm"
+      }
+      return time;
+    }
+    // < / s c r i p t>
+
+    //----------------------------------------------------------------------------------------------------------------------
+  </Script>
+
+</head>
+
+<body onload="loadSchedule()">
+  <div id="calendar-page" class="content">
+    <!--table align="center" border="2" cellpadding="2" cellspacing="2" style="width: 400px;" summary="Update Dates, Locations and Meeting Times"-->
+    <table border="2" cellpadding="2" cellspacing="2" style="float: center"
+      summary="Update Dates, Locations and Meeting Times">
+      <thead>
+        <tr>
+          <th bgcolor="black" scope="col"></th>
+          <th bgcolor="black" scope="col">
+            <span style="font-size:22px;">
+              <span style="font-family:arial,helvetica,sans-serif;" style="text-align: center;">
+                <strong>
+                  <font color="#ffffff">WEDNESDAY</font>
+                </strong>
+              </span>
+            </span>
+          </th>
+          <th bgcolor="black" scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <!-- Icon for meeting 1 -->
+          <td style="text-align: center;"><span style="font-family:arial;"><span id="m1month"></span></span><br />
+            <span style="font-size:48px;">
+              <font face="arial"><span id="m1day"></span></font>
+            </span><br />
+            <span style="font-family:arial;"><span id="m1year"></span></span></td>
+          <td style="text-align: center;">
+            <a id="m1schedule" href="">
+              <img id=m1image alt="" src="" style="height: 100px; width: 154px;" /></a>
+          </td>
+          <td style="text-align: center;">
+            <p>
+              <font face="arial"><span id="m1stime"></span><br />
+                to<br />
+                <span id="m1etime"></span></font>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <!-- Icon for meeting 2 -->
+          <td style="text-align: center;"><span style="font-family:arial;"><span id="m2month"></span></span><br />
+            <span style="font-size:48px;">
+              <font face="arial"><span id="m2day"></span></font>
+            </span><br />
+            <span style="font-family:arial;"><span id="m2year"></span></span></td>
+          <td style="text-align: center;"><a id="m2schedule" href="">
+              <img id="m2image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
+          <td style="text-align: center;">
+            <p>
+              <font face="arial"><span id="m2stime"></span><br />
+                to<br />
+                <span id="m2etime"></span></font>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <!-- Icon for meeting 3 -->
+          <td style="text-align: center;"><span style="font-family:arial;"><span id="m3month"></span></span><br />
+            <span style="font-size:48px;">
+              <font face="arial"><span id="m3day"></span></font>
+            </span><br />
+            <span style="font-family:arial;"><span id="m3year"></span></span></td>
+          <td style="text-align: center;"><a id="m3schedule" href="">
+              <img id="m3image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
+          <td style="text-align: center;">
+            <p>
+              <font face="arial"><span id="m3stime"></span><br />
+                to<br />
+                <span id="m3etime"></span></font>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

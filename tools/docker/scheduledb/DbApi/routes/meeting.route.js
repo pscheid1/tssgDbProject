@@ -16,5 +16,6 @@ meetingRouter
 .get('/schedule', authorize([Role.Admin]),meeting_controller.schedule)
 .get('/schedule/:team', authorize([Role.Admin]),meeting_controller.schedule)
 .get('/webSchedule/:team', meeting_controller.webSchedule)
+.get('/test', meeting_controller.test);
 
 module.exports = meetingRouter;

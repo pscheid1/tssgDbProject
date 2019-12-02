@@ -25,7 +25,7 @@ userRouter
 .get('/edit/:_id', authorize(), user_controller.findOne)
 // .put('/:id', authorize([Role.Admin]), user_controller.update)
 // delete user limited to roll Admin
-.get('/delete/:_id', authorize([Role.Admin]), user_controller.delete)
+.get('/delete/:_id', authorize([Role.Admin]), user_controller.delete);
 
 module.exports = userRouter;
 
