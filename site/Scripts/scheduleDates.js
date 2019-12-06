@@ -31,7 +31,7 @@ var scheduleArray = [
     {
       "name": "item1",
       "month": "DECEMBER",
-      "day": 04,
+      "day": 11,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
@@ -40,7 +40,7 @@ var scheduleArray = [
     {
       "name": "item2",
       "month": "DECEMBER",
-      "day": 11,
+      "day": 18,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
@@ -49,11 +49,11 @@ var scheduleArray = [
     {
       "name": "item3",
       "month": "DECEMBER",
-      "day": 18,
+      "day": 25,
       "year": 2019,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": acton
+      "location": cancelled
     }
 ];
  
