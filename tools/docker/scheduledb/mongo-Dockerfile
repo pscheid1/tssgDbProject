@@ -3,6 +3,9 @@
 FROM mongo:4.0.11-xenial
 LABEL maintainer="Thomas ODea <todea865@gmail.com>"
 
+# Set the timezone
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+
 # Set the directory to contain mongo files
 # as specified in the mongo config file below.
 RUN mkdir /var/lib/mongodb

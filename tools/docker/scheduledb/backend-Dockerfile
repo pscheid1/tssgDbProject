@@ -5,6 +5,7 @@ LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
 
 # Set the directory to contain node application files
 SHELL ["/bin/bash", "-c"]
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN mkdir /home/node/app
 RUN chmod 777 /home/node/app
 
