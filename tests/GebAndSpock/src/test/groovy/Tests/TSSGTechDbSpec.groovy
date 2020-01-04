@@ -27,13 +27,13 @@ class TSSGTechDbSpec extends Specification {
             c.find().toArray().each { println it }
 
         then: "#size is returned"
-            c.find().size() >= 0
+            c.find().size() >= size
 
         where:
             collection | size
             "users"    | 3
             "venues"   | 8
             "teams"    | 3
-            "meetings" | 6
+            "meetings" | 5
     }
 }
