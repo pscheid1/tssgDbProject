@@ -57,6 +57,9 @@ dependencies {
     // Drivers
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+
+    // DB Drivers
+    testCompile "org.mongodb:mongodb-driver:3.12.0"
 }
 
 webdriverBinaries {

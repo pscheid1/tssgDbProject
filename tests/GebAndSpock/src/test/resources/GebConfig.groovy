@@ -16,6 +16,8 @@ waiting {
 	timeout = 2
 }
 
+reportsDir = 'target/geb-reports'
+
 environments {
 	
     // run via “./gradlew chromeTest”
