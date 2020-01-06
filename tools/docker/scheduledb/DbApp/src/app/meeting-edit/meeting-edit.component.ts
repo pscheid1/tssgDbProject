@@ -76,9 +76,7 @@ export class MeetingEditComponent implements OnInit {
             if (err.statusText.includes('Unknown')) {
               this.errorMsg += ' - Possible no connection with backend server.';
             }
-            if ((window.location.href).indexOf('#bottom') < 0) {
-              window.location.href = window.location.href + '#bottom';
-            }
+            this.forceElementView('bottom');
           });
       });
     } else {
@@ -94,9 +92,7 @@ export class MeetingEditComponent implements OnInit {
             if (err.statusText.includes('Unknown')) {
               this.errorMsg += ' - Possible no connection with backend server.';
             }
-            if ((window.location.href).indexOf('#bottom') < 0) {
-              window.location.href = window.location.href + '#bottom';
-            }
+            this.forceElementView('bottom');
           });
       });
     }
@@ -225,13 +221,14 @@ export class MeetingEditComponent implements OnInit {
     }
 
     this.errorMsg = '';
-    // post updated meeting data back to node server via meeting.service.ts update
+    // post updated meeting data back to node server via meeting.service.ts updateMeeting()
     this.ms.updateMeeting(this.meeting)
       .then(result => {
-        //  the router.navigate call will cause the return data to be passed back to meeting-get.component or meeting
         if (this.route.snapshot.data.type === 'edit') {
+          //  pass returned data back to meeting-get.component
           this.router.navigate(['meeting']);
         } else {
+          //  pass returned data back to meeting-get=schedule.component
           this.router.navigate([`meeting/schedule/${this.initialTeam}`]);
         }
       })

@@ -28,6 +28,9 @@ case is significant.
   valid parameters:
     -p | --port   <port number>
     -h | --host   <host name or ip>
+         --mtgDbg  true otherwise false
+To use these, either add them to your package.json scripts or
+run node or nodemon manually and add them to the command line.
 */
 var argvs = require('optimist').argv;
 var index,
@@ -41,6 +44,9 @@ for (index in argvs) {
     if (index === "h" || index === "host") {
       host = value;
     }
+    if (index === "mtgDbg") {
+      global.md = (value === "true") ? Boolean(true) : Boolean(false);
+    }
   }
 }
 
@@ -49,6 +55,8 @@ let pos = host.indexOf('://');
 if (pos !== -1) {
   host = host.slice(pos + 3);
 }
+ // set true for additional collection index debug info
+// mongoose.set('debug', true);
 
 const options = {
   useUnifiedTopology: true,

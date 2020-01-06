@@ -22,17 +22,42 @@ let MeetingSchema = new Schema({
     meetingDate: { type: Date, required: true },            // Date of the meeting. Time component is always 0.
     startTime: { type: Date, required: true },              // Meeting start date and time
     endTime: { type: Date, required: true },                // Meeting end date and time                     
-    comments: {type: String, required: true, trim: true}    // Free format text
+    comments: { type: String, required: true, trim: true }  // Free format text
 
-}, { autoIndex: true });
+}, { autoIndex: false });
+
+
 
 // if autoIndex is true, mongoose will call sequentially each defined index
-// to create the indexes manually invoke createIndexes which will call this function.  (see createIndex call in meeting.controller)
-MeetingSchema.index({ team: 1, venue: 1, meetingDate: 1, startTime: 1, endTime: 1 }, { unique: true, name: "dupMeeting" });
+// to create the indexes manually invoke createIndexes which will call this function.
+// MeetingSchema.index({ team: 1, meetingDate: 1, startTime: 1, endTime: 1 }, { unique: true, name: "duplicateXXXMeeting" });
+// or 
+// declare the model and use mongoose calls below . . .
 
-MeetingSchema.on('index', function (error) {
+var Meeting = mongoose.model('Meeting', MeetingSchema);
+
+// Hook the 'index' event on the model to see if any errors are occurring 
+// when asynchronously creating the index:
+Meeting.on('index', function (err) {
+    if (err) {
+        console.error('Meeting index error: %s', err);
+    } else {
+        console.info('Meeting indexing complete');
+    }
 });
+
+// Drop all meeting indexes
+Meeting.collection.dropIndexes('*', function (err, result) {
+    if (err) {
+        console.log('Meeting.model: Error in dropping index!', err);
+    }
+});
+
+// declare new meeting indexes here . . .
+Meeting.collection.createIndex({ team: 1, meetingDate: 1, startTime: 1, endTime: 1 }, { unique: true, name: "duplicate_meeting" });
+
+
 
 // Export the model
 
-module.exports = mongoose.model('Meeting', MeetingSchema);
+module.exports = Meeting;

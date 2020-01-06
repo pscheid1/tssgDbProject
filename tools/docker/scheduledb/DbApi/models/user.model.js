@@ -19,7 +19,7 @@ const UserSchema = new Schema({
 
 // if autoIndex is true, mongoose will call sequentially each defined index
 // to create the indexes manually invoke createIndexes which will call this function.  (see createIndex call in user.controller)
-UserSchema.index({ username: 1 }, { unique: true, name: "dupUser" });
+//UserSchema.index({ username: 1 }, { unique: true, name: "duplicate_user" });
 
 UserSchema.set('toJSON', { virtuals: true });
 
