@@ -30,30 +30,30 @@ var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Dete
 var scheduleArray = [ 
     {
       "name": "item1",
-      "month": "DECEMBER",
-      "day": 11,
-      "year": 2019,
+      "month": "JANUARY",
+      "day": 8,
+      "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
       "location": acton
     },
     {
       "name": "item2",
-      "month": "DECEMBER",
-      "day": 18,
-      "year": 2019,
+      "month": "JANUARY",
+      "day": 15,
+      "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
       "location": acton
     },
     {
       "name": "item3",
-      "month": "DECEMBER",
-      "day": 25,
-      "year": 2019,
+      "month": "JANUARY",
+      "day": 22,
+      "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": cancelled
+      "location": chelmsford
     }
 ];
  
