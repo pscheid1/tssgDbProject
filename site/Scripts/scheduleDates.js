@@ -31,7 +31,7 @@ var scheduleArray = [
     {
       "name": "item1",
       "month": "JANUARY",
-      "day": 8,
+      "day": 15,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
@@ -40,20 +40,20 @@ var scheduleArray = [
     {
       "name": "item2",
       "month": "JANUARY",
-      "day": 15,
-      "year": 2020,
-      "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
-    },
-    {
-      "name": "item3",
-      "month": "JANUARY",
       "day": 22,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
       "location": chelmsford
+    },
+    {
+      "name": "item3",
+      "month": "JANUARY",
+      "day": 29,
+      "year": 2020,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": acton
     }
 ];
  
