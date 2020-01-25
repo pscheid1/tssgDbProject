@@ -31,16 +31,16 @@ var scheduleArray = [
     {
       "name": "item1",
       "month": "JANUARY",
-      "day": 22,
+      "day": 29,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": chelmsford
+      "location": acton
     },
     {
       "name": "item2",
-      "month": "JANUARY",
-      "day": 29,
+      "month": "FEBRUARY",
+      "day": 5,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
@@ -49,7 +49,7 @@ var scheduleArray = [
     {
       "name": "item3",
       "month": "FEBRUARY",
-      "day": 5,
+      "day": 12,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
