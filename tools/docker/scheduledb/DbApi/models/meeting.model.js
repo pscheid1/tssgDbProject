@@ -22,7 +22,7 @@ let MeetingSchema = new Schema({
     meetingDate: { type: Date, required: true },            // Date of the meeting. Time component is always 0.
     startTime: { type: Date, required: true },              // Meeting start date and time
     endTime: { type: Date, required: true },                // Meeting end date and time                     
-    comments: { type: String, required: true, trim: true }  // Free format text
+    comments: { type: String, required: false, trim: true } // Free format text
 
 }, { autoIndex: false });
 
