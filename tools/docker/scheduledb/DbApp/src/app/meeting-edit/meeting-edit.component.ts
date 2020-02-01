@@ -161,17 +161,17 @@ export class MeetingEditComponent implements OnInit {
       return;
     }
 
-    if (this.meeting.comments === null) {
-      this.errorMsg = 'A Comments entry is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-    this.meeting.comments = this.meeting.comments.trim();
-    if (this.meeting.comments.length === 0) {
-      this.errorMsg = 'A Comments entry is required.';
-      this.forceElementView('bottom');
-      return;
-    }
+    // if (this.meeting.comments === null) {
+    //   this.errorMsg = 'A Comments entry is required.';
+    //   this.forceElementView('bottom');
+    //   return;
+    // }
+    // this.meeting.comments = this.meeting.comments.trim();
+    // if (this.meeting.comments.length === 0) {
+    //   this.errorMsg = 'A Comments entry is required.';
+    //   this.forceElementView('bottom');
+    //   return;
+    // }
 
     let hours = this.meeting.startTime.getHours();
     if (hours < 0 || hours > 23) {
