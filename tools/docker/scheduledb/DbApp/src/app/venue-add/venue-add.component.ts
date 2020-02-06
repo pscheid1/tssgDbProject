@@ -20,7 +20,8 @@ export class VenueAddComponent implements OnInit {
     address: null,
     town: null,
     location: null,
-    iconimage: null
+    iconimage: null,
+    photoimage: null
   };
 
   errorMsg = '';
@@ -88,7 +89,6 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.contact = this.venue.contact.trim();
     if (this.venue.contact.length === 0) {
       this.errorMsg = 'Venue contact is required.';
       this.forceElementView('bottom');
@@ -100,7 +100,6 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.website = this.venue.website.trim();
     if (this.venue.website.length === 0) {
       this.errorMsg = 'Venue website url is required.';
       this.forceElementView('bottom');
@@ -112,7 +111,7 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.calendar = this.venue.calendar.trim();
+
     if (this.venue.calendar.length === 0) {
       this.errorMsg = 'Venue calendar url is required.';
       this.forceElementView('bottom');
@@ -124,7 +123,7 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.address = this.venue.address.trim();
+
     if (this.venue.address.length === 0) {
       this.errorMsg = 'Venue address is required.';
       this.forceElementView('bottom');
@@ -136,7 +135,7 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.town = this.venue.town.trim();
+
     if (this.venue.town.length === 0) {
       this.errorMsg = 'Venue town is required.';
       this.forceElementView('bottom');
@@ -148,7 +147,7 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.location = this.venue.location.trim();
+
     if (this.venue.location.length === 0) {
       this.errorMsg = 'Venue location (map url) is required.';
       this.forceElementView('bottom');
@@ -160,7 +159,7 @@ export class VenueAddComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.venue.iconimage = this.venue.iconimage.trim();
+
     if (this.venue.iconimage.length === 0) {
       this.errorMsg = 'Venue image path/file are required.';
       this.forceElementView('bottom');

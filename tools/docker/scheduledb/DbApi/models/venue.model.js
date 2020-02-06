@@ -47,12 +47,18 @@ let VenueSchema = new Schema({
     trim: true,
     required: false
   },
-  // path and file name of html schedule image
+  // path and file name of html schedule icon image
   iconimage: {
     type: String,
     trim: true,
     required: false
-  }
+  },
+    // path and file name of html schedule photo image
+    photoimage: {
+      type: String,
+      trim: true,
+      required: false
+    }
 }, { autoIndex: false });
 
 // Export the model

@@ -15,10 +15,11 @@ const UserSchema = new Schema({
   token: { required: false },
   inActive: { type: Boolean, default: false,  required: false },
   createdDate: { type: Date, default: Date.now }
-}, { autoIndex: true });
+}, { autoIndex: false });  // because we have no declared indexes, set autoIndex to false.
 
 // if autoIndex is true, mongoose will call sequentially each defined index
 // to create the indexes manually invoke createIndexes which will call this function.  (see createIndex call in user.controller)
+// because username is declared 'unique' we don't need to create an index for it.
 //UserSchema.index({ username: 1 }, { unique: true, name: "duplicate_user" });
 
 UserSchema.set('toJSON', { virtuals: true });

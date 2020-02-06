@@ -7,10 +7,7 @@ tmp/
 node_modules/
 
 .gitignore
-tools/docker/scheduledb/DbApiOrig/
-tools/docker/scheduledb/DbAppOrig/
 tools/docker/scheduledb/DbApi/dotGitSave
 tools/docker/scheduledb/DbApp/dotGitSave
-tools/docker/tssgDbApi/
-tools/docker/tssgDbApp/
 
+tools/docker/scheduledb/DbApi/public/site

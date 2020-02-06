@@ -21,10 +21,11 @@
           Venue description is required
         </span>
       </div>
-      <div class="form-group" [class.has-error] = "contact.invalid && contact.touched"
-      [class.has-success]="contact.valid">
+      <div class="form-group" [class.has-error]="contact.invalid && contact.touched"
+        [class.has-success]="contact.valid">
         <label for="contact" class="control-label"> Contact (select one)</label>
-        <select required id="contact" name="contact" class="form-control" [(ngModel)]="venue.contact" #contact="ngModel">
+        <select required id="contact" name="contact" class="form-control" [(ngModel)]="venue.contact"
+          #contact="ngModel">
           <option *ngFor="let contact of contactList" [value]="contact"> {{contact}}</option>
         </select>
         <span class="alert alert-danger" *ngIf="contact.invalid && contact.touched">
@@ -82,6 +83,11 @@
         <span class="alert alert-danger" *ngIf="iconimage.invalid && iconimage.touched">
           Image path/file is required.
         </span>
+      </div>
+      <div class="form-group">
+        <label for="photoimage" class="control-label"> Venue Photo Image (path/file)</label>
+        <input id="photoimage" name="photoimage" type="text" class="form-control"
+          [(ngModel)]="venue.photoimage" #photoimage="ngModel">
       </div>
       <div class="form-group">
         <!-- <button type="submit" class="btn btn-primary" [disabled]="venueForm.invalid">Save</button> -->
