@@ -21,6 +21,7 @@ var cancelled = new Location("Cancelled","Images/icon-lib-NOmeeting.png","","Mee
 var hopkinton = new Location("Hopkinton","Images/icon-lib-hopkinton.png","https://goo.gl/maps/QYW9A3VBayS2","Hopkinton Public Library");
 var lexington = new Location("Lexington","Images/icon-lib-lexington.png","https://goo.gl/maps/4y785Pjxq4H2","Lexington Community Center");
 var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","https://goo.gl/maps/UQjhdjHa41x","Albert J. Sargent Memorial Library");
+var littleton = new Location("Littleton","Images/icon-lib-littleton.png","https://goo.gl/maps/bYyshWZyEBs9S9zT8","Reuben Hoar Public Library");
 var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Determined");
 
 /* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  
@@ -31,7 +32,7 @@ var scheduleArray = [
     {
       "name": "item1",
       "month": "FEBRUARY",
-      "day": 5,
+      "day": 12,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
@@ -40,11 +41,20 @@ var scheduleArray = [
     {
       "name": "item2",
       "month": "FEBRUARY",
-      "day": 12,
+      "day": 19,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": acton
+      "location": littleton
+    },
+    {
+      "name": "item3",
+      "month": "FEBRUARY",
+      "day": 26,
+      "year": 2020,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": chelmsford
     }
 ];
  
