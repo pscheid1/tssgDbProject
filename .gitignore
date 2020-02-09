@@ -7,7 +7,3 @@ tmp/
 node_modules/
 
 .gitignore
-tools/docker/scheduledb/DbApi/dotGitSave
-tools/docker/scheduledb/DbApp/dotGitSave
-
-tools/docker/scheduledb/DbApi/public/site

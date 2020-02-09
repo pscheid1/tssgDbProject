@@ -1,0 +1,33 @@
+/* This style sheet holds styles that are unique to the Schedules page. */
+
+.dateCell {
+	text-align: center;
+	font-family: arial;
+}
+
+.monthText {
+}
+
+.dayText {
+	font-size:48px;
+}
+
+.yearText {
+}
+
+
+.locationCell {
+	text-align: center;
+}
+
+.locationCell img {
+	height: 100px; 
+	width: 154px;
+}
+
+.timeCell {
+	text-align: center;
+	font-family: arial;
+}
+
+
