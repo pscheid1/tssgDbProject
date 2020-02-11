@@ -2,30 +2,17 @@
 <html lang="en">
 
 <head>
-  <title>TSSG - Meeting Schedule</title>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-TG4TD9Z');</script>
-  <!-- End Google Tag Manager -->
   <meta charset="utf-8">
+  <title>Technical Skills Share Group (TSSG)</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-  <script src="Scripts/siteFunctions.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="Styles/styles.css">
-  <link rel="stylesheet" href="Styles/scheduleStyles.css">
-
+  <link rel="stylesheet" type="text/css" href="../Styles/tssgStyle.css">
 
   <script language="javascript">
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     var scheduleData; // = null;
     var parsedData;
@@ -43,8 +30,7 @@
     function loadSchedule() {
 
       var xhttp = new XMLHttpRequest();
-      // var xserver = location.origin + "/meetings/webSchedule/default";
-      var xserver = location.origin + "/meetings/webSchedule/WedGenMtg";
+      var xserver = location.origin + "/meetings/webSchedule/default";
       xhttp.open("GET", xserver, true);
       xhttp.onreadystatechange = function () {
         // console.log('readyState: ' + this.readyState + ' - ' + 'status: ' + this.status + ' - ' + 'statusText: ' + this.statusText);
@@ -110,6 +96,7 @@
       // parse meetingDate
       var dateArray = parseDate(meetings.m1['meetingDate']);
       // dateArray is now DDD,MMM,dd,yyyy i.e. Wed,May,01,2019
+      let mpicon = '';
       document.getElementById("m1month").innerHTML = dateArray[1];
       document.getElementById("m1year").innerHTML = dateArray[3];
       document.getElementById("m1day").innerHTML = dateArray[2];
@@ -117,7 +104,10 @@
       document.getElementById("m1etime").innerHTML = formatTime(meetings.m1['endTime']);
       document.getElementById("m1schedule").setAttribute("href", meetings.m1['location']);
       document.getElementById("m1image").setAttribute("alt", meetings.m1['description']);
-      document.getElementById("m1image").setAttribute("src", meetings.m1['iconimage']);
+      // document.getElementById("m1image").setAttribute("src", meetings.m1['iconimage']);
+      // temporary (maybe) patch to share database venue location with multipage test site
+      mpicon = '../' + meetings.m1['iconimage'];
+      document.getElementById("m1image").setAttribute("src", mpicon);
 
       if (parsedData.length > 1) {
         dateArray = parseDate(meetings.m2['meetingDate']);
@@ -128,7 +118,10 @@
         document.getElementById("m2etime").innerHTML = formatTime(meetings.m2['endTime']);
         document.getElementById("m2schedule").setAttribute("href", meetings.m2['location']);
         document.getElementById("m2image").setAttribute("alt", meetings.m2['description']);
-        document.getElementById("m2image").setAttribute("src", meetings.m2['iconimage']);
+        // document.getElementById("m2image").setAttribute("src", meetings.m2['iconimage']);
+        // temporary (maybe) patch to share database venue location with multipage test site
+        mpicon = '../' + meetings.m2['iconimage'];
+        document.getElementById("m2image").setAttribute("src", mpicon);
       } else {
         document.getElementById("m2image").setAttribute("alt", noSchedule);
       }
@@ -142,11 +135,13 @@
         document.getElementById("m3etime").innerHTML = formatTime(meetings.m3['endTime']);
         document.getElementById("m3schedule").setAttribute("href", meetings.m3['location']);
         document.getElementById("m3image").setAttribute("alt", meetings.m3['description']);
-        document.getElementById("m3image").setAttribute("src", meetings.m3['iconimage']);
+        // document.getElementById("m3image").setAttribute("src", meetings.m3['iconimage']);
+        // temporary (maybe) patch to share database venue location with multipage test site
+        mpicon = '../' + meetings.m3['iconimage'];
+        document.getElementById("m3image").setAttribute("src", mpicon);
       } else {
         document.getElementById("m3image").setAttribute("alt", noSchedule);
       }
-
     }
 
     function saveProperty(key, element, mNo) {
@@ -219,108 +214,93 @@
       }
       return time;
     }
+    // < / s c r i p t>
 
     //----------------------------------------------------------------------------------------------------------------------
   </Script>
 
 </head>
 
-<body onLoad="loadSchedule(); loadSections();" data-spy="scroll" data-target="#myNavbar">
+<body onload="loadSchedule()">
+  <div id="calendar-page" class="content"  style="margin-left:36px">
+    <!--table align="center" border="2" cellpadding="2" cellspacing="2" style="width: 400px;" summary="Update Dates, Locations and Meeting Times"-->
+    <table border="2" cellpadding="2" cellspacing="2" style="float: center"
+      summary="Update Dates, Locations and Meeting Times">
+      <thead>
+        <tr>
+          <th bgcolor="black" scope="col"></th>
+          <th bgcolor="black" scope="col">
+            <span style="font-size:22px;">
+              <span style="font-family:arial,helvetica,sans-serif;" style="text-align: center;">
+                <strong>
+                  <font color="#ffffff">WEDNESDAY</font>
+                </strong>
+              </span>
+            </span>
+          </th>
+          <th bgcolor="black" scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
 
-  <div id="pageHeader">
+        <tr>
+          <!-- Icon for meeting 1 -->
+          <td style="text-align: center;"><span style="font-family:arial;"><span id="m1month"></span></span><br />
+            <span style="font-size:48px;">
+              <font face="arial"><span id="m1day"></span></font>
+            </span><br />
+            <span style="font-family:arial;"><span id="m1year"></span></span></td>
+          <td style="text-align: center;">
+            <a id="m1schedule" href="">
+              <img id=m1image alt="" src="" style="height: 100px; width: 154px;" /></a>
+          </td>
+          <td style="text-align: center;">
+            <p>
+              <font face="arial"><span id="m1stime"></span><br />
+                to<br />
+                <span id="m1etime"></span></font>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <!-- Icon for meeting 2 -->
+          <td style="text-align: center;"><span style="font-family:arial;"><span id="m2month"></span></span><br />
+            <span style="font-size:48px;">
+              <font face="arial"><span id="m2day"></span></font>
+            </span><br />
+            <span style="font-family:arial;"><span id="m2year"></span></span></td>
+          <td style="text-align: center;"><a id="m2schedule" href="">
+              <img id="m2image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
+          <td style="text-align: center;">
+            <p>
+              <font face="arial"><span id="m2stime"></span><br />
+                to<br />
+                <span id="m2etime"></span></font>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <!-- Icon for meeting 3 -->
+          <td style="text-align: center;"><span style="font-family:arial;"><span id="m3month"></span></span><br />
+            <span style="font-size:48px;">
+              <font face="arial"><span id="m3day"></span></font>
+            </span><br />
+            <span style="font-family:arial;"><span id="m3year"></span></span></td>
+          <td style="text-align: center;"><a id="m3schedule" href="">
+              <img id="m3image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
+          <td style="text-align: center;">
+            <p>
+              <font face="arial"><span id="m3stime"></span><br />
+                to<br />
+                <span id="m3etime"></span></font>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div id="content" style="text-align:center;">
-    <section id="subScheduleId" class="container-fluid text-left group-section" role="navigation">
-      <h1><strong>TSSG WEEKLY MEETING SCHEDULE</strong></h1>
-      <!--?php include("schedule.php"); ?   REPLACED PHP with JQUERY -->
-      <div id="incSchedule"></div>
-      <br>
-    </section>
-
-    <div id="scheduleWrapper"  style="margin-left:36px"> <!-- added margin-left to align table with above heading-->
-      <table border="2" cellpadding="2" cellspacing="2" style="float: center"
-        summary="Update Dates, Locations and Meeting Times">
-        <!-- removing caption "GENERAL MEETING SCHEDULE" -->
-        <!--caption><span style="font-size:24px;"><strong><span style="font-family:arial"></span></strong></span></caption-->
-        <thead>
-          <tr>
-            <th bgcolor="black" scope="col"></th>
-            <th bgcolor="black" scope="col"><span style="font-size:22px;"><span
-                  style="font-family:arial,helvetica,sans-serif;" style="text-align: center;"><strong>
-                    <font color="#ffffff">WEDNESDAY</font>
-                  </strong></span></span></th>
-            <th bgcolor="black" scope="col"></th>
-          </tr>
-        </thead>
-        <!-- <tbody id="scheduleBody"> -->
-        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-        <body>
-
-          <tr>
-            <!-- Icon for meeting 1 -->
-            <td style="text-align: center;"><span style="font-family:arial;"><span id="m1month"></span></span><br />
-              <span style="font-size:48px;">
-                <font face="arial"><span id="m1day"></span></font>
-              </span><br />
-              <span style="font-family:arial;"><span id="m1year"></span></span></td>
-            <td style="text-align: center;">
-              <a id="m1schedule" href="">
-                <img id=m1image alt="" src="" style="height: 100px; width: 154px;" /></a>
-            </td>
-            <td style="text-align: center;">
-              <p>
-                <font face="arial"><span id="m1stime"></span><br />
-                  to<br />
-                  <span id="m1etime"></span></font>
-              </p>
-            </td>
-          </tr>
-
-          <tr>
-            <!-- Icon for meeting 2 -->
-            <td style="text-align: center;"><span style="font-family:arial;"><span id="m2month"></span></span><br />
-              <span style="font-size:48px;">
-                <font face="arial"><span id="m2day"></span></font>
-              </span><br />
-              <span style="font-family:arial;"><span id="m2year"></span></span></td>
-            <td style="text-align: center;"><a id="m2schedule" href="">
-                <img id="m2image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
-            <td style="text-align: center;">
-              <p>
-                <font face="arial"><span id="m2stime"></span><br />
-                  to<br />
-                  <span id="m2etime"></span></font>
-              </p>
-            </td>
-          </tr>
-
-          <tr>
-            <!-- Icon for meeting 3 -->
-            <td style="text-align: center;"><span style="font-family:arial;"><span id="m3month"></span></span><br />
-              <span style="font-size:48px;">
-                <font face="arial"><span id="m3day"></span></font>
-              </span><br />
-              <span style="font-family:arial;"><span id="m3year"></span></span></td>
-            <td style="text-align: center;"><a id="m3schedule" href="">
-                <img id="m3image" alt="" src="" style="height: 100px; width: 154px;" /></a></td>
-            <td style="text-align: center;">
-              <p>
-                <font face="arial"><span id="m3stime"></span><br />
-                  to<br />
-                  <span id="m3etime"></span></font>
-              </p>
-            </td>
-          </tr>
-          <!-- --------------------------------------------------------------------------------------------- -->
-          </tbody>
-      </table>
-    </div> <!-- end schedule Wrapper -->
-  </div> <!-- end Content -->
-
-  <div id="pageFooter" style="margin-top:3em;"></div>
 </body>
-
-<!-- <script src="Scripts/scheduleDates.js"></script> -->
 
 </html>

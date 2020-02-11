@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Technical Skills Share Group (TSSG)</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script src="https://code.jquery.com/jquery-1.10.2.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../Styles/tssgStyle.css">
+
+    <script language="javascript">
+        let htmlFile = ' ';
+        function getTemplate() {
+            var xhttp = new XMLHttpRequest();
+            var xserver = location.origin + '/paul/imports/tssgPageTemplate.html';
+            xhttp.open("GET", xserver, true);
+            xhttp.onreadystatechange = function () {
+                if (debugTrace) console.log('readyState: ' + this.readyState + ' - ' + 'status: ' + this.status + ' - ' + 'statusText: ' + this.statusText);
+                if (this.readyState == 4) {
+                    htmlFile = (this.status == 200) ? this.responseText : ' ';
+                    if (debugData) console.error(htmlFile);
+                    finishPageLoad();
+                };
+            }
+            xhttp.send();
+        }
+
+        // the call to the getTemplate() functions is the only executable in the flow.
+        // the rest of the script is all funciton declarations which are called 
+        // by events and other functions.
+        getTemplate();
+
+
+        "use strict";
+
+        // Because these variables are not declared in a function, their
+        // scope is global.
+
+        // The following debug variables can be used to enable/disable
+        // embedded console.log messages.
+        // enable/disable console.log messages indicating code path
+        var debugTrace = false;
+        // enable/disable console.log messages containing data
+        var debugData = false;
+
+        if (debugTrace) console.log("page initialization");
+
+        var calledFromListener = false;
+        var calledFromSetContent = false;
+        var htmlDoc;
+        var navbarElement;
+        var footerElement;
+        var homeContent;
+        var mobileContent;
+        var dataContent;
+        var devOpsContent;
+        var qualityContent;
+        var webContent;
+        var calendarContent;
+        var currentContent;
+        var newContent;
+        var debugPage;
+        var emptyPlaceHolder;
+        var carousel;
+        var displayFooter = true;
+
+        // the following are used by the schedule/calendar page
+        var scheduleData = null;
+        var parsedData;
+        var convertedData;
+        var jsArray = [];
+        var key;
+        const noSchedule = "Schedule is currently not available";
+        var meetings = {
+            m1: {},
+            m2: {},
+            m3: {}
+        };
+        // end schedule/calendar page variables
+
+        // arbitrary but seems to fit current definition
+        // this is based on screen size which will remain constant
+        var isPhone = (screen.availWidth < 900 && screen.availHeight < 900);
+
+        // the winResize() function will get called each time the view port changes
+        // if the device is a phone and display mode is landscape, the footer is removed if
+        // required.  Otherwise if it is a phone in portriat mode, the footer is appended if
+        // required.  if the device is not a phone and footer is not currently displayed,
+        // it will be added back in.
+        // the carousel is deleted and added back in parallel with the footer action.
+
+        function winResize() {
+            if (isPhone) {
+                if (modeIsLandscape()) {
+                    if (displayFooter) {
+                        // footer is displayed.  Remove it
+                        var element = document.getElementById("footer");
+                        element.parentNode.removeChild(element);
+                        // replace the carousel with an empty place holder
+                        carousel = document.getElementById("carouselContainer");
+                        carousel.replaceWith(emptyPlaceHolder);
+                        displayFooter = false;
+                    }
+                    else {
+                        // footer currently not displayed.  Exit
+                    }
+                } else {
+                    // phone is in portriat mode
+                    if (!displayFooter) {
+                        // portriat mode and footer is not displayed.  Display it
+                        // footer is always on the bottom, so just append it
+                        document.body.appendChild(footerElement.cloneNode(true));
+                        // replace the empty place holder with the carousel
+                        var element = document.getElementById("empty-placeHolder");
+                        element.replaceWith(carousel);
+
+                        displayFooter = true;
+                    }
+                    else {
+                        // footer currently displayed.  Exit
+                    }
+                }
+                return;
+            } else {
+                if (!displayFooter) {
+                    // not a phone and footer is not displayed.  Display it
+                    // footer is always on the bottom, so just append it
+                    document.body.appendChild(footerElement.cloneNode(true));
+                    // replace the empty place holder with the carousel
+                    var element = document.getElementById("empty-placeHolder");
+                    element.replaceWith(carousel);
+
+                    displayFooter = true;
+                }
+            }
+        }
+
+        // this funciton will replace the currently displayed content
+        // with the requested new content.  If the requested content is
+        // not home, calendar, and debug, it will add the selected class
+        // to the new content and remove it from the old content.
+        function setContent(newContent) {
+            if (debugData) console.log("newContent: " + newContent.innerHTML);
+            var oldContent = document.getElementById(currentContent.id);
+            //console.log("newContent.id: "   + newContent.id);
+            // var rslt = (newContent.id === "calendar-page");  // don't know why this statement is here.  "rslt" is never used.
+            document.body.replaceChild(newContent, oldContent);
+            if (debugData) console.log("newContent: " + newContent.id + " - " + "oldContent: " + oldContent.id);
+            if (newContent.id === "calendar-page") {
+                loadSchedule();
+            }
+            if (displayFooter) {
+                var iconId = getIconId(oldContent);
+                // home and calendar icons are no longer being used in the footer
+                if (iconId.length > 0) {
+                    switch (iconId) {
+                        case "home":
+                        case "calendar":
+                        case "debug":
+                        case "empty":
+                            break;
+                        default:
+                            removeClass(iconId, "selected");
+                    }
+                }
+
+                iconId = getIconId(newContent);
+                if (iconId.length > 0) {
+                    switch (iconId) {
+                        case "home":
+                        case "calendar":
+                        case "debug":
+                        case "empty":
+                            break;
+                        default:
+                            addClass(iconId, "selected");
+                    }
+
+                }
+            }
+
+            if (debugTrace) console.log("calledFromListener: " + calledFromListener);
+
+            if (!calledFromListener) {
+                calledFromSetContent = true;
+                if (debugTrace) console.log("setting hash: " + newContent.id);
+                window.location.hash = "#" + newContent.id;
+            }
+            pushToTop();
+            currentContent = newContent;
+        }
+
+        // add class to element with supplied Id
+        function addClass(divId, classname) {
+            var el = document.getElementById(divId);
+            // No need to check if class is already assigned.
+            // If it is, it will not be added again.
+            el.classList.add(classname);
+        }
+
+        // remove class from element with supplied Id
+        function removeClass(divId, classname) {
+            var el = document.getElementById(divId);
+            // if class is not assigned, an error will NOT
+            // be thrown.
+            el.classList.remove(divId, classname);
+        }
+
+        // this function returns true if an element id contains the
+        // supplied classname.
+        function testClass(divId, classname) {
+            var el = document.getElementById(divId);
+            return el.classList.contains(divId, classname);
+        }
+
+        // return the Id for footer icon matching supplied content Id
+        // content id must contain a hyphen
+        // leading portion of content id must match an icon id
+        function getIconId(contentDiv) {
+            var contentId = contentDiv.id;
+            var index = contentId.indexOf("-");
+            if (index === -1 || index === 0)
+                return "";
+            return contentId.substring(0, index);
+        }
+
+        // return view port width
+        function viewPortWidth() {
+            return window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+        }
+
+        // return view port height
+        function viewPortHeight() {
+            return window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
+        }
+
+        // is device in portriat mode
+        function modeIsPortriat() {
+            return (viewPortHeight() > viewPortWidth());
+        }
+
+        // is device in landscape mode
+        function modeIsLandscape() {
+            return !modeIsPortriat();
+        }
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // the code from here to the //----- ... comment line below is for the schedule/calendar page
+
+        function loadSchedule() {
+            var xhttp = new XMLHttpRequest();
+            var xserver = location.origin + "/meetings/webSchedule/default";
+            // console.log('xserver: ' + xserver);
+            xhttp.open("GET", xserver, true);
+            xhttp.onreadystatechange = function () {
+                // console.log('readyState: ' + this.readyState + ' - ' + 'status: ' + this.status + ' - ' + 'statusText: ' + this.statusText);
+                if (this.readyState == 4) {
+                    scheduleData = (this.status == 200) ? this.responseText : null;
+                    // console.error('>>>' + scheduleData + '<<<')
+                    processScheduleData();
+                };
+            }
+            xhttp.send();
+            return;
+        }
+
+        function processScheduleData() {
+            if (scheduleData === '[]' || scheduleData === null) {
+                document.getElementById("m1image").setAttribute("alt", noSchedule);
+                document.getElementById("m2image").setAttribute("alt", noSchedule);
+                document.getElementById("m3image").setAttribute("alt", noSchedule);
+                return;
+            }
+
+            // the call to meetings/webSchedule will return the next 3 scheduled meetings
+            // break return result into an array of 3
+            parsedData = JSON.parse(scheduleData);
+            // iterate through the array, one for each meeting scheduled
+            for (var indx = 0; indx < parsedData.length; indx++) {
+                // stringify the selected meeting
+                convertedData = JSON.stringify(parsedData[indx]);
+                //remove leading and trailing brace
+                convertedData = convertedData.substr(1, convertedData.length - 2);
+                // split into an array
+                jsArray = convertedData.split(',');
+                // iterate through the array & process each item (venue, description, etc.)
+                for (var pos in jsArray) {
+                    var element = jsArray[pos];
+                    // find the property key ending quote
+                    var indx1 = element.indexOf('"', 1);
+                    // extract the property key
+                    key = element.substring(1, indx1);
+                    // process the desired keys.  ignore any others
+                    // originally I had a routine for each key.
+                    // then I reduced it to two.
+                    // then I figured out how to do them all in one.
+                    switch (key) {
+                        case "venue":
+                        case "description":
+                        case "address":
+                        case "town":
+                        case "location":
+                        case "meetingDate":
+                        case "startTime":
+                        case "endTime":
+                        case "iconimage":
+                            saveProperty(key, element, indx);
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            // Load the extraced scheduleData into the form elements.
+            // parse meetingDate
+            var dateArray = parseDate(meetings.m1['meetingDate']);
+            // dateArray is now DDD,MMM,dd,yyyy i.e. Wed,May,01,2019
+            let mpicon = '';
+            document.getElementById("m1month").innerHTML = dateArray[1];
+            document.getElementById("m1year").innerHTML = dateArray[3];
+            document.getElementById("m1day").innerHTML = dateArray[2];
+            document.getElementById("m1stime").innerHTML = formatTime(meetings.m1['startTime']);
+            document.getElementById("m1etime").innerHTML = formatTime(meetings.m1['endTime']);
+            document.getElementById("m1schedule").setAttribute("href", meetings.m1['location']);
+            document.getElementById("m1image").setAttribute("alt", meetings.m1['description']);
+            // document.getElementById("m1image").setAttribute("src", meetings.m1['iconimage']);
+            // temporary (maybe) patch to share database venue location with multipage test site
+            mpicon = '../' + meetings.m1['iconimage'];
+            document.getElementById("m1image").setAttribute("src", mpicon);
+
+
+            if (parsedData.length > 1) {
+                dateArray = parseDate(meetings.m2['meetingDate']);
+                document.getElementById("m2month").innerHTML = dateArray[1];
+                document.getElementById("m2year").innerHTML = dateArray[3];
+                document.getElementById("m2day").innerHTML = dateArray[2];
+                document.getElementById("m2stime").innerHTML = formatTime(meetings.m2['startTime']);
+                document.getElementById("m2etime").innerHTML = formatTime(meetings.m2['endTime']);
+                document.getElementById("m2schedule").setAttribute("href", meetings.m2['location']);
+                document.getElementById("m2image").setAttribute("alt", meetings.m2['description']);
+                // document.getElementById("m2image").setAttribute("src", meetings.m2['iconimage']);
+                // temporary (maybe) patch to share database venue location with multipage test site
+                mpicon = '../' + meetings.m2['iconimage'];
+                document.getElementById("m2image").setAttribute("src", mpicon);
+
+            } else {
+                document.getElementById("m2image").setAttribute("alt", noSchedule);
+            }
+
+            if (parsedData.length > 2) {
+                dateArray = parseDate(meetings.m3['meetingDate']);
+                document.getElementById("m3month").innerHTML = dateArray[1];
+                document.getElementById("m3year").innerHTML = dateArray[3];
+                document.getElementById("m3day").innerHTML = dateArray[2];
+                document.getElementById("m3stime").innerHTML = formatTime(meetings.m3['startTime']);
+                document.getElementById("m3etime").innerHTML = formatTime(meetings.m3['endTime']);
+                document.getElementById("m3schedule").setAttribute("href", meetings.m3['location']);
+                document.getElementById("m3image").setAttribute("alt", meetings.m3['description']);
+                // document.getElementById("m3image").setAttribute("src", meetings.m3['iconimage']);
+                // temporary (maybe) patch to share database venue location with multipage test site
+                mpicon = '../' + meetings.m3['iconimage'];
+                document.getElementById("m3image").setAttribute("src", mpicon);
+
+            } else {
+                document.getElementById("m3image").setAttribute("alt", noSchedule);
+            }
+        }
+
+        function saveProperty(key, element, mNo) {
+            // console.log("savePropery - arguments: " + key + " - element: " + element + " - mNo: " + mNo);
+            // find end of key
+            if (key === 'venue') {
+                var indx1 = element.lastIndexOf(':');
+            } else {
+                var indx1 = element.indexOf(':');
+            }
+            if (indx1 > -1) {
+                // find beginning of property scheduleData
+                indx1 = element.indexOf('"', indx1);
+                if (indx1 > -1) {
+                    // find pointer to ending quote mark
+                    var indx2 = element.lastIndexOf('"');
+                    if (indx2 > -1) {
+                        // bump indx1 to drop leading quote mark
+                        indx1++;
+                        switch (mNo) {
+                            case 0:
+                                meetings.m1[`${key}`] = element.substring(indx1, indx2);
+                                return;
+                            case 1:
+                                meetings.m2[`${key}`] = element.substring(indx1, indx2);
+                                return;
+                            case 2:
+                                meetings.m3[`${key}`] = element.substring(indx1, indx2);
+                                return;
+                        }
+                    }
+                }
+            }
+            switch (mNo) {
+                case 0:
+                    meetings.m1[`${key}`] = '';
+                    break;
+                case 1:
+                    meetings.m2[`${key}`] = '';
+                    break;
+                case 2:
+                    meetings.m3[`${key}`] = '';
+                    break;
+            }
+            return;
+        }
+
+        function parseDate(date) {
+
+            var dateStr = new Date(date).toDateString();
+            // convert to array
+            var dateArray = dateStr.split(' '); // DDD,MMM,dd,yyyy
+            return dateArray;
+        }
+
+        function formatTime(dateTime) {
+
+            var d = new Date(dateTime);
+            var time;
+            if (d.getHours() > 12) {
+                time = d.getHours() - 12;
+            } else {
+                time = d.getHours();
+            }
+            if (d.getMinutes() > 0) {
+                time += ":" + d.getMinutes();
+            }
+            if (d.getHours() > 12) {
+                time += " pm"
+            }
+            return time;
+        }
+        // < / s c r i p t>
+
+        //----------------------------------------------------------------------------------------------------------------------
+
+        // this can be used to display various debug information.
+        // currently it is called by a nav-bar button which is normally omitted.
+        // to use this code, remove the block comments from tssgPageTemplage.html
+        function debugStuff() {
+
+            setContent(debugPage);
+
+            document.getElementById("demow").innerHTML =
+                "Screen width is " + screen.width;
+
+            document.getElementById("demoh").innerHTML =
+                "Screen height is " + screen.height;
+
+            document.getElementById("demoaw").innerHTML =
+                "Screen available width is " + screen.availWidth;
+
+            document.getElementById("demoah").innerHTML =
+                "Screen available height is " + screen.availHeight;
+
+            var w = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+
+            var h = window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
+
+            var x = document.getElementById("demows");
+            x.innerHTML = "Browser inner window width: " + w + ", height: " + h + ".";
+
+            document.getElementById("demov").innerHTML = navigator.appVersion;
+
+            document.getElementById("demoa").innerHTML = navigator.userAgent;
+
+            document.getElementById("demop").innerHTML = navigator.platform;
+
+            document.getElementById("demol").innerHTML = navigator.language;
+
+            document.getElementById("isphone").innerHTML = (isPhone) ? "isPhone = true" : "isPhone = false";
+
+            document.getElementById("isportriat").innerHTML = (modeIsPortriat()) ? "isPortriat = true" : "isPortriat = false";
+
+            document.getElementById("islandscape").innerHTML = (modeIsLandscape()) ? "isLandscape = true" : "isLandscape = false";
+
+            document.getElementById("dispfooter").innerHTML = (displayFooter) ? "displayFooter = true" : "displayFooter = false";
+
+        }
+
+        function toggleIsPhone() {
+            isPhone = !isPhone;
+            // winResize does not resize the window.  In only respondes to a resize.
+            // We call it here to respond to a request to set the application into
+            // phone mode for debugging purposes.
+            winResize();
+            // again, for debugging, we have toggled the application
+            // into/out of phone mode.  display the debug screen.
+            debugStuff();
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        function pushToTop() {
+            window.scrollTo(0, 0);
+        }
+
+        // the hashChanged() function is setup as an event listener.
+        // window.addEventListener('hashchange', hashChanged);
+        // the listener is declared by the last statement in the
+        // finishPageLoad() function below.
+        function hashChanged() {
+            var newHash = window.location.hash.substring(1);
+            var newContent = "";
+            if (debugTrace) {
+                console.log("newHash: " + newHash);
+                console.log("calledFromSetContent: " + calledFromSetContent);
+            }
+
+            if (calledFromSetContent === true) {
+                calledFromSetContent = false;
+                return;
+            }
+
+            // console.log("Find content: " + newHash);
+            switch (newHash) {
+                case 'web-group':
+                    newContent = webContent;
+                    break;
+                case 'mobile-group':
+                    newContent = mobileContent;
+                    break;
+                case 'quality-qroup':
+                    newContent = qualityContent;
+                    break;
+                case 'data-group':
+                    newContent = dataContent;
+                    break;
+                case 'devops-group':
+                case 'devOps-group':
+                    newContent = devOpsContent;
+                    break;
+                case 'calendar-page':
+                    newContent = calendarContent;
+                    break;
+                case 'debug-page':
+                    debugStuff();
+                    // debugStuff() calls setContent, so return
+                    return;
+                default:
+                    newContent = homeContent;
+                    break;
+            }
+
+            // setContent uses this to know not to change the hash
+            calledFromListener = true;
+            // console.log("newContent: " + newContent.id);
+            // console.log("Calling setContent");
+            setContent(newContent);
+            // console.log("Returning from setContent");
+            calledFromListener = false;
+
+        }
+
+        // finishPageLoad() is called from the async call getTemplate() (above) once 
+        // the data has been received.
+        // this completes the building of the "shadow dom" that contains all our pages
+        function finishPageLoad() {
+
+            htmlDoc = document.createElement('div');
+            htmlDoc.innerHTML = htmlFile;
+
+            // Grab the nav-bar div section
+            navbarElement = htmlDoc.querySelector('#nav-bar');
+            // Grab the footer div section
+            footerElement = htmlDoc.querySelector('#footer');
+            // Grab the content of each page
+            homeContent = htmlDoc.querySelector('#home-page');
+            // Initialize currentContent to home page. This will
+            // cause the home page to be the initial page when the
+            // script is called in the body section below.
+            currentContent = homeContent;
+            mobileContent = htmlDoc.querySelector('#mobile-group');
+            dataContent = htmlDoc.querySelector('#data-group');
+            devOpsContent = htmlDoc.querySelector('#devOps-group');
+            qualityContent = htmlDoc.querySelector('#quality-group');
+            webContent = htmlDoc.querySelector('#web-group');
+            calendarContent = htmlDoc.querySelector('#calendar-page');
+            debugPage = htmlDoc.querySelector('#debug-page');
+            emptyPlaceHolder = htmlDoc.querySelector('#empty-placeHolder');
+
+            // append each section to our DOM in the desired order
+            // this is the initial build.  Was a specific page requested?
+            var page = window.location.hash.substring(1);
+
+            if (!page) {
+                document.body.appendChild(navbarElement.cloneNode(true));
+                document.body.appendChild(currentContent.cloneNode(true));
+                if (debugData) console.log("currentContent: " + currentContent.innerHTML);
+                if (displayFooter) {
+                    document.body.appendChild(footerElement.cloneNode(true));
+                }
+            } else {
+                // empty hash will result in home-page
+                if (debugTrace) console.log("page: " + page);
+                switch (page) {
+                    case 'web-group':
+                        currentContent = webContent;
+                        break;
+                    case 'mobile-group':
+                        currentContent = mobileContent;
+                        break;
+                    case 'quality-qroup':
+                        currentContent = qualityContent;
+                        break;
+                    case 'data-group':
+                        currentContent = dataContent;
+                        break;
+                    case 'devops-group':
+                        // if this is a url parameter, it is being forced to lowercase.
+                        // correct case for addClass below.
+                        page = 'devOps';
+                    // fall through to devOps case.
+                    // calls from code use mixed case.
+                    case 'devOps-group':
+                        currentContent = devOpsContent;
+                        break;
+                    case 'calendar-page':
+                        currentContent = calendarContent;
+                        break;
+                    case 'debug-page':
+                        currentContent = debugPage;
+                        break;
+                    default:
+                        page = ""; // incase it's an unknow page
+                        break;
+                }
+
+                // append each section to our DOM in the desired order
+                document.body.appendChild(navbarElement.cloneNode(true));
+                document.body.appendChild(currentContent.cloneNode(true));
+                if (page === 'calendar-page') {
+                    loadSchedule();
+                }
+                if (debugData) console.log("currentContent: " + currentContent.innerHTML);
+                if (page === "debug-page") {
+                    // debug is a non-static page.
+                    // we need to update it.
+                    debugStuff();
+                }
+                if (displayFooter) {
+                    document.body.appendChild(footerElement.cloneNode(true));
+                    if (page) {
+                        switch (page) {
+                            case "home-page":
+                            case "calendar-page":
+                            case "debug-page":
+                            case "":
+                            case "empty":
+                                // these pages do not have a footer icon
+                                break;
+                            default:
+                                // make the footer icon selected for the
+                                // appropriate page.
+                                addClass(getIconId(currentContent), "selected");
+                        }
+                    }
+                }
+            }
+
+            // fix for bootstrap navbar hamburger not collapsing
+            // when item is selected.
+            // $('.navbar-nav li a, .navbar-brand, footer img').on('click', function () {
+            // replacing specific class(es) with 'body' will collapse navbar when user
+            // clicks anywhere in the body area.
+            $('body').on('click', function () {
+                if (!$(this).hasClass('dropdown-toggle')) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            });
+
+            window.addEventListener('hashchange', hashChanged);
+        }
+
+    </script>
+</head>
+
+<body onresize="winResize()" onload="pushToTop()">
+</body>
+
+</html>
