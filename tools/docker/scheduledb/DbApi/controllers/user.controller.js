@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Role = require('../_helpers/role');
 
-let secret = config.secret;
+const secret = config.secret;
 
 module.exports = {
   // Add user
