@@ -29,7 +29,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: sch3dul3db
 
   backend:
-    image: tssg-node-backend:1.0
+    image: tssg-node-backend:${backendVersion}
     build:
         context: .
         dockerfile: backend-Dockerfile
@@ -47,7 +47,7 @@ services:
     
   frontend:
     #image: node:lts
-    image: tssg-node-frontend:1.0
+    image: tssg-node-frontend:${frontendVersion}
     build:
         context: .
         dockerfile: frontend-Dockerfile

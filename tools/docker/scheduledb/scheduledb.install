@@ -3,10 +3,23 @@
 
 . ../../cmd.env
 
+export backendVersion=1.1
+export frontendVersion=1.1
+
 msg BEGIN "Clean up and Install the schedule db services ..."
 
 msg INFO "Stop and remove any existing scheduledb containers ..."
 docker-compose down
+
+msg INFO "Remove any dangling images ..."
+danglingImageList="$(docker images -aq -f 'dangling=true')"
+if [ -n "$danglingImageList" ] ; then
+    docker rmi $(docker images -aq -f 'dangling=true')
+else
+    msg INFO "    No dangling images to remove."
+fi
+docker rmi tssg-node-backend:${backendVersion}
+docker rmi tssg-node-frontend:${frontendVersion}
 
 msg INFO "Remove any persistent volume for mongodb ..."
 docker volume rm scheduledb_mongodb
@@ -25,21 +38,8 @@ fi
 msg INFO "Set the appropriate value into src/environments/environment.ts ..."
 sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
 
-msg INFO "Rebuild the docker mongodb images ..."
-docker-compose build
-
-msg INFO "Ensure node modules are installed ..."
-
-#msg INFO "... on DbApi ..."
-#pushd DbApi
-#npm install
-#npm audit fix
-
-#msg INFO "... on DbApp ..."
-#cd ../DbApp
-#npm install
-#npm audit fix
-#popd
+msg INFO "Rebuild the docker images ..."
+docker-compose build --no-cache
 
 msg INFO "Start up all containers ..."
 docker-compose up -d
