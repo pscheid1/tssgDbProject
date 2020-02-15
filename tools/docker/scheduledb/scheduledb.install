@@ -61,7 +61,9 @@ done
 sleep 5s
 
 msg INFO "Initialize the tssg-tech mongo database ..."
-docker exec scheduledb_mongo_1 bash -c "\
+maxTries=150
+try=0
+until docker exec scheduledb_mongo_1 bash -c "\
     cd /root; \
     mongorestore \
         -u root \
@@ -69,7 +71,17 @@ docker exec scheduledb_mongo_1 bash -c "\
         --authenticationDatabase admin \
         --authenticationMechanism SCRAM-SHA-1 \
         --db tssg-tech \
-        tssg-tech"
+        tssg-tech 2>&1 | grep 'done'"
+do
+    sleep 5s
+    ((++try))
+    msg INFO "Retrying again $try ..."
+    if [ $try -gt $maxTries ] ; then
+        echo -e "\n"
+        msg ERROR "Mongorestore took could not complete successfully. Exiting."
+        exit
+    fi
+done
 
 msg INFO "Mongo can be accessed on port 27017"
 msg INFO "Mongo Express can be accessed on port 8081"
