@@ -111,44 +111,20 @@ export class UserEditComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.user.username = this.user.username.trim();
-    if (this.user.username.length === 0) {
-      this.errorMsg = 'Username is required.';
-      this.forceElementView('bottom');
-      return;
-    }
 
     // if (this.user.password === null) {
     //   this.errorMsg = 'Password is required.';
     //   this.forceElementView('bottom');
     //   return;
-    // }
-    // this.user.password = this.user.password.trim();
-    // if (this.user.password.length === 0) {
-    //   this.errorMsg = 'Password is required.';
-    //   this.forceElementView('bottom');
-    //   return;
-    // }
+    //
 
     if (this.user.firstname === null) {
       this.errorMsg = 'Firstname is required.';
       this.forceElementView('bottom');
       return;
     }
-    this.user.firstname = this.user.firstname.trim();
-    if (this.user.firstname.length === 0) {
-      this.errorMsg = 'Firstname is required.';
-      this.forceElementView('bottom');
-      return;
-    }
 
     if (this.user.lastname === null) {
-      this.errorMsg = 'Lastname is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-    this.user.lastname = this.user.lastname.trim();
-    if (this.user.lastname.length === 0) {
       this.errorMsg = 'Lastname is required.';
       this.forceElementView('bottom');
       return;
@@ -165,20 +141,8 @@ export class UserEditComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-    this.user.email = this.user.email.trim();
-    if (this.user.email.length === 0) {
-      this.errorMsg = 'Email is required.';
-      this.forceElementView('bottom');
-      return;
-    }
 
     if (this.user.mobile === null) {
-      this.errorMsg = 'Mobile is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-    this.user.mobile = this.user.mobile.trim();
-    if (this.user.mobile.length === 0) {
       this.errorMsg = 'Mobile is required.';
       this.forceElementView('bottom');
       return;
@@ -193,7 +157,9 @@ export class UserEditComponent implements OnInit {
         }
       })
       .catch(err => {
-        this.errorMsg = err;
+        // console.log('user.edit.component.updatUser.err.name: ' + err.name);
+        // console.log('user.edit.component.updatUser.err.message: ' + err.message);
+        this.errorMsg = err.message;
         this.forceElementView('bottom');
       });
   }
