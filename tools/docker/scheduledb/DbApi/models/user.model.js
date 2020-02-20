@@ -11,7 +11,7 @@ const UserSchema = new Schema({
   lastname: { type: String, required: true, trim: true },
   role: { type: String, enum: roles, required: true },
   email: { type: String, required: false, trim: true },
-  mobile: { type: String, requied: false, trim: true },
+  mobile: { type: String, required: false, trim: true },
   token: { required: false },
   inActive: { type: Boolean, default: false,  required: false },
   createdDate: { type: Date, default: Date.now }
