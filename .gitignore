@@ -3,6 +3,7 @@
 build/
 out/
 tmp/
+logs/
 
 node_modules/
 
