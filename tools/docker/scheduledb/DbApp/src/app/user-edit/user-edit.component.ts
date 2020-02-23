@@ -104,46 +104,45 @@ export class UserEditComponent implements OnInit {
     element.scrollIntoView();
   }
 
+  // we use .trim() to test for an entry of one or more spaces.
+  // we do not need to forward this result for non zero length
+  // fields as the user database schema will force a trim when
+  // specified. the trim() test is only needed for 'required'
+  // fields because the angular code treats a field of all
+  // spaces a valid string.
   updateUser(userForm: any) {
 
-    if (this.user.username === null) {
+    if (this.user.username.trim().length === 0) {
       this.errorMsg = 'Username is required.';
       this.forceElementView('bottom');
       return;
     }
 
-    // if (this.user.password === null) {
-    //   this.errorMsg = 'Password is required.';
-    //   this.forceElementView('bottom');
-    //   return;
-    //
-
-    if (this.user.firstname === null) {
+    if (this.user.firstname.trim().length === 0) {
       this.errorMsg = 'Firstname is required.';
       this.forceElementView('bottom');
       return;
     }
 
-    if (this.user.lastname === null) {
+    if (this.user.lastname.trim().length === 0) {
       this.errorMsg = 'Lastname is required.';
       this.forceElementView('bottom');
       return;
     }
 
-    if (this.user.role === null) {
+    if (this.user.role.trim().length === 0) {
       this.errorMsg = 'Role is required.';
       this.forceElementView('bottom');
       return;
     }
 
-    if (this.user.email === null) {
-      this.errorMsg = 'Email is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.user.mobile === null) {
-      this.errorMsg = 'Mobile is required.';
+    // a mobile number can consist of any number of digits ( ) . -  + and
+    // space characters. +1(123)-456-7890 or 123 456 7890 or 123.456.7890 for example.
+    // [0123456789 ()-.]'
+    const notValid = /[^0123456789 ()-.]/.test(this.user.mobile);
+    console.error('user-edit.component.updateUser notValid: ' + notValid);
+    if (notValid) {
+      this.errorMsg = 'A Mobile number must contain only digits, spaces, parentheses, pluses, hyphens and periods.';
       this.forceElementView('bottom');
       return;
     }
@@ -157,6 +156,7 @@ export class UserEditComponent implements OnInit {
         }
       })
       .catch(err => {
+        // console.log('user.edit.component.updatUser.err: ' + err);
         // console.log('user.edit.component.updatUser.err.name: ' + err.name);
         // console.log('user.edit.component.updatUser.err.message: ' + err.message);
         this.errorMsg = err.message;
