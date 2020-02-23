@@ -1,29 +1,15 @@
 #!/usr/bin/env bash
 #help frontend.install                           # Hard install the frontend service
 
-. ../../cmd.env
-
-export backendVersion=1.1
-export frontendVersion=1.1
+. scheduledb.env
+logsDirValidate
 
 msg BEGIN "Clean up and Install the frontend service ..."
-
-#msg INFO "Stop and remove any existing scheduledb containers ..."
-#remove container
-#remove image
-#build image
-#restart container
 
 msg INFO "Remove the frontend container and volume ..."
 docker-compose rm -f -s -v frontend
 
-msg INFO "Remove any dangling images ..."
-danglingImageList="$(docker images -aq -f 'dangling=true')"
-if [ -n "$danglingImageList" ] ; then
-    docker rmi $(docker images -aq -f 'dangling=true')
-else
-    msg INFO "    No dangling images to remove ..."
-fi
+imagesDanglingRemove
 
 msg INFO "Remove the frontend image ..."
 docker rmi tssg-node-frontend:${frontendVersion}

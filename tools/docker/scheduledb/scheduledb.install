@@ -3,86 +3,15 @@
 
 . ../../cmd.env
 
-export backendVersion=1.1
-export frontendVersion=1.1
+. scheduledb.env
+logsDirValidate
 
-msg BEGIN "Clean up and Install the schedule db services ..."
+msg BEGIN "Clean up and Install the scheduledb services ..."
 
-msg INFO "Stop and remove any existing scheduledb containers ..."
-docker-compose down
+./mongo.install &
+./backend.install &
+./frontend.install &
 
-msg INFO "Remove any dangling images ..."
-danglingImageList="$(docker images -aq -f 'dangling=true')"
-if [ -n "$danglingImageList" ] ; then
-    docker rmi $(docker images -aq -f 'dangling=true')
-else
-    msg INFO "    No dangling images to remove."
-fi
-docker rmi tssg-node-backend:${backendVersion}
-docker rmi tssg-node-frontend:${frontendVersion}
+wait
 
-msg INFO "Remove any persistent volume for mongodb ..."
-docker volume rm scheduledb_mongodb
-
-msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
-if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
-    msg INFO "... We are running in Docker Toolbox ..."
-    export TSSGAPIURL="http://$(docker-machine ip)"
-elif [ "$(hostname)" == "Ubuntu-Studio-14" ] ; then
-    msg INFO "... We are running in a Linux server ..."
-    export TSSGAPIURL="http://backend.sdb.technologynursery.org"
-else
-    msg INFO "... We are running in a local Linux ..."
-    export TSSGAPIURL="http://localhost"
-fi
-msg INFO "Set the appropriate value into src/environments/environment.ts ..."
-sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
-
-msg INFO "Rebuild the docker images ..."
-docker-compose build --no-cache
-
-msg INFO "Start up all containers ..."
-docker-compose up -d
-
-msg WAIT "Wait for mongodb to normalize. Check every 2s ..."
-maxTries=150
-try=0
-while [ "$(docker exec scheduledb_mongo_1 bash -c 'echo "db.runCommand(\"ping\").ok" | mongo localhost:27017/test --quiet')" != "1" ]
-do
-    sleep 2s
-    ((++try))
-    msg INFO "$try "
-    if [ $try -gt $maxTries ] ; then
-        echo -e "\n"
-        msg ERROR "Mongo took over 1 min to come up.  Exiting."
-        exit
-    fi
-done
-sleep 5s
-
-msg INFO "Initialize the tssg-tech mongo database ..."
-maxTries=150
-try=0
-until docker exec scheduledb_mongo_1 bash -c "\
-    cd /root; \
-    mongorestore \
-        -u root \
-        -p sch3dul3db \
-        --authenticationDatabase admin \
-        --authenticationMechanism SCRAM-SHA-1 \
-        --db tssg-tech \
-        tssg-tech 2>&1 | grep 'done'"
-do
-    sleep 5s
-    ((++try))
-    msg INFO "Retrying again $try ..."
-    if [ $try -gt $maxTries ] ; then
-        echo -e "\n"
-        msg ERROR "Mongorestore took could not complete successfully. Exiting."
-        exit
-    fi
-done
-
-msg INFO "Mongo can be accessed on port 27017"
-msg INFO "Mongo Express can be accessed on port 8081"
 msg END "... done."
