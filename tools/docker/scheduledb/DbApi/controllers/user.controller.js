@@ -94,7 +94,7 @@ module.exports = {
   },
 
   getCurrent: async function (req, res) {
-    req.user.sub = '5ceeeb11b23b1e4a40d5bd33';  // force a bad _id
+    // req.user.sub = '5ceeeb11b23b1e4a40d5bd33';  // force a bad _id
     const eliminate = req.user.role === 'Admin' ? '-hash' : '-hash -role';
     await User.findById(req.user.sub).select(eliminate)
       .then(user => {
