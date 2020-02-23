@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-#scheduledb.install
+#help frontend.install                           # Hard install the frontend service
 
 . ../../cmd.env
 
 export backendVersion=1.1
 export frontendVersion=1.1
 
-msg BEGIN "Clean up and Install the frontend db service ..."
+msg BEGIN "Clean up and Install the frontend service ..."
 
 #msg INFO "Stop and remove any existing scheduledb containers ..."
 #remove container
@@ -14,7 +14,7 @@ msg BEGIN "Clean up and Install the frontend db service ..."
 #build image
 #restart container
 
-msg INFO "docker-compose rm -f -s -v frontend ..."
+msg INFO "Remove the frontend container and volume ..."
 docker-compose rm -f -s -v frontend
 
 msg INFO "Remove any dangling images ..."
@@ -25,7 +25,7 @@ else
     msg INFO "    No dangling images to remove ..."
 fi
 
-msg INFO "docker rmi tssg-node-frontend:${frontendVersion} ..."
+msg INFO "Remove the frontend image ..."
 docker rmi tssg-node-frontend:${frontendVersion}
 
 msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
@@ -42,6 +42,6 @@ fi
 msg INFO "Set the appropriate value into src/environments/environment.ts ..."
 sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
 
-msg INFO "Build frontend image & start container ..."
+msg INFO "Build the frontend image & start container ..."
 docker-compose up -d --build frontend
 msg END "... done."
