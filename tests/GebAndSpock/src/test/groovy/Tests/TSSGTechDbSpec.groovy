@@ -4,7 +4,7 @@ import spock.lang.*
 import Common.MongoService
 import com.mongodb.BasicDBObject
 
-/*
+/**
  * Tests the mongo database.
  */
 class TSSGTechDbSpec extends Specification {
@@ -13,7 +13,7 @@ class TSSGTechDbSpec extends Specification {
     /** Result of the test execution as PASS or FAIL. */
     def testResult
 
-    /*
+    /**
      * Prints out the testKey and spec name after the test.
      *
      * This is a fixture method to print out the testKey and name of the
