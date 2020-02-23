@@ -26,7 +26,7 @@ else
 fi
 
 msg INFO "docker rmi tssg-node-frontend:${frontendVersion} ..."
-docker rmi tssg-node-backend:${frontendVersion}
+docker rmi tssg-node-frontend:${frontendVersion}
 
 msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
 if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
