@@ -4,15 +4,34 @@ import spock.lang.*
 import Common.MongoService
 import com.mongodb.BasicDBObject
 
+/*
+ * Tests the mongo database.
+ */
 class TSSGTechDbSpec extends Specification {
+    /** The XRay JIRA test execution issue key that is associated with these tests. */
     def testKey
+    /** Result of the test execution as PASS or FAIL. */
     def testResult
 
+    /*
+     * Prints out the testKey and spec name after the test.
+     *
+     * This is a fixture method to print out the testKey and name of the
+     * current specification iteration at the end of the test run (during cleanup).
+     */
     def cleanup() {
         //testResult = () ? "PASS" : "FAIL"
         println "cleanup(): ${testKey} ${specificationContext.currentIteration.name} "
     }
 
+    /**
+     * A data driven feature method to verify that the meeting schedule
+     * database collection has objects.
+     * </br>
+     * Assumes that the default test data
+     * has been pre-installed prior to running the test
+     * (i.e. from scheduledb.install script).
+     */
     @Unroll
     def "Verify meeting schedule database collection #collection has objects"() {
         testKey = "TWS-275"
