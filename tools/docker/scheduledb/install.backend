@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#scheduledb.install
+
+. ../../cmd.env
+
+export frontendVersion=1.1
+export backendVersion=1.1
+
+msg BEGIN "Clean up and Install the backend db service ..."
+
+#msg INFO "Stop and remove any existing scheduledb containers ..."
+#remove container
+#remove image
+#build image
+#restart container
+
+msg INFO "docker-compose rm -f -s -v backend ..."
+docker-compose rm -f -s -v backend
+
+msg INFO "Remove any dangling images ..."
+danglingImageList="$(docker images -aq -f 'dangling=true')"
+if [ -n "$danglingImageList" ] ; then
+    docker rmi $(docker images -aq -f 'dangling=true')
+else
+    msg INFO "    No dangling images to remove ..."
+fi
+
+msg INFO "docker rmi tssg-node-backend:${backendVersion} ..."
+docker rmi tssg-node-backend:${backendVersion}
+
+msg INFO "Build backend image & start container ..."
+docker-compose up -d --build backend
+msg END "... done."

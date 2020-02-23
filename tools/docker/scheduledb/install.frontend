@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#scheduledb.install
+
+. ../../cmd.env
+
+export backendVersion=1.1
+export frontendVersion=1.1
+
+msg BEGIN "Clean up and Install the frontend db service ..."
+
+#msg INFO "Stop and remove any existing scheduledb containers ..."
+#remove container
+#remove image
+#build image
+#restart container
+
+msg INFO "docker-compose rm -f -s -v frontend ..."
+docker-compose rm -f -s -v frontend
+
+msg INFO "Remove any dangling images ..."
+danglingImageList="$(docker images -aq -f 'dangling=true')"
+if [ -n "$danglingImageList" ] ; then
+    docker rmi $(docker images -aq -f 'dangling=true')
+else
+    msg INFO "    No dangling images to remove ..."
+fi
+
+msg INFO "docker rmi tssg-node-frontend:${frontendVersion} ..."
+docker rmi tssg-node-backend:${frontendVersion}
+
+msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
+if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
+    msg INFO "... We are running in Docker Toolbox ..."
+    export TSSGAPIURL="http://$(docker-machine ip)"
+elif [ "$(hostname)" == "Ubuntu-Studio-14" ] ; then
+    msg INFO "... We are running in a Linux server ..."
+    export TSSGAPIURL="http://backend.sdb.technologynursery.org"
+else
+    msg INFO "... We are running in a local Linux ..."
+    export TSSGAPIURL="http://localhost"
+fi
+msg INFO "Set the appropriate value into src/environments/environment.ts ..."
+sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
+
+msg INFO "Build frontend image & start container ..."
+docker-compose up -d --build frontend
+msg END "... done."
