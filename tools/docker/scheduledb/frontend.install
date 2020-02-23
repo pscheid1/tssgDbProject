@@ -6,13 +6,17 @@ logsDirValidate
 
 msg BEGIN "Clean up and Install the frontend service ..."
 
-msg INFO "Remove the frontend container and volume ..."
+msg INFO "Remove the frontend container and volume ...
+$(  exec 2>&1
 docker-compose rm -f -s -v frontend
+)"
 
 imagesDanglingRemove
 
-msg INFO "Remove the frontend image ..."
+msg INFO "Remove the frontend image ...
+$( exec 2>&1
 docker rmi tssg-node-frontend:${frontendVersion}
+)"
 
 msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
 if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
@@ -28,6 +32,8 @@ fi
 msg INFO "Set the appropriate value into src/environments/environment.ts ..."
 sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
 
-msg INFO "Build the frontend image & start container ..."
+msg INFO "Build the frontend image & start container ...
+$( exec 2>&1
 docker-compose up -d --build frontend
+)"
 msg END "... done."

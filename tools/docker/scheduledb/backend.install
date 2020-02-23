@@ -6,14 +6,18 @@ logsDirValidate
 
 msg BEGIN "Clean up and Install the backend db service ..."
 
-msg INFO "Remove the backend container and volume ..."
+msg INFO "Remove the backend container and volume ...
+$( exec 2>&1
 docker-compose rm -f -s -v backend
-
+)"
 imagesDanglingRemove
 
-msg INFO "Remove the backend image ..."
+msg INFO "Remove the backend image ...
+$( exec 2>&1
 docker rmi tssg-node-backend:${backendVersion}
-
-msg INFO "Build backend image & start container ..."
+)"
+msg INFO "Build backend image & start container ...
+$( exec 2>&1
 docker-compose up -d --build backend
+)"
 msg END "... done."

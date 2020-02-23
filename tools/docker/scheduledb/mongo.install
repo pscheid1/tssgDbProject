@@ -3,20 +3,26 @@
 
 . scheduledb.env
 logsDirValidate
+# Redirect STDERR to STDOUT
 
 msg BEGIN "Clean up and Install the mongo db services ..."
 
-msg INFO "Remove mongo and mongo-express containers and volumes ..."
+msg INFO "Remove mongo and mongo-express containers and volumes ...
+$(  exec 2>&1
 docker-compose rm -f -s -v mongo
 docker-compose rm -f -s -v mongo-express
+)"
 
 imagesDanglingRemove
 
-msg INFO "Build the mongo db and mongo-express images and start containers ..."
+msg INFO "Build the mongo db and mongo-express images and start containers ...
+$( exec 2>&1
 docker-compose up -d --build mongo
 docker-compose up -d --build mongo-express
+)"
 
-msg WAIT "Wait for mongo service to normalize. Check every 2s ..."
+msg WAIT "Wait for mongo service to normalize. Check every 2s ...
+$( exec 2>&1
 maxTries=150
 try=0
 while [ "$(docker exec scheduledb_mongo_1 bash -c 'echo "db.runCommand(\"ping\").ok" | mongo localhost:27017/test --quiet')" != "1" ]
@@ -31,8 +37,10 @@ do
     fi
 done
 sleep 5s
+)"
 
-msg INFO "Initialize the tssg-tech mongo database when the service is ready ..."
+msg INFO "Initialize the tssg-tech mongo database when the service is ready ...
+$( exec 2>&1
 maxTries=150
 try=0
 until docker exec scheduledb_mongo_1 bash -c "\
@@ -54,6 +62,7 @@ do
         exit
     fi
 done
+)"
 
 msg INFO "Mongo can be accessed on port 27017"
 msg INFO "Mongo Express can be accessed on port 8081"
