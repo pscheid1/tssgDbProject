@@ -48,7 +48,7 @@ module.exports = {
           // save user - only need this save if we are updating the password
           user.save();
         }
-        res.json(user)
+        res.json(user);
       })
       .catch(err => {
         res.status(400).json({ message: err.name + ' ' + err.message });
@@ -170,4 +170,4 @@ async function userAuth({ username, password }) {
   }
   // we know password is bad, but inform user it could be either
   throw new Error('Username or password is incorrect');
-};
+}
