@@ -33,6 +33,7 @@ services:
     build:
         context: .
         dockerfile: backend-Dockerfile
+    restart: always        
     user: "node"
     working_dir: /home/node/app
     environment:
@@ -51,6 +52,7 @@ services:
     build:
         context: .
         dockerfile: frontend-Dockerfile
+    restart: always        
     user: "node"
     working_dir: /home/node/app
     environment:

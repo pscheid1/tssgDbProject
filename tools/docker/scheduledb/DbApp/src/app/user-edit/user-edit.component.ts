@@ -112,40 +112,69 @@ export class UserEditComponent implements OnInit {
   // spaces a valid string.
   updateUser(userForm: any) {
 
-    if (this.user.username.trim().length === 0) {
+    if (!this.user.username || this.user.username.trim().length === 0) {
       this.errorMsg = 'Username is required.';
       this.forceElementView('bottom');
       return;
     }
 
-    if (this.user.firstname.trim().length === 0) {
-      this.errorMsg = 'Firstname is required.';
-      this.forceElementView('bottom');
-      return;
+    // password is not saved in the DB.  Only the hash.  Therefore
+    // password is not returned during an edit unless it is being changed..
+
+    // should we trim passwords?
+    // does database schema trim passwords.
+    // probably not and the hash is created before
+    // it is storred. So I would say yes.
+    // Therefore, if a password is being updated, we
+    // need to trim it.
+    if (this.user.password) {
+      this.user.password = this.user.password.trim();
     }
 
-    if (this.user.lastname.trim().length === 0) {
-      this.errorMsg = 'Lastname is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.user.role.trim().length === 0) {
+    if (!this.user.role || this.user.role.trim().length === 0) {
       this.errorMsg = 'Role is required.';
       this.forceElementView('bottom');
       return;
     }
 
-    // a mobile number can consist of any number of digits ( ) . -  + and
-    // space characters. +1(123)-456-7890 or 123 456 7890 or 123.456.7890 for example.
-    // [0123456789 ()-.]'
-    const notValid = /[^0123456789 ()-.]/.test(this.user.mobile);
-    console.error('user-edit.component.updateUser notValid: ' + notValid);
-    if (notValid) {
-      this.errorMsg = 'A Mobile number must contain only digits, spaces, parentheses, pluses, hyphens and periods.';
+    if (!this.user.firstname || this.user.firstname.trim().length === 0) {
+      this.errorMsg = 'Firstname is required.';
       this.forceElementView('bottom');
       return;
     }
+
+    if (!this.user.lastname || this.user.lastname.trim().length === 0) {
+      this.errorMsg = 'Lastname is required.';
+      this.forceElementView('bottom');
+      return;
+    }
+
+    if (this.user.email && this.user.email.trim().length !== 0) {
+      const valid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.user.email);
+      // console.error('user-edit.component.updateUser.email valid: ' + valid);
+      if (!valid) {
+        this.errorMsg = 'Invalid email entry.';
+        this.forceElementView('bottom');
+        return;
+      }
+    }
+
+    // a mobile number can consist of any number of digits ( ) . -  + and
+    // space characters. +1(123)-456-7890 or 123 456 7890 or 123.456.7890 for example.
+    // an empty entry or all spaces is valid.
+    // [0123456789 ()-.]'
+    if (this.user.mobile) {
+      const notValid = /[^0123456789 ()-.]/.test(this.user.mobile);
+      // console.error('user-edit.component.updateUser.mobile notValid: ' + notValid);
+      if (notValid) {
+        this.errorMsg = 'A Mobile number must contain only digits, spaces, parentheses, pluses, hyphens and periods.';
+        this.forceElementView('bottom');
+        return;
+      }
+    }
+
+    // Nothing needed for Status
+    // Nothing needed for Date Created
 
     this.us.updateUser(this.user)
       .then(res => {
