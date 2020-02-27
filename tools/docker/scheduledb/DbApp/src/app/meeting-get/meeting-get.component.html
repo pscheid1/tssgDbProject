@@ -18,13 +18,12 @@
           <th></th>
         </tr>
       </thead>
-
       <tbody>
         <!--
-          three empty lines will push first display line below
-          table header (first tr below th). There is a problem
-          that we have not yet figured out with the heigth of the
-          heading and where the table header gets placed.
+          For some unknown (to me) reason, the table body
+          display lines start at the same height as the
+          table header. The three following blank rows
+          push the body below the header.
         -->
         <tr>&nbsp;</tr>
         <tr>&nbsp;</tr>
@@ -37,13 +36,10 @@
           <td>{{meeting.startTime | date: 'hh:mm aaaaa'}}</td>&nbsp;
           <td>{{meeting.endTime | date: 'hh:mm aaaaa'}}</td>&nbsp;
           <td>{{meeting.comments}}</td>&nbsp;
-          <!--
-            pass control to meeting-edit.components constructor via app-routing.module.ts
-            this will retrieve meeting and display in meeting-edit.component.html
-          -->
           <td><a [routerLink]="routerlink + meeting._id" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
           <td><a (click)="deleteMeeting(meeting._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
         </tr>
+        <tr>&nbsp;</tr>
         <tr *ngIf="!meetings">
           <td colspan="10">Loading data. Please wait... </td>
         </tr>
@@ -55,4 +51,4 @@
   </div>
 </form>
 <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
-<div><br /><br /><br /><br /><a id="bottom"></a></div>
+<div><a id="bottom"></a></div>
