@@ -60,111 +60,19 @@ export class VenueAddComponent implements OnInit {
 
   addVenue(venueForm: NgForm) {
 
-    if (this.venue._id === null) {
+    // only required entries require validation
+
+    if (!this.venue._id || this.venue._id.trim().length === 0) {
       this.errorMsg = 'Venue name is required.';
       this.forceElementView('bottom');
       return;
     }
-    this.venue._id = this.venue._id.trim();
-    if (this.venue._id.length === 0) {
-      this.errorMsg = 'Venue name is required.';
-      this.forceElementView('bottom');
-      return;
-    }
 
-    if (this.venue.description === null) {
-      this.errorMsg = 'Description is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-    this.venue.description = this.venue.description.trim();
-    if (this.venue.description.length === 0) {
-      this.errorMsg = 'Description is required.';
-      this.forceElementView('bottom');
-      return;
-    }
+    // none of the other entries are requied, therefore
+    // no validation is required.
+    // any entries will be trimmed by the database if
+    // requested in the schema.
 
-    if (this.venue.contact === null) {
-      this.errorMsg = 'Venue contact is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-    if (this.venue.contact.length === 0) {
-      this.errorMsg = 'Venue contact is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.website === null) {
-      this.errorMsg = 'Venue website url is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-    if (this.venue.website.length === 0) {
-      this.errorMsg = 'Venue website url is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.calendar === null) {
-      this.errorMsg = 'Venue calendar url is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.calendar.length === 0) {
-      this.errorMsg = 'Venue calendar url is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.address === null) {
-      this.errorMsg = 'Venue address is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.address.length === 0) {
-      this.errorMsg = 'Venue address is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.town === null) {
-      this.errorMsg = 'Venue town is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.town.length === 0) {
-      this.errorMsg = 'Venue town is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.location === null) {
-      this.errorMsg = 'Venue location (map url) is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.location.length === 0) {
-      this.errorMsg = 'Venue location (map url) is required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.iconimage === null) {
-      this.errorMsg = 'Venue image path/file are required.';
-      this.forceElementView('bottom');
-      return;
-    }
-
-    if (this.venue.iconimage.length === 0) {
-      this.errorMsg = 'Venue image path/file are required.';
-      this.forceElementView('bottom');
-      return;
-    }
 
     this.errorMsg = '';
     this.vs.addVenue(this.venue)

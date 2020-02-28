@@ -100,14 +100,10 @@ export class TeamEditComponent implements OnInit {
       this.forceElementView('bottom');
       return;
     }
-
-    if (this.team.zoomLink) {
-      this.team.zoomLink = this.team.zoomLink.trim();
-    }
-
-    if (this.team.comments) {
-      this.team.comments = this.team.comments.trim();
-    }
+    // none of the other entries are requied, therefore
+    // no validation is required.
+    // any entries will be trimmed by the database if
+    // requested in the schema.
 
     this.errorMsg = '';
     this.ts.updateteam(this.team)

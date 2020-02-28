@@ -10,7 +10,7 @@ let VenueSchema = new Schema({
   description: {
     type: String,
     trim: true,
-    required: true
+    required: false
   },
   // person at venue to contact regarding scheduling issues
   contact: {

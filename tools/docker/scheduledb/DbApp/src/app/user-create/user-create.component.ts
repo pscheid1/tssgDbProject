@@ -116,6 +116,11 @@ export class UserCreateComponent implements OnInit {
       }
     }
 
+    // none of the other entries are requied, therefore
+    // no validation is required.
+    // any entries will be trimmed by the database if
+    // requested in the schema.
+
     // Nothing needed for Status
     // Nothing needed for Date Created
 
