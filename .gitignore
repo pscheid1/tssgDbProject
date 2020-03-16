@@ -4,6 +4,7 @@ build/
 out/
 tmp/
 logs/
+target/
 
 node_modules/
 
