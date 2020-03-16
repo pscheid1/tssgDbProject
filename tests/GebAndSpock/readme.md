@@ -37,24 +37,32 @@ Replace `./gradlew` with `gradlew.bat` in the above examples if you are on Windo
 
 ### Select target test environment
 
-The default url to be tested is the dev endpoint (currently represents the tssgTechMultipage branch).
-To change the baseUrl, set to either dev, qa, or prod environments.
+The default url to be tested is the dev endpoint.
+To change the baseUrl, set geb.build.baseUrl property to either localhost, toolbox, dev, qa, or prod environments.
 
-To run tests in the dev environment (currently represents the scheduledb branch on the tssgTechScheduledb endpoint):
+To run UI tests in the dev environment (currently represents the scheduledb branch on the tssgTechScheduledb endpoint):
 
-    ./gradlew chromeTest -Dgeb.build.baseUrl=dev
+    ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=dev
 
-To run tests in the qa environment (currently represents the master branch on the tssgTechStagedMaster endpoint):
+To run UI tests in the local toolbox docker environment:
 
-    ./gradlew chromeTest -Dgeb.build.baseUrl=qa
+    ./gradlew chromeLocalTest --tests TSSGTechSpec -Dgeb.build.baseUrl=toolbox
 
-To run tests in the prod environment (currently represents the master branch on the production endpoint):
+To run UI tests in the local Linux docker environment:
 
-    ./gradlew chromeTest -Dgeb.build.baseUrl=prod
+    ./gradlew chromeLocalTest --tests TSSGTechSpec -Dgeb.build.baseUrl=localhost
 
-To run tests in the webflowqa environment (currently represents the webflow branch on the tssgTechWebflow endpoint):
+To run UI tests in the qa environment (currently represents the master branch on the tssgTechStagedMaster endpoint):
 
-    ./gradlew chromeTest -Dgeb.build.baseUrl=webflowqa
+    ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=qa
+
+To run UI tests in the prod environment (currently represents the master branch on the production endpoint):
+
+    ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=prod
+
+To run UI tests in the webflowqa environment (currently represents the webflow branch on the tssgTechWebflow endpoint):
+
+    ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=webflowqa
     
 ### Xray Import
 
