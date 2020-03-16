@@ -28,7 +28,7 @@ ext {
     // The drivers we want to use
     //drivers = ["firefox", "chrome"]
     //drivers = ["firefox","firefoxLinux"]
-    drivers = ["chrome"]
+    drivers = ["chrome", "chromeLocal"]
 
     ext {
         groovyVersion = '2.4.12'
@@ -243,7 +243,8 @@ task xrayImport {
 }
 
 //xrayImport.mustRunAfter firefoxTest
-xrayImport.mustRunAfter chromeTest
+xrayImport.shouldRunAfter chromeLocalTest
+xrayImport.shouldRunAfter chromeTest
 
 task reportSnaps << {
     def listUnsorted = []
@@ -267,7 +268,8 @@ task reportSnaps << {
 }
 
 //reportSnaps.mustRunAfter firefoxTest
-reportSnaps.mustRunAfter chromeTest
+reportSnaps.shouldRunAfter chromeLocalTest
+reportSnaps.shouldRunAfter chromeTest
 
 /**
  * Generate an html page that contains links to the Report Screnshots

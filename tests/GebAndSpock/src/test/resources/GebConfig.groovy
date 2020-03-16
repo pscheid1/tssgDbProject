@@ -22,8 +22,11 @@ environments {
 	
     // run via “./gradlew chromeTest”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
+    chromeLocal {
+        driver = { new ChromeDriver() }
+    }
+
     chrome {
-        //driver = { new ChromeDriver() }
         driver = {
             DesiredCapabilities capabilities = DesiredCapabilities.chrome()
             //capabilities.setVersion("67.0.3396.87")
@@ -64,6 +67,12 @@ baseUrl = System.properties['geb.build.baseUrl']
 switch (baseUrl) {
     case ["dev", "scheduledb"]:
         baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
+        break
+    case ["toolbox"]:
+        baseUrl = "http://192.168.99.100:7010/"
+        break
+    case ["localhost"]:
+        baseUrl = "http://localhost:7010/"
         break
     case ["multipage"]:
         baseUrl = "https://technologynursery.org/tssgTechMultipage/"
