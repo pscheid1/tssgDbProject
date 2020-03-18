@@ -36,7 +36,7 @@ var scheduleArray = [
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": acton
+      "location": cancelled
     },
     {
       "name": "item2",
@@ -45,7 +45,16 @@ var scheduleArray = [
       "year": 2020,
       "startTime": "12:30",
       "endTime": "5PM",
-      "location": chelmsford
+      "location": cancelled
+    },
+    {
+      "name": "item3",
+      "month": "APRIL",
+      "day": 1,
+      "year": 2020,
+      "startTime": "12:30",
+      "endTime": "5PM",
+      "location": cancelled
     }
 ];
  
