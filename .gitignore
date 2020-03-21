@@ -1,6 +1,9 @@
 .idea/
 .gradle/
 build/
+caches/
+daemon/
+native/
 out/
 tmp/
 logs/
