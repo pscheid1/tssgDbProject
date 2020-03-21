@@ -14,6 +14,10 @@ Change to kick off build for demo. VM Options for -Dgeb.build.baseUrl are:
 * webflowqa          -> tssgTechWebflow
 * prod or tssgTech   -> tssgTech
 
+These tests will run against the scheduledb branch on local environment: 
+* toolbox   --> http://192.168.99.100:7010/  (for docker toolbox on windows)
+* localhost --> http://localhost:7010/  (for docker on Linux)
+
 ## Prerequisite
 * If running on Windows, must have Git for Windows installed in the default path (https://gitforwindows.org/).  Git Bash is utilized by the xrayImport task.
 * If running from Linux, ensure that bash is in the path.
@@ -40,29 +44,41 @@ Replace `./gradlew` with `gradlew.bat` in the above examples if you are on Windo
 The default url to be tested is the dev endpoint.
 To change the baseUrl, set geb.build.baseUrl property to either localhost, toolbox, dev, qa, or prod environments.
 
-To run UI tests in the dev environment (currently represents the scheduledb branch on the tssgTechScheduledb endpoint):
+To run scheduledb UI tests in the dev environment (currently represents the scheduledb branch on the tssgTechScheduledb endpoint):
 
     ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=dev
 
-To run UI tests in the local toolbox docker environment:
+To run scheduledb UI tests in the local toolbox docker environment:
 
     ./gradlew chromeLocalTest --tests TSSGTechSpec -Dgeb.build.baseUrl=toolbox
 
-To run UI tests in the local Linux docker environment:
+To run scheduledb UI tests in the local Linux docker environment:
 
     ./gradlew chromeLocalTest --tests TSSGTechSpec -Dgeb.build.baseUrl=localhost
 
-To run UI tests in the qa environment (currently represents the master branch on the tssgTechStagedMaster endpoint):
+To run scheduledb UI tests in the qa environment (currently represents the master branch on the tssgTechStagedMaster endpoint):
 
     ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=qa
 
-To run UI tests in the prod environment (currently represents the master branch on the production endpoint):
+To run scheduledb UI tests in the prod environment (currently represents the master branch on the production endpoint):
 
     ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=prod
 
-To run UI tests in the webflowqa environment (currently represents the webflow branch on the tssgTechWebflow endpoint):
+To run scheduledb UI tests in the webflowqa environment (currently represents the webflow branch on the tssgTechWebflow endpoint):
 
     ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=webflowqa
+
+To run scheduledb UI tests in the multipage environment 
+(currently represents the multipage branch on the tssgTechMultipage endpoint):
+
+    ./gradlew chromeTest --tests TSSGTechSpec -Dgeb.build.baseUrl=multipage
+
+
+### To Run Mongo database test
+
+To run tests in the scheduledb branch: ~/Projects/tssgTech/tests/GebAndSpock
+
+    ./gradlew cleanTest test --tests TSSGTechDbSpec
     
 ### Xray Import
 
@@ -82,6 +98,15 @@ Generate a web page listing screenshots and html for each test:
     ./gradlew chromeTest reportSnaps
     
 The reportArtifacts.html page will be placed in build/reports/chromeTest/ containing links to each snapshot and html page.
+
+
+
+### To Check test reports
+
+Follow the path below and open the index.html with a browser: 
+
+tssgTech: tests --> GebAndSpock --> build --> reports --> tests --> test --> index.html
+
 
 ## Questions and issues
 
