@@ -138,6 +138,12 @@ module.exports = {
       .catch(err => {
         res.status(404).json({ message: "User id: '" + req.params._id + "' not found" + ' - ' + err.name + ': ' + err.message });
       });
+  },
+  //Simple version, without validation or sanitation
+  test: function (req, res) {
+    res.send(
+      `collection: users - globalRoot: ${global.Root} - folders: ${global.Folders} - packageName: ${global.PackageName} - __dirname: ${__dirname}`
+    );
   }
 };
 

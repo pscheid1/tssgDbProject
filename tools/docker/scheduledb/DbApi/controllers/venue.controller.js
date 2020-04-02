@@ -91,14 +91,7 @@ module.exports = {
   //Simple version, without validation or sanitation
   test: function (req, res) {
     res.send(
-      "globalRoot: " +
-      global.Root +
-      " - folders: " +
-      global.Folders +
-      " - packageName: " +
-      global.PackageName +
-      " - __dirname: " +
-      __dirname
+      `collection: venues - globalRoot: ${global.Root} - folders: ${global.Folders} - packageName: ${global.PackageName} - __dirname: ${__dirname}`
     );
   }
 };
