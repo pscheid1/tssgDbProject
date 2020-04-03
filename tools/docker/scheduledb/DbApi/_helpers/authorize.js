@@ -29,6 +29,7 @@ function authorize(roles = []) {
     }
     return [
         // authenticate JWT token and attach user to request object (req.user)
+        // errors are caught in error-handler.js
         expressJwt({ secret }),
 
         // authorize based on user role
@@ -37,7 +38,7 @@ function authorize(roles = []) {
             if (roles.length && !roles.includes(req.user.role)) {
                 // user's role is not authorized
                 // console.log('authorize: role failure.');
-                return res.status(401).json({ message: 'Unauthorized' });
+                return res.status(401).json({ message: "Not authorized: User's role is not authorized for this request." });
             }
             // authentication and authorization successful
             // console.log('authorize: No role required or role passes');
