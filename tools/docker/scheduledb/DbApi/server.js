@@ -15,6 +15,16 @@ global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
 global.md = (process.env.tssgApiMtgDebug === 'true') ? Boolean(true)  : Boolean(null);
+// get jwt validity time (in minutes).
+// jwtExp limits are 1 >= jwtExp <= 240 (1 minute to 4 hours)
+// jwtExp default is 30 minutes
+const jwtExpDefault = 30;
+global.jwtExp = process.env.tssgJwtExp || jwtExpDefault;
+if (global.jwtExp < 1 || global.jwtExp > 240) {
+  // jwtExp is out of bounds, force jwtExpDefault
+  global.jwtExp = jwtExpDefault;
+  console.log(`Error: jwtExp out of bounds.  jwtExp forced to ${jwtExpDefault} minutes.`);
+}
 
 // default port setting
 let port = process.env.tssgApiPort || 7010;
