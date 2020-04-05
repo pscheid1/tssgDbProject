@@ -128,7 +128,7 @@ module.exports = {
   // it populates the team and venue fields with data from
   // the their respective collection
   webSchedule: async function (req, res) {
-    if (req.params.team === 'default') {
+    if (req.params.team === 'default' || typeof req.params.team === 'undefined') {
       req.params.team = process.env.tssgApiDefaultTeam || 'WedGenMtg';
     }
     // console.log('meeting.controller.webSchedule: team = ' + req.params.team);
