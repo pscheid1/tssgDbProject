@@ -40,6 +40,14 @@ services:
       NODE_ENV: production
       tssgMongoDB_URL: "mongodb://root:sch3dul3db@mongo:27017/tssg-tech?authSource=admin"
       tssgApiURL: backend
+      tssgApiPort: 7010
+      #tssgApiMtgDebug enables/disables additional meeting setup debug code (appeaars in backend log)
+      tssgApiMtgDebug:  "false"
+      #tssgApiDefaultTeam delclares a default team for the meetings/webSchedule/ route
+      tssgApiDefaultTeam: WedGenMtg
+      #tssgJwtExp sets the jwt token validity length in minutes.
+      #1 >= tssgJwtExp <= 240 or backend code will force it to default value.
+      tssgJwtExp: 30
     expose:
       - "7010"
     ports:
