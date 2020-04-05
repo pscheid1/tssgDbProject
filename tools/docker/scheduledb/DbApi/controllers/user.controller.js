@@ -163,11 +163,9 @@ async function userAuth({ username, password }) {
       {
         sub: user.id,
         role: user.role,
-        // iat: is automatically set by default to seconds
-        // set expiration time to 2 hours after creation time
-        exp: Math.floor(Date.now() / 1000) + (2 * 60 * 60), // 2 hr * 60 min * 60 sec = 2 hr in seconds
-        // for testing, swap line below with line above
-        // exp: Math.floor(Date.now() / 1000) + (60), // test time of 1 minute
+        // iat: is automatically set by default to seconds since 01/01/1970
+        // set expiration time to time now in seconds since 01/01/1970 + global.jwtExp * 60
+        exp: Math.floor(Date.now() / 1000) + (global.jwtExp * 60),
       }, config.secret);
     return {
       ...userWithoutHash,
