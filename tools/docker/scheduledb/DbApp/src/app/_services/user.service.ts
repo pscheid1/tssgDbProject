@@ -55,6 +55,12 @@ export class UserService {
       return Promise.reject(error.message || error);
     }
    */
+
+  // sinple unit test routine
+  getTest(value: string) {
+    return value;
+  }
+
   async getAll() {
     return await this.http.get(`${this.uri}`)
       .toPromise()

@@ -36,9 +36,10 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.currentUser === null) {
-      // return;
+      // console.log('home.component.ts.currentUser is null ');
       this.router.navigate(['user/login']);
     }
+    // console.error('home.component.ts.currentUser: ' + this.currentUser);
     this.us.getById(this.currentUser._id)
       .then(res => {
         const usr = res as User;
@@ -49,7 +50,7 @@ export class HomeComponent implements OnInit {
       })
       .catch(err => {
         this.errorMsg = err.status + ': ' + err.statusText;
-        if (err.statusText.includes('Unknown')) {
+        if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
         this.forceElementView('bottom');

@@ -13,6 +13,10 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
+      // added by ps, 3/15/2020
+      jasmine: {
+        random: false // false === keep tests in order. true === test in random order
+      },
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {

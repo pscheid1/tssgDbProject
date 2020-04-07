@@ -6,11 +6,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { UserEditComponent } from './user-edit.component';
+import { UserCreateComponent } from './user-create.component';
 
-describe('UserEditComponent', () => {
-  let component: UserEditComponent;
-  // let fixture: ComponentFixture<UserEditComponent>;
+
+describe('UserCreateComponent', () => {
+  let component: UserCreateComponent;
+  // let fixture: ComponentFixture<UserCreateComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,24 +22,25 @@ describe('UserEditComponent', () => {
         FormsModule
       ],
       providers: [
-        UserEditComponent,
+        UserCreateComponent,
         HttpClient,
         HttpHandler,
         { provide: APP_BASE_HREF, useValue: '/' }
       ]
     });
-    component = TestBed.inject(UserEditComponent);
-  });
-
-  it('dummy test - true === true', () => {
-    expect(true).toBeTrue();
-  });
-
-  it('currentUser should be null', () => {
-    expect(component.currentUser).toBeNull();
+    component = TestBed.inject(UserCreateComponent);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('user._id should be null', () => {
+    expect(component.user._id).toBeNull();
+  });
+
+  it('user.username should be null', () => {
+    expect(component.user.username).toBeNull();
+  });
+
 });

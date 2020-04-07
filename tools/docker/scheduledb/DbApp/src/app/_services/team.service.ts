@@ -39,6 +39,11 @@ export class TeamService {
     return Promise.reject(error || error.message);
   }
 
+  // sinple unit test routine
+  getTest(value: string) {
+    return value;
+  }
+
   async addteam(obj: Team) {
     return await this.http.post(`${this.uri}/add`, obj)
       .toPromise()

@@ -6,11 +6,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { UserEditComponent } from './user-edit.component';
+import { VenueService } from 'src/app/_services/venue.service';
 
-describe('UserEditComponent', () => {
-  let component: UserEditComponent;
-  // let fixture: ComponentFixture<UserEditComponent>;
+
+describe('VenueService', () => {
+  let service: VenueService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,24 +21,18 @@ describe('UserEditComponent', () => {
         FormsModule
       ],
       providers: [
-        UserEditComponent,
+        VenueService,
         HttpClient,
         HttpHandler,
         { provide: APP_BASE_HREF, useValue: '/' }
       ]
     });
-    component = TestBed.inject(UserEditComponent);
+    service = TestBed.inject(VenueService);
   });
 
-  it('dummy test - true === true', () => {
-    expect(true).toBeTrue();
-  });
-
-  it('currentUser should be null', () => {
-    expect(component.currentUser).toBeNull();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  // VenueService.getTest(<string>) will return <string>
+  it('VenueService.getTest() should return "hello"', () => {
+    expect(service.getTest('hello')).toEqual('hello');
   });
 });
+

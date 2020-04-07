@@ -46,6 +46,11 @@ export class MeetingService {
     // Promise.reject(error || error.message);
   }
 
+  // sinple unit test routine
+  getTest(value: string) {
+    return value;
+  }
+
   async addMeeting(obj: Meeting) {
     // console.log('meeting.service.addMeeting: meetingDate = ' + obj._id + ' - ' + obj.meetingDate);
     // console.log('meeting.service.addMeeting: startTime = ' + obj._id + ' - ' + obj.startTime);

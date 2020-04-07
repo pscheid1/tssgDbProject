@@ -59,9 +59,11 @@ export class LoginComponent implements OnInit {
         data => {
           this.router.navigate(['home']);
         },
-        error => {
-          this.errorMsg = error.includes('Unknown') ? error +
-            ' - Possible no connection with backend server.' : error;
+        err => {
+          this.errorMsg = err;
+          if (this.errorMsg.includes('Unknown')) {
+            this.errorMsg += ' - Possible no connection with backend server.';
+          }
           this.forceElementView('bottom');
         });
   }

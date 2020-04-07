@@ -26,7 +26,7 @@ export class UserGetAllComponent implements OnInit {
       })
       .catch(err => {
         this.errorMsg = err.status + ': ' + err.statusText;
-        if (err.statusText.includes('Unknown')) {
+        if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
         this.forceElementView('bottom');
@@ -48,7 +48,7 @@ export class UserGetAllComponent implements OnInit {
       })
       .catch(err => {
         this.errorMsg = err.status + ': ' + err.statusText;
-        if (err.statusText.includes('Unknown')) {
+        if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
         this.forceElementView('bottom');

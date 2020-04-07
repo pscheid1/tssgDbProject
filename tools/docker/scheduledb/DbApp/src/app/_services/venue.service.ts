@@ -40,6 +40,11 @@ export class VenueService {
     return Promise.reject(error || error.message);
   }
 
+  // sinple unit test routine
+  getTest(value: string) {
+    return value;
+  }
+
   async addVenue(obj: Venue) {
     return await this.http.post(`${this.uri}/add`, obj)
       .toPromise()

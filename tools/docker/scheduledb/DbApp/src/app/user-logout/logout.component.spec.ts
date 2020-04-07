@@ -6,16 +6,15 @@ import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LogoutComponent } from './logout.component';
 
-import { LoginComponent } from './login.component';
-
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('LogoutComponent', () => {
+  let component: LogoutComponent;
+  let fixture: ComponentFixture<LogoutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ LogoutComponent ],
       imports: [
         RouterModule.forRoot([]),
         RouterTestingModule,
@@ -30,16 +29,12 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('user._id should be null', () => {
-    expect(component.user._id).toBeNull();
-  });
-
-  it('user.username should be null', () => {
-    expect(component.user.username).toBeNull();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });
