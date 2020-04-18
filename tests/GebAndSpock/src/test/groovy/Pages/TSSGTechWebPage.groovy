@@ -12,7 +12,7 @@ class TSSGTechWebPage extends TSSGTechBasePage {
     }
 
     static content = {
-        titleText { $("strong", text: "WEBSITE APPLICATION DEVELOPMENT TEAM") }
+        titleText { $("strong", text: "WEB APPLICATION DEVELOPMENT TEAM") }
         titleIcon { $("#web-icon", src: "Images/icon_web.png") }
     }
 }

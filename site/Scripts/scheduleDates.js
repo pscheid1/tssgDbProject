@@ -3,7 +3,7 @@
 */
 
 
-function XLocation (name, locationGraphic, mapLink,label) {
+function Location (name, locationGraphic, mapLink,label) {
    /* Constructor method for objects of type Location.  A location requires a name, a graphic to use as the icon, a map link, and a label for the Alt and Title attributes.
    */ 
   this.name = name;
@@ -15,54 +15,56 @@ function XLocation (name, locationGraphic, mapLink,label) {
 /* Create all objects of class Location here.  They're created as separate, named  objects, instead of an array of objects, in order to simplify their use in later code.  In the future they might become part of a data request to a server script, or they might be left like this.
 */
 
-// var acton = new Location("Acton","Images/icon-lib-acton.png", "https://goo.gl/maps/6wmSZBydHVU2","Acton Memorial Library");
-// var chelmsford = new Location("Chelmsford","Images/icon-lib-chelmsford.png","https://goo.gl/maps/5r8hpPRyd4n","Chelmsford Library");
-// var cancelled = new Location("Cancelled","Images/icon-lib-NOmeeting.png","","Meeting Cancelled");
-// var hopkinton = new Location("Hopkinton","Images/icon-lib-hopkinton.png","https://goo.gl/maps/QYW9A3VBayS2","Hopkinton Public Library");
-// var lexington = new Location("Lexington","Images/icon-lib-lexington.png","https://goo.gl/maps/4y785Pjxq4H2","Lexington Community Center");
-// var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","https://goo.gl/maps/UQjhdjHa41x","Albert J. Sargent Memorial Library");
-// var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Determined");
+var acton = new Location("Acton","Images/icon-lib-acton.png", "https://goo.gl/maps/6wmSZBydHVU2","Acton Memorial Library");
+var chelmsford = new Location("Chelmsford","Images/icon-lib-chelmsford.png","https://goo.gl/maps/5r8hpPRyd4n","Chelmsford Library");
+var cancelled = new Location("Cancelled","Images/icon-lib-NOmeeting.png","","Meeting Cancelled");
+var hopkinton = new Location("Hopkinton","Images/icon-lib-hopkinton.png","https://goo.gl/maps/QYW9A3VBayS2","Hopkinton Public Library");
+var lexington = new Location("Lexington","Images/icon-lib-lexington.png","https://goo.gl/maps/4y785Pjxq4H2","Lexington Community Center");
+var boxborough = new Location("Boxborough","Images/icon-lib-boxborough.png","https://goo.gl/maps/UQjhdjHa41x","Albert J. Sargent Memorial Library");
+var littleton = new Location("Littleton","Images/icon-lib-littleton.png","https://goo.gl/maps/bYyshWZyEBs9S9zT8","Reuben Hoar Public Library");
+var tobedetermined = new Location("TBD","Images/icon-lib-TBD.png","","To Be Determined");
+var onlineonly = new Location("Online Only","Images/icon-mtg-online-only.png","onlineHelp.html","Online Only");
 
 /* scheduleArray is an array of Schedule objects as they would be received from a server-side script.  
  Each Schedule object consists of a name, month (as the three-letter abbreviation), day (one or two digits), year, start time (as a string), end time (as a string), 
  and a location which is one of the previously defined Location objects.
 */
-var XscheduleArray = [ 
+var scheduleArray = [ 
     {
       "name": "item1",
-      "month": "JANUARY",
-      "day": 29,
+      "month": "April",
+      "day": 22,
       "year": 2020,
       "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
+      "endTime": "4PM",
+      "location": onlineonly
     },
     {
       "name": "item2",
-      "month": "FEBRUARY",
-      "day": 5,
+      "month": "April",
+      "day": 29,
       "year": 2020,
       "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
+      "endTime": "4PM",
+      "location": onlineonly
     },
     {
       "name": "item3",
-      "month": "FEBRUARY",
-      "day": 12,
+      "month": "May",
+      "day": 6,
       "year": 2020,
       "startTime": "12:30",
-      "endTime": "5PM",
-      "location": acton
+      "endTime": "4PM",
+      "location": onlineonly
     }
 ];
  
-// var scheduleTable = document.getElementById("scheduleBody");
+var scheduleTable = document.getElementById("scheduleBody");
 
 // For each item in the Schedules array, run a function that builds a table row containing the data from that Schedule item.
-XscheduleArray.forEach(displaySchedule);
+scheduleArray.forEach(displaySchedule);
 
-function XdisplaySchedule(entry,index) {
+function displaySchedule(entry,index) {
   // build a table-row node that contains the needed HTML for a Schedule entry, 
    // inserting data from the array row where necessary.
    var newRow = scheduleTable.insertRow(index);
