@@ -10,8 +10,7 @@ msg BEGIN "Clean up and Install the mongo db services ..."
 msg INFO "Remove mongo and mongo-express containers and volumes ...
 $(  exec 2>&1
 docker-compose rm -f -s -v mongo
-# Start Mongo Express except on s14
-[ $(hostname) != "Ubuntu-Studio-14" ] && docker-compose rm -f -s -v mongo-express
+docker-compose rm -f -s -v mongo-express
 )"
 
 imagesDanglingRemove
@@ -19,6 +18,7 @@ imagesDanglingRemove
 msg INFO "Build the mongo db and mongo-express images and start containers ...
 $( exec 2>&1
 docker-compose up -d --build mongo
+# Start Mongo Express except on s14
 [ $(hostname) != "Ubuntu-Studio-14" ] && docker-compose up -d --build mongo-express
 )"
 
