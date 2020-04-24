@@ -47,7 +47,7 @@ var scheduleArray = [
       "startTime": "12:30",
       "endTime": "4PM",
       "location": onlineonly
-    }
+    },
     {
       "name": "item3",
       "month": "May",
