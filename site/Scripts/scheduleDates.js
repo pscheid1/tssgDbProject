@@ -33,7 +33,7 @@ var scheduleArray = [
     {
       "name": "item1",
       "month": "April",
-      "day": 22,
+      "day": 29,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "4PM",
@@ -41,8 +41,8 @@ var scheduleArray = [
     },
     {
       "name": "item2",
-      "month": "April",
-      "day": 29,
+      "month": "May",
+      "day": 6,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "4PM",
@@ -51,7 +51,7 @@ var scheduleArray = [
     {
       "name": "item3",
       "month": "May",
-      "day": 6,
+      "day": 13,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "4PM",
