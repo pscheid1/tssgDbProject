@@ -15,6 +15,7 @@ class TSSGTechBasePage extends Page {
 
         // Header Menu
         generalMenu { $("a", text: "Home") }
+        hamburgerButton { $("#hamburger") }
         testimonialsMenu { $("a", text: "Testimonials") }
         scheduleMenu { $("a", text: "Schedule") }
         webMenu { $("a", text: "WEB") }

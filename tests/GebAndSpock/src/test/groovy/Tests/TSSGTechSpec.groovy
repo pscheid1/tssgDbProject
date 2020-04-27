@@ -12,6 +12,7 @@ import geb.spock.GebReportingSpec
 import spock.lang.Ignore
 import spock.lang.Unroll
 import spock.lang.IgnoreRest
+import org.openqa.selenium.Dimension
 
 class TSSGTechSpec extends GebReportingSpec {
     def testKey
@@ -81,4 +82,17 @@ class TSSGTechSpec extends GebReportingSpec {
 
     }
 
+    //@IgnoreRest
+    def "Verify hamburger menu appears in header on narrow page"() {
+        testKey = "TWS-299"
+
+        given: "Set up a narrow browser window"
+            driver.manage().window().size = new Dimension(640, 960)
+
+        when: "Navigate to the Tssg web page"
+            to TSSGTechHomePage
+
+        then: "the hamburger icon is displayed"
+            hamburgerButton
+    }
 }
