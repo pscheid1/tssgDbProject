@@ -32,15 +32,6 @@ var onlineonly = new Location("Online Only","Images/icon-mtg-online-only.png","o
 var scheduleArray = [ 
     {
       "name": "item1",
-      "month": "April",
-      "day": 29,
-      "year": 2020,
-      "startTime": "12:30",
-      "endTime": "4PM",
-      "location": onlineonly
-    },
-    {
-      "name": "item2",
       "month": "May",
       "day": 6,
       "year": 2020,
@@ -49,9 +40,18 @@ var scheduleArray = [
       "location": onlineonly
     },
     {
-      "name": "item3",
+      "name": "item2",
       "month": "May",
       "day": 13,
+      "year": 2020,
+      "startTime": "12:30",
+      "endTime": "4PM",
+      "location": onlineonly
+    },
+    {
+      "name": "item3",
+      "month": "May",
+      "day": 20,
       "year": 2020,
       "startTime": "12:30",
       "endTime": "4PM",
