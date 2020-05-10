@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "ostart": "ng serve -o",
+    "start": "ng serve --ssl",
+    "ostart": "ng serve -o --ssl --port 4300",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

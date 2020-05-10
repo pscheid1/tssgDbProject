@@ -4,9 +4,11 @@
 
 export const environment = {
   production: false,
-  TSSGAPIURL: 'http://localhost',
+  // TSSGAPIURL: 'http://localhost',
   // TSSGAPIURL: 'http://192.168.1.13',
-  TSSGAPIPORT: '7010'
+  // TSSGAPIPORT: '7010'
+  TSSGAPIURL: 'https://localhost',
+  TSSGAPIPORT: '4433'
 };
 
 /*

@@ -49,10 +49,22 @@ services:
       #tssgJwtExp sets the jwt token validity length in minutes.
       #set 1 >= tssgJwtExp <= 240 or backend code will force it to default value.
       tssgJwtExp: 30
+      #the following files do not have to be in pem format.
+      #server private key 
+      tssgServerKey: "tssg-server-key.pem"
+      #server certificate
+      tssgServerCrt: "tssg-server-crt.pem"
+      #CA certificate
+      tssgCaCrt: "tssg-ca-crt.pem"
+      #CA certificate revocation list
+      tssgCaCrl: "tssg-ca-crl.pem"
+
     expose:
-      - "7010"
+      # - "7010"
+      - "4433"
     ports:
-      - 7010:7010
+      # - 7010:7010
+      - 4433:4433
     command: /bin/bash backend.start
     
   frontend:
@@ -68,9 +80,11 @@ services:
       - NODE_ENV=production
       - TSSGAPIURL
     expose:
-      - "4200"
+    #  - "4200"
+      - "4300"
     ports:
-      - 4200:4200
+    #  - 4200:4200
+      - 4300:4300
     #command: node_modules/@angular/cli/bin/ng serve
     command: /bin/bash frontend.start
     
