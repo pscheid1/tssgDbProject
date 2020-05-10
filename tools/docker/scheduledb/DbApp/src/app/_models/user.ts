@@ -14,4 +14,6 @@ export class User {
     inActive: boolean;
     createdDate: Date;
     token?: string;
+    backendVersion?: string;
+    frontendVersion?: string;
 }

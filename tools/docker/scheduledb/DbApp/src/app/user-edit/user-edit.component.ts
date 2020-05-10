@@ -5,6 +5,7 @@ import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -79,8 +80,8 @@ export class UserEditComponent implements OnInit {
           }
           this.user = user as User;
         })
-        .catch(err => {
-          this.errorMsg = err.status + ': ' + err.statusText;
+        .catch((err: HttpErrorResponse) => {
+          this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
           if (this.errorMsg.includes('Unknown')) {
             this.errorMsg += ' - Possible no connection with backend server.';
           }
@@ -189,14 +190,19 @@ export class UserEditComponent implements OnInit {
           this.router.navigate(['user/get']);
         }
       })
-      .catch(err => {
-        // console.log('user.edit.component.updatUser.err: ' + err);
-        // console.log('user.edit.component.updatUser.err.name: ' + err.name);
-        // console.log('user.edit.component.updatUser.err.message: ' + err.message);
-        this.errorMsg = err.message;
-        this.forceElementView('bottom');
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
       });
+
+      // .catch(err => {
+      //   console.log('user.edit.component.updatUser.err: ' + err);
+      //   console.log('user.edit.component.updatUser.err.name: ' + err.name);
+      //   console.log('user.edit.component.updatUser.err.message: ' + err.message);
+      //   this.errorMsg = err;
+      //   this.forceElementView('bottom');
+      // });
   }
 }
-
-

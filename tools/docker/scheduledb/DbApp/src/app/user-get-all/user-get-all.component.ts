@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-user-get-all',
   templateUrl: './user-get-all.component.html',
@@ -25,7 +25,8 @@ export class UserGetAllComponent implements OnInit {
         this.users = res as User[];
       })
       .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+        // this.errorMsg = err.status + ': ' + err.statusText;
+        this.errorMsg = err.status + ': ' + JSON.stringify(err.statusText);
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
@@ -46,11 +47,12 @@ export class UserGetAllComponent implements OnInit {
       .then(res => {
         this.ngOnInit(); // refresh the page after deletion.
       })
-      .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
+
         this.forceElementView('bottom');
       });
   }

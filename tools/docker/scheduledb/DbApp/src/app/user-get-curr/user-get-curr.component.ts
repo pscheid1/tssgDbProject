@@ -32,7 +32,8 @@ export class UserGetCurrComponent implements OnInit {
         this.userFromApi = res as User;
       })
       .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+        // this.errorMsg = err.status + ': ' + err.statusText;
+        this.errorMsg = err.status + ': ' + JSON.stringify(err.statusText);
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }

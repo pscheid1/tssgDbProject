@@ -24,6 +24,8 @@ export class AuthGuard implements CanActivate {
       // Check whether token is valid.  Expired, return false; otherwise return true
       if (jwtHelper.isTokenExpired(token)) {
         alert('Your JWT token has expired.\n\nTo renew your JWT token, Logout and login again.');
+        // force a logout
+        this.authenticationService.logout();
         this.router.navigate(['/user/login'], { queryParams: { returnUrl: state.url } });
         return false;
       }

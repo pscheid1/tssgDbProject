@@ -49,16 +49,12 @@ export class HomeComponent implements OnInit {
         this.userFromApi = usr;
       })
       .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+        this.errorMsg = `${err.statusText.status}: ${err.statusText.name}, ${err.statusText.message} from ${err.statusText.url}`;
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
         this.forceElementView('bottom');
       });
-
-    // this.userService.getById(this.currentUser._id).pipe(first()).subscribe(user => {
-    //   this.userFromApi = user as User;
-    // });
   }
 
   // scroll browser to element id

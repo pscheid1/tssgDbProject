@@ -51,8 +51,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(usrForm: NgForm): void {
-    // console.log('login.component.onSubmit: ' + usrForm.value);
-    // console.log('login.component.onSubmit: ' + this.user.username);
     this.as.login(this.user.username, this.user.password)
       .pipe(first())
       .subscribe(
@@ -61,6 +59,7 @@ export class LoginComponent implements OnInit {
         },
         err => {
           this.errorMsg = err;
+          // console.log(`logn.components.onSubmit:  ${this.errorMsg}`);
           if (this.errorMsg.includes('Unknown')) {
             this.errorMsg += ' - Possible no connection with backend server.';
           }
