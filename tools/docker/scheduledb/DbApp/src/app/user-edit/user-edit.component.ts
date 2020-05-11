@@ -195,14 +195,7 @@ export class UserEditComponent implements OnInit {
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
+        this.forceElementView('bottom');
       });
-
-      // .catch(err => {
-      //   console.log('user.edit.component.updatUser.err: ' + err);
-      //   console.log('user.edit.component.updatUser.err.name: ' + err.name);
-      //   console.log('user.edit.component.updatUser.err.message: ' + err.message);
-      //   this.errorMsg = err;
-      //   this.forceElementView('bottom');
-      // });
-  }
+   }
 }

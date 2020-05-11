@@ -40,8 +40,7 @@ export class UserService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        // console.log(`user.service.getById err = ${err}`);
-        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
+        throw new HttpErrorResponse({ status: 404, statusText: err,  url: `${this.uri}` });
       });
   }
 
@@ -50,9 +49,7 @@ export class UserService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        // add url to error message
-        err.url = `${this.uri}/current`;
-        throw new HttpErrorResponse({ statusText: err });
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/current` });
       });
   }
 
@@ -73,7 +70,7 @@ export class UserService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        // console.log(`user.service.getById err = ${err}`);
+        console.log(`user.service.getById err = ${err}`);
         throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
       });
   }

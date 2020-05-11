@@ -4,7 +4,7 @@ import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-user-get-curr',
   templateUrl: './user-get-curr.component.html',
@@ -31,9 +31,8 @@ export class UserGetCurrComponent implements OnInit {
       .then(res => {
         this.userFromApi = res as User;
       })
-      .catch(err => {
-        // this.errorMsg = err.status + ': ' + err.statusText;
-        this.errorMsg = err.status + ': ' + JSON.stringify(err.statusText);
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }

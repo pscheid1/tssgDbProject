@@ -24,12 +24,12 @@ export class UserGetAllComponent implements OnInit {
       .then(res => {
         this.users = res as User[];
       })
-      .catch(err => {
-        // this.errorMsg = err.status + ': ' + err.statusText;
-        this.errorMsg = err.status + ': ' + JSON.stringify(err.statusText);
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
         if (this.errorMsg.includes('Unknown')) {
           this.errorMsg += ' - Possible no connection with backend server.';
         }
+
         this.forceElementView('bottom');
       });
 

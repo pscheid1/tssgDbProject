@@ -35,7 +35,7 @@ module.exports = {
         res.status(200).json(expandedUser);
       })
       .catch(err => {
-        console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
         res.status(404).json({ message: err.message });
         // res.status(404).json({ message: `${err.name} ${err.message}` });
       });
@@ -45,7 +45,7 @@ module.exports = {
     // req.body._id = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     await User.findByIdAndUpdate(req.body._id, req.body, { new: true })
       .then(user => {
-        if (user.length === 0) {
+        if (user === null) {
           // In mongoDB a nonexistent key is not considered an error?
           throw new Error('User ' + req.body._id + ' not found.');
         } else {
@@ -65,11 +65,14 @@ module.exports = {
   },
 
   findAll: async function (req, res) {
-    // await User.find({ '_id': '5ceeeb11b23b1e4a40d5bdff' }).select('-hash')    // force a bad _id (replace following line)
-      await User.find().select('-hash')
-      .then(users => res.json(users))
+    // await User.find({ '_id': '5ceeeb11b23b1e4a40d5bdff' }).select('-hash')    //  to force a bad _id (replace following line)
+    await User.find().select('-hash')
+      .then(users => {
+        res.json(users);
+      })
       .catch(err => {
-        res.status(404).json({ message: `${err.message}` });
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        res.status(404).json({ message: err.message });
       });
   },
 
@@ -102,20 +105,15 @@ module.exports = {
   },
 
   getCurrent: async function (req, res) {
-    req.user.sub = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
+    // req.user.sub = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     const eliminate = req.user.role === 'Admin' ? '-hash' : '-hash -role';
     await User.findById(req.user.sub).select(eliminate)
       .then(user => {
-        // In mongoDB a nonexistent key is not considered an error?
-        if (user === null) {
-          throw new Error(' - User ' + req.user.sub + ' not found.');
-        } else {
-          res.json(user);
-        }
+         res.json(user);
       })
       .catch(err => {
-        // console.log('user.controller.getCurrent err: ' + err);
-        res.status(404).json({ message: `${err.name} ${err.message}` });
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        res.status(404).json({ message: err.message });
       });
   },
 
