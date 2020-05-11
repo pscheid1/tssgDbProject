@@ -70,7 +70,7 @@ export class UserService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        console.log(`user.service.getById err = ${err}`);
+        // console.log(`user.service.getById err = ${err}`);
         throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
       });
   }
