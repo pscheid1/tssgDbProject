@@ -109,7 +109,7 @@ module.exports = {
     const eliminate = req.user.role === 'Admin' ? '-hash' : '-hash -role';
     await User.findById(req.user.sub).select(eliminate)
       .then(user => {
-         res.json(user);
+        res.json(user);
       })
       .catch(err => {
         // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
@@ -139,14 +139,8 @@ module.exports = {
     // req.params._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await User.findByIdAndDelete(req.params._id)
       .then(user => {
-        // In mongoDB a nonexistent key is not considered an error?
-        if (user === null) {
-          throw new Error('User ' + req.params._id + ' not found.');
-        } else {
-          // if removed, then removed user is returned
-          res.status(200).json('' + user._id + ': deleted.');
-
-        }
+        // if removed, then removed user is returned
+        res.status(200).json('' + user._id + ': deleted.');
       })
       .catch(err => {
         // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
