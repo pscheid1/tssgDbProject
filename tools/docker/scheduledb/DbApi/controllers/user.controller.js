@@ -127,7 +127,7 @@ module.exports = {
         }
       })
       .catch(err => {
-        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        // console.log(`user.controller.findOne: ${err}`);
         res.status(404).json({ message: err.message });
       });
   },
