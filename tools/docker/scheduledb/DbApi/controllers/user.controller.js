@@ -37,7 +37,6 @@ module.exports = {
       .catch(err => {
         // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
         res.status(404).json({ message: err.message });
-        // res.status(404).json({ message: `${err.name} ${err.message}` });
       });
   },
 
