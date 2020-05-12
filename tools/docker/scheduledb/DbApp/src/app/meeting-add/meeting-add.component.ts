@@ -155,17 +155,16 @@ export class MeetingAddComponent implements OnInit {
       return;
     }
 
-    this.errorMsg = '';
     this.ms.addMeeting(this.meeting)
       .then(res => {
         this.router.navigate(['meeting']);
       })
       .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
+        this.forceElementView('bottom');
       });
-
-    if (this.errorMsg !== '') {
-      this.forceElementView('bottom');
-    }
   }
 }

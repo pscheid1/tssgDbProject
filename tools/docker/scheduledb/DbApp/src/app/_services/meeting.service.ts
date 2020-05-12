@@ -25,27 +25,6 @@ export class MeetingService {
     return body || {};
   }
 
-  private handleErrorPromise(error: Error | HttpErrorResponse) {
-    // console.log('meeting.service.handleErrorPromise: ' + error);
-    if (error instanceof HttpErrorResponse) {
-      // Server or connection error happened
-      if (!navigator.onLine) {
-        // Handle offline error
-        console.error('meeting.service.handleErrorPromise offline error: ' + error);
-      } else {
-        // Handle Http Error (error.status === 403, 404...)
-        HttpErrorResponse.toString();
-        console.error('meeting.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
-      }
-      // the following statement will cause tssg.ErrorHandler.ts to be called
-      // return Promise.reject(error);
-    }
-
-    console.log('meeting.service.handleErrorPromise: ' + error);
-    // the following statement will cause tssg.ErrorHandler.ts to be called
-    // Promise.reject(error || error.message);
-  }
-
   // sinple unit test routine
   getTest(value: string) {
     return value;
@@ -65,7 +44,12 @@ export class MeetingService {
 
   // request all meetings from the node server
   getMeetings() {
-    return this.http.get(`${this.uri}`);
+    return this.http.get(`${this.uri}`)
+      .toPromise()
+      .then(this.extractData)
+      .catch(err => {
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
+      });
   }
 
   // send edit request to the node server. called from meeting-get.component.html
@@ -75,6 +59,7 @@ export class MeetingService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
+        // console.log(`meeting.service.editMeeting err = ${err}`);
         throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
       });
   }
@@ -116,6 +101,7 @@ export class MeetingService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
+        // console.error(`meeting.service.updateMeeting: ${err}`);
         throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/update` });
       });
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Meeting } from '../_models/meeting';
 import { MeetingService } from '../_services/meeting.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-meeting-get',
   templateUrl: './meeting-get.component.html',
@@ -35,9 +35,17 @@ export class MeetingGetComponent implements OnInit {
       });
     } else {
       this.heading = 'List All Meetings';
-      this.ms.getMeetings().subscribe((data: Meeting[]) => {
-        this.meetings = data;
-      });
+      // this.ms.getMeetings().subscribe((data: Meeting[]) => {
+      this.ms.getMeetings()
+        .then((data: Meeting[]) => {
+          this.meetings = data;
+        })
+        .catch((err: HttpErrorResponse) => {
+          this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+          if (this.errorMsg.includes('Unknown')) {
+            this.errorMsg += ' - Possible no connection with backend server.';
+          }
+        });
     }
   }
 
@@ -53,8 +61,12 @@ export class MeetingGetComponent implements OnInit {
       .then(res => {
         this.ngOnInit();
       })
-      .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
+
         this.forceElementView('bottom');
       });
 

@@ -6,7 +6,7 @@ import { Meeting } from 'src/app/_models/meeting';
 import { VenueService } from '../_services/venue.service';
 import { TeamService } from '../_services/team.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-meeting-edit',
   templateUrl: './meeting-edit.component.html',
@@ -71,8 +71,8 @@ export class MeetingEditComponent implements OnInit {
             // save initial team in case cancel is selected and data has been modified
             this.initialTeam = this.meeting.team;
           })
-          .catch(err => {
-            this.errorMsg = err.status + ': ' + err.statusText;
+          .catch((err: HttpErrorResponse) => {
+            this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
             if (this.errorMsg.includes('Unknown')) {
               this.errorMsg += ' - Possible no connection with backend server.';
             }
@@ -87,8 +87,8 @@ export class MeetingEditComponent implements OnInit {
             // save initial team in case cancel is selected and data has been modified
             this.initialTeam = this.meeting.team;
           })
-          .catch(err => {
-            this.errorMsg = err.status + ': ' + err.statusText;
+          .catch((err: HttpErrorResponse) => {
+            this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
             if (this.errorMsg.includes('Unknown')) {
               this.errorMsg += ' - Possible no connection with backend server.';
             }
@@ -208,12 +208,12 @@ export class MeetingEditComponent implements OnInit {
           this.router.navigate([`meeting/schedule/${this.initialTeam}`]);
         }
       })
-      .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
+        this.forceElementView('bottom');
       });
-
-    if (this.errorMsg !== '') {
-      this.forceElementView('bottom');
-    }
   }
 }

@@ -35,8 +35,8 @@ module.exports = {
     await Meeting.create(req.body)
       .then(newMeeting => res.json(newMeeting))
       .catch(err => {
-        if (md) console.log('meeting.controller.create error:' + err.message);
-        res.status(409).json({ name: 'Error', message: err.message });
+        if (md) console.log('meeting.controller.create error:' + err);
+        res.status(409).json({ message: err.message });
       });
   },
 
@@ -53,18 +53,19 @@ module.exports = {
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
     if (md) console.log('meeting.controller.update endTime: ' + req.body.endTime);
     if (md) console.log('meeting.controller.update: ' + JSON.stringify(req.body));
+    // req.body._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await Meeting.findByIdAndUpdate(req.body._id, req.body, { new: true })
       .then(meeting => {
         // a bad or nonexistent key is not considered an error?
         if (meeting === null) {
-          throw new Error('Meeting ' + req.body._id + ' not found.');
+          throw new Error('Meeting "' + req.body._id + '" not found.');
         } else {
           res.json(meeting);
         }
       })
       .catch(err => {
-        if (md) console.log('meeting.controller.update error:' + err.message);
-        res.status(404).json({ name: 'Error', message: err.message });
+        if (md) console.log('meeting.controller.update error:' + err);
+        res.status(404).json({ message: err.message });
       });
   },
 
@@ -72,14 +73,19 @@ module.exports = {
   findAll: async function (req, res) {
     await Meeting.find({}, function (err, meeting) { })
       .sort({ team: 1, meetingDate: 1, startTime: 1 })
-      .then(meetings => res.json(meetings))
+      .then(meetings => {
+        // throw new Error('Server blew up!.'); })  // To force an error, replace following line wiht this line
+        res.json(meetings)
+      })
       .catch(err => {
-        res.status(404).json({ name: 'Error', message: err.message });
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        res.status(404).json({ message: err.message });
       });
   },
 
   // return a specific meeting entry (currently by _id)
   findOne: async function (req, res) {
+    // req.params._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await Meeting.findById(req.params._id, function (err, meeting) {
     })
       .then(meeting => {
@@ -91,19 +97,22 @@ module.exports = {
         }
       })
       .catch(err => {
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
         res.status(404).json({ name: 'Error', message: err.message });
       });
   },
 
   // delete a specific entry by _id
   delete: async function (req, res) {
+    // req.params._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await Meeting.findByIdAndDelete(req.params._id)
       .then(meeting => {
         // if removed, then removed meeting is returned
         res.status(200).json('' + meeting._id + ': deleted.');
       })
       .catch(err => {
-        res.status(404).json({ name: 'Error', message: "Meeting id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        res.status(404).json({ message: err.message });
       });
   },
 
