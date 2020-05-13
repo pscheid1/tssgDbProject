@@ -26,16 +26,18 @@ plugins {
 
 ext {
     // The drivers we want to use
-    //drivers = ["firefox", "chrome"]
+    drivers = ["firefox", "firefoxLocal", "chrome", "chromeLocal"]
     //drivers = ["firefox","firefoxLinux"]
-    drivers = ["chrome"]
+    //drivers = ["chrome"]
+    //drivers = ["firefox"]
 
     ext {
-        groovyVersion = '2.4.12'
-        gebVersion = '2.2'
-        seleniumVersion = '3.6.0'
-        chromeDriverVersion = '2.32'
-        geckoDriverVersion = '0.18.0'
+        groovyVersion = '2.5.11'
+        //gebVersion = '2.2'
+        gebVersion = '3.4'
+        seleniumVersion = '3.141.59'
+        chromeDriverVersion = '81.0.4044.138'
+        geckoDriverVersion = '0.26.0'
     }
 }
 
@@ -99,11 +101,15 @@ def xrayTestExecutionsJson
 
 // Initialize and accumulate the test case execution results per test key
 tasks.withType(Test) {
+    //maxParallelForks = 2
+    println "--------------------------"
+    println "task = ${it}"
     maxHeapSize = "1g"
     jvmArgs '-XX:MaxMetaspaceSize=128m'
     testLogging {
         exceptionFormat = 'full'
     }
+    ignoreFailures = true
 
     // Setup variables to use for getting Xray to import test results
     def testKeyMatcher
@@ -152,19 +158,19 @@ tasks.withType(Test) {
     println "revision = " + revision
 
     def xrayTestExecutions = [
-            info: [
-                    summary: "TE: Execution of automated tests for release ${version[0..-2]}",
-                    description: 'This execution is automatically created when importing execution results from an external source',
-                    version: "${version}"[1..-2],
-                    //user: System.properties['jira.test.executor'],
-                    revision: "${revision}"[1..-2]
-                    //startDate: '',
-                    //finishDate: '',
-                    //testPlanKey: 'SPIN-4',
-                    //testEnvironments: [System.properties['geb.build.baseUrl']]
-            ],
-            tests: [
-            ]
+        info: [
+            summary: "TE: Execution of automated tests for release ${version[0..-2]}",
+            description: 'This execution is automatically created when importing execution results from an external source',
+            version: "${version}"[1..-2],
+            //user: System.properties['jira.test.executor'],
+            revision: "${revision}"[1..-2]
+            //startDate: '',
+            //finishDate: '',
+            //testPlanKey: 'SPIN-4',
+            //testEnvironments: [System.properties['geb.build.baseUrl']]
+        ],
+        tests: [
+        ]
     ]
 
     // Pass system properties to the Geb JVM from the Gradle JVM
@@ -172,9 +178,9 @@ tasks.withType(Test) {
     systemProperties['geb.build.baseUrl'] = System.properties['geb.build.baseUrl']
 
     onOutput { desc, event ->
-        println "event.message: ${event.message}"
         testKeyMatcher = event.message =~ /TWS-\d+/
         if (testKeyMatcher) {
+            println "event.message: ${event.message}"
             testKey = testKeyMatcher.group()
             //logger.quiet "Test Event Message: ${testKeyMatcher.group()}: ${event.message}"
         }
@@ -239,32 +245,38 @@ task xrayImport {
     }
 }
 
-//xrayImport.mustRunAfter firefoxTest
 xrayImport.mustRunAfter chromeTest
+xrayImport.mustRunAfter chromeLocalTest
+xrayImport.mustRunAfter firefoxTest
+xrayImport.mustRunAfter firefoxLocalTest
 
-task reportSnaps << {
-    def listUnsorted = []
-    def list = []
-    def unixPath
+task reportSnaps {
+    doLast {
+        def listUnsorted = []
+        def list = []
+        def unixPath
 
-    def dir = new File("build/reports")
-    dir.eachFileRecurse (FileType.FILES) { file ->
-        unixPath = file.path.replace("\\","/")
-        if (unixPath.contains("/geb/")) {
-            listUnsorted << file
+        def dir = new File("build/reports")
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            unixPath = file.path.replace("\\", "/")
+            if (unixPath.contains("/geb/")) {
+                listUnsorted << file
+            }
         }
-    }
 
-    list = listUnsorted.sort()
-    list.each {
-        println it.path.replace("\\","/")
-    }
+        list = listUnsorted.sort()
+        list.each {
+            println it.path.replace("\\", "/")
+        }
 
-    generateScreenshotsReportsPage(list)
+        generateScreenshotsReportsPage(list)
+    }
 }
 
-//reportSnaps.mustRunAfter firefoxTest
 reportSnaps.mustRunAfter chromeTest
+reportSnaps.mustRunAfter chromeLocalTest
+reportSnaps.mustRunAfter firefoxTest
+reportSnaps.mustRunAfter firefoxLocalTest
 
 /**
  * Generate an html page that contains links to the Report Screnshots

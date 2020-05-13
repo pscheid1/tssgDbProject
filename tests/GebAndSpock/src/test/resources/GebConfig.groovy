@@ -21,10 +21,11 @@ environments {
     // run via “./gradlew chromeTest”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
     chrome {
-        //driver = { new ChromeDriver() }
+        println "--------------------------"
+        println "Browser = chrome v:81.0.4044.92 on Grid"
         driver = {
             DesiredCapabilities capabilities = DesiredCapabilities.chrome()
-            //capabilities.setVersion("67.0.3396.87")
+            capabilities.setVersion("81.0.4044.92")
             capabilities.setPlatform(Platform.LINUX)
             new RemoteWebDriver( new URL("http://hub.technologynursery.org/wd/hub"), capabilities )
         }
@@ -32,13 +33,14 @@ environments {
 	
     // run via “./gradlew firefoxTest”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
-    firefoxLinux {
-        //driver = { new FirefoxDriver() }
+    firefox {
+        println "--------------------------"
+        println "Browser = firefox v:75.0 on Grid"
         driver = {
             DesiredCapabilities capabilities = DesiredCapabilities.firefox()
-            capabilities.setVersion("45.4.0esr")
+            capabilities.setVersion("75.0")
             capabilities.setPlatform(Platform.LINUX)
-            new RemoteWebDriver( new URL("http://hub:4433/wd/hub"), capabilities )
+            new RemoteWebDriver( new URL("http://hub.technologynursery.org/wd/hub"), capabilities )
 
             //FirefoxProfile profile = new FirefoxProfile()
             //profile.setPreference("intl.accept_languages", "en-us")
@@ -47,8 +49,16 @@ environments {
         }
     }
 
-    firefox {
+    firefoxLocal {
+        println "--------------------------"
+        println "Browser = firefox on Local"
         driver = { new FirefoxDriver() }
+    }
+
+    chromeLocal {
+        println "--------------------------"
+        println "Browser = crhome on Local"
+        driver = { new ChromeDriver() }
     }
 
 }
