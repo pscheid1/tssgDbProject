@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Venue } from 'src/app/_models/venue';
 import { VenueService } from '../_services/venue.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-venue-get',
@@ -19,9 +19,21 @@ export class VenueGetComponent implements OnInit {
     private vs: VenueService) { }
 
   ngOnInit() {
-    this.vs.getVenues().subscribe((data: Venue[]) => {
-      this.venues = data;
-    });
+    // this.vs.getVenues().subscribe((data: Venue[]) => {
+    //   this.venues = data;
+    // });
+
+    this.vs.getVenues()
+      .then(res => {
+        this.venues = res as Venue[];
+      })
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
+        this.forceElementView('bottom');
+      });
   }
 
   // scroll browser to element id
@@ -36,8 +48,11 @@ export class VenueGetComponent implements OnInit {
       .then(res => {
         this.ngOnInit();
       })
-      .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
         this.forceElementView('bottom');
       });
   }

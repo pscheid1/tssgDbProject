@@ -24,21 +24,21 @@ export class VenueService {
     return body || {};
   }
 
-  private handleErrorPromise(error: Error | HttpErrorResponse) {
-    if (error instanceof HttpErrorResponse) {
-      // Server or connection error happened
-      if (!navigator.onLine) {
-        // Handle offline error
-        console.error('venue.service.handleErrorPromise offline error: ' + error);
-      } else {
-        // Handle Http Error (error.status === 403, 404...)
-        HttpErrorResponse.toString();
-        console.error('venue.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
-      }
-    }
+  // private handleErrorPromise(error: Error | HttpErrorResponse) {
+  //   if (error instanceof HttpErrorResponse) {
+  //     // Server or connection error happened
+  //     if (!navigator.onLine) {
+  //       // Handle offline error
+  //       console.error('venue.service.handleErrorPromise offline error: ' + error);
+  //     } else {
+  //       // Handle Http Error (error.status === 403, 404...)
+  //       HttpErrorResponse.toString();
+  //       console.error('venue.service.handleErrorPromise HttpErrorResponse: ' + HttpErrorResponse.toString());
+  //     }
+  //   }
 
-    return Promise.reject(error || error.message);
-  }
+  //   return Promise.reject(error || error.message);
+  // }
 
   // sinple unit test routine
   getTest(value: string) {
@@ -56,7 +56,15 @@ export class VenueService {
 
   // request all venues from the node server
   getVenues() {
-    return this.http.get(`${this.uri}`);
+    // return this.http.get(`${this.uri}`);
+    return this.http.get(`${this.uri}`)
+    .toPromise()
+    .then(this.extractData)
+    .catch(err => {
+      console.log(`venue.service.getVenues: ${err}`);
+      throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
+    });
+
   }
 
   // request a list of current venue id's
@@ -73,7 +81,6 @@ export class VenueService {
       .catch(err => {
         throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/edit` });
       });
-
   }
 
   async deleteVenue(_id) {
@@ -82,7 +89,6 @@ export class VenueService {
         .toPromise()
         .then(this.extractData)
         .catch(err => {
-          alert(err);
           throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
         });
     }

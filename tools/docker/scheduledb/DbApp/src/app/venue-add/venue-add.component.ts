@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VenueService } from '../_services/venue.service';
 import { Venue } from 'src/app/_models/venue';
 import { UserService } from '../_services/user.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-venue-add',
   templateUrl: './venue-add.component.html',
@@ -79,8 +79,11 @@ export class VenueAddComponent implements OnInit {
       .then(res => {
         this.router.navigate(['venue']);
       })
-      .catch(err => {
-        this.errorMsg = err.status + ': ' + err.statusText;
+      .catch((err: HttpErrorResponse) => {
+        this.errorMsg = err.status + ': ' + err.statusText + ' From ' + err.url;
+        if (this.errorMsg.includes('Unknown')) {
+          this.errorMsg += ' - Possible no connection with backend server.';
+        }
         this.forceElementView('bottom');
       });
   }

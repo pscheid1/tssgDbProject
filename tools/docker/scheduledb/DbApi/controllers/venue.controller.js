@@ -23,7 +23,7 @@ module.exports = {
     await Venue.create(req.body)
       .then(newVenue => res.json(newVenue))
       .catch(err => {
-        res.status(409).json({ name: 'Error', message: err.message });
+        res.status(409).json({ message: err.message });
       });
   },
 
@@ -38,7 +38,7 @@ module.exports = {
         }
       })
       .catch(err => {
-        res.status(404).json({ name: 'Error', message: err.message });
+        res.status(404).json({ message: err.message });
       });
   },
 
@@ -47,7 +47,10 @@ module.exports = {
     await Venue.find({}, {}, function (err, venue) {
     })
       .then(venues => res.json(venues))
-      .catch(err => res.status(404).json(err.message));
+      .catch(err => {
+        console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        res.status(404).json({ message: err.message });
+      });
   },
 
   // returns a list of venue id's only
@@ -61,30 +64,32 @@ module.exports = {
 
   // return a specific venue entry (currently by _id)
   findOne: function (req, res) {
+    // req.params._id = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     Venue.findById(req.params._id, function (err, venue) {
     })
-    .then(venue => {
-      // a bad or nonexistent key is not considered an error?
-      if (venue === null) {
-        throw new Error('Venue ' + req.body._id + ' not found.');
-      } else {
-        res.json(venue);
-      }
-    })
-    .catch(err => {
-      res.status(404).json({ name: 'Error', message: "Venue id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
-    });
-},
+      .then(venue => {
+        // a bad or nonexistent key is not considered an error?
+        if (venue === null) {
+          throw new Error('Venue "' + req.params._id + '" not found.');
+        } else {
+          res.json(venue);
+        }
+      })
+      .catch(err => {
+        res.status(404).json({ message: err.message });
+      });
+  },
 
   // delete a specific entry by _id
   delete: async function (req, res) {
+    // req.params._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await Venue.findByIdAndDelete(req.params._id)
       .then(venue => {
         // if removed, then removed venue is returned
         res.status(200).json('' + venue._id + ': deleted.');
       })
       .catch(err => {
-        res.status(404).json({ name: 'Error', message: "Venue id: '" + req.params._id + "' Not Found" + ' - ' + err.message });
+        res.status(404).json({ message: err.message });
       });
   },
 
