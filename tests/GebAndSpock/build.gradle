@@ -252,24 +252,33 @@ xrayImport.mustRunAfter firefoxLocalTest
 
 task reportSnaps {
     doLast {
-        def listUnsorted = []
-        def list = []
+        def listFilesUnsorted = []
+        def listDirsUnsorted = []
+        def listFiles = []
+        def listDirs = []
         def unixPath
 
         def dir = new File("build/reports")
         dir.eachFileRecurse(FileType.FILES) { file ->
             unixPath = file.path.replace("\\", "/")
             if (unixPath.contains("/geb/")) {
-                listUnsorted << file
+                listFilesUnsorted << file
             }
         }
-
-        list = listUnsorted.sort()
-        list.each {
+        listFiles = listFilesUnsorted.sort()
+        listFiles.each {
             println it.path.replace("\\", "/")
         }
 
-        generateScreenshotsReportsPage(list)
+        dir.eachDir() { File browserReportDir ->
+            listDirsUnsorted << browserReportDir
+        }
+        listDirs = listDirsUnsorted.sort()
+        listDirs.each {
+            println it.path.replace("\\", "/")
+        }
+
+        generateScreenshotsReportsPage(listFiles, listDirs)
     }
 }
 
@@ -284,7 +293,7 @@ reportSnaps.mustRunAfter firefoxLocalTest
  *
  * @param list - A list of report artifact File objects.
  */
-void generateScreenshotsReportsPage(list) {
+void generateScreenshotsReportsPage(listFiles, listDirs) {
 
     def reportArtifactsHtmlFile = new File('build/reports/reportArtifacts.html')
     def writer = new StringWriter()
@@ -297,12 +306,25 @@ void generateScreenshotsReportsPage(list) {
         body(id: "main") {
             h2 id: "report-files",  "Report Artifact Files"
             ul {
-                list.each { reportArtifactFile ->
+                listFiles.each { reportArtifactFile ->
                     li {
                         // Build link and extract the filename from the path
                         a( href: removeFirstTwoDirectoriesFromPath(reportArtifactFile.path.replace("\\","/")),
                                 removeFirstTwoDirectoriesFromPath(reportArtifactFile.path.replace("\\","/")) )    // display relative path
                         //reportArtifactFile.path.split(File.separator)[-1] )           // display just filename
+                    }
+                }
+            }
+
+            h2 id: "report-testStatus", "Browser Test Reports"
+            ul {
+                listDirs.each { reportStatusDir ->
+                    li {
+                        a(href: removeFirstTwoDirectoriesFromPath( reportStatusDir.path.replace("\\","/") ) +
+                                "/tests/index.html",
+                            removeFirstTwoDirectoriesFromPath( reportStatusDir.path.replace("\\","/") ) +
+                                " Report"
+                        )
                     }
                 }
             }

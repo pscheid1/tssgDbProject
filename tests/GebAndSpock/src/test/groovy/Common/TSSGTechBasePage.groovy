@@ -9,7 +9,7 @@ class TSSGTechBasePage extends Page {
 
     static at = {
         //title == "Technical Skills Share Group (TSSG)"
-        $("strong", text:"GENERAL MEETING INFORMATION").displayed
+        $("h1 strong", text:"GENERAL MEETING INFORMATION").displayed
     }
 
     static content = {
