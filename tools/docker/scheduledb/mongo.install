@@ -59,7 +59,7 @@ do
     msg INFO "Retrying again $try ..."
     if [ $try -gt $maxTries ] ; then
         echo -e "\n"
-        msg ERROR "Mongorestore took could not complete successfully. Exiting."
+        msg ERROR "Mongorestore tool could not complete successfully. Exiting."
         exit
     fi
 done
