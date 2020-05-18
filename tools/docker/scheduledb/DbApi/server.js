@@ -8,13 +8,50 @@ const venue = require('./routes/venue.route');
 const user = require('./routes/user.route');
 const team = require('./routes/team.route');
 const errorHandler = require('./_helpers/error-handler');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
 const path = require('path');
 global.Root = __dirname;
 global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
-global.md = (process.env.tssgApiMtgDebug === 'true') ? Boolean(true)  : Boolean(null);
+// get the certificate file names
+const serverKeyFile = process.env.tssgServerKey || 'tssg-server-key.pem';
+const serverCrtFile = process.env.tssgServerCrt || 'tssg-server-crt.pem';
+const caCrtFile = process.env.tssgCaCrt || 'tssg-ca-crt.pem';
+const caCrlFile = process.env.tssgCaCrl || 'tssg-ca-crl.pem';
+
+// default port setting
+// protocol can be 'http', 'https' or 'both'
+const protocol = process.env.tssgApiProtocol || 'https';
+let port = process.env.tssgApiPort || 4433;
+let host = process.env.tssgApiURL || 'localhost';
+
+// set certDir equal to the certificates folder
+const certDir = global.Root + '/certificates';
+
+const tssgConf = JSON.parse(fs.readFileSync(`${global.Root}/tssgConf.json`));
+global.versions = tssgConf;
+global.backendVersion = tssgConf.backendVersion;
+global.frontendVersion = tssgConf.frontendVersion;
+
+// set httpsOptions variables
+const httpsOptions = {
+  key: fs.readFileSync(`${certDir}/${serverKeyFile}`),
+  cert: fs.readFileSync(`${certDir}/${serverCrtFile}`),
+  ca: fs.readFileSync(`${certDir}/${caCrtFile}`),
+  crl: fs.readFileSync(`${certDir}/${caCrlFile}`),
+  passphrase: 'tssgpw',
+  requestCert: false,         // true for client ssl
+  rejectUnauthorized: true,
+  // hostname: 'localhost',      // container name if in container i.e. backend
+  hostname: host,
+  port: port
+};
+
+global.md = (process.env.tssgApiMtgDebug === 'true') ? Boolean(true) : Boolean(null);
 // get jwt validity time (in minutes).
 // jwtExp limits are 1 >= jwtExp <= 240 (1 minute to 4 hours)
 // jwtExp default is 30 minutes
@@ -26,12 +63,6 @@ if (global.jwtExp < 1 || global.jwtExp > 240) {
   console.log(`Error: jwtExp out of bounds.  jwtExp forced to ${jwtExpDefault} minutes.`);
 }
 
-// default port setting
-let port = process.env.tssgApiPort || 7010;
-let host = process.env.tssgApiURL || 'localhost';
-
-// const port = process.env.NODE_ENV === 'production' ? 80 : process.env.tssgApiPort;
-
 /*
 process any command line parameters.
 case is significant.
@@ -42,6 +73,8 @@ case is significant.
 To use these, either add them to your package.json scripts or
 run node or nodemon manually and add them to the command line.
 */
+/* This code needs to be reworked since https was added
+
 var argvs = require('optimist').argv;
 var index,
   value;
@@ -59,16 +92,12 @@ for (index in argvs) {
     }
   }
 }
+*/
 
-// express wants only the host, not protocol:host
-let pos = host.indexOf('://');
-if (pos !== -1) {
-  host = host.slice(pos + 3);
-}
- // set true for additional collection index debug info
+// set true for additional collection index debug info
 // mongoose.set('debug', true);
 
-const options = {
+const mongoOptions = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -87,12 +116,12 @@ const options = {
 let dev_db_url = 'mongodb://localhost:27017/tssg-tech';
 let mongoDB = process.env.tssgMongoDB_URL || dev_db_url;
 // console.log('mongoDB: ' + mongoDB); // connection string may contain a username/password
-mongoose.connect(mongoDB, options);
+mongoose.connect(mongoDB, mongoOptions);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function () {
-  console.log("we're connected!");
+  console.log("MongoDB, we're connected!");
   console.log();
 });
 
@@ -123,6 +152,24 @@ app.use(errorHandler);
 
 app.use(express.static(__dirname + '/public'));
 
-const server = app.listen(port, host, () => {
-  console.log('Server is up and running on ' + host + ':' + port);
-});
+// original http code
+// const server = app.listen(port, host, () => {
+// });
+
+// multiple ports (both http & https) can similtaneously be in 'listen' mode
+
+// In order to allow similtaneous http & https we will need to add a second port variable
+// We don't need similtaneous protocols, so we'll comment this out for now.
+// if (protocol === 'http' || protocol === 'both') {
+//   http.createServer(app).listen(port, host, function () {
+//     console.log(`HTTP Server is up and running on http://${host}:${port}`);
+//   });
+// }
+
+if (protocol === 'https' || protocol === 'both') {
+  // new https code
+  https.createServer(httpsOptions, app).listen(httpsOptions.port, httpsOptions.hostname, function () {
+    console.log(`HTTPS Server is up and running on https://${httpsOptions.hostname}:${httpsOptions.port}`);
+  });
+}
+
