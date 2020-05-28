@@ -1,25 +1,41 @@
 #!/bin/bash
-directory=""
-while getopts "d:" flag; do
+DIRECTORY=""
+hlp=0
+while getopts "hd:" flag; do
     case "${flag}" in
+    h)
+        hlp=1
+        ;;
     d)
-        directory=$OPTARG
+        DIRECTORY=$OPTARG
         ;;
     esac
 done
 
-if [ -z "$directory" ]; then
+if [ "$hlp" -eq "1" ]; then
+        echo "  Restore mongo database.  Currently to default port 27017"
+        echo "  mongo.restore -d <directory> [-h]"
+        echo "  Directory is target path. All mongo databases in the target directory will be restored."
+        echo "  Non mongo database files in the target directory my cause errors and cause mongo.restore to abort."
+        echo "  -h produces this listing.  Process will then exit."
+        echo done.
+        exit
+fi
+
+
+if [ -z DIRECTORY ]; then
     echo "A directory entry '-d <directory>' is required."
-    echo "The path must contain the 'admin' and 'tssg-tech' folders."
+    echo "The target folder must contain only mongo databases."
     exit 1
 fi
 
-echo "Mongo restoring from: $directory"
+echo "Mongo restoring from: $DIRECTORY"
 mongorestore \
 -u root \
 -p sch3dul3db \
 --authenticationDatabase admin \
 --authenticationMechanism SCRAM-SHA-1 \
 --drop \
-$directory/
+$DIRECTORY
+
 echo "done"
