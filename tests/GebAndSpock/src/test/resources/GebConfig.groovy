@@ -25,7 +25,7 @@ environments {
         println "Browser = chrome v:81.0.4044.92 on Grid"
         driver = {
             DesiredCapabilities capabilities = DesiredCapabilities.chrome()
-            capabilities.setVersion("81.0.4044.92")
+            //capabilities.setVersion("81.0.4044.92")
             capabilities.setPlatform(Platform.LINUX)
             new RemoteWebDriver( new URL("http://hub.technologynursery.org/wd/hub"), capabilities )
         }
@@ -38,7 +38,7 @@ environments {
         println "Browser = firefox v:75.0 on Grid"
         driver = {
             DesiredCapabilities capabilities = DesiredCapabilities.firefox()
-            capabilities.setVersion("75.0")
+            //capabilities.setVersion("75.0")
             capabilities.setPlatform(Platform.LINUX)
             new RemoteWebDriver( new URL("http://hub.technologynursery.org/wd/hub"), capabilities )
 
