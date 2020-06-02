@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"tssg-tech.teams"}],"uuid":"41f02f31d32d4485b3154db1baa3e211"}

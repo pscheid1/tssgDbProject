@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"tssg-tech.venues"}],"uuid":"067c0384a4714b1aa52011ef98f1d515"}
