@@ -63,7 +63,7 @@ if (global.jwtExp < 1 || global.jwtExp > 240) {
   console.log(`Error: jwtExp out of bounds.  jwtExp forced to ${jwtExpDefault} minutes.`);
 }
 
-/*
+/*  This needs to be reworked <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 process any command line parameters.
 case is significant.
   valid parameters:
