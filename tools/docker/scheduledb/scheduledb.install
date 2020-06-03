@@ -12,4 +12,7 @@ msg BEGIN "Clean up and Install the scheduledb services ..."
 ./backend.install &
 ./frontend.install &
 
+# Wait for all subprocesses to finish
+wait
+
 msg END "... done."
