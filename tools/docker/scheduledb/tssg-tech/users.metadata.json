@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tssg-tech.users"},{"v":2,"unique":true,"key":{"username":1},"name":"username_1","ns":"tssg-tech.users","background":true}],"uuid":"964cffbd943d4e6da33f850f852dd9b9"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"tssg-tech.users"},{"v":2,"unique":true,"key":{"username":1},"name":"username_1","ns":"tssg-tech.users","background":true}],"uuid":"4efbf66105994d80a9a4d2d13f267e3c"}
