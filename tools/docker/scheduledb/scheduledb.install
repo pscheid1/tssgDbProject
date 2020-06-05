@@ -9,7 +9,9 @@ logsDirValidate
 msg BEGIN "Clean up and Install the scheduledb services ..."
 
 ./mongo.install &
+sleep 15
 ./backend.install &
+sleep 15
 ./frontend.install &
 
 # Wait for all subprocesses to finish
