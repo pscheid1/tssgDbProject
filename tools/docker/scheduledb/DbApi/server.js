@@ -23,10 +23,12 @@ const serverCrtFile = process.env.tssgServerCrt || 'tssg-server-crt.pem';
 const caCrtFile = process.env.tssgCaCrt || 'tssg-ca-crt.pem';
 const caCrlFile = process.env.tssgCaCrl || 'tssg-ca-crl.pem';
 
-// default port setting
-// protocol can be 'http', 'https' or 'both'
-const protocol = process.env.tssgApiProtocol || 'https';
-let port = process.env.tssgApiPort || 4433;
+let protocol = process.env.tssgApiProtocol || 'https';
+if (protocol !== 'http' && protocol !== 'https' ) {
+  protocol = 'https';
+}
+let port = process.env.tssgApiPort || 7010;
+// let port = process.env.tssgApiPort || 4433;
 let host = process.env.tssgApiURL || 'localhost';
 
 // set certDir equal to the certificates folder
@@ -152,22 +154,16 @@ app.use(errorHandler);
 
 app.use(express.static(__dirname + '/public'));
 
-// original http code
-// const server = app.listen(port, host, () => {
-// });
-
 // multiple ports (both http & https) can similtaneously be in 'listen' mode
-
 // In order to allow similtaneous http & https we will need to add a second port variable
-// We don't need similtaneous protocols, so we'll comment this out for now.
-// if (protocol === 'http' || protocol === 'both') {
-//   http.createServer(app).listen(port, host, function () {
-//     console.log(`HTTP Server is up and running on http://${host}:${port}`);
-//   });
-// }
+// For now, we are only allowing one protocol
 
-if (protocol === 'https' || protocol === 'both') {
-  // new https code
+if (protocol === 'http') {
+  http.createServer(app).listen(port, host, function () {
+    console.log(`HTTP Server is up and running on http://${host}:${port}`);
+  });
+} else {
+  // default to https
   https.createServer(httpsOptions, app).listen(httpsOptions.port, httpsOptions.hostname, function () {
     console.log(`HTTPS Server is up and running on https://${httpsOptions.hostname}:${httpsOptions.port}`);
   });

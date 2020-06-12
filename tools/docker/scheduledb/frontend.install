@@ -21,23 +21,23 @@ docker rmi tssg-node-frontend:${frontendVersion}
 msg INFO "Determine if we are running on Docker Toolbox or Linux ..."
 if [ ! -z "$DOCKER_MACHINE_NAME" ] ; then
     msg INFO "... We are running in Docker Toolbox ..."
-    # export TSSGAPIURL="http://$(docker-machine ip)"
-    export TSSGAPIURL="https://$(docker-machine ip)"
-    #export TSSGAPPURL="${TSSGAPIURL}:4200"
-    export TSSGAPPURL="${TSSGAPIURL}:4300"
+    export TSSGAPIURL="http://$(docker-machine ip)"
+    # export TSSGAPIURL="https://$(docker-machine ip)"
+    export TSSGAPPURL="${TSSGAPIURL}:4200"
+    # export TSSGAPPURL="${TSSGAPIURL}:4300"
 elif [ "$(hostname)" == "Ubuntu-Studio-14" ] ; then
     msg INFO "... We are running in a Linux server ..."
-    #export TSSGAPIURL="http://backend.sdb.technologynursery.org"
-    #export TSSGAPPURL="http://frontend.sdb.technologynursery.org"
-    export TSSGAPIURL="https://backend.sdb.technologynursery.org"
-    export TSSGAPPURL="https://frontend.sdb.technologynursery.org"
+    export TSSGAPIURL="http://backend.sdb.technologynursery.org"
+    export TSSGAPPURL="http://frontend.sdb.technologynursery.org"
+    # export TSSGAPIURL="https://backend.sdb.technologynursery.org"
+    # export TSSGAPPURL="https://frontend.sdb.technologynursery.org"
 
 else
     msg INFO "... We are running in a local Linux ..."
-    # export TSSGAPIURL="http://localhost"
-    export TSSGAPIURL="https://localhost"
-    #export TSSGAPPURL="${TSSGAPIURL}:4200"
-    export TSSGAPPURL="${TSSGAPIURL}:4300"
+    export TSSGAPIURL="http://localhost"
+    # export TSSGAPIURL="https://localhost"
+    export TSSGAPPURL="${TSSGAPIURL}:4200"
+    # export TSSGAPPURL="${TSSGAPIURL}:4300"
 fi
 msg INFO "Set the appropriate value into src/environments/environment.ts ..."
 sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts

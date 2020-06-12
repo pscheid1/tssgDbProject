@@ -40,8 +40,10 @@ services:
       NODE_ENV: production
       tssgMongoDB_URL: "mongodb://root:sch3dul3db@mongo:27017/tssg-tech?authSource=admin"
       tssgApiURL: backend
-      #tssgApiPort: 7010
-      tssgApiPort: 4433
+      tssgApiPort: 7010
+      #tssgApiPort: 4433
+      tssgApiProtocol: http
+      # tssgApiProtocol: https
       #tssgApiMtgDebug enables/disables additional meeting setup debug code (output appeaars in backend log)
       tssgApiMtgDebug:  "false"
       #tssgApiDefaultTeam delclares a default team for the meetings/webSchedule/ route
@@ -61,11 +63,11 @@ services:
       tssgCaCrl: "tssg-ca-crl.pem"
 
     expose:
-      # - "7010"
-      - "4433"
+      - "7010"
+      # - "4433"
     ports:
-      # - 7010:7010
-      - 4433:4433
+      - 7010:7010
+      # - 4433:4433
     command: /bin/bash backend.start
     
   frontend:
@@ -81,12 +83,12 @@ services:
       - NODE_ENV=production
       - TSSGAPIURL
     expose:
-    #  - "4200"
-      - "4300"
+     - "4200"
+    #  - "4300"
     ports:
-    #  - 4200:4200
-      - 4300:4300
-    #command: node_modules/@angular/cli/bin/ng serve
+     - 4200:4200
+      # - 4300:4300
+    # command: node_modules/@angular/cli/bin/ng serve
     command: /bin/bash frontend.start
     
 volumes:
