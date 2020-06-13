@@ -1,10 +1,6 @@
 import groovy.io.FileType
 import groovy.xml.MarkupBuilder
 import groovy.json.JsonOutput
-import org.apache.tools.ant.taskdefs.condition.Os
-
-import static groovyx.net.http.HttpBuilder.configure
-//import static groovyx.net.http.ContentTypes.JSON
 import groovyx.net.http.HttpBuilder
 //import static groovy.json.JsonOutput.prettyPrint
 
@@ -26,15 +22,13 @@ plugins {
 
 ext {
     // The drivers we want to use
-    //drivers = ["firefox", "chrome"]
-    //drivers = ["firefox","firefoxLinux"]
-    drivers = ["chrome", "chromeLocal"]
+    drivers = ["firefox", "firefoxLocal", "chrome", "chromeLocal"]
 
     ext {
-        groovyVersion = '2.4.12'
+        groovyVersion = '2.5.11'
         gebVersion = '3.4'
         seleniumVersion = '3.141.59'
-        chromeDriverVersion = '80.0.3987.106'
+        chromeDriverVersion = '83.0.4103.39'
         geckoDriverVersion = '0.26.0'
     }
 }
@@ -102,11 +96,15 @@ def xrayTestExecutionsJson
 
 // Initialize and accumulate the test case execution results per test key
 tasks.withType(Test) {
+    //maxParallelForks = 2
+    println "--------------------------"
+    println "task = ${it}"
     maxHeapSize = "1g"
     jvmArgs '-XX:MaxMetaspaceSize=128m'
     testLogging {
         exceptionFormat = 'full'
     }
+    ignoreFailures = true
 
     // Setup variables to use for getting Xray to import test results
     def testKeyMatcher
@@ -155,19 +153,19 @@ tasks.withType(Test) {
     println "revision = " + revision
 
     def xrayTestExecutions = [
-            info: [
-                    summary: "TE: Execution of automated tests for release ${version[0..-2]}",
-                    description: 'This execution is automatically created when importing execution results from an external source',
-                    version: "${version}"[1..-2],
-                    //user: System.properties['jira.test.executor'],
-                    revision: "${revision}"[1..-2]
-                    //startDate: '',
-                    //finishDate: '',
-                    //testPlanKey: 'SPIN-4',
-                    //testEnvironments: [System.properties['geb.build.baseUrl']]
-            ],
-            tests: [
-            ]
+        info: [
+            summary: "TE: Execution of automated tests for release ${version[0..-2]}",
+            description: 'This execution is automatically created when importing execution results from an external source',
+            version: "${version}"[1..-2],
+            //user: System.properties['jira.test.executor'],
+            revision: "${revision}"[1..-2]
+            //startDate: '',
+            //finishDate: '',
+            //testPlanKey: 'SPIN-4',
+            //testEnvironments: [System.properties['geb.build.baseUrl']]
+        ],
+        tests: [
+        ]
     ]
 
     // Pass system properties to the Geb JVM from the Gradle JVM
@@ -175,9 +173,9 @@ tasks.withType(Test) {
     systemProperties['geb.build.baseUrl'] = System.properties['geb.build.baseUrl']
 
     onOutput { desc, event ->
-        println "event.message: ${event.message}"
         testKeyMatcher = event.message =~ /TWS-\d+/
         if (testKeyMatcher) {
+            println "event.message: ${event.message}"
             testKey = testKeyMatcher.group()
             //logger.quiet "Test Event Message: ${testKeyMatcher.group()}: ${event.message}"
         }
@@ -242,34 +240,47 @@ task xrayImport {
     }
 }
 
-//xrayImport.mustRunAfter firefoxTest
-xrayImport.shouldRunAfter chromeLocalTest
-xrayImport.shouldRunAfter chromeTest
+xrayImport.mustRunAfter chromeTest
+xrayImport.mustRunAfter chromeLocalTest
+xrayImport.mustRunAfter firefoxTest
+xrayImport.mustRunAfter firefoxLocalTest
 
-task reportSnaps << {
-    def listUnsorted = []
-    def list = []
-    def unixPath
+task reportSnaps {
+    doLast {
+        def listFilesUnsorted = []
+        def listDirsUnsorted = []
+        def listFiles = []
+        def listDirs = []
+        def unixPath
 
-    def dir = new File("build/reports")
-    dir.eachFileRecurse (FileType.FILES) { file ->
-        unixPath = file.path.replace("\\","/")
-        if (unixPath.contains("/geb/")) {
-            listUnsorted << file
+        def dir = new File("build/reports")
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            unixPath = file.path.replace("\\", "/")
+            if (unixPath.contains("/geb/")) {
+                listFilesUnsorted << file
+            }
         }
-    }
+        listFiles = listFilesUnsorted.sort()
+        listFiles.each {
+            println it.path.replace("\\", "/")
+        }
 
-    list = listUnsorted.sort()
-    list.each {
-        println it.path.replace("\\","/")
-    }
+        dir.eachDir() { File browserReportDir ->
+            listDirsUnsorted << browserReportDir
+        }
+        listDirs = listDirsUnsorted.sort()
+        listDirs.each {
+            println it.path.replace("\\", "/")
+        }
 
-    generateScreenshotsReportsPage(list)
+        generateScreenshotsReportsPage(listFiles, listDirs)
+    }
 }
 
-//reportSnaps.mustRunAfter firefoxTest
-reportSnaps.shouldRunAfter chromeLocalTest
-reportSnaps.shouldRunAfter chromeTest
+reportSnaps.mustRunAfter chromeTest
+reportSnaps.mustRunAfter chromeLocalTest
+reportSnaps.mustRunAfter firefoxTest
+reportSnaps.mustRunAfter firefoxLocalTest
 
 /**
  * Generate an html page that contains links to the Report Screnshots
@@ -277,7 +288,7 @@ reportSnaps.shouldRunAfter chromeTest
  *
  * @param list - A list of report artifact File objects.
  */
-void generateScreenshotsReportsPage(list) {
+void generateScreenshotsReportsPage(listFiles, listDirs) {
 
     def reportArtifactsHtmlFile = new File('build/reports/reportArtifacts.html')
     def writer = new StringWriter()
@@ -290,12 +301,25 @@ void generateScreenshotsReportsPage(list) {
         body(id: "main") {
             h2 id: "report-files",  "Report Artifact Files"
             ul {
-                list.each { reportArtifactFile ->
+                listFiles.each { reportArtifactFile ->
                     li {
                         // Build link and extract the filename from the path
                         a( href: removeFirstTwoDirectoriesFromPath(reportArtifactFile.path.replace("\\","/")),
                                 removeFirstTwoDirectoriesFromPath(reportArtifactFile.path.replace("\\","/")) )    // display relative path
                         //reportArtifactFile.path.split(File.separator)[-1] )           // display just filename
+                    }
+                }
+            }
+
+            h2 id: "report-testStatus", "Browser Test Reports"
+            ul {
+                listDirs.each { reportStatusDir ->
+                    li {
+                        a(href: removeFirstTwoDirectoriesFromPath( reportStatusDir.path.replace("\\","/") ) +
+                                "/tests/index.html",
+                            removeFirstTwoDirectoriesFromPath( reportStatusDir.path.replace("\\","/") ) +
+                                " Report"
+                        )
                     }
                 }
             }

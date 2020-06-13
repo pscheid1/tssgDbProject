@@ -1,10 +1,11 @@
 # frontend-Dockerfile
 
-FROM node:lts
+FROM node:12.0.0
 LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
 
 # Set the directory to contain node application files
 SHELL ["/bin/bash", "-c"]
+RUN apt update && apt full-upgrade -y --auto-remove
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN mkdir /home/node/app
 RUN chmod 777 /home/node/app
@@ -13,7 +14,7 @@ RUN chmod 777 /home/node/app
 COPY --chown=node:node DbApp /home/node/app/
 
 USER node
-#RUN cd /home/node/app ; npm cache clean --force ; npm cache verify
+RUN cd /home/node/app ; npm cache clean --force ; npm cache verify
 RUN cd /home/node/app ; npm install
-RUN cd /home/node/app ; npm audit fix
+RUN cd /home/node/app ; npm audit fix --force
 

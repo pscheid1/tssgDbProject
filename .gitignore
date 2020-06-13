@@ -1,4 +1,5 @@
-.idea/
+.idea/*
+!/.idea/runConfigurations
 .gradle/
 build/
 caches/
@@ -10,5 +11,3 @@ logs/
 target/
 
 node_modules/
-
-.gitignore
