@@ -47,14 +47,10 @@ $( exec 2>&1
 docker-compose up -d --build frontend
 )"
 
-# this is a temp display to verify TSSGAPPURL
-# we need non self-signed certs before below code will work.
-msg INFO "Frontend can now be accessed at ${TSSGAPPURL}"
-
 msg WAIT "Wait for frontend service to be healthy ...
 $( exec 2>&1
-#maxTries=120
-maxTries=12
+maxTries=120
+# maxTries=12
 try=0
 waitSecsToRetry=5
 until curl -Is "${TSSGAPPURL}" | grep -q '200 OK'
