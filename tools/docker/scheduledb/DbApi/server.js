@@ -27,9 +27,9 @@ let protocol = process.env.tssgApiProtocol || 'https';
 if (protocol !== 'http' && protocol !== 'https' ) {
   protocol = 'https';
 }
-let port = process.env.tssgApiPort || 7010;
-// let port = process.env.tssgApiPort || 4433;
-let host = process.env.tssgApiURL || 'localhost';
+
+const port = process.env.tssgApiPort || 7010;
+const host = process.env.tssgApiURL || 'backend';
 
 // set certDir equal to the certificates folder
 const certDir = global.Root + '/certificates';
