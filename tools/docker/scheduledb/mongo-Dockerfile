@@ -16,4 +16,5 @@ COPY mongod.conf /etc/mongod.conf
 
 # Place the initialized databases in the image
 RUN mkdir /root/tssg-tech
-COPY tssg-tech /root/tssg-tech/
+#COPY database/initializedDb/tssg-tech /root/tssg-tech/
+COPY database/currentDb/tssg-tech /root/tssg-tech/
