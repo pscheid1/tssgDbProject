@@ -1,4 +1,4 @@
-certificates/
+certificates/*
 node_modules/
 public/
 

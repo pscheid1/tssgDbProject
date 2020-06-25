@@ -17,4 +17,7 @@ sleep 15
 # Wait for all subprocesses to finish
 wait
 
+# We are not going to use this but leaving it
+# in as a comment for now.  Will modify or remove later.
+# NODE create_backend_base_url_file.js
 msg END "... done."
