@@ -1,14 +1,23 @@
 # mongo-Dockerfile
 
-FROM mongo:4.0.11-xenial
-LABEL maintainer="Thomas ODea <todea865@gmail.com>"
+#FROM mongo:4.0.11-xenial
+FROM mongo:4.2.8-bionic
+LABEL maintainer="Thomas ODea <todea865@gmail.com>, Ralph Navarro <ralph@navarrocomputing.com>"
 
 # Set the timezone
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 
+# Install the latest packages and helpful tools
+RUN apt update && \
+    apt -y install \
+        vim \
+        less \
+        && \
+    apt full-upgrade -y --auto-remove
+
 # Set the directory to contain mongo files
 # as specified in the mongo config file below.
-RUN mkdir /var/lib/mongodb
+RUN [ ! -e /var/lib/mongodb ] && mkdir /var/lib/mongodb || return 0
 RUN chmod 777 /var/lib/mongodb
 
 # Set to use the mongo config file
@@ -16,5 +25,9 @@ COPY mongod.conf /etc/mongod.conf
 
 # Place the initialized databases in the image
 RUN mkdir /root/tssg-tech
-#COPY database/initializedDb/tssg-tech /root/tssg-tech/
 COPY database/currentDb/tssg-tech /root/tssg-tech/
+
+# Check the health of mongodb
+COPY mongo.healthcheck /usr/local/bin/
+HEALTHCHECK CMD ["mongo.healthcheck"]
+

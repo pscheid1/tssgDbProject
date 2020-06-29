@@ -1,0 +1,17 @@
+#!/bin/bash
+#help mongo.healthcheck                          # Check the health of mongodb
+                                                 # return 0 for ready
+                                                 # return 1 for not ready
+
+# pipefail will make a script exit if any command in a pipeline errors.
+set -eo pipefail
+
+host="$(hostname --ip-address || echo '127.0.0.1')"
+
+if mongo --quiet "$host/test" --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'; then
+    # Mongodb is healthy
+	exit 0
+else
+    # Mongodb is not healty
+    exit 1
+fi

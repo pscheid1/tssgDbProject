@@ -22,29 +22,8 @@ docker-compose up -d --build mongo
 [ $(hostname) != "Ubuntu-Studio-14" ] && docker-compose up -d --build mongo-express
 )"
 
-msg WAIT "Wait for mongo service to normalize. Check every 2s ...
-$( exec 2>&1
-maxTries=150
-try=0
-while [ "$(docker exec scheduledb_mongo_1 bash -c 'echo "db.runCommand(\"ping\").ok" | mongo localhost:27017/test --quiet')" != "1" ]
-do
-    sleep 2s
-    ((++try))
-    msg INFO "$try "
-    if [ $try -gt $maxTries ] ; then
-        echo -e "\n"
-        msg ERROR "Mongo took over 1 min to come up.  Exiting."
-        exit
-    fi
-done
-sleep 5s
-)"
-
-msg INFO "Initialize the tssg-tech mongo database when the service is ready ...
-$( exec 2>&1
-maxTries=150
-try=0
-until docker exec scheduledb_mongo_1 bash -c "\
+msg INFO "Initialize the tssg-tech mongo database when the service is ready ..."
+msg INFO "$(docker exec scheduledb_mongo_1 bash -c "\
     cd /root; \
     mongorestore \
         -u root \
@@ -52,21 +31,12 @@ until docker exec scheduledb_mongo_1 bash -c "\
         --authenticationDatabase admin \
         --authenticationMechanism SCRAM-SHA-1 \
         --db tssg-tech \
-        tssg-tech 2>&1 | grep 'done'"
-do
-    sleep 5s
-    ((++try))
-    msg INFO "Retrying again $try ..."
-    if [ $try -gt $maxTries ] ; then
-        echo -e "\n"
-        msg ERROR "Mongorestore tool could not complete successfully. Exiting."
-        exit
-    fi
-done
-)"
+        tssg-tech 2>&1 | grep 'done'")"
+msg INFO "... done."
+
 
 msg INFO "Mongo can be accessed on port 27017"
-if docker ps | grep -q express ; then
+if docker ps | grep -q mongo-express ; then
     msg INFO "Mongo Express can be accessed on port 8081"
 else
     msg INFO "Mongo Express was not started."
