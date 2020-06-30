@@ -7,7 +7,7 @@ export const environment = {
   TSSGAPIURL: 'http://localhost',
   // TSSGAPIURL: 'http://192.168.1.13',
   // TSSGAPIURL: 'https://localhost',
-  TSSGAPIPORT: '7010'
+  TSSGAPIPORT: '7010',
   // TSSGAPIPORT: '4433'
 };
 
