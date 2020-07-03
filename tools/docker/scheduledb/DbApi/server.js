@@ -34,10 +34,8 @@ const host = process.env.tssgApiURL || 'backend';
 // set certDir equal to the certificates folder
 const certDir = global.Root + '/certificates';
 
-const tssgConf = JSON.parse(fs.readFileSync(`${global.Root}/tssgConf.json`));
-global.versions = tssgConf;
-global.backendVersion = tssgConf.backendVersion;
-global.frontendVersion = tssgConf.frontendVersion;
+global.backendVersion = process.env.BACKEND_VERSION;
+global.frontendVersion = process.env.FRONTEND_VERSION;
 
 // set httpsOptions variables
 const httpsOptions = {

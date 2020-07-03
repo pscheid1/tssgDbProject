@@ -61,7 +61,8 @@ services:
       tssgCaCrt: "tssg-ca-crt.pem"
       #CA certificate revocation list
       tssgCaCrl: "tssg-ca-crl.pem"
-
+      BACKEND_VERSION: ${backendVersion}
+      FRONTEND_VERSION: ${frontendVersion}
     expose:
       - "7010"
       # - "4433"
