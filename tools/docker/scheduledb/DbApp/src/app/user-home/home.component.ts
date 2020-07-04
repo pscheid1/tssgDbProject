@@ -18,12 +18,13 @@ export class HomeComponent implements OnInit {
   userFromApi: User;
   dspCreatedDate = '';
   errorMsg = '';
+  ngVersion = '10';  // initialize to default value
 
   constructor(
     private route: ActivatedRoute,
     private us: UserService,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
@@ -40,6 +41,17 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['user/login']);
     }
     // console.error('home.component.ts.currentUser: ' + this.currentUser);
+
+    const body = document.getElementsByTagName('body');
+    if (body.length > 0) {
+      // console.log(`body.length: ${body.length}`);
+      // console.log(`body[0]: ${body[0].innerHTML}`);
+      const ngv = body[0].innerHTML.indexOf('ng-version');
+      // console.log(`ngv: ${ngv}`);
+      this.ngVersion = body[0].innerHTML.substr(44, 6);
+      // console.log(`ng-version: ${this.ngVersion})}`);
+    }
+
     this.us.getById(this.currentUser._id)
       .then(res => {
         const usr = res as User;
