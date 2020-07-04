@@ -9,7 +9,7 @@
       <ul *ngIf="currentUser">
         <li style="font-weight:bold">{{currentUser.firstname}} {{currentUser.lastname}}</li>
         <li>Your role is: <strong>{{currentUser.role}}</strong></li>
-        <li>You are logged in with Angular {{ngVersion}} & JWT</li>
+        <li>You are logged in with Angular <strong>{{ngVersion}} & JWT</strong></li>
       </ul>
       <ul>
         <li>tssgDbApi version: <strong>{{currentUser.backendVersion}}</strong></li>
