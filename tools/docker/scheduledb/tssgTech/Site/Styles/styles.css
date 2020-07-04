@@ -1,0 +1,281 @@
+/*CSS Document */
+
+/* Styles for TSSG Main Website */
+
+@viewport {
+     width: device-width;
+     zoom:1;
+}
+
+    body {
+      position: relative;
+      padding-top: 105px;
+      /* brings the top of each section below the logo and navbar */
+      /* all body text defaults to Arial, black letters and white background */
+      font-family: arial, sans-serif;
+      color: black;
+      background: white
+    }
+
+
+    .tssg-logo {
+/*      max-width: 30%;  */
+      max-height:55px;
+    }
+
+
+    p {
+      font-size: 16px;
+    }
+
+    li {
+      font-size: 16px;
+    }
+
+    h1 {
+      font-size: 18px;
+      text-decoration: underline;
+      margin-bottom:1em;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    /* Set the fixed height of the footer here */
+
+
+    /* carousel text */
+
+    .car-text {
+      min-height: 30px;
+      background-color: black;
+      /* help see where the carousel is on the screen while debugging */
+      color: white
+    }
+
+    /* blinking animation - not being used */
+
+    .blinking {
+      animation: blinkingText 0.8s infinite;
+    }
+
+    @keyframes blinkingText {
+      0%   { color: #000;      }
+      49%  { color: transparent; }
+      50%  { color: transparent; }
+      99%  { color: transparent; }
+      100% { color: #000;      }
+    }
+
+    /* This will color the background of each section, the "even" numbered ones */
+
+    div.anchor:nth-of-type(odd) {
+      background-color: #88c8cc;
+    }
+
+    .anchor {
+      position: relative;
+    }
+
+    #schedule {
+      position: relative;
+      top: 0;
+    }
+
+    .anchor a {
+      position: absolute;
+      left: 0;
+      top: -90px; /* a test value for now */
+    }
+
+    .anchor .schedule-link {
+      position: relative;
+      top: 0;
+    }
+
+    .schedule-1:hover {
+      background-color: silver;
+    }
+
+	/*If the screen size is 350px wide or less, set the font-size of .cart-text to 3.7vw */
+	@media screen and (max-width: 340px) {
+		.car-text {
+			font-size: 4vw;
+		}
+	}
+    /* blinking animation - not being used */
+/* Page Header styles.  */
+
+#pageHeader {
+  height:15%;
+  background-color: rgb(57, 123, 247);
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+/* class declaration for 'Go to Beta Site' menu item */
+.beta-menuItem {
+  cursor: pointer;
+  color: blue;
+  background-color: white;
+  border-radius: 8px; /* rounded corners */
+}
+
+.beta-menuItem:hover {
+  color: blue;
+  font-weight: bold;
+} 
+
+    #copyrightLine {
+      font-size:10px;
+      font-style: italic;
+      color:gray;
+    }
+
+    #contactLink {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    #contactLink:hover {
+      color:white;
+    }
+
+
+    /* Custom page CSS
+-------------------------------------------------- */
+
+#content {
+  margin: 0 5% 15% 5%;
+}
+
+#missionStatement {
+/*  margin: 25px 50px;
+  border: 3px double black;
+  border-radius: 15px;
+*/ 
+  padding: 15px 15px;
+}
+
+#missionStatement h1 {
+  font-weight: bold;
+}
+
+
+/* page title classes */
+
+.pageTitle {
+  display: table;
+
+}
+
+.titleRow {
+  display: table-row;
+}
+
+.titleIcon {
+  display:table-cell;
+}
+
+.page-icon {
+  width:100px;
+  height:100px;
+}
+
+
+
+.titleText {
+  padding-left:25px;
+  vertical-align: top;
+  display: table-cell;
+}
+
+.titleMtgText {
+  font-style: italic;
+}
+
+/* ---------------------------------
+  Styles for the tesimonials page 
+  */
+
+.testimonialEntry {
+  border-top: 2px solid blue;
+  padding-top:10px;
+}
+
+.testimonialIndex {
+  font-style: italic; 
+}
+
+
+.testimonialText {
+  padding:0 8%;
+
+}
+
+.testimonialSignature {
+  text-align:right;
+  padding-right:5%;
+}
+
+/* ----------------------
+Styles for the Schedule page
+
+*/
+
+#scheduleWrapper {
+  text-align: center;
+/*  width:80%;
+  margin: auto; */
+}
+
+.scheduleItem {
+  float:left;
+  margin: 5px;
+
+}
+
+/* Paul's styles for the icon nav bar in the footer. */
+
+#pageFooter {
+  display: inline-block;
+  background-color: #0000ab; /* same as rgb(57, 123, 247) */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-height: 60px;
+  left: 0;
+  text-align: center;
+/*  margin-top: 4px; */
+/*  padding-bottom:4px; */
+/*  padding-top: 6px; */
+  padding-top: 10px;
+
+  /* height: 15% */ /* same as header */
+} 
+
+.link-icon {
+  width: 8%;
+  max-width: 40px;
+  max-height: 40px;
+  padding: 4px;
+  margin: 0% 2% 1% 2%;
+  background-color: white;
+}
+
+.currentPage {
+    background-color: #88c8cc; 
+    border: 4px solid #88c8cc; 
+}
+
+
+/* Test style to hide footer when screen height is less than 600 pixels. */
+
+@media screen and (max-height: 400px) {
+  #pageFooter {
+    display: none;
+  }
+}
