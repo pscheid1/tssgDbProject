@@ -1,1 +1,1 @@
-const tssgBackendURLxx = 'http://localhost:7010';
+const tssgBackendURL = 'http://localhost:7010';
