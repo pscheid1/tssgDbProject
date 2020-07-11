@@ -20,16 +20,23 @@ global.PackageName = Folders[Folders.length - 1];
 // get the certificate file names
 const serverKeyFile = process.env.tssgServerKey || 'tssg-server-key.pem';
 const serverCrtFile = process.env.tssgServerCrt || 'tssg-server-crt.pem';
+
 const caCrtFile = process.env.tssgCaCrt || 'tssg-ca-crt.pem';
 const caCrlFile = process.env.tssgCaCrl || 'tssg-ca-crl.pem';
 
-let protocol = process.env.tssgApiProtocol || 'https';
-if (protocol !== 'http' && protocol !== 'https' ) {
-  protocol = 'https';
+let protocol = '';
+
+const port = process.env.BACKEND_BASE_PORT || 7010;
+let host = process.env.BACKEND_BASE_URL || 'http://backend';
+
+if (host.includes('://')) {
+  let n = host.indexOf('://');
+  protocol = host.slice(0, n);
+  host = host.slice(n + 3);
+} else {
+  protocol = 'http';
 }
 
-const port = process.env.tssgApiPort || 7010;
-const host = process.env.tssgApiURL || 'backend';
 
 // set certDir equal to the certificates folder
 const certDir = global.Root + '/certificates';
@@ -46,7 +53,7 @@ const httpsOptions = {
   passphrase: 'tssgpw',
   requestCert: false,         // true for client ssl
   rejectUnauthorized: true,
-  // hostname: 'localhost',      // container name if in container i.e. backend
+  // hostname: 'localhost', container name if in docker container i.e. backend
   hostname: host,
   port: port
 };

@@ -193,11 +193,9 @@ project.
 
 **Name              Value**
 
-tssgApiProtocol     DbApi protocol, http, https, both
+BACKEND_BASE_URL    the IP address DbApi will listen on
 
-tssgApiURL          the IP address DbApi will listen on (default is 4433)
-
-tssgApiPort         the port DbApi (server.js) will listen on
+BACKEND_BASE_PORT   the port DbApi (server.js) will listen on
 
 tssgJwtExp          the JWT expiry time in minutes. Must be \>= to 1 and \<= 240. Default is 30 minutes.
 
@@ -213,12 +211,9 @@ tssgCaCrt           DbApi server CA certificate file (default is tssg-ca-crt.pem
 
 tssgCaCrl           DbApi server CRL file (default is tssg-ca-crl.pem)
 
-tssgMongoDB_URL     the mongoose database connection string
-
+tssgMongoDB_URL     the mongoose database connection string:
                     mongodb://\<admin\>:\<password\>\@\<IP\>:\<port\>/\<database\>?authSource=\<database\>
 
-tssgAppProtocol     DbApp protocol, http or https (currently code forced to https)
+FRONTEND_URL        the IP address DbApp will listen on
 
-tssgAppURL          the IP address DbApp will listen on
-
-tssgAppPort         the port DbApp will listen on
+FRONTEND_PORT       the port DbApp will listen on
