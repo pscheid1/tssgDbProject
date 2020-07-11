@@ -1,0 +1,12 @@
+#!/bin/bash
+# website.start                                  # Start the website services
+
+timeout="25s"
+
+date
+echo "   Waiting ${timeout} seconds ..."
+sleep $timeout
+date
+
+npm run prod
+

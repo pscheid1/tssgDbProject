@@ -5,14 +5,15 @@ const cors = require('cors');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
-
 const path = require('path');
+
 global.Root = __dirname;
 global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
 let protocol;
-let host = (process.env.WEB_SITE_HOST || 'localhost').toLowerCase();
+let host = (process.env.WEBSITE_URL || 'http://0.0.0.0').toLowerCase();
+
 if (host.includes('://')) {
   let n = host.indexOf('://');
   protocol = host.slice(0, n);
@@ -20,8 +21,9 @@ if (host.includes('://')) {
 } else {
   protocol = 'http';
 }
-const defaultPort = (protocol === 'https') ? 443 : 80;
-const port = process.env.WEB_SITE_PORT || defaultPort;
+
+const defaultPort = (protocol === 'https') ? 443 : 8088;
+let port = process.env.WEBSITE_PORT || defautPort;
 
 /*
 // get the certificate file names
@@ -59,8 +61,10 @@ case is significant.
 To use these, either add them to your package.json scripts or
 run node or nodemon manually and add them to the command line.
 */
-/* This code needs to be reworked since https was added
 
+/* This code needs to be reworked since https was added */
+/* This code only works for node, not nodemon ?????  */
+/* 
 var argvs = require('optimist').argv;
 var index,
   value;
@@ -80,22 +84,22 @@ for (index in argvs) {
 }
 */
 
-/* 
-    This code will create a javascript file in the site/scripts directory named tssgBackendURL.js.
+ /* 
+    This code will create a javascript file in the Site/Scripts directory named tssgBackendURL.js.
     The code in this file is one javascript const (tssgBackendURL) initialized to the tssgTech backend url and port.
     The resulting javascript file will contain a value equal or similar to: const tssgBackendURL = http://backend:7010
     The values are obtaned from BACKEND_BASE_URL and BACKEND_BASE_PORT environment variables.
-    This file will be loaded in by the schedule.html site file and used to access the tssgTech meetings schedule from
+    This file will be loaded in by the Site/schedule.html file and used to access the tssgTech meetings schedule from
     the DbApi backend container.
   */
-  const buf = Buffer.from(`const tssgBackendURL = '${process.env.BACKEND_BASE_URL}:${process.env.BACKEND_BASE_PORT}';`);
-  // console.log(`buf: ${buf}`);
- const dir = 'Site/scripts/tssgBackendURL.js';
- fs.writeFile(dir, buf, (err) => {
-     if (err) {
-         console.log(`backend_base_url.js writeFile error: ${err.message}`);
-     }
- });
+const buf = Buffer.from(`const tssgBackendURL = '${process.env.BACKEND_BASE_URL}:${process.env.BACKEND_BASE_PORT}';\n`);
+// console.log(`buf: ${buf}`);
+const dir = 'Site/Scripts/tssgBackendURL.js';
+fs.writeFile(dir, buf, (err) => {
+  if (err) {
+    console.log(`backend_base_url.js writeFile error: ${err.message}`);
+  }
+});
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -113,10 +117,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
   for more information.
 */
 
+// console.log(`__dirname: ${__dirname}`);
 app.use(express.static(__dirname + '/Site'));
 
-// multiple ports (both http & https) can similtaneously be in 'listen' mode
-// In order to allow similtaneous http & https we will need to add a second port variable
+// multiple ports (both http & https) can similtaneously be in 'listen' mode.
+// In order to allow similtaneous http & https we will need to add a second port variable.
 // For now, we are only allowing one protocol
 
 if (protocol === 'http') {

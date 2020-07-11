@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#help website.install                            # Hard install of the website service
+
+. scheduledb.env
+logsDirValidate
+
+msg BEGIN "Clean up and Install the website service ..."
+
+msg INFO "Remove the website container and volume ...
+$( exec 2>&1
+docker-compose rm -f -s -v website
+)"
+imagesDanglingRemove
+
+msg INFO "Remove the website image ...
+$( exec 2>&1
+docker rmi tssg-node-website:${websiteVersion}
+)"
+msg INFO "Build website image & start container ...
+$( exec 2>&1
+docker-compose up -d --build website
+)"
+msg END "... done."
