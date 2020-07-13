@@ -16,8 +16,10 @@ msg INFO "Remove the website image ...
 $( exec 2>&1
 docker rmi tssg-node-website:${websiteVersion}
 )"
+
 msg INFO "Build website image & start container ...
 $( exec 2>&1
 docker-compose up -d --build website
 )"
+
 msg END "... done."

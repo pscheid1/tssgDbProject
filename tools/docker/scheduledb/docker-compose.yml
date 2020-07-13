@@ -37,27 +37,27 @@ services:
     user: "node"
     working_dir: /home/node/app
     environment:
-      NODE_ENV: production
-      tssgMongoDB_URL: "mongodb://root:sch3dul3db@mongo:27017/tssg-tech?authSource=admin"
+      - NODE_ENV="production"
+      - tssgMongoDB_URL="mongodb://root:sch3dul3db@mongo:27017/tssg-tech?authSource=admin"
       #tssgApiMtgDebug enables/disables additional meeting setup debug code (output appeaars in backend log)
-      tssgApiMtgDebug: ${tssgApiMtgDebug}
+      - tssgApiMtgDebug
       #tssgApiDefaultTeam delclares a default team for the meetings/webSchedule/ route
       #any valid team name can be used.
-      tssgApiDefaultTeam: ${tssgApiDefaultTeam}
+      - tssgApiDefaultTeam
       #tssgJwtExp sets the jwt token validity length in minutes.
       #set 1 >= tssgJwtExp <= 240 or backend code will force it to default value.
-      tssgJwtExp: ${tssgJwtExp}
+      - tssgJwtExp
       #the following files do not have to be in pem format.
       #server private key 
-      tssgServerKey: ${tssgServerKey}
+      - tssgServerKey
       #server certificate
-      tssgServerCrt: ${tssgServerCrt}
+      - tssgServerCrt
       #CA certificate
-      tssgCaCrt: ${tssgCaCrt}
+      - tssgCaCrt
       #CA certificate revocation list
-      tssgCaCrl: ${tssgCaCrl}
-      BACKEND_VERSION: ${backendVersion}
-      FRONTEND_VERSION: ${frontendVersion}
+      - tssgCaCrl
+      - BACKEND_VERSION=${backendVersion}
+      - FRONTEND_VERSION=${frontendVersion}
     expose:
       - ${BACKEND_BASE_PORT}
     ports:
@@ -74,8 +74,9 @@ services:
     user: "node"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV="production"
       - TSSGAPIURL
+      - TSSGAPIPORT
     expose:
      - ${FRONTEND_PORT}
     ports:
@@ -92,11 +93,13 @@ services:
     user: "node"
     working_dir: /home/node/app
     environment:
-      NODE_ENV: production
-      WEBSITE_URL: ${WEBSITE_URL}
-      WEBSITE_PORT: ${WEBSITE_PORT}
-      BACKEND_BASE_URL: ${BACKEND_BASE_URL}
-      BACKEND_BASE_PORT: ${BACKEND_BASE_PORT}
+      - NODE_ENV="production"
+      - WEBSITE_URL
+      - WEBSITE_PORT
+      - BACKEND_BASE_URL
+      - BACKEND_BASE_PORT
+      - TSSGAPIURL
+      - TSSGAPIPORT
     expose:
       - ${WEBSITE_PORT}
     ports:
