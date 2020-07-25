@@ -8,13 +8,15 @@ import com.mongodb.ServerAddress
 import com.mongodb.BasicDBObject
 
 /**
- * Models a local Mongo database by establishing connectivity and manipulating collections.
+ * Models a Mongo database by establishing connectivity
+ * and manipulating collections.
  */
 class MongoService {
     /** Holds the MongoClient object */
     private MongoClient mongoClient
-    /** Hostname or IP address of the mongo database service; default is localhost */
-    def host = "localhost"
+    /** Hostname or IP address of the mongo database service;
+     * default is localhost */
+    def host = System.properties['mongo.host'] ?: "localhost"
     /** Port that the mongo database is listening on; default is 27017 */
     def port = 27017
     /** Name of the database to connect to; default is tssg-tech */

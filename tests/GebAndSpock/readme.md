@@ -18,6 +18,18 @@ These tests will run against the scheduledb branch on local environment:
 * toolbox   --> http://192.168.99.100:7010/  (for docker toolbox on windows)
 * localhost --> http://localhost:7010/  (for docker on Linux)
 
+## Database Tests
+
+The mongo database runs in a container.  This database is not
+ accessible from the dev and multisite URLs because the 
+ container is not exposed to the Internet.  As a result, 
+ ensure that the property mongo.host is set to the hostname 
+ or IP Address of your locally running mongo database. 
+ The default setting for mongo.host is localhost.
+
+### Example setting for gradle parameter:
+   * -Dmongo.host=192.168.99.100
+   
 ## Prerequisite
 * If running on Windows, must have Git for Windows installed in the default path (https://gitforwindows.org/).  Git Bash is utilized by the xrayImport task.
 * If running from Linux, ensure that bash is in the path.

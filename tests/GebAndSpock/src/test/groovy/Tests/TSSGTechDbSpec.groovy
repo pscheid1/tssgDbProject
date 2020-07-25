@@ -30,7 +30,7 @@ class TSSGTechDbSpec extends Specification {
      * </br>
      * Assumes that the default test data
      * has been pre-installed prior to running the test
-     * (i.e. from scheduledb.install script).
+     * (i.e. from mongo.install script).
      */
     @Unroll
     def "Verify meeting schedule database collection #collection has objects"() {

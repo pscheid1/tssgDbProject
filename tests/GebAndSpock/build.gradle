@@ -144,11 +144,11 @@ tasks.withType(Test) {
     println "path = " + [bashPathName, '-c', 'echo $PATH'].execute().text
     println "git version = " + [bashPathName, '-c', 'git --version'].execute().text
 
-    // Get the latest version tag for this branch.
+    // Get the latest git version tag for this branch.
     def version = [bashPathName, '-c', 'git tag | tail -1'].execute().text
     println "version = " + version
 
-    // Get the latest revision tag for this branch.
+    // Get the latest git revision tag for this branch.
     def revision = [bashPathName, '-c', 'git describe --tags'].execute().text
     println "revision = " + revision
 
@@ -171,6 +171,9 @@ tasks.withType(Test) {
     // Pass system properties to the Geb JVM from the Gradle JVM
     systemProperties['browser.location'] = System.properties['browser.location']
     systemProperties['geb.build.baseUrl'] = System.properties['geb.build.baseUrl']
+
+    // Pass system properties to the build executable JVM from the Gradle JVM
+    systemProperties['mongo.host'] = System.properties['mongo.host']
 
     onOutput { desc, event ->
         testKeyMatcher = event.message =~ /TWS-\d+/

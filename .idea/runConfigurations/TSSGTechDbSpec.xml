@@ -4,7 +4,7 @@
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$/tests/GebAndSpock" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="--tests TSSGTechDbSpec" />
+      <option name="scriptParameters" value="--tests TSSGTechDbSpec -Dmongo.host=localhost" />
       <option name="taskDescriptions">
         <list />
       </option>
