@@ -13,7 +13,7 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 
 waiting {
-	timeout = 2
+	timeout = 10
 }
 
 reportsDir = 'target/geb-reports'
@@ -63,7 +63,7 @@ environments {
 
     chromeLocal {
         println "--------------------------"
-        println "Browser = crhome on Local"
+        println "Browser = chrome on Local"
         driver = { new ChromeDriver() }
     }
 
