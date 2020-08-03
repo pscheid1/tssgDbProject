@@ -1,4 +1,5 @@
 #!/bin/bash
+#help mongo.dump                                 # Dumps the mongo database to specified directory
 
 DIRECTORY=""
 hlp=0
@@ -18,6 +19,10 @@ while getopts "htd:" flag; do
     esac
 done
 
+#help      -d <directory>                        # Required.  Directory is the target path to store the database.
+#help     [-t]                                   # Optional.  Forces date and time to be appended to the next level directory.
+#help                                            # Default = is date and time not appended.
+#help     [-h]                                   # Optional.  Just returns a list of available options and then exits.
 if [ "$hlp" -eq "1" ]; then
         echo "  Dump mongo database.  Currently from default port 27017"
         echo "  mongo.dump -d <directory> [-t]  [-h]"

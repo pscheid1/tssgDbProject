@@ -1,4 +1,6 @@
 #!/bin/bash
+#help mongo.restore                              # Restore the mongo databases tssg-tech and admin
+
 DIRECTORY=""
 hlp=0
 while getopts "hd:" flag; do
@@ -12,6 +14,9 @@ while getopts "hd:" flag; do
     esac
 done
 
+#help     -d <directory>                         # Required.  Must supply the directory to restore databases from.
+#help                                            # Note: non-mongo database files in the directory might cause errors.
+#help    [-h]                                    # Optional.  Display the help and then exit.
 if [ "$hlp" -eq "1" ]; then
         echo "  Restore mongo database.  Currently to default port 27017"
         echo "  mongo.restore -d <directory> [-h]"
@@ -31,11 +36,12 @@ fi
 
 echo "Mongo restoring from: $DIRECTORY"
 mongorestore \
--u root \
--p sch3dul3db \
---authenticationDatabase admin \
---authenticationMechanism SCRAM-SHA-1 \
---drop \
-$DIRECTORY
+  -u root \
+  -p sch3dul3db \
+  --authenticationDatabase admin \
+  --authenticationMechanism SCRAM-SHA-1 \
+  --drop \
+  $DIRECTORY
 
-echo "done"
+echo "... done."
+
