@@ -80,10 +80,12 @@ switch (baseUrl) {
         baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
         break
     case ["toolbox"]:
-        baseUrl = "http://192.168.99.100:7010/"
+        hostIP = "docker-machine ip".execute().in.text.trim()
+        println "hostIP = ${hostIP}"
+        baseUrl = "http://${hostIP}:4200/"
         break
     case ["localhost"]:
-        baseUrl = "http://localhost:7010/"
+        baseUrl = "http://localhost:4200/"
         break
     case ["multipage"]:
         baseUrl = "https://technologynursery.org/tssgTechMultipage/"

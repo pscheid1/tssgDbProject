@@ -15,8 +15,6 @@ class FrontEndBasePage extends Page {
     static content = {
         // Header
         homeLinkIcon { $("a img", src: "assets/tssg_logo.png").parent() }
-
-
     }
 
     /**

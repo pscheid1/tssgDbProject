@@ -4,7 +4,7 @@ import Common.FrontEndBasePage
 
 class FrontEndHomePage extends FrontEndBasePage {
 
-    static url = "http://192.168.99.103:4200/home"
+    static url = "/home"
 
     static at = {
         titleText
