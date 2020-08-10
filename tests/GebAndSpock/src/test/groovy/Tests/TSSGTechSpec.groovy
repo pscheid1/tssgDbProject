@@ -9,6 +9,8 @@ import Pages.TSSGTechSchedulePage
 import Pages.TSSGTechWebPage
 import Pages.TSSGTechQAPage
 import geb.spock.GebReportingSpec
+import org.junit.Ignore
+import org.openqa.selenium.By
 import spock.lang.Unroll
 import spock.lang.IgnoreRest
 import org.openqa.selenium.Dimension
@@ -30,9 +32,9 @@ class TSSGTechSpec extends GebReportingSpec {
     def "Can get to the TSSG home page"() {
         testKey = "TWS-87"
         when:
-            to TSSGTechHomePage
+        to TSSGTechHomePage
         then:
-            at TSSGTechHomePage
+        at TSSGTechHomePage
     }
 
     //@IgnoreRest
@@ -78,7 +80,29 @@ class TSSGTechSpec extends GebReportingSpec {
             "qaFooterIcon"       | TSSGTechQAPage
             "dataFooterIcon"     | TSSGTechDataAnalyticsPage
             "devopsFooterIcon"   | TSSGTechDevOpsPage
+    }
 
+    @IgnoreRest
+    @Unroll
+    def "Verify Website service access to Backend service: #defaultContent"() {
+        testKey = "TWS-334"
+
+        given: "the website service is up"
+        and: "the backend service is up"
+        and: "the mongo db service is up"
+        and: "the mongo db has been initialized"
+
+        when: "the website schedule page is selected"
+        to TSSGTechSchedulePage
+
+        then: "the upcoming three meeting schedules are displayed"
+        waitFor { "${meetingSec}"().@alt == (defaultContent) }
+
+        where:
+        meetingSec      | defaultContent
+        "m1image"       |  "Acton Public Library"
+        "m2image"       |  "Chelmsford Public Library"
+        "m3image"       |  "For online meeting with no physical venue"
     }
 
     //@IgnoreRest
@@ -117,6 +141,6 @@ class TSSGTechSpec extends GebReportingSpec {
             hamburgerButton.click()
         then: "hamburger menu is expanded"
         and: "bottom most menu item is accessible"
-            isWebElementVisible(devopsMenu.firstElement())
+          waitFor { isWebElementVisible(devopsMenu.firstElement()) }
     }
 }

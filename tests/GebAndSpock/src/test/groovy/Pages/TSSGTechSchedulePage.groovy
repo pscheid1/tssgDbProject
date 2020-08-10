@@ -10,7 +10,11 @@ class TSSGTechSchedulePage extends TSSGTechBasePage {
         titleText
     }
 
-    static content = {
+    static content =
+    {
         titleText { $("strong", text: "TSSG WEEKLY MEETING SCHEDULE") }
+        m1image{ $("#m1image") }
+        m2image{ $("#m2image") }
+        m3image{ $("#m3image") }
     }
 }
