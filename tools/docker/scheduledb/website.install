@@ -6,19 +6,19 @@ logsDirValidate
 
 msg BEGIN "Clean up and Install the website service ..."
 
-msg INFO "Remove the website container and volume ...
-$( exec 2>&1
+msg INFO "Remove the website container and volume ..."
+msg INFO "$( exec 2>&1
 docker-compose rm -f -s -v website
 )"
 imagesDanglingRemove
 
-msg INFO "Remove the website image ...
-$( exec 2>&1
+msg INFO "Remove the website image ..."
+msg INFO "$( exec 2>&1
 docker rmi tssg-node-website:${websiteVersion}
 )"
 
-msg INFO "Build website image & start container ...
-$( exec 2>&1
+msg INFO "Build website image & start container ..."
+msg INFO "$( exec 2>&1
 docker-compose up -d --build website
 )"
 
