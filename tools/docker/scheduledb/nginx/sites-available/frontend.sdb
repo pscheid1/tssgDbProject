@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    listen [::]:80;
+    
+    server_name frontend.sdb;
+
+    location / {
+        proxy_pass http://frontend:7010;
+    }
+}

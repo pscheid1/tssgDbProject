@@ -6,15 +6,15 @@ logsDirValidate
 
 msg BEGIN "Clean up and Install the frontend service ..."
 
-msg INFO "Remove the frontend container and volume ...
-$(  exec 2>&1
+msg INFO "Remove the frontend container and volume ..."
+msg INFO "$(  exec 2>&1
 docker-compose rm -f -s -v frontend
 )"
 
 imagesDanglingRemove
 
-msg INFO "Remove the frontend image ...
-$( exec 2>&1
+msg INFO "Remove the frontend image ..."
+msg INFO "$( exec 2>&1
 docker rmi tssg-node-frontend:${frontendVersion}
 )"
 
@@ -22,13 +22,13 @@ msg INFO "Set the appropriate values into src/environments/environment.ts ..."
 sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
 sed -ie "s,^\(^[[:space:]]*TSSGAPIPORT: \).*$,\1\'"$TSSGAPIPORT"\'\,," DbApp/src/environments/environment.ts
 
-msg INFO "Build the frontend image & start container ...
-$( exec 2>&1
+msg INFO "Build the frontend image & start container ..."
+msg INFO "$( exec 2>&1
 docker-compose up -d --build frontend
 )"
 
-msg WAIT "Wait for frontend service to be healthy ...
-$( exec 2>&1
+msg WAIT "Wait for frontend service to be healthy ..."
+msg WAIT "$( exec 2>&1
 maxTries=120
 # maxTries=12
 try=0

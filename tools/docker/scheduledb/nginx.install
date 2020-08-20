@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#help nginx.install                              # Install the Nginx service
+
+. scheduledb.env
+logsDirValidate
+# Redirect STDERR to STDOUT
+
+msg BEGIN "Clean up and Install the nginx service ..."
+
+msg INFO "Remove nginx container ..."
+msg INFO "$(  exec 2>&1
+docker-compose rm -f -s nginx
+)"
+
+msg INFO "Remove nginx image ..."
+msg INFO "$(  exec 2>&1
+docker rmi sdb-nginx:1.19.2-1.0
+)"
+
+imagesDanglingRemove
+
+msg INFO "Build the nginx image and start container ..."
+msg INFO "$( exec 2>&1
+docker-compose up -d --build nginx
+)"
+
+msg INFO "Nginx can be accessed on port 80"
+
+msg END "... done."
