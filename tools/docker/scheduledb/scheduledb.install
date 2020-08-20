@@ -8,12 +8,10 @@ logsDirValidate
 
 msg BEGIN "Clean up and Install the scheduledb services ..."
 
-./mongo.install &
-sleep 15
-./backend.install &
-sleep 15
-./frontend.install &
-sleep 15
+./nginx/nginx.install
+./mongo.install
+./backend.install
+./frontend.install
 ./website.install
 
 

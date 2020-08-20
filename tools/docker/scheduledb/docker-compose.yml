@@ -4,14 +4,24 @@ version: '2.0'
 
 services:
 
+  nginx:
+    image: sdb-nginx:1.19.2-1.0
+    build:
+      context: ./nginx
+      dockerfile: nginx-Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/sites-available:/etc/nginx/sites-available
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+  
   mongo:
     image: tssg-mongo:${mongoVersion}
     build:
       context: .
       dockerfile: mongo-Dockerfile
-    restart: always
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
     volumes:
       - mongodb:/data/db
     environment:
@@ -21,9 +31,8 @@ services:
 
   mongo-express:
     image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
+    expose:
+      - 8081
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: sch3dul3db
@@ -33,7 +42,6 @@ services:
     build:
         context: .
         dockerfile: backend-Dockerfile
-    restart: always        
     user: "node"
     working_dir: /home/node/app
     environment:
@@ -60,17 +68,13 @@ services:
       FRONTEND_VERSION: ${frontendVersion}
     expose:
       - ${BACKEND_BASE_PORT}
-    ports:
-       - ${BACKEND_BASE_PORT}:${BACKEND_BASE_PORT}
     command: /bin/bash backend.start
     
   frontend:
-    #image: node:lts
     image: tssg-node-frontend:${frontendVersion}
     build:
         context: .
         dockerfile: frontend-Dockerfile
-    restart: always        
     user: "node"
     working_dir: /home/node/app
     environment:
@@ -88,7 +92,6 @@ services:
     build:
         context: .
         dockerfile: website-Dockerfile
-    restart: always        
     user: "node"
     working_dir: /home/node/app
     environment:
@@ -99,8 +102,6 @@ services:
       BACKEND_BASE_PORT: ${BACKEND_BASE_PORT}
     expose:
       - ${WEBSITE_PORT}
-    ports:
-      - ${WEBSITE_PORT}:${WEBSITE_PORT}
     command: /bin/bash website.start
     
 volumes:
