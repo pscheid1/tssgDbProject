@@ -82,9 +82,6 @@ services:
       - TSSGAPIURL
     expose:
      - ${FRONTEND_PORT}
-    ports:
-     - ${FRONTEND_PORT}:${FRONTEND_PORT}
-    # command: node_modules/@angular/cli/bin/ng serve
     command: /bin/bash frontend.start
     
   website:

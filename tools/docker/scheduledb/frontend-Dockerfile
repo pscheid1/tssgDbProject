@@ -1,11 +1,17 @@
 # frontend-Dockerfile
 
-FROM node:12.0.0
+FROM node:12.18.3
 LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
 
 # Set the directory to contain node application files
 SHELL ["/bin/bash", "-c"]
-RUN apt update && apt full-upgrade -y --auto-remove
+RUN apt update && \
+    apt install -y \
+        curl \
+        vim \
+        tree \
+        less && \
+    apt full-upgrade -y --auto-remove
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN mkdir /home/node/app
 RUN chmod 777 /home/node/app
