@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
-# hosts.sdb
+# hosts.sdb                                      # Append hostnames to the docker IP address
 
 . ./scheduledb.env
+
+msg BEGIN "..."
+
+#                                                # Required.  Must be run as sudo.
+if [[ $EUID -ne 0 ]]; then
+   msg ERROR "This script must be run as root.  Exiting."
+   exit 1
+fi
+
+[ -z "$SDB_HOST_IP" ] && { msg ERROR "SDB_HOST_IP is not set.  Exiting." ; exit 2 ; }
+
+msg INFO "/etc/hosts will be backed up to hosts.backup ..."
+cp /etc/hosts hosts.backup
 
 SDB_HOST_IP=${SDB_HOST_IP}
 
@@ -10,4 +23,8 @@ cat >>/etc/hosts <<EOF
 # These are the scheduledb services running locally in docker on this host
 ${SDB_HOST_IP}     backend.sdb frontend.sdb mongo-express.sdb website.sdb
 EOF
+
+msg INFO "Docker Host IP address (${SDB_HOST_IP}) and sdb subdomains have been added to /etc/hosts."
+
+msg END "... done."
 
