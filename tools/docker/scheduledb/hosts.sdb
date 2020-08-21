@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# hosts.sdb
+
+. ./scheduledb.env
+
+SDB_HOST_IP=${SDB_HOST_IP}
+
+cat >>/etc/hosts <<EOF
+
+# These are the scheduledb services running locally in docker on this host
+${SDB_HOST_IP}     backend.sdb frontend.sdb mongo-express.sdb website.sdb
+EOF
+
