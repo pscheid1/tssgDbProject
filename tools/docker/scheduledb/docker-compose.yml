@@ -11,9 +11,6 @@ services:
       dockerfile: nginx-Dockerfile
     ports:
       - 80:80
-    volumes:
-      - ./nginx/sites-available:/etc/nginx/sites-available
-      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
   
   mongo:
     image: tssg-mongo:${mongoVersion}

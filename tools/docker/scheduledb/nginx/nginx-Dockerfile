@@ -8,7 +8,7 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 
 # Install the latest packages and helpful tools
 RUN apt update && \
-    apt -y install \
+    apt install -y \
         vim \
         less \
         curl \
@@ -17,8 +17,8 @@ RUN apt update && \
     apt full-upgrade -y --auto-remove
 
 # Set the directory to contain nginx site files
-#COPY sites-available /etc/nginx/sites-available
-#COPY sites-enabled /etc/nginx/sites-enabled
+COPY sites-available /etc/nginx/sites-available
+COPY sites-enabled /etc/nginx/sites-enabled
 
 # Set to use the nginx config file
 COPY nginx.conf /etc/nginx/nginx.conf
