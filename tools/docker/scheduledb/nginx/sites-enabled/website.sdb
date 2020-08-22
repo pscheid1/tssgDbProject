@@ -1,1 +1,10 @@
-../sites-available/website.sdb
+server {
+    listen 80;
+    listen [::]:80;
+    
+    server_name website.sdb;
+
+    location / {
+        proxy_pass http://website:8088/;
+    }
+}
