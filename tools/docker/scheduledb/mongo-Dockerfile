@@ -9,7 +9,7 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 
 # Install the latest packages and helpful tools
 RUN apt update && \
-    apt -y install \
+    apt install -y \
         vim \
         less \
         && \
