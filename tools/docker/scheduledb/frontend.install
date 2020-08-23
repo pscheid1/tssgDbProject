@@ -27,24 +27,23 @@ msg INFO "$( exec 2>&1
 docker-compose up -d --build frontend
 )"
 
-msg WAIT "Wait for frontend service to be healthy ..."
-msg WAIT "$( exec 2>&1
-maxTries=120
-# maxTries=12
-try=0
-waitSecsToRetry=5
-until curl -Is "${TSSGAPPURL}" | grep -q '200 OK'
-do
-    sleep ${waitSecsToRetry}s
-    ((++try))
-    echo "    RETRY: Attempt ${try} ..."
-    if [ $try -gt $maxTries ] ; then
-        echo -e "\n"
-        echo "    ERROR: Frontend did not come up in $((try * waitSecsToRetry)) seconds. Exiting."
-        exit 1
-    fi
-done
-)" | grep -q ERROR && exit 1
+#msg WAIT "Wait for frontend service to be healthy ..."
+#msg WAIT "$( exec 2>&1
+#maxTries=120
+#try=0
+#waitSecsToRetry=5
+#until curl -Is "${TSSGAPPURL}" | grep -q '200 OK'
+#do
+#    sleep ${waitSecsToRetry}s
+#    ((++try))
+#    echo "    RETRY: Attempt ${try} ..."
+#    if [ $try -gt $maxTries ] ; then
+#        echo -e "\n"
+#        echo "    ERROR: Frontend did not come up in $((try * waitSecsToRetry)) seconds. Exiting."
+#        exit 1
+#    fi
+#done
+#)" | grep -q ERROR && exit 1
 
-msg SUCCESS "Frontend can now be accessed at ${TSSGAPPURL}"
+msg SUCCESS "Frontend can be accessed at ${TSSGAPPURL}"
 msg END "... done."
