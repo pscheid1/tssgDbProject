@@ -11,3 +11,5 @@ logs/
 target/
 
 node_modules/
+nginx/backup/
+hosts.backup
