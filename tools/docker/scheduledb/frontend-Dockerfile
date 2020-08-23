@@ -24,6 +24,6 @@ RUN cd /home/node/app ; npm cache clean --force ; npm cache verify
 RUN cd /home/node/app ; npm install
 RUN cd /home/node/app ; npm audit fix --force
 
-HEALTHCHECK --interval=1m --timeout=30s --retries=3 CMD curl --fail http://frontend:4200/ || exit 1
+HEALTHCHECK --interval=30s --timeout=30s --retries=3 CMD curl --fail http://frontend:4200/ || exit 1
 EXPOSE 4200
 
