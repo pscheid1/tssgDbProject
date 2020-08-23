@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# sites.enable                                   # Enable all of the available sites.
+. ../../../cmd.env
+
+if cp -a sites-available/* sites-enabled/ ; then
+    msg INFO "All sites copied successfully"
+    ls -l sites-available sites-enabled
+    exit 0
+else
+    msg ERROR "Not all sites copied successfully to sites-enabled.  Exiting."
+    ls -l sites-available sites-enabled
+    exit 1
+fi

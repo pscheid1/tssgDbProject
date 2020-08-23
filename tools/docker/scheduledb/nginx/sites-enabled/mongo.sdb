@@ -2,10 +2,10 @@ server {
     listen 80;
     listen [::]:80;
     
-    server_name website.sdb;
+    server_name mongo.sdb;
 
     location / {
-        set $upstream http://website:8088/;
+        set $upstream http://mongo:27017/;
         proxy_pass $upstream;
     }
 }
