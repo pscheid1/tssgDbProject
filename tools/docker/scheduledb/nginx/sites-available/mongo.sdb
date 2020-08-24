@@ -5,7 +5,6 @@ server {
     server_name mongo.sdb;
 
     location / {
-        set $upstream http://mongo:27017/;
-        proxy_pass $upstream;
+        proxy_pass http://mongo:27017/;
     }
 }
