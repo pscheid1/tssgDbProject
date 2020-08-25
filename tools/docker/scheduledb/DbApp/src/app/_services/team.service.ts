@@ -75,7 +75,7 @@ export class TeamService {
   }
 
   async deleteTeam(_id) {
-    if (confirm('Select OK to delete, or Cancel to return.')) {
+    if (confirm('M005\nSelect OK to delete, or Cancel to return.')) {
       return await this.http.get(`${this.uri}/delete/${_id}`)
         .toPromise()
         .then(this.extractData)

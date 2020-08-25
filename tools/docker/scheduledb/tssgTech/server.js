@@ -11,9 +11,12 @@ global.Root = __dirname;
 global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
-let protocol;
+let protocol; // not using any more, but we'll leave it in for now.
+
+let port = process.env.WEBSITE_PORT || 8088;
 let host = (process.env.WEBSITE_URL || 'http://0.0.0.0').toLowerCase();
 
+// strip any protocol off.  We're forcing to http down below.
 if (host.includes('://')) {
   let n = host.indexOf('://');
   protocol = host.slice(0, n);
@@ -21,35 +24,6 @@ if (host.includes('://')) {
 } else {
   protocol = 'http';
 }
-
-const defaultPort = (protocol === 'https') ? 443 : 8088;
-let port = process.env.WEBSITE_PORT || defautPort;
-
-/*
-// get the certificate file names
-const serverKeyFile = process.env.tssgServerKey || 'tssg-server-key.pem';
-const serverCrtFile = process.env.tssgServerCrt || 'tssg-server-crt.pem';
-const caCrtFile = process.env.tssgCaCrt || 'tssg-ca-crt.pem';
-const caCrlFile = process.env.tssgCaCrl || 'tssg-ca-crl.pem';
-
-// set certDir equal to the certificates folder
-const certDir = global.Root + '/certificates';
-
-
-// set httpsOptions variables
-const httpsOptions = {
-  key: fs.readFileSync(`${certDir}/${serverKeyFile}`),
-  cert: fs.readFileSync(`${certDir}/${serverCrtFile}`),
-  ca: fs.readFileSync(`${certDir}/${caCrtFile}`),
-  crl: fs.readFileSync(`${certDir}/${caCrlFile}`),
-  passphrase: 'tssgpw',
-  requestCert: false,         // true for client ssl
-  rejectUnauthorized: true,
-  // hostname: 'localhost',      // container name if in container i.e. backend
-  hostname: host,
-  port: port
-};
-*/
 
 /*  This needs to be reworked <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 process any command line parameters.
@@ -84,14 +58,14 @@ for (index in argvs) {
 }
 */
 
- /* 
-    This code will create a javascript file in the Site/Scripts directory named tssgBackendURL.js.
-    The code in this file is one javascript const (tssgBackendURL) initialized to the tssgTech backend url and port.
-    The resulting javascript file will contain a value equal or similar to: const tssgBackendURL = http://backend:7010
-    The values are obtaned from BACKEND_BASE_URL and BACKEND_BASE_PORT environment variables.
-    This file will be loaded in by the Site/schedule.html file and used to access the tssgTech meetings schedule from
-    the DbApi backend container.
-  */
+/* 
+   This code will create a javascript file in the Site/Scripts directory named tssgBackendURL.js.
+   The code in this file is one javascript const (tssgBackendURL) initialized to the tssgTech backend url and port.
+   The resulting javascript file will contain a value equal or similar to: const tssgBackendURL = http://backend:7010
+   The values are obtaned from BACKEND_BASE_URL and BACKEND_BASE_PORT environment variables.
+   This file will be loaded in by the Site/schedule.html file and used to access the tssgTech meetings schedule from
+   the DbApi backend container.
+ */
 const buf = Buffer.from(`const tssgBackendURL = '${process.env.BACKEND_BASE_URL}:${process.env.BACKEND_BASE_PORT}';\n`);
 // console.log(`buf: ${buf}`);
 const dir = 'Site/Scripts/tssgBackendURL.js';
@@ -124,14 +98,9 @@ app.use(express.static(__dirname + '/Site'));
 // In order to allow similtaneous http & https we will need to add a second port variable.
 // For now, we are only allowing one protocol
 
-if (protocol === 'http') {
-  http.createServer(app).listen(port, host, function () {
-    console.log(`HTTP Server is up and running on http://${host}:${port}`);
-  });
-} else {
-  // default to https
-  https.createServer(httpsOptions, app).listen(httpsOptions.port, httpsOptions.hostname, function () {
-    console.log(`HTTPS Server is up and running on https://${httpsOptions.hostname}:${httpsOptions.port}`);
-  });
-}
+// create an http server
+http.createServer(app).listen(port, host, function () {
+  console.log(`HTTP Server is up and running on http://${host}:${port}`);
+});
+
 

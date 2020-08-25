@@ -10,14 +10,17 @@ function errorHandler(err, req, res, next) {
 //   console.log('error-handler.errorHandler: err = ' + err);
     if (typeof (err) === 'string') {
         // custom application error
+        console.log(`\nerrorHandlerCommon String Error: ${err}\n`);
         return res.status(400).json({ message: err });
     }
 
     if (err.name === 'UnauthorizedError') {
         // jwt authentication error
-        return res.status(401).json({ message: err });
+        console.log(`\nerrorHandler Unauthorized Error: ${JSON.stringify(err)}\n`);
+        return res.status(err.status).json({ message: err.message });
     }
 
-    // default to 400 (Bad Request) 
+    // default to 400 (Bad Request)
+    console.log(`\nerrorHandler Bad Request Error: ${JSON.stringify(err)}\n`);
     return res.status(400).json({ message: err });
 }

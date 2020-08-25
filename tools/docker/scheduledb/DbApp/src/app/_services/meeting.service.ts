@@ -81,14 +81,16 @@ export class MeetingService {
   }
 
   async deleteMeeting(_id) {
-    if (confirm('Select OK to delete, or Cancel to return.')) {
+    if (confirm('M006\nSelect OK to delete, or Cancel to return.')) {
       return await this.http.get(`${this.uri}/delete/${_id}`)
         .toPromise()
         .then(this.extractData)
         .catch(err => {
+          console.log(`meeting.service.deleteMeeting Error: ${JSON.stringify(err)}`);
           throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
         });
     }
+    console.log(`meeting.service.deleteMeeting Meeting delete canceled`);
     return;
   }
 

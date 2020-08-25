@@ -40,7 +40,7 @@ export class UserService {
       .toPromise()
       .then(this.extractData)
       .catch(err => {
-        throw new HttpErrorResponse({ status: 404, statusText: err,  url: `${this.uri}` });
+        throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
       });
   }
 
@@ -76,16 +76,18 @@ export class UserService {
   }
 
   async deleteUser(_id: string) {
-    if (confirm('Select OK to delete, or Cancel to return.')) {
+    if (confirm('M003\nSelect OK to delete, or Cancel to return.')) {
       return await this.http.get(`${this.uri}/delete/${_id}`)
         .toPromise()
         .then(this.extractData)
         .catch(err => {
-          // console.log(`user.service.getById err = ${err}`);
-          throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
+          console.log(`user.service.deleteUser err = ${err} <<<<<<<<<<<<<<<<<<<<<<<<`);
+          throw new HttpErrorResponse({ status: 401, statusText: err, url: `${this.uri}/delete` });
         });
     }
+    console.log(`user.service.deleteUser Error: ??????? <<<<<<<<<<<<<<<<<<<<<<<<`);
     return;
+
   }
 
   async registerUser(obj: User) {
