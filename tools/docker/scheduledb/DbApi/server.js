@@ -32,8 +32,8 @@ if (host.includes('://')) {
   protocol = 'http';
 }
 
-global.backendVersion = process.env.BACKEND_VERSION || '2.1';
-global.frontendVersion = process.env.FRONTEND_VERSION || '2.1';
+global.backendVersion = process.env.BACKEND_VERSION;
+global.frontendVersion = process.env.FRONTEND_VERSION;
 
 global.md = (process.env.BACKEND_MEETING_DEBUG === 'true') ? Boolean(true) : Boolean(null);
 
@@ -60,6 +60,10 @@ if (parseInt(global.refreshJwtExpiry) <= parseInt(global.accessJwtExpiry) || par
   global.refreshJwtExpiry = refreshJwtExpiryDefault;
   console.log(`Error: BACKEND_REFRESH_JWT out of bounds.  refreshJwtExpiry forced to ${refreshJwtExpiryDefault} minutes.`);
 }
+
+// console.log(`backend.server: global.accessJwtExpiry: ${global.accessJwtExpiry}`);
+// console.log(`backend.server: global.refreshJwtExpiry: ${global.refreshJwtExpiry}`);
+
 
 /*  This needs to be reworked <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 process any command line parameters.
