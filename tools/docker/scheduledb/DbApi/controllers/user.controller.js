@@ -208,11 +208,15 @@ async function userAuth({ username, password }) {
         alt_jti: refreshTokenId,
         // iat: is automatically set by default to seconds since 01/01/1970
         // set expiration time to time now in seconds since 01/01/1970 + global.jwtExp * 60
-        exp: Math.floor(Date.now() / 1000) + (60), //(global.jwtExp * 60),
+        exp: Math.floor(Date.now() / 1000) + (global.accessJwtExpiry * 60)
       }, config.secret);
     // create refresh token
-    // const rToken = jwt.sign({ sub: user.id, role: user.role, jti: refreshTokenId, exp: Math.floor(Date.now() / 1000) + (global.refreshJwtExp * 60) }, config.refreshSecret); 
-    const rToken = jwt.sign({ sub: user.id, role: user.role, jti: refreshTokenId, exp: Math.floor(Date.now() / 1000) + 120 }, config.refreshSecret);
+    const rToken = jwt.sign(
+      { 
+        sub: user.id,
+        role: user.role,
+        jti: refreshTokenId, exp: Math.floor(Date.now() / 1000) + (global.refreshJwtExpiry * 60)
+      }, config.refreshSecret);
     // add Id and rToken to refreshTokens array
     manage_refreshTokens('a', refreshTokenId, rToken);
     // for now, use this to list refreshTokens array
@@ -281,7 +285,7 @@ async function refreshToken(tokenId) {
       alt_jti: refreshTokenId,
       // iat: is automatically set by default to seconds since 01/01/1970
       // set expiration time to time now in seconds since 01/01/1970 + global.jwtExp * 60
-      exp: Math.floor(Date.now() / 1000) + (60), // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>(global.jwtExp * 60),
+      exp: Math.floor(Date.now() / 1000) + (global.accessJwtExpiry * 60)
     }, config.secret);
   // refresh token does not maintain a backpointer to the access token, so no need to update and resign it
   // console.log(`user.controller.refreshToken - newToken: ${JSON.stringify(token)}`);
