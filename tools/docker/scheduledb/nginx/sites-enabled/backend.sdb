@@ -6,7 +6,6 @@ server {
 
     location / {
         set $upstream http://backend:7010;
-    
         proxy_pass $upstream;
     }
 }
