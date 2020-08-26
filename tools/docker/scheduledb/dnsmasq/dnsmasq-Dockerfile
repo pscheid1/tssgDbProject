@@ -1,0 +1,24 @@
+# dnsmasq-Dockerfile
+
+FROM jpillora/dnsmasq:latest
+LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
+
+# Set the timezone
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+
+# Install the latest packages and helpful tools
+RUN apk update && \
+    apk --no-cache add \
+        vim \
+        less \
+        curl \
+        tree \
+        bash
+
+# COPY dnsmasq.conf /etc/dnsmasq.conf
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl --fail http://dnsadmin:dnsadminpw@localhost:8080/ || exit 1
+
+# Internal ports used
+#EXPOSE 53
+#EXPOSE 8080

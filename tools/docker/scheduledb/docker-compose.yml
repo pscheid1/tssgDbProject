@@ -4,6 +4,21 @@ version: '2.0'
 
 services:
 
+  dns:
+    image: sdb-dnsmasq
+    build:
+      context: ./dnsmasq
+      dockerfile: dnsmasq-Dockerfile
+    ports:
+      - 192.168.2.6:53:53/udp
+      - 5380:8080
+    volumes:
+      - ./dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+    environment:
+      - HTTP_USER=dnsadmin
+      - HTTP_PASS=dnsadminpw
+    restart: always
+  
   nginx:
     image: sdb-nginx:1.19.2-1.0
     build:
@@ -11,6 +26,8 @@ services:
       dockerfile: nginx-Dockerfile
     ports:
       - 80:80
+    dns:
+      - ${SDB_HOST_IP}
   
   mongo:
     image: tssg-mongo:${mongoVersion}

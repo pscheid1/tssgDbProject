@@ -5,7 +5,7 @@ server {
     server_name frontend.sdb;
 
     location / {
-        set $upstream http://frontend:4200/;
+        set $upstream http://frontend:4200;
         proxy_pass $upstream;
     }
 }

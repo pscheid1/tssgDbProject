@@ -5,7 +5,7 @@ server {
     server_name website.sdb;
 
     location / {
-        set $upstream http://website:8088/;
+        set $upstream http://website:8088;
         proxy_pass $upstream;
     }
 }
