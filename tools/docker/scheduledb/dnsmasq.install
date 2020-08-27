@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# dnsmasq.install                                # Install dnsmasq service
+
+. scheduledb.env
+logsDirValidate
+# Redirect STDERR to STDOUT
+
+msg BEGIN "Clean up and Install the dnsmasq service ..."
+
+msg INFO "Remove dnsmasq container ..."
+msg INFO "$(  exec 2>&1
+docker-compose rm -f -s dns
+)"
+
+msg INFO "Remove dns image ..."
+msg INFO "$(  exec 2>&1
+docker rmi sdb-dnsmasq:1.0
+)"
+
+imagesDanglingRemove
+
+msg INFO "Build the dnsmasq image and start container ..."
+msg INFO "$( exec 2>&1
+docker-compose up -d --build dns
+)"
+
+msg INFO "Dnsmasq can be accessed on http://dnsmasq.sdb"
+
+msg END "... done."

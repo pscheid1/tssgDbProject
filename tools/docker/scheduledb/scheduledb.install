@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 #scheduledb.install
 
-. ../../cmd.env
-
 . scheduledb.env
 logsDirValidate
 
 msg BEGIN "Clean up and Install the scheduledb services ..."
 
+./dnsmasq.install
 ./mongo.install
 ./backend.install
 ./frontend.install

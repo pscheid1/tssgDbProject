@@ -1,16 +1,16 @@
 # scheduledb
-#version: '3.1'
-version: '2.0'
+version: '3.1'
+#version: '2.0'
 
 services:
 
   dns:
-    image: sdb-dnsmasq
+    image: sdb-dnsmasq:1.0
     build:
       context: ./dnsmasq
       dockerfile: dnsmasq-Dockerfile
     ports:
-      - 192.168.2.6:53:53/udp
+      - ${SDB_HOST_IP}:53:53/udp
       - 5380:8080
     volumes:
       - ./dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
