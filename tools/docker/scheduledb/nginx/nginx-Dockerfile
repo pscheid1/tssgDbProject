@@ -13,6 +13,8 @@ RUN apt update && \
         less \
         curl \
         tree \
+        iputils-ping \
+        dnsutils \
         && \
     apt full-upgrade -y --auto-remove
 
