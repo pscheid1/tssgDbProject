@@ -47,8 +47,6 @@ services:
       NODE_ENV: production
       # MONGO_URL declares the standard format of the MongoDB connection URI used to connect to a MongoDB
       MONGO_URL: ${MONGO_URL}
-      # BACKEND_MEETING_DEBUG enables/disables additional meeting setup debug code (output appeaars in backend log)
-      BACKEND_MEETING_DEBUG: ${BACKEND_MEETING_DEBUG}
       # BACKEND_DEFAULT_TEAM delclares a default team for the meetings/webSchedule/ route
       # any valid team name can be used.
       BACKEND_DEFAULT_TEAM: ${BACKEND_DEFAULT_TEAM}

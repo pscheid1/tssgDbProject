@@ -35,8 +35,6 @@ if (host.includes('://')) {
 global.backendVersion = process.env.BACKEND_VERSION;
 global.frontendVersion = process.env.FRONTEND_VERSION;
 
-global.md = (process.env.BACKEND_MEETING_DEBUG === 'true') ? Boolean(true) : Boolean(null);
-
 // get jwt validity time (in minutes).
 // accessJwtExpiry limits are 1 >= accessJwtExpiry <= 240 (1 minute to 4 hours)
 // accessJwtExpiry default is 15 minutes
