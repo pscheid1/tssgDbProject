@@ -17,18 +17,13 @@ global.Root = __dirname;
 global.Folders = Root.split(path.sep);
 global.PackageName = Folders[Folders.length - 1];
 
-// get the certificate file names
-const serverKeyFile = process.env.tssgServerKey || 'tssg-server-key.pem';
-const serverCrtFile = process.env.tssgServerCrt || 'tssg-server-crt.pem';
 
-const caCrtFile = process.env.tssgCaCrt || 'tssg-ca-crt.pem';
-const caCrlFile = process.env.tssgCaCrl || 'tssg-ca-crl.pem';
-
-let protocol = '';
+let protocol; // not using any more, but we'll leave it in for now.
 
 const port = process.env.BACKEND_BASE_PORT || 7010;
-let host = process.env.BACKEND_BASE_URL || 'http://backend';
+let host = (process.env.BACKEND_BASE_URL || 'http://backend').toLowerCase();
 
+// strip any protocol off.  We're forcing to http down below.
 if (host.includes('://')) {
   let n = host.indexOf('://');
   protocol = host.slice(0, n);
@@ -37,38 +32,36 @@ if (host.includes('://')) {
   protocol = 'http';
 }
 
-
-// set certDir equal to the certificates folder
-const certDir = global.Root + '/certificates';
-
 global.backendVersion = process.env.BACKEND_VERSION;
 global.frontendVersion = process.env.FRONTEND_VERSION;
 
-// set httpsOptions variables
-const httpsOptions = {
-  key: fs.readFileSync(`${certDir}/${serverKeyFile}`),
-  cert: fs.readFileSync(`${certDir}/${serverCrtFile}`),
-  ca: fs.readFileSync(`${certDir}/${caCrtFile}`),
-  crl: fs.readFileSync(`${certDir}/${caCrlFile}`),
-  passphrase: 'tssgpw',
-  requestCert: false,         // true for client ssl
-  rejectUnauthorized: true,
-  // hostname: 'localhost', container name if in docker container i.e. backend
-  hostname: host,
-  port: port
-};
-
-global.md = (process.env.tssgApiMtgDebug === 'true') ? Boolean(true) : Boolean(null);
 // get jwt validity time (in minutes).
-// jwtExp limits are 1 >= jwtExp <= 240 (1 minute to 4 hours)
-// jwtExp default is 30 minutes
-const jwtExpDefault = 30;
-global.jwtExp = process.env.tssgJwtExp || jwtExpDefault;
-if (global.jwtExp < 1 || global.jwtExp > 240) {
-  // jwtExp is out of bounds, force jwtExpDefault
-  global.jwtExp = jwtExpDefault;
-  console.log(`Error: jwtExp out of bounds.  jwtExp forced to ${jwtExpDefault} minutes.`);
+// accessJwtExpiry limits are 1 >= accessJwtExpiry <= 240 (1 minute to 4 hours)
+// accessJwtExpiry default is 15 minutes
+const accessJwtExpiryDefault = 15;
+global.accessJwtExpiry = process.env.BACKEND_ACCESS_JWT || accessJwtExpiryDefault;
+// limit access token from 1 to 30 minutes
+if (parseInt(global.accessJwtExpiry) < 1 || parseInt(global.accessJwtExpiry) > 30) {
+  // accessJwtExpiry is out of bounds, force to accessJwtExpiryDefault
+  global.accessJwtExpiry = accessJwtExpiryDefault;
+  console.log(`Error: BACKEND_ACCESS_JWT out of bounds.  accessJwtExpiry forced to ${accessJwtExpiryDefault} minutes.`);
 }
+
+// get refresh jwt validity time (in minutes).
+// refreshJwtExpiry limits are global.accessJwtExpiry  >= refreshJwtExpiry <= 240 (1 minute to 4 hours)
+// refreshJwtExpiry default is 120 minutes
+const refreshJwtExpiryDefault = 120; // (120 minutes or 2 hours )
+global.refreshJwtExpiry = process.env.BACKEND_REFRESH_JWT || refreshJwtExpiryDefault;
+// limit refresJwtExp to > global.accessJwtExpiry to <= 120 minutes ( < 2 hours)
+if (parseInt(global.refreshJwtExpiry) <= parseInt(global.accessJwtExpiry) || parseInt(global.refreshJwtExpiry) > 240) {
+  // refreshJwtExpiry is out of bounds, force to refreshJwtExpDefault
+  global.refreshJwtExpiry = refreshJwtExpiryDefault;
+  console.log(`Error: BACKEND_REFRESH_JWT out of bounds.  refreshJwtExpiry forced to ${refreshJwtExpiryDefault} minutes.`);
+}
+
+// console.log(`backend.server: global.accessJwtExpiry: ${global.accessJwtExpiry}`);
+// console.log(`backend.server: global.refreshJwtExpiry: ${global.refreshJwtExpiry}`);
+
 
 /*  This needs to be reworked <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 process any command line parameters.
@@ -120,9 +113,20 @@ const mongoOptions = {
   family: 4 // Use IPv4, skip trying IPv6
 };
 
-let dev_db_url = 'mongodb://localhost:27017/tssg-tech';
-let mongoDB = process.env.tssgMongoDB_URL || dev_db_url;
-// console.log('mongoDB: ' + mongoDB); // connection string may contain a username/password
+let mongoDB = '';
+const mongo_destination = process.env.BACKEND_DB_DEST || '';
+// console.log(`server mongo_destination: ${mongo_destination}`);
+if (mongo_destination === 'container') {
+  mongoDB = process.env.MONGO_WIN_CONTAINER_URL;
+} else if (mongo_destination === 'native') {
+  mongoDB = process.env.MONGO_WIN_NATIVE_URL;
+} else {
+  mongoDB = process.env.MONGO_URL;
+}
+
+// WARNING: Enabling the following console.log statement may display username and password
+// console.log(`mongoDB: ${mongoDB}`);
+
 mongoose.connect(mongoDB, mongoOptions);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
@@ -159,18 +163,7 @@ app.use(errorHandler);
 
 app.use(express.static(__dirname + '/public'));
 
-// multiple ports (both http & https) can similtaneously be in 'listen' mode
-// In order to allow similtaneous http & https we will need to add a second port variable
-// For now, we are only allowing one protocol
-
-if (protocol === 'http') {
-  http.createServer(app).listen(port, host, function () {
-    console.log(`HTTP Server is up and running on http://${host}:${port}`);
-  });
-} else {
-  // default to https
-  https.createServer(httpsOptions, app).listen(httpsOptions.port, httpsOptions.hostname, function () {
-    console.log(`HTTPS Server is up and running on https://${httpsOptions.hostname}:${httpsOptions.port}`);
-  });
-}
-
+// create an http server
+http.createServer(app).listen(port, host, function () {
+  console.log(`HTTP Server is up and running on http://${host}:${port}`);
+});

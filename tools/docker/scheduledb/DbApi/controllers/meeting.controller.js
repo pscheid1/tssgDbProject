@@ -1,9 +1,6 @@
 const Meeting = require("../models/meeting.model");
 
 function updateDate(newDate, newTime) {
-  if (md) console.log('meeting.controller.updateDate ^^^^^^^^^^^^^^^^^^^^^^^^^^');
-  if (md) console.log('meeting.controller.updateDate - newDate: ' + newDate);
-  if (md) console.log('meeting.controller.updateDate - newTime: ' + newTime);
   // string to date
   let newDateTime = new Date(newDate);
   // string to date
@@ -14,45 +11,33 @@ function updateDate(newDate, newTime) {
   newDateTime.setMinutes(nt.getMinutes());
   newDateTime.setSeconds(0);
   newDateTime.setMilliseconds(0);
-  if (md) console.log('leaving updateDate newDateTime: ' + newDateTime);
   return newDateTime;
 }
 
 module.exports = {
 
   create: async function (req, res) {
-    if (md) console.log('meeting.controller.create **************************');
-    if (md) console.log(req.body.meetingDate);
     // update date component of startTime (timepicker will create it with today's date)
     // console.log('meeting.controller.create - startTime: ' + req.body.startTime);
     req.body.startTime = updateDate(req.body.meetingDate, req.body.startTime);
-    if (md) console.log('meeting.controller.create - startTime: ' + req.body.startTime);
     // update date component of endTime (timepicker will create it with today's date)
     // console.log('meeting.controller.create - endTime: ' + req.body.endTime);
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
-    if (md) console.log('meeting.controller.create - endTime: ' + req.body.endTime);
-    if (md) console.log('meeting.controller.create: ' + JSON.stringify(req.body));
     await Meeting.create(req.body)
       .then(newMeeting => res.json(newMeeting))
       .catch(err => {
-        if (md) console.log('meeting.controller.create error:' + err);
         res.status(409).json({ message: err.message });
       });
   },
 
   update: async function (req, res) {
-    if (md) console.log('meeting.controller.update ##########################');
-    if (md) console.log(req.body.meetingDate);
     // if meetingDate was changed, we need to update startTime and endTime
     // if startTime and/or endTime were changed, the timepicker will create the new
     // time with today's date
     // ensure startTime date component agrees with meetingDate
     req.body.startTime = updateDate(req.body.meetingDate, req.body.startTime);
-    if (md) console.log('meeting.controller.update startTime: ' + req.body.startTime);
     // ensure endTime date component agrees with meetingDate
     req.body.endTime = updateDate(req.body.meetingDate, req.body.endTime);
-    if (md) console.log('meeting.controller.update endTime: ' + req.body.endTime);
-    if (md) console.log('meeting.controller.update: ' + JSON.stringify(req.body));
     // req.body._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await Meeting.findByIdAndUpdate(req.body._id, req.body, { new: true })
       .then(meeting => {
@@ -64,7 +49,6 @@ module.exports = {
         }
       })
       .catch(err => {
-        if (md) console.log('meeting.controller.update error:' + err);
         res.status(404).json({ message: err.message });
       });
   },
@@ -161,7 +145,7 @@ module.exports = {
   //Simple version, without validation or sanitation
   test: function (req, res) {
     res.send(
-      `collection: meetings - globalRoot: ${global.Root} - folders: ${global.Folders} - packageName: ${global.PackageName} - __dirname: ${__dirname} - tssgApiMtgDebug: ${global.md}`
+      `collection: meetings - globalRoot: ${global.Root} - folders: ${global.Folders} - packageName: ${global.PackageName} - __dirname: ${__dirname}`
     );
   }
 };

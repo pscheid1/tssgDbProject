@@ -84,7 +84,7 @@ export class VenueService {
   }
 
   async deleteVenue(_id) {
-    if (confirm('Select OK to delete, or Cancel to return.')) {
+    if (confirm('M004\nSelect OK to delete, or Cancel to return.')) {
       return await this.http.get(`${this.uri}/delete/${_id}`)
         .toPromise()
         .then(this.extractData)

@@ -20,6 +20,7 @@
     "help": "^3.0.2",
     "mongoose": "^5.8.11",
     "optimist": "^0.6.1",
+    "rand-token": "^1.0.1",
     "request": "^2.88.2"
   },
   "devDependencies": {
