@@ -13,3 +13,5 @@ target/
 node_modules/
 nginx/backup/
 hosts.backup
+dnsmasq.conf
+sites-enabled/dnsmasq.sdb
