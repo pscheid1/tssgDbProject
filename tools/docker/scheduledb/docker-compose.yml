@@ -12,8 +12,6 @@ services:
     ports:
       - ${SDB_HOST_IP}:53:53/udp
       - 5380:8080
-    volumes:
-      - ./dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
     environment:
       - HTTP_USER=dnsadmin
       - HTTP_PASS=dnsadminpw

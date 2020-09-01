@@ -15,7 +15,7 @@ RUN apk update && \
         tree \
         bash
 
-# COPY dnsmasq.conf /etc/dnsmasq.conf
+COPY dnsmasq.conf /etc/dnsmasq.conf
 
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl --fail http://dnsadmin:dnsadminpw@localhost:8080/ || exit 1
 
