@@ -5,7 +5,7 @@ server {
     server_name dnsmasq.sdb;
 
     location / {
-        set $upstream http://dns:8080;
+        set $upstream "http://$SDB_HOST_IP:5380/";
         proxy_pass $upstream;
     }
 }
