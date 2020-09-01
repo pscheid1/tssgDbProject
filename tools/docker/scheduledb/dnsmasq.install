@@ -19,6 +19,9 @@ docker rmi sdb-dnsmasq:1.0
 
 imagesDanglingRemove
 
+msg INFO "Configure dnsmasq.conf with SDB_HOST_IP ..."
+sed -ie "s/\(^.*\)\$SDB_HOST_IP\(.*$\)/\1$SDB_HOST_IP\2/g" dnsmasq/dnsmasq.install
+
 msg INFO "Build the dnsmasq image and start container ..."
 msg INFO "$( exec 2>&1
 docker-compose up -d --build dns
