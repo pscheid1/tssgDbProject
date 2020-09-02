@@ -1,15 +1,16 @@
 #dnsmasq config, for a complete example, see:
 #  http://oss.segetech.com/intra/srv/dnsmasq.conf
+#dnsmasq man page is at:
+#  http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
 #log all dns queries
 log-queries
 #dont use hosts nameservers
 no-resolv
-#use cloudflare as default nameservers, prefer 1^4
+no-hosts
+#use OpenDNS as default nameservers
 server=208.67.222.222
 server=208.67.220.220
 strict-order
-#serve all .company queries using a specific nameserver
-#server=/company/10.0.0.1
-#explicitly define host-ip mappings
+#serve all .sdb queries using a specific nameserver
 address=/sdb/$SDB_HOST_IP
 cache-size=300
