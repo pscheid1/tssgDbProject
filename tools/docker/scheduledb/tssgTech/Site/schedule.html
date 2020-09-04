@@ -218,8 +218,10 @@
       if (d.getMinutes() > 0) {
         time += ":" + d.getMinutes();
       }
-      if (d.getHours() > 12) {
+      if (d.getHours() >= 12) {
         time += " pm"
+      } else {
+        time += " am"
       }
       return time;
     }
