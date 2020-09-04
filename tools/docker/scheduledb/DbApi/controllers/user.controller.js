@@ -1,3 +1,7 @@
+/**
+ * A module for the 'Users' collection
+ * @module user.controller.js
+ */
 const User = require("../models/user.model");
 const config = require('../config.json');
 const jwt = require('jsonwebtoken');
@@ -6,11 +10,19 @@ const Role = require('../_helpers/role');
 const randtoken = require('rand-token');
 const secret = config.secret;
 
-// local storage for refresh tokens
+/**
+@property  refreshTokens - Array, local storage for refresh tokens
+*/
 let refreshTokens = [];
 
 module.exports = {
-  // Add user
+
+  /** 
+  * Function register adds a new user to the users collection
+  * @param {object} req.body - User object to add
+  * @return {object} success - status 200 and a json User object
+  * @return {object} failure - status 404 and json error message
+  */
   register: async function (req, res) {
     await User.findOne(({ username: { $eq: req.body.username } }), function (err, usr) {
       if (usr) {
@@ -30,6 +42,13 @@ module.exports = {
     });
   },
 
+  /** 
+ * Function authenticate verifies and logs on User
+ * @summary Calls userAuth(req.body).  userAuth verifies username/password and returns User object & access jwt.
+ * @param {object} req - User object to add
+ * @return {object} success - status 200 access jwt and User object without hash. BackendVersion and FrontendVersion are added in for frontend.home page display.
+ * @return {object} failure - status 404 and json error message
+ */
   authenticate: function (req, res) {
     // console.log('user.controller.authenticate: username = ' + req.body.username);
     userAuth(req.body)
@@ -43,7 +62,12 @@ module.exports = {
       });
   },
 
-  // remove refreshToken from refreshTokens array
+  /** 
+  * Function logout removes the  refresh jwt from the refreshTokens array
+  * @param {string} req.params._id - contains the refresh jwt id
+  * @return {object} success - status(200) message
+  * @return failure - there is no failure returned.  Refresh jwt was either removed or it did not exist.
+  */
   logout: async function (req, res) {
     // console.log(`user.controller.logout.tokenId: ${req.params._id}`);
     // refreshToken will be deleted from refreshTokens array or did not exist
@@ -51,7 +75,12 @@ module.exports = {
     res.status(200).json({ message: 'user logged out' });
   },
 
-  // request a new refresh token
+  /** 
+  * Function refresh requests a refreshed (new) access jwt.
+  * @param {string} req.params._id - contains the refresh jwt id
+  * @return {object} success - status 200 access jwt and User object without hash. BackendVersion and FrontendVersion are added in for frontend.home page display.
+  * @return {object} failure - status 404 and json error message
+  */
   refresh: async function (req, res) {
     // req.params._id = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     // console.log(`user.controller.refresh _id: ${req.params._id}`);
@@ -71,6 +100,13 @@ module.exports = {
       });
   },
 
+  /** 
+  * Function update modifies an existing user.
+  * It calls findByIdAndUpdate (one operation) and receives an updated user.
+  * @param {object} req.body - All prameters are in a User object in the request body
+  * @return {object} success - status 200 and the updated User object
+  * @return {object} failure - status 404 and json error message
+  */
   update: async function (req, res) {
     // req.body._id = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     await User.findByIdAndUpdate(req.body._id, req.body, { new: true })
@@ -80,6 +116,7 @@ module.exports = {
           throw new Error('User ' + req.body._id + ' not found.');
         } else {
           if (req.body.password) {
+            // 10 is for the number of saltRounds
             user.hash = bcrypt.hashSync(req.body.password, 10);
             // save user - only need this save if we are updating the password
             user.save();
@@ -93,8 +130,14 @@ module.exports = {
       });
   },
 
+  /** 
+  Function findAll returns all users
+  * @return {object} success - status 200 and a list of users with hash removed
+  * @return {object} failure - status 404 and json error message
+  */
   findAll: async function (req, res) {
-    // await User.find({ '_id': '5ceeeb11b23b1e4a40d5bdff' }).select('-hash')    //  to force a bad _id (replace following line)
+    //  to force a bad _id (replace code line with following line).  This will change find all to find one non existent user
+    // await User.find({ '_id': '5ceeeb11b23b1e4a40d5bdff' }).select('-hash')
     await User.find().select('-hash')
       .then(users => {
         res.json(users);
@@ -105,9 +148,14 @@ module.exports = {
       });
   },
 
-  // because _id is unique we don't have to worry about duplicates
-  // returns a list of user id's, fistname and lastname only, sorted on lastname
-  // role = Contact is excluded
+  /** 
+  * Function listUsers produces a sorted list of specific users 
+  * @summary because _id is unique we don't have to worry about duplicates
+  *          returns a list of user id's, fistname and lastname only, sorted on lastname
+  *          role = Contact is excluded
+  * @return {object} success - status 200 and a list of users
+  * @return {object} failure - status 404 and json error message
+  */
   listUsers: async function (req, res) {
     await User.find({ role: { $ne: 'Contact' } })
       .sort({ lastname: 1 })
@@ -120,9 +168,14 @@ module.exports = {
       });
   },
 
-  // because _id is unique we don't have to worry about duplicates
-  // returns a list of user id's, fistname and lastname only, sorted on lastname
-  // role === Contact only
+  /** 
+  * Function listContacts produces a sorted list of contacts 
+  * @summary because _id is unique we don't have to worry about duplicates
+  *          returns a list of user id's, fistname and lastname only, sorted on lastname
+  *          role = Contact only
+  * @return {object} success - status 200 and a list of users
+  * @return {object} failure - status 404 and json error message
+  */
   listContacts: async function (req, res) {
     await User.find({ role: { $eq: 'Contact' } })
       .sort({ lastname: 1 })
@@ -133,6 +186,14 @@ module.exports = {
       });
   },
 
+  /** 
+* Function getCurrent returns the logged on user.
+* @summary user role === Admin, user account is returned -hash
+*          user role === User or Contact, user account is returned -hash, - role
+* @param {object} req.user.sub - contains the user id to access
+* @return {object} success - status 200 and user (-hash && [-role])
+* @return {object} failure - status 404 and json error message
+*/
   getCurrent: async function (req, res) {
     // req.user.sub = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     const eliminate = req.user.role === 'Admin' ? '-hash' : '-hash -role';
@@ -146,6 +207,12 @@ module.exports = {
       });
   },
 
+  /** 
+  * Function findOne returns a specific user.
+  * @param {object} req.params._id - contains the user id (string) to access
+  * @return {object} success - status 200 and user
+  * @return {object} failure - status 404 and json error message
+  */
   findOne: async function (req, res) {
     // req.params._id = '5ceeeb11b23b1e4a40d5bdff';  // force a bad _id
     await User.findById(req.params._id)
@@ -163,7 +230,12 @@ module.exports = {
       });
   },
 
-  // delete a specific entry by _id
+  /** 
+  * Function delete removes a specific user
+  * @param {object} req.params._id - contains the id {string} of user to delete
+  * @return {object} success - status 200 and user deleted message
+  * @return {object} failure - status 404 and json error message
+  */
   delete: async function (req, res) {
     // req.params._id = '5d449dac8b7d7853fcc086ff';  // force a bad _id
     await User.findByIdAndDelete(req.params._id)
@@ -176,7 +248,12 @@ module.exports = {
         res.status(404).json({ message: err.message });
       });
   },
-  //Simple version, without validation or sanitation
+
+
+  /** 
+  * Function test is a simple test,  returning data without validation or authentication
+  * @return {string} Message returning a few system variables
+  */
   test: function (req, res) {
     res.send(
       `collection: users - globalRoot: ${global.Root} - folders: ${global.Folders} - packageName: ${global.PackageName} - __dirname: ${__dirname}`
@@ -187,7 +264,14 @@ module.exports = {
 // User services
 // These functions are not exported
 
-// verify username/password & create token
+/** 
+* Function userAuth verifies username/password & creates the access jwt and refresh jwt tokens.
+* @summary Called from user.controller authenticate
+* @param {string} username - User.username 
+* @param {string} password - User.password
+* @return success - User userWithoutHash, access token. Refresh token stored in refreshTokn Array.
+* @return failure - Throws new Error('error message') 
+*/
 async function userAuth({ username, password }) {
   const user = await User.findOne({ username });
   if (!user) {
@@ -212,7 +296,7 @@ async function userAuth({ username, password }) {
       }, config.secret);
     // create refresh token
     const rToken = jwt.sign(
-      { 
+      {
         sub: user.id,
         role: user.role,
         jti: refreshTokenId, exp: Math.floor(Date.now() / 1000) + (global.refreshJwtExpiry * 60)
@@ -230,10 +314,7 @@ async function userAuth({ username, password }) {
   throw new Error('Incorrect username/password.');
 }
 
-// If we are here, a request has been made to the backend.
-// The request requires a valid  access JWT, therefore the access JWT has not expipred.
-//Ssince the JWT has not expired, we will refresh (create a new) access token.
-// However, the access token will not be refreshed unless the refreshToken has not expired.
+
 //
 // request is made.
 //  access token has expired.
@@ -248,6 +329,17 @@ async function userAuth({ username, password }) {
 // access token validity period is typically 5 to 15 minutes.
 // refresh token validity period is typically 2 to 4 hours.
 
+
+/** 
+* Function refreshToken created a new access tokon.
+* @summary:
+*   If we are here, a request has been made to the backend. (User.refresh() above.)
+*   The request requires a valid  access JWT, therefore the access JWT has not expipred.
+*   Since the JWT has not expired and if the refreshToken has not expired,  we will refresh (create a new) access token.
+* @param {string} tokenId - Id of refresh token.
+* @return success - User userWithoutHash, access token.
+* @return failure - Throws new Error('error message') 
+*/
 async function refreshToken(tokenId) {
   // console.log(`user.controller.refreshToken tokenId: ${tokenId}`);
   // if (1) return;
@@ -266,7 +358,7 @@ async function refreshToken(tokenId) {
   // console.log(`\nuser.controller.refreshToken currentTime: ${currentTime}`);
   // console.log(`user.controller.refershToken token expiring time: ${rawRefreshToken.exp}\n`)
   if (currentTime > rawRefreshToken.exp) {
-   throw new Error(`user.controller.refreshToken Error: Refresh Token Expired.`);
+    throw new Error(`user.controller.refreshToken Error: Refresh Token Expired.`);
   }
   // we could get the needed token fields from the refreshToken, but 
   // we need all the user account fields as we return them both.
@@ -296,11 +388,27 @@ async function refreshToken(tokenId) {
 
 }
 
-
+/** 
+* Function manage_refreshTokens perfoms various operations on the refreshTokens array;
+* @summary:
+*   Add will add a refresh jwt to the refreshToken arrary.
+*   Delete will remove a refresh jwt from the refreshToken array.
+*   Trim will loop through the refreshToken array and delete any expired tokens.
+*   Verify will return a refresh jwt if it has not expired, otherwise it returns null
+* @param {string} op - 'a', 'd', 't', 'v'.
+* @param {string} id - refresh jwt id for a, d, and v. Empty for t.
+* @param {string} token - encoded jwt for a.  Empty for d, t and v.
+* @return success - No return for a, d and t.  
+* @return success - encoded jwt for v.
+* @return failure - a, Throws new Error('error message').
+* @return failure - d, No return
+* @return failure - t, No return
+* @return failure - v, Null
+*/
 function manage_refreshTokens(op, id, token) {
   // console.log(`user.controller.manage_refreshTokens: op = ${op}, id = ${id}, token = ${token}`);
   // console.log(`user.controller.manage_refreshTokens: op = ${op}, id = ${id}`);
-  let validTokens = [];
+  let tempTokens = [];
   var key;
   // let token;
   switch (op) {
@@ -322,16 +430,17 @@ function manage_refreshTokens(op, id, token) {
       for (key in refreshTokens) {
         token = refreshTokens[key];
         if (key !== id) {
-          validTokens[key] = token;
+          // keep this token
+          tempTokens[key] = token;
         } else {
-          // token not added to validTokens and therefore will be deleted
+          // token not added to tempTokens and therefore will be deleted
           // console.log(`user.conroller.manage_refreshTokens.d: token deleted - ${id}: ${token}`);
           // console.log(`user.conroller.manage_refreshTokens.d token deleted - id: ${id}`);
         }
       }
       // this keeps all tokens except any with key === id
       // velidy of kept tokens is not verified
-      refreshTokens = validTokens;
+      refreshTokens = tempTokens;
       break;
     case 't':
       // trim refreshTokens array
@@ -341,19 +450,19 @@ function manage_refreshTokens(op, id, token) {
         // console.log(`user.conroller.manage_refreshTokens.t jwt id: ${key}`);
         try {
           jwt.verify(token, config.refreshSecret);
-          // add valid token to validTokens array
-          validTokens[key] = token;
+          // add valid token to tempTokens array
+          tempTokens[key] = token;
           // console.log(`user.conroller.manage_refreshTokens.t jwt id: ${key} kept`);
         } catch (err) {
-          // invalid tokens are not added to the validTokens array and are therefore dropped from the refreshTokens array
+          // invalid tokens are not added to the tempTokens array and are therefore dropped from the refreshTokens array
           // this gets rid of any expired refreshTokens
           // console.log(`user.conroller.manage_refreshTokens.t ${err}`);
           // console.log(`user.conroller.manage_refreshTokens.t: invalid token deleted - ${key}: ${token} `);
           // console.log(`user.conroller.manage_refreshTokens.t token deleted - id: ${key}`);
         }
       }
-      // replace refreshTokens array with array of validTokens
-      refreshTokens = validTokens;
+      // replace refreshTokens array with array of tempTokens
+      refreshTokens = tempTokens;
       break;
     case 'v':
       // verify & return token
@@ -370,5 +479,3 @@ function manage_refreshTokens(op, id, token) {
   }
 
 }
-
-
