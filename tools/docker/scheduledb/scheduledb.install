@@ -7,12 +7,13 @@ logsDirValidate
 msg BEGIN "Clean up and Install the scheduledb services ..."
 
 ./dnsmasq.install
+./nginx.install
+
 ./mongo.install
 ./backend.install
 ./frontend.install
 ./website.install
 
-./nginx.install
 
 
 # Wait for all subprocesses to finish
