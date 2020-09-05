@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#help wireshark.install                          # Hard install of the wireshark service
+
+. scheduledb.env
+logsDirValidate
+
+msg BEGIN "Clean up and Install the wireshark service ..."
+
+msg INFO "Remove the backend container and volume ..."
+msg INFO "$( exec 2>&1
+docker-compose rm -f -s -v wireshark
+)"
+imagesDanglingRemove
+
+msg INFO "Remove the wireshark image ..."
+msg INFO "$( exec 2>&1
+docker rmi sdb-wireshark:${wiresharkVersion}
+)"
+msg INFO "Build wireshark image & start container ..."
+msg INFO "$( exec 2>&1
+docker-compose up -d --build wireshark
+)"
+msg END "... done."

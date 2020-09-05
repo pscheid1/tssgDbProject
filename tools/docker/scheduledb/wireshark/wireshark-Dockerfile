@@ -1,0 +1,27 @@
+# wireshark-Dockerfile
+
+FROM linuxserver/wireshark:latest
+LABEL maintainer="Ralph Navarro <ralph@navarrocomputing.com>"
+
+# Set the directory to contain node application files
+SHELL ["/bin/bash", "-c"]
+RUN apt update && \
+    apt install -y \
+        curl \
+        vim \
+        tree \
+        less \
+        dnsutils \
+        iproute2 \
+        iputils-ping \
+        net-tools \
+        traceroute \
+        tcpdump && \
+    apt full-upgrade -y --auto-remove
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+
+HEALTHCHECK \
+    --interval=10s \
+    --timeout=10s \
+    --retries=3 \
+    CMD curl --fail http://localhost:3000/ || exit 1

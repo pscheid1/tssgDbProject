@@ -108,5 +108,26 @@ services:
       - ${WEBSITE_PORT}
     command: /bin/bash website.start
 
+  wireshark:
+    image: sdb-wireshark:${wiresharkVersion}
+    build:
+      context: ./wireshark/
+      dockerfile: wireshark-Dockerfile
+    container_name: wireshark
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - DISPLAY=${DISPLAY}
+    ports:
+      - 3000:3000 #optional
+    restart: unless-stopped
+    volumes:
+      - ./wireshark/config:/config
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
 volumes:
   mongodb:
