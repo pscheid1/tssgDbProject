@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# from scheduledb folder
+
+# jsdoc2md DbApi/controllers/user.controller.js > DbApi/controllers/user.md
+
+# jsdoc2md DbApi/controllers/meeting.controller.js > DbApi/controllers/meeting.md
+
+# jsdoc2md DbApi/controllers/team.controller.js > DbApi/controllers/team.md
+
+# jsdoc2md DbApi/controllers/venue.controller.js > DbApi/controllers/venu.md
+
+# from scheduledb/DbApi folder
+
+jsdoc2md controllers/user.controller.js > controllers/user.md
+
+jsdoc2md controllers/meeting.controller.js > controllers/meeting.md
+
+jsdoc2md controllers/team.controller.js > controllers/team.md
+
+jsdoc2md controllers/venue.controller.js > controllers/venu.md

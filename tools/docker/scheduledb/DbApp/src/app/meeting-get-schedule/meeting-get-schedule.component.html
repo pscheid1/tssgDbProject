@@ -2,7 +2,6 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4 class="panel-title">Select Team Name</h4>
-      <p>Meetings will be listed for selected team only.</p>
     </div>
     <div class="panel-body">
     <div class="form-group" [class.has-error]="team.invalid && team.touched" [class.has-success]="team.valid">
@@ -10,6 +9,7 @@
       <select required id="team" name="team" class="form-control" [(ngModel)]="teamname" #team="ngModel">
         <option *ngFor="let teamName of teams" [value]="teamName"> {{teamName}}</option>
       </select>
+      <span style="font-style:italic; font-size:14px;">Meetings will be listed for selected team only.</span>
       <span class="alert alert-danger" *ngIf="team.invalid && team.touched">
         Team Name is required
       </span>

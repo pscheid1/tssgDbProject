@@ -10,9 +10,9 @@
           <th>Meeting Id</th>&nbsp;
           <th>Team</th>&nbsp;
           <th>Venue</th>&nbsp;
-          <th>Date</th>&nbsp;
-          <th>Start</th>&nbsp;
-          <th>End</th>&nbsp;
+          <th class="w-15"> Date</th>&nbsp;
+          <th class="w-8">Start</th>&nbsp;
+          <th class="w-8">End</th>&nbsp;
           <th>Comments</th>&nbsp;
           <th></th>&nbsp;
           <th></th>
@@ -33,8 +33,8 @@
           <td>{{meeting.team}}</td>&nbsp;
           <td>{{meeting.venue}}</td>&nbsp;
           <td>{{meeting.meetingDate | date: 'E LLL dd yyyy'}}</td>&nbsp;
-          <td>{{meeting.startTime | date: 'hh:mm aaaaa'}}</td>&nbsp;
-          <td>{{meeting.endTime | date: 'hh:mm aaaaa'}}</td>&nbsp;
+          <td>{{meeting.startTime | date: 'hh:mm a' | lowercase}}</td>&nbsp;
+          <td>{{meeting.endTime | date: 'hh:mm a' | lowercase}}</td>&nbsp;
           <td>{{meeting.comments}}</td>&nbsp;
           <td><a [routerLink]="routerlink + meeting._id" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
           <td><a (click)="deleteMeeting(meeting._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>

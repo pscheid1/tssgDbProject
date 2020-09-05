@@ -6,8 +6,8 @@
     </div>
     <div class="panel-body">
       <div class="form-group" [class.has-error]="_id.invalid && _id.touched" [class.has-success]="_id.valid">
-        <label for="_id" class="control-label"> Venue Name (must be unique)</label>
-        <input required id="_id" name="_id" type="text" class="form-control" [(ngModel)]="venue._id" #_id="ngModel">
+        <label for="_id" class="control-label"> Venue Name (cannot be changed)</label>
+        <input disabled id="_id" name="_id" type="text" class="form-control" [(ngModel)]="venue._id" #_id="ngModel">
         <span class="alert alert-danger" *ngIf="_id.invalid && _id.touched">
           Venue Name is required
         </span>
