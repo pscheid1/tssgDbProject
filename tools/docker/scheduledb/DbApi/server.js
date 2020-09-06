@@ -117,7 +117,10 @@ let mongoDB = '';
 const mongo_destination = process.env.BACKEND_DB_DEST || '';
 // console.log(`server mongo_destination: ${mongo_destination}`);
 if (mongo_destination === 'container') {
+  // mongo is inside a container
   mongoDB = process.env.MONGO_WIN_CONTAINER_URL;
+  // backend is outside of a container
+  host = 'localhost';
 } else if (mongo_destination === 'native') {
   mongoDB = process.env.MONGO_WIN_NATIVE_URL;
 } else {
@@ -125,14 +128,14 @@ if (mongo_destination === 'container') {
 }
 
 // WARNING: Enabling the following console.log statement may display username and password
-// console.log(`mongoDB: ${mongoDB}`);
+// console.log(`DbApi.server.js mongoDB: ${mongoDB}`);
 
 mongoose.connect(mongoDB, mongoOptions);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('error', console.error.bind(console, 'DbApi.server.js MongoDB connection error:'));
 db.once('open', function () {
-  console.log("MongoDB, we're connected!");
+  console.log("DbApi.server.js MongoDB, we're connected!");
   console.log();
 });
 
