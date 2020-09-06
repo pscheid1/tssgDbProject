@@ -77,8 +77,8 @@ support this project.
 
  ***Fig. 1. Server.js request/response flow.*** 
 
-Note: Views (templements) have not been implemented in the backend code. This work 
-is accomplished by Angulare, in the frontend.
+**Note:** Views (templaments) have not been implemented in the backend code. This work 
+is accomplished by Angular, in the frontend.
 
 Let us follow a request through the above diagram:
 
