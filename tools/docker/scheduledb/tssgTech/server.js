@@ -60,14 +60,25 @@ for (index in argvs) {
 
 /* 
    This code will create a javascript file in the Site/Scripts directory named tssgBackendURL.js.
-   The code in this file is one javascript const (tssgBackendURL) initialized to the tssgTech backend url and port.
+   The code in this file is one javascript const (tssgBackendURL) initialized to the DbApi backend url and port.
    The resulting javascript file will contain a value equal or similar to: const tssgBackendURL = http://backend:7010
    The values are obtaned from BACKEND_BASE_URL and BACKEND_BASE_PORT environment variables.
    This file will be loaded in by the Site/schedule.html file and used to access the tssgTech meetings schedule from
    the DbApi backend container.
  */
-const buf = Buffer.from(`const tssgBackendURL = '${process.env.BACKEND_BASE_URL}:${process.env.BACKEND_BASE_PORT}';\n`);
-// console.log(`buf: ${buf}`);
+
+const mongo_destination = process.env.BACKEND_DB_DEST || '';
+// console.log(`server mongo_destination: ${mongo_destination}`);
+let buf;
+if (mongo_destination === 'container') {
+  // if we see this, backend, frontend and website are not running in containers
+  buf = Buffer.from(`const tssgBackendURL = 'http://localhost:7010';\n`);
+} else {
+  // everything is running in it's own container
+  buf = Buffer.from(`const tssgBackendURL = '${process.env.BACKEND_BASE_URL}:${process.env.BACKEND_BASE_PORT}';\n`);
+}
+// console.log(`tssgTech.server.js buf: ${buf}`);
+
 const dir = 'Site/Scripts/tssgBackendURL.js';
 fs.writeFile(dir, buf, (err) => {
   if (err) {
