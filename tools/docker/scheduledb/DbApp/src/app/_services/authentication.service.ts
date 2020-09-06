@@ -65,7 +65,7 @@ export class AuthenticationService {
       return ' ';
     }
 
-    console.log(`authentication.service.logout user: ${user.username}`);
+    // console.log(`authentication.service.logout user: ${user.username}`);
     const token = user.token;
     if (!token) {
       localStorage.removeItem('currentUser');

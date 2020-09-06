@@ -15,3 +15,4 @@ nginx/backup/
 hosts.backup
 dnsmasq.conf
 sites-enabled/dnsmasq.sdb
+tools/docker/scheduledb/nginx/sites-enabled/dnsmasq.sdb
