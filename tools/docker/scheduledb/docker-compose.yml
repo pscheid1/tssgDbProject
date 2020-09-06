@@ -1,6 +1,6 @@
 # scheduledb
 version: '3.1'
-#version: '2.0'
+# version: '2.0'
 
 services:
 
@@ -91,7 +91,7 @@ services:
       - TSSGAPIURL
     expose:
       - ${FRONTEND_PORT}
-     ports:
+    ports:
       - ${FRONTEND_PORT}
     command: /bin/bash frontend.start
 
