@@ -75,7 +75,7 @@ support this project.
      alt="Backend Flow Diagram"
      style="margin-right: 10px;" />
 
-**Fig. 1. Server.js request/response flow.**
+ ***Fig. 1. Server.js request/response flow.*** 
 
 Note: Views (templements) have not been implemented in the backend code. This work 
 is accomplished by Angulare, in the frontend.
