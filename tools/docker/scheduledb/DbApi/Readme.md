@@ -71,23 +71,19 @@ One each for user, team, meeting, and venue. Because of the naming convention
 and the separation of functionality, it is much easier to develop, debug, and
 support this project.
 
-![](media/3fd7468c5cd0bff62a749812f93e5b4b.png)
+<img src="backend-flow.png"
+     alt="Backend Flow Diagram"
+     style="margin-right: 10px;" />
 
 **Fig. 1. Server.js request/response flow.**
 
-I could not find an easy way to edit the above picture, so a couple of edits are
-in order:
-
--   HTTP should be HTTP/HTTPS
-
--   (HTML) should be (JSON)
-
--   Views (templates) should be eliminated
+Note: Views (templements) have not been implemented in the backend code. This work 
+is accomplished by Angulare, in the frontend.
 
 Let us follow a request through the above diagram:
 
 Request: The sender sets the http.method to ‘get’ and URL to
-<https://localhost:4433/users>
+<https://backend/users>
 
 The above request is received in server.js. Because the method is ‘get’ and the
 URL path begins with /users, it attempts to match a get function in
@@ -128,6 +124,10 @@ venues.) The controller functions will also change to agree with the desired
 operation. Some of these functions are create/add, update, findAll,
 list\<collection\>, findOne, and delete. Some controllers will have collection
 specific functions such as register, authenticate, schedule and webSchedule.
+
+For more detailed information on specific controllers/collections, see the markdown
+files in the collections folder.  There is one for each controller: user.md, meeting.md, 
+team.md, and venu.md.
 
 Miscellaneous Files and Folders
 
@@ -202,14 +202,6 @@ tssgJwtExp          the JWT expiry time in minutes. Must be \>= to 1 and \<= 240
 tssgApiMtgDebug     true/false – enable/disable DbApi/meetings debug code. (default is false)
 
 tssgApiDefaultTeam  default team for webSchedule API call (default is WedGenMtg)
-
-tssgServerKey       DbApi server key file (default is tssg-server-key.pem)
-
-tssgServerCrt       DbApi server certificate file (default is tssg-server-crt.pem)
-
-tssgCaCrt           DbApi server CA certificate file (default is tssg-ca-crt.pem)
-
-tssgCaCrl           DbApi server CRL file (default is tssg-ca-crl.pem)
 
 tssgMongoDB_URL     the mongoose database connection string:
                     mongodb://\<admin\>:\<password\>\@\<IP\>:\<port\>/\<database\>?authSource=\<database\>
