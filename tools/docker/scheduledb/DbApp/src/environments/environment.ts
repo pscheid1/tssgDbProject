@@ -5,10 +5,9 @@
 export const environment = {
   production: false,
   TSSGAPIURL: 'http://backend.sdb',
-  // TSSGAPIURL: 'http://192.168.1.13',
-  // TSSGAPIURL: 'https://localhost',
-  TSSGAPIPORT: '80',
-  // TSSGAPIPORT: '4433'
+  // TSSGAPIURL: 'http://localhost',
+  TSSGAPIPORT: '80'
+  // TSSGAPIPORT: '7010'
 };
 
 /*
