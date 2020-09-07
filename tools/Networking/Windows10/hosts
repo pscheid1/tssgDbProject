@@ -1,0 +1,4 @@
+
+# These are the scheduledb services running locally in docker on this host
+$SDB_HOST_IP  backend.sdb frontend.sdb mongo-express.sdb website.sdb mongo.sdb
+

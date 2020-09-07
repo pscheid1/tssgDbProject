@@ -6,7 +6,10 @@ logsDirValidate
 
 msg BEGIN "Clean up and Install the scheduledb services ..."
 
-./dnsmasq.install
+# Disabling dnsmasq creation
+# since setting IPv4 DNS in Windows is too difficult
+#./dnsmasq.install
+
 ./nginx.install
 
 ./mongo.install
