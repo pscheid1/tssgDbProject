@@ -39,7 +39,7 @@ export class AuthGuard implements CanActivate {
     if (jwtHelper.isTokenExpired(token)) {
       // access jwt expired, force a logout
       this.as.logout();
-      alert('M001\nYour JWT token has expired.\nYou have been automatically logged out.\nPlease login again.');
+      alert('M001\nYour access JWT has expired.\nYou have been automatically logged out.\nPlease login again.');
       this.router.navigate(['/user/login'], { queryParams: { returnUrl: state.url } });
       return false;
     }
@@ -58,7 +58,7 @@ export class AuthGuard implements CanActivate {
     } catch (err) {
       // console.log(`auth.guard.canActivate as.refresh return err: ${err}`);
       this.as.logout();
-      alert('M002\nYour JWT token has expired.\nYou have been automatically logged out.\nPlease login again.');
+      alert('M002\nYour refresh JWT has expired.\nYou have been automatically logged out.\nPlease login again.');
       this.router.navigate(['/user/login'], { queryParams: { returnUrl: state.url } })
       return false;
     }
