@@ -16,6 +16,7 @@ bbtnc {
   z-index: 70; /* 50 */
   background-color: white;
   color: blue;
+  width: auto;
 }
 
 tr:hover {
@@ -39,5 +40,10 @@ td {
 
 .w-15 {
   width: 15ch;
+}
+
+body, html {
+  width: 100%;
+  height: 98%;
 }
 
