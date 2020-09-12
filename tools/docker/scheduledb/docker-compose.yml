@@ -34,8 +34,6 @@ services:
     build:
       context: .
       dockerfile: mongo-Dockerfile
-    ports:
-      - 27017:27017
     volumes:
       - mongodb:/data/db
     environment:
@@ -75,8 +73,6 @@ services:
       FRONTEND_VERSION: ${frontendVersion}
     expose:
       - ${BACKEND_BASE_PORT}
-    ports:
-      - ${BACKEND_BASE_PORT}
     command: /bin/bash backend.start
 
   frontend:
@@ -90,8 +86,6 @@ services:
       - NODE_ENV=production
       - TSSGAPIURL
     expose:
-      - ${FRONTEND_PORT}
-    ports:
       - ${FRONTEND_PORT}
     command: /bin/bash frontend.start
 
