@@ -10,7 +10,7 @@ msg BEGIN "Clean up and Install the scheduledb services ..."
 # since setting IPv4 DNS in Windows is too difficult
 #./dnsmasq.install
 
-./nginx.install
+[ "${DOCKER_HOST_SYSTEM}" != "LinuxServer" ] && ./nginx.install
 
 ./mongo.install
 ./backend.install
