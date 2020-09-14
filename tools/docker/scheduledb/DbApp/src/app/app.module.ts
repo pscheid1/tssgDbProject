@@ -40,6 +40,8 @@ import { MeetingGetScheduleComponent } from './meeting-get-schedule/meeting-get-
 
 import { APP_BASE_HREF } from '@angular/common';
 
+import { EnvServiceProvider } from './env.service.provider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,19 +76,20 @@ import { APP_BASE_HREF } from '@angular/common';
     BrowserAnimationsModule
   ],
   providers: [
-  AuthenticationService,
-  MeetingService,
-  TeamService,
-  UserService,
-  VenueService,
-  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  { provide: ErrorHandler, useClass: TssgErrorHandler },
-  { provide: APP_BASE_HREF, useValue: '/' }
-   ],
+    EnvServiceProvider,
+    AuthenticationService,
+    MeetingService,
+    TeamService,
+    UserService,
+    VenueService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: TssgErrorHandler },
+    { provide: APP_BASE_HREF, useValue: '/' }
+  ],
   bootstrap: [
-  AppComponent
-]
+    AppComponent
+  ]
 })
 
 export class AppModule { }

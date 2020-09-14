@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/_models/user';
-import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
+// import { environment } from 'src/environments/environment';
+import { EnvService } from '../env.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -14,10 +15,13 @@ export class AuthenticationService {
   private uri: string;
   private jwtService = new JwtHelperService();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private env: EnvService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT;
+    // console.log(`authentication.service BACKEND_URL:BACKEND_PORT ${env.BACKEND_URL}:${env.BACKEND_PORT}`);
+    // this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT;
+    this.uri = `${env.TSSGAPIURL}:${env.TSSGAPIPORT}`;
+
   }
 
   public get currentUserValue(): User {
@@ -91,5 +95,5 @@ export class AuthenticationService {
       .catch(err => {
         // console.log(`authentication.service.logout Error: ${JSON.stringify(err)}`);
       });
-    }
+  }
 }
