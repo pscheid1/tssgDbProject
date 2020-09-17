@@ -4,9 +4,13 @@
 
 export const environment = {
   production: false,
+
+  // with the implementation of set-env.ts, .env, and env.js, the
+  // following code is nolonger needed.
+
   // next two lines when frontend is in a container
-  TSSGAPIURL: 'http://backend.sdb',
-  TSSGAPIPORT: '80'
+  // TSSGAPIURL: 'http://backend.sdb',
+  // TSSGAPIPORT: '80',
   // following two lines when frontend is not in a container
   // TSSGAPIURL: 'http://localhost',
   // TSSGAPIPORT: '7010'
