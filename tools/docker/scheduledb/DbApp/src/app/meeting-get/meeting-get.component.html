@@ -1,4 +1,4 @@
-<form #meetingForm="ngForm">
+<form #meetingForm="ngForm" style="width: 100%">
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h4 class="panel-title">{{heading}}</h4>
@@ -22,20 +22,19 @@
         <!--
           For some unknown (to me) reason, the table body
           display lines start at the same height as the
-          table header. The three following blank rows
+          table header. The two following blank rows
           push the body below the header.
         -->
-        <tr>&nbsp;</tr>
         <tr>&nbsp;</tr>
         <tr>&nbsp;</tr>
         <tr *ngFor="let meeting of meetings">
           <td>{{meeting._id}}</td>&nbsp;
           <td>{{meeting.team}}</td>&nbsp;
           <td>{{meeting.venue}}</td>&nbsp;
-          <td>{{meeting.meetingDate | date: 'E LLL dd yyyy'}}</td>&nbsp;
-          <td>{{meeting.startTime | date: 'hh:mm a' | lowercase}}</td>&nbsp;
-          <td>{{meeting.endTime | date: 'hh:mm a' | lowercase}}</td>&nbsp;
-          <td>{{meeting.comments}}</td>&nbsp;
+          <td class="w-15">{{meeting.meetingDate | date: 'E LLL dd yyyy'}}</td>&nbsp;
+          <td class="w-8">{{meeting.startTime | date: 'hh:mm a' | lowercase}}</td>&nbsp;
+          <td class="w-8">{{meeting.endTime | date: 'hh:mm a' | lowercase}}</td>&nbsp;
+          <td style="min-width: 20ch;">{{meeting.comments}}</td>&nbsp;
           <td><a [routerLink]="routerlink + meeting._id" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
           <td><a (click)="deleteMeeting(meeting._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
         </tr>
