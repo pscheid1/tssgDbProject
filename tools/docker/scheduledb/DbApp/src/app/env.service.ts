@@ -22,6 +22,8 @@ export class EnvService {
   public TSSGAPIPORT = '80';
   public TSSGAPPURL = 'http://frontend.sdb';
   public TSSGAPP_PORT = '80';
+  public BACKEND_VERSION = '1.0';
+  public FRONTEND_VERSION = '1.0'
 
   constructor() {
   }

@@ -14,4 +14,6 @@
   // environment variables
   window.__env.TSSGAPIURL = "http://localhost";
   window.__env.TSSGAPIPORT = "7010";
+  window.__env.BACKEND_VERSION = "1.5";
+  window.__env.FRONTEND_VERSION = "1.5";
 }(this));
