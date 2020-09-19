@@ -1,17 +1,15 @@
 <nav class="navbar navbar-expand-sm nb_style">
   <div class="container-fluid">
-    <a style="float:left;margin-left:20px">
-      <img class="navbar-brand tssg-logo" href="#" src="assets/tssg_logo.png" alt="Image not avaiable"
-        routerLink="user/login" routerLinkActive="active">
-    </a>
-     <a style="float:left; color:white" [href]="'http://localhost:8088'" appExternalUrl >
-      <img class="navbar-brand web-icon" href="#" src="assets/browser.png" alt="No Image"
-      routerLinkActive="active">
-    </a>
-    <!-- <a style="float:left; font-weight: bold;">
-      <img class="navbar-brand web-icon" href="#" src="assets/browser.png" alt=""
-        routerLink="user/home" routerLinkActive="active">
-    </a> -->
+    <!-- <div style="float:left; margin-left:20px;"> -->
+    <div>
+      <a>
+        <img class="navbar-brand tssg-logo" href="#" src="assets/tssg_logo.png" alt="Image not avaiable"
+          routerLink="user/login" routerLinkActive="active">
+      </a>
+      <a style="color:white" [href]=website_url appExternalUrl>
+        <img class="navbar-brand web-icon" href="#" src="assets/browser.png" alt="No Image" routerLinkActive="active">
+      </a>
+    </div>
     <button class="navbar-toggler nb_toggle" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
       aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa fa-bars"></i>

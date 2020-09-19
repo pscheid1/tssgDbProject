@@ -27,19 +27,19 @@ nav {
 }
 
 .tssg-logo {
-  border-radius: 3px;
+  margin: 10px;
+  border-radius: 6px;
   float: left;
-  width: 49px;
-  height: 37px;
-  /* margin-bottom: 4px; */
+  width: 52px;
+  height: 44px;
+  margin-bottom: 4px;
 }
 
 .web-icon {
-  border-radius: 3px;
-  float: left;
-  width: 37px;
-  height: 40px;
-  /* margin-bottom: 4px; */
+  margin: 10px;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 4px;
 }
 
 

@@ -45,6 +45,8 @@ const var2 = process.env.TSSGAPIURL || process.env.BACKEND_BASE_URL;
 const var3 = process.env.TSSGAPIPORT || process.env.BACKEND_BASE_PORT;
 const var4 = process.env.BACKEND_VERSION || ' ';
 const var5 = process.env.FRONTEND_VERSION || ' ';
+const var6 = process.env.WEBSITE_URL;
+const var7 = process.env.WEBSITE_PORT;
 // const var3 = process.env.TSSGAPIPORT;
 
 // build the first constant section
@@ -67,9 +69,11 @@ const str2 = '";\n\n\
 const str3 = '";\n  window.__env.TSSGAPIPORT = "';
 const str4 = '";\n  window.__env.BACKEND_VERSION = "';
 const str5 = '";\n  window.__env.FRONTEND_VERSION = "';
-const str6 = '";\n}(this));\n';
+const str6 = '";\n  window.__env.WEBSITE_URL = "';
+const str7 = '";\n  window.__env.WEBSITE_PORT = "';
+const end = '";\n}(this));\n';
 // concatenate everything into one string
-const buf = str1.concat(var1, str2, var2, str3, var3, str4, var4, str5, var5, str6);
+const buf = str1.concat(var1, str2, var2, str3, var3, str4, var4, str5, var5, str6, var6, str7, var7, end);
 
 // create a new env.js file
 writeFile(dir, buf, (err) => {

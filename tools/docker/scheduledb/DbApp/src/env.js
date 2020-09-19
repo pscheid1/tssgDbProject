@@ -16,4 +16,6 @@
   window.__env.TSSGAPIPORT = "7010";
   window.__env.BACKEND_VERSION = "1.5";
   window.__env.FRONTEND_VERSION = "1.5";
+  window.__env.WEBSITE_URL = "http://localhost";
+  window.__env.WEBSITE_PORT = "8088";
 }(this));

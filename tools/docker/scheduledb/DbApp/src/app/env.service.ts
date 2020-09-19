@@ -24,6 +24,8 @@ export class EnvService {
   public TSSGAPP_PORT = '80';
   public BACKEND_VERSION = '1.0';
   public FRONTEND_VERSION = '1.0'
+  public WEBSITE_URL = 'http://website.sdb';
+  public WEBSITE_PORT = '8088';
 
   constructor() {
   }
