@@ -41,6 +41,8 @@ import { MeetingGetScheduleComponent } from './meeting-get-schedule/meeting-get-
 import { APP_BASE_HREF } from '@angular/common';
 
 import { EnvServiceProvider } from './env.service.provider';
+import { NotFoundComponent } from './not-found.component';
+import { ExternalUrlDirective } from './external-url.directive';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { EnvServiceProvider } from './env.service.provider';
     TeamAddComponent,
     TeamEditComponent,
     TeamGetComponent,
-    MeetingGetScheduleComponent
+    MeetingGetScheduleComponent,
+    NotFoundComponent,
+    ExternalUrlDirective
   ],
   imports: [
     BrowserModule,

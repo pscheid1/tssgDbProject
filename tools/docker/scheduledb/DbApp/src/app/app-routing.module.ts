@@ -1,3 +1,4 @@
+import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { VenueAddComponent } from './venue-add/venue-add.component';
@@ -20,6 +21,14 @@ import { TeamGetComponent } from './team-get/team-get.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { Role } from './_models/role';
+
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { InjectionToken } from '@angular/core';
+
+import { NotFoundComponent } from './not-found.component';
+
+const externalUrlProvider = new InjectionToken('externalUrlRedirectResolver');
+const deactivateGuard = new InjectionToken('deactivateGuard');
 
 
 const routes: Routes = [
@@ -115,7 +124,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
- {
+  {
     path: 'user/get-all',
     component: UserGetAllComponent,
     canActivate: [AuthGuard],
@@ -152,14 +161,39 @@ const routes: Routes = [
     // data: { type: 'user/login'}
   },
   {
-  // otherwise redirect to home
-  path: '**', redirectTo: 'home'
+    path: 'externalRedirect',
+    canActivate: [externalUrlProvider],
+    // We need a component here because we cannot define the route otherwise
+    component: NotFoundComponent,
+  },
+  {
+    // otherwise redirect to home
+    path: '**', redirectTo: 'home'
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { enableTracing: false })],   // for debugging, set enableTracing: true
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: externalUrlProvider,
+      useValue: (route: ActivatedRouteSnapshot) => {
+
+        const externalUrl = route.paramMap.get('externalUrl');
+        window.open(externalUrl, '_self');
+      },
+    },
+    {
+      provide: deactivateGuard,
+      useValue: () => {
+        console.log('Guard function is called!')
+
+        return false;
+      }
+    },
+  ],
+
 })
 
 export class AppRoutingModule { }
