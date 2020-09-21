@@ -9,9 +9,10 @@ export class EnvService {
   // be overridden by env.js.  If there is no env.js file, then
   // these values are used.
 
-  // Whether or not env.js is loaded
+  // In the index.html environment, this variable
+  // indicates Whether or not env.js is loaded.
   // If false, variables are default values from env.service.ts
-  // If true, variables are values from env.js
+  // If true, variables are values from an env.js file.
   public envJsLoaded = false;
 
   // Whether or not to enable debug mode
@@ -22,10 +23,10 @@ export class EnvService {
   public TSSGAPIPORT = '80';
   public TSSGAPPURL = 'http://frontend.sdb';
   public TSSGAPP_PORT = '80';
-  public BACKEND_VERSION = '1.0';
-  public FRONTEND_VERSION = '1.0'
+  public BACKEND_VERSION = '1.5';
+  public FRONTEND_VERSION = '1.5'
   public WEBSITE_URL = 'http://website.sdb';
-  public WEBSITE_PORT = '8088';
+  public WEBSITE_PORT = '80';
 
   constructor() {
   }
