@@ -2,13 +2,17 @@
   <div class="container-fluid">
     <!-- <div style="float:left; margin-left:20px;"> -->
     <div>
-      <a>
-        <img class="navbar-brand tssg-logo" href="#" src="assets/tssg_logo.png" alt="Image not avaiable"
-          routerLink="user/login" routerLinkActive="active">
-      </a>
-      <a style="color:white" [href]=website_url appExternalUrl>
-        <img class="navbar-brand web-icon" href="#" src="assets/browser.png" alt="No Image" routerLinkActive="active">
-      </a>
+      <span class="navbar-brand">
+        <a>
+          <img class="tssg-logo" href="#" src="assets/tssg_logo.png" routerLink="user/login" routerLinkActive="active">
+        </a>
+        <!-- The following line will open the website in the current browser tab -->
+        <!-- <a style="color:white" [href]=website_url appExternalUrl > -->
+        <!-- The following line will open the website in a new browser tab -->
+        <a style="color:white" [href]=website_url target="_blank">
+          <img class="navbar-brand web-icon" href="#" src="assets/browser.png" routerLinkActive="active">
+        </a>
+      </span>
     </div>
     <button class="navbar-toggler nb_toggle" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
       aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +23,8 @@
         calculate position of all navbar menue items and therefore the dropdown positions.  If you change the order, you will
         see the right most menue item push up against the right edge and possibly partially out of view.
     -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;">
+    <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;"> -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <!-- adding the data-toggle and data-target classes will cause the verticle menu items to collaps when a dropdown is selected -->
         <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
@@ -34,7 +39,7 @@
             <a class="dropdown-item nav-link nb_style" routerLink="user/get" routerLinkActive="active">List Current
               User
             </a>
-            <!--<div class="dropdown-divider nb_style"></div>-->
+            <!-- <div class="dropdown-divider nb_style"></div> -->
             <a class="dropdown-item nav-link nb_style" routerLink="user/logout" routerLinkActive="active">Logout</a>
           </div>
         </li>
