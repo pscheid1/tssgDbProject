@@ -2,9 +2,10 @@
 (function (window) {
   window.__env = window.__env || {};
 
-  // Whether or not env.js is loaded
+  // In the index.html environment, this variable
+  // indicates Whether or not env.js is loaded.
   // If false, variables are default values from env.service.ts
-  // If true, variables are values from env.js
+  // If true, variables are values from an env.js file.
   window.__env.envJsLoaded = "true";
 
   // Whether or not to enable debug mode
