@@ -24,7 +24,7 @@ const isProd = environment === 'prod'; // 'true' or 'false'
 
 /*
   The following code replaces the original code.  Instead of
-  creating an environment.dev.ts file, This code
+  creating an environment.dev.ts file, this code
   will produce the env.js file that will be injected into
   the frontend angular project.  The env.js file can be
   created at any time even during frontend run time.  env.js
@@ -36,27 +36,33 @@ const isProd = environment === 'prod'; // 'true' or 'false'
   file (these can be considered default values) and the host system.
   Host system environment variables win out over duplicate definitions.
 */
-
+// console.log(`set-env.ts TSSGAPIURL ${process.env.TSSGAPIURL}`);
+// console.log(`set-env.ts BACKEND_BASE_URL ${process.env.BACKEND_BASE_URL}`);
+// console.log(`set-env.ts TSSGAPIPORT ${process.env.TSSGAPIPORT}`);
+// console.log(`set-env.ts BACKEND_BASE_PORT ${process.env.BACKEND_BASE_PORT}`);
+// console.log(`set-env.ts WEBSITE_URL ${process.env.WEBSITE_URL}`);
+// console.log(`set-env.ts WEBSITE_PORT ${process.env.WEBSITE_PORT}`);
 // create file in project/src folder
 const dir = 'src/env.js';
 // get the desired environmet variables
 const var1 = process.env.FRONTEND_DEBUG || 'true';
 const var2 = process.env.TSSGAPIURL || process.env.BACKEND_BASE_URL;
 const var3 = process.env.TSSGAPIPORT || process.env.BACKEND_BASE_PORT;
-const var4 = process.env.BACKEND_VERSION || ' ';
-const var5 = process.env.FRONTEND_VERSION || ' ';
+const var4 = process.env.backendVersion || process.env.BACKEND_VERSION;
+const var5 = process.env.frontendVersion || process.env.FRONTEND_VERSION;
 const var6 = process.env.WEBSITE_URL;
 const var7 = process.env.WEBSITE_PORT;
-// const var3 = process.env.TSSGAPIPORT;
+
 
 // build the first constant section
 const str1 = '\n\
 (function (window) {\n\
   window.__env = window.__env || {};\n\
 \n\
-  // Whether or not env.js is loaded\n\
+  // In the index.html environment, this variable\n\
+  // indicates Whether or not env.js is loaded.\n\
   // If false, variables are default values from env.service.ts\n\
-  // If true, variables are values from env.js\n\
+  // If true, variables are values from an env.js file.\n\
   window.__env.envJsLoaded = "true";\n\
 \n\
   // Whether or not to enable debug mode\n\
@@ -73,7 +79,14 @@ const str6 = '";\n  window.__env.WEBSITE_URL = "';
 const str7 = '";\n  window.__env.WEBSITE_PORT = "';
 const end = '";\n}(this));\n';
 // concatenate everything into one string
-const buf = str1.concat(var1, str2, var2, str3, var3, str4, var4, str5, var5, str6, var6, str7, var7, end);
+const buf = str1.concat(var1,
+  str2, var2,
+  str3, var3,
+  str4, var4,
+  str5, var5,
+  str6, var6,
+  str7, var7,
+  end);
 
 // create a new env.js file
 writeFile(dir, buf, (err) => {
@@ -87,7 +100,8 @@ writeFile(dir, buf, (err) => {
   code below is the original code. It would create the
   src/environments/environment.dev.ts file.  This is
   a typescript file that is used in the angular transpile
-  to javascript during the angular compilation.
+  to javascript during the angular compilation. Ig is basically
+  a list of name/value pairs (environement variables.)
 */
 /*
 const targetPath = `./src/environments/environment.${environment}.ts`;
