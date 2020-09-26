@@ -32,8 +32,6 @@ if (host.includes('://')) {
   protocol = 'http';
 }
 
-global.backendVersion = process.env.BACKEND_VERSION || '1.4 ext';
-global.frontendVersion = process.env.FRONTEND_VERSION || '1.4 ext';
 
 // get jwt validity time (in minutes).
 // accessJwtExpiry limits are 1 >= accessJwtExpiry <= 240 (1 minute to 4 hours)

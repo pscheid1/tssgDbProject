@@ -4,12 +4,7 @@
 
 export const environment = {
   production: false,
-  // next two lines when frontend is in a container
-  TSSGAPIURL: 'http://backend.sdb',
-  TSSGAPIPORT: '80'
-  // following two lines when frontend is not in a container
-  // TSSGAPIURL: 'http://localhost',
-  // TSSGAPIPORT: '7010'
+
 };
 
 /*

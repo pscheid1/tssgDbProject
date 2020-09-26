@@ -24,7 +24,8 @@
             "aot": false,
             "assets": [
               "src/assets/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/env.js"
             ],
             "styles": [
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",

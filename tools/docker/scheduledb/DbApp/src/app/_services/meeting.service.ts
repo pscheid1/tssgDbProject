@@ -5,7 +5,8 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Meeting } from 'src/app/_models/meeting';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
+import { EnvService } from '../env.service';
 
 
 @Injectable({
@@ -16,8 +17,9 @@ export class MeetingService {
 
   private uri: string;
 
-  constructor(private http: HttpClient) {
-    this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/meetings';
+  constructor(private http: HttpClient, private env: EnvService) {
+    // this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/meetings';
+    this.uri = `${env.TSSGAPIURL}:${env.TSSGAPIPORT}/meetings`;
   }
 
   private extractData(res: HttpResponse<Meeting>) {

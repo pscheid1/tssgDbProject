@@ -9,5 +9,10 @@ sleep $timeout
 date
 
 #npm run dev
+
+# create the env.js file
+npm run config
+
+# build the frontend and start the server
 node_modules/@angular/cli/bin/ng serve --host 0.0.0.0 --disableHostCheck true --port 4200
 # node_modules/@angular/cli/bin/ng serve --ssl --host 0.0.0.0 --disableHostCheck true --port 4300

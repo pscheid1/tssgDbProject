@@ -53,8 +53,7 @@ module.exports = {
     // console.log('user.controller.authenticate: username = ' + req.body.username);
     userAuth(req.body)
       .then(user => {
-        let expandedUser = { ...user, 'backendVersion': global.backendVersion, 'frontendVersion': global.frontendVersion };
-        res.status(200).json(expandedUser);
+        res.status(200).json(user);
       })
       .catch(err => {
         // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);

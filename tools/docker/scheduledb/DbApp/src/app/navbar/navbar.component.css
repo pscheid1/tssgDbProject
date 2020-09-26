@@ -23,15 +23,24 @@ nav {
   color:  rgb(14, 62, 151);
   width: 40px;
   height: 30px;
-  /* margin-bottom: 4px; */
+  margin-bottom: 8px;
 }
 
 .tssg-logo {
-  border-radius: 3px;
-  float: left;
-  width: 49px;
-  height: 37px;
-  /* margin-bottom: 4px; */
+  margin: 10px;
+  border-radius: 4px;
+  /* float: left; */
+  width: 52px;
+  height: 30px;
+  margin-bottom: 8px;
 }
+
+.web-icon {
+  margin: 10px;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 8px;
+}
+
 
 

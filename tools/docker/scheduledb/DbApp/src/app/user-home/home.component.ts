@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { EnvService } from '../env.service';
 @Component({
   selector: 'app-user-home',
   templateUrl: './home.component.html',
@@ -19,14 +16,19 @@ export class HomeComponent implements OnInit {
   dspCreatedDate = '';
   errorMsg = '';
   ngVersion = '10';  // initialize to default value
+  backendVersion;
+  frontendVersion;
 
   constructor(
     private route: ActivatedRoute,
     private us: UserService,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private env: EnvService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
+    this.backendVersion = env.BACKEND_VERSION;
+    this.frontendVersion = env.FRONTEND_VERSION;
   }
 
   ngOnInit() {

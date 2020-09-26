@@ -18,10 +18,6 @@ msg INFO "$( exec 2>&1
 docker rmi tssg-node-frontend:${frontendVersion}
 )"
 
-msg INFO "Set the appropriate values into src/environments/environment.ts ..."
-sed -ie "s,^\(^[[:space:]]*TSSGAPIURL: \).*$,\1\'"$TSSGAPIURL"\'\,," DbApp/src/environments/environment.ts
-sed -ie "s,^\(^[[:space:]]*TSSGAPIPORT: \).*$,\1\'"$TSSGAPIPORT"\'\,," DbApp/src/environments/environment.ts
-
 msg INFO "Build the frontend image & start container ..."
 msg INFO "$( exec 2>&1
 docker-compose up -d --build frontend
