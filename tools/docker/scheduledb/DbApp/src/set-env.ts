@@ -42,6 +42,10 @@ const isProd = environment === 'prod'; // 'true' or 'false'
 // console.log(`set-env.ts BACKEND_BASE_PORT ${process.env.BACKEND_BASE_PORT}`);
 // console.log(`set-env.ts WEBSITE_URL ${process.env.WEBSITE_URL}`);
 // console.log(`set-env.ts WEBSITE_PORT ${process.env.WEBSITE_PORT}`);
+// console.log(`set-env.ts backendVersion ${process.env.backendVersion}`);
+// console.log(`set-env.ts BACKEND_VERSION ${process.env.BACKEND_VERSION}`);
+// console.log(`set-env.ts frontendVersion ${process.env.frontendVersion}`);
+// console.log(`set-env.ts FRONTEND_VERSION ${process.env.FRONTEND_VERSION}`);
 // create file in project/src folder
 const dir = 'src/env.js';
 // get the desired environmet variables
