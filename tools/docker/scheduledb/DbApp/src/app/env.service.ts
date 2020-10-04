@@ -23,8 +23,8 @@ export class EnvService {
   public TSSGAPIPORT = '80';
   public TSSGAPPURL = 'http://frontend.sdb';
   public TSSGAPP_PORT = '80';
-  public BACKEND_VERSION = '1.5';
-  public FRONTEND_VERSION = '1.5'
+  public BACKEND_VERSION = '1.4';
+  public FRONTEND_VERSION = '1.6'
   public WEBSITE_URL = 'http://website.sdb';
   public WEBSITE_PORT = '80';
 
