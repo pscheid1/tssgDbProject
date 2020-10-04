@@ -89,8 +89,9 @@ module.exports = {
           // console.log(`user.controller.refresh user === null`);
           throw new Error('User ' + req.params._id + ' not found.');
         } else {
-          let expandedUser = { ...user, 'backendVersion': global.backendVersion, 'frontendVersion': global.frontendVersion };
-          res.status(200).json(expandedUser);
+          // let expandedUser = { ...user, 'backendVersion': global.backendVersion, 'frontendVersion': global.frontendVersion };
+          // res.status(200).json(expandedUser);
+          res.status(200).json(user);
         }
       })
       .catch(err => {
