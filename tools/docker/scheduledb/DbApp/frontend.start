@@ -8,10 +8,10 @@ echo "   Waiting ${timeout} seconds ..."
 sleep $timeout
 date
 
-#npm run dev
-
 # create the env.js file
-npm run config
+echo "building env.js file ..."
+node_modules/.bin/ts-node ./src/set-env.ts
+echo "env.js file build completed ..."
 
 # build the frontend and start the server
 node_modules/@angular/cli/bin/ng serve --host 0.0.0.0 --disableHostCheck true --port 4200
