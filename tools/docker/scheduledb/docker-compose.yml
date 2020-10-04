@@ -83,8 +83,12 @@ services:
     user: "node"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
-      - TSSGAPIURL
+      BACKEND_VERSION: ${backendVersion}
+      FRONTEND_VERSION: ${frontendVersion}
+      NODE_ENV: production
+      TSSGAPIURL: ${TSSGAPIURL}
+      # - NODE_ENV=production
+      # - TSSGAPIURL
     expose:
       - ${FRONTEND_PORT}
     command: /bin/bash frontend.start
