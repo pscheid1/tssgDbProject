@@ -19,6 +19,10 @@ docker rmi sdb-nginx:1.19.2-1.0
 
 imagesDanglingRemove
 
+cd nginx
+./sites.enable
+cd ..
+
 msg INFO "Configure nginx/sites-enabled/dnsmasq.sdb with SDB_HOST_IP ..."
 sed -e "s/\(^.*\)\$SDB_HOST_IP\(.*$\)/\1$SDB_HOST_IP\2/g" \
     nginx/sites-available/dnsmasq.sdb >nginx/sites-enabled/dnsmasq.sdb

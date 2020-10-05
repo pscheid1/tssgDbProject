@@ -1,11 +1,11 @@
 server {
     listen 80;
     listen [::]:80;
-    
-    server_name mongo.sdb;
+
+    server_name backend.sdb.technologynursery.org;
 
     location / {
-        set $upstream http://mongo:27017;
+        set $upstream http://backend:7010;
         proxy_pass $upstream;
     }
 }

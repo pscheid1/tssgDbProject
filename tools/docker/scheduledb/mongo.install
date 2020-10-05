@@ -23,6 +23,13 @@ docker-compose up -d --build mongo
 )"
 
 msg INFO "Initialize the tssg-tech mongo database when the service is ready ..."
+docker exec scheduledb_mongo_1 bash -c "\
+    while (! mongo -u root -p sch3dul3db --eval 'db.stats()' | grep -q '\"ok\" : 1') 
+    do
+        echo 'checking mongo health ...'
+        sleep 5s
+    done"
+
 msg INFO "$(docker exec scheduledb_mongo_1 bash -c "\
     cd /root; \
     mongorestore \

@@ -1,13 +1,46 @@
 #!/usr/bin/env bash
-# sites.enable                                   # Enable all of the available sites.
+#help  sites.enable                              # Enable all of the available sites.
 . ../../../cmd.env
 
-if cp -a sites-available/* sites-enabled/ ; then
-    msg INFO "All sites copied successfully"
+msg BEGIN "Enable the specified available sites ..."
+
+# Prepare sites-enabled folder
+rm -rf sites-enabled
+mkdir sites-enabled
+
+#help     [<pipeline>]                           # Optional.  The pipeline to configure for: local, dev, qa, or prod
+[ $# -gt 0 ] && pipeline=$1
+
+# Select appropriate files to copy from sites-available to sites-enabled
+case "$pipeline" in
+    dev)
+        sourceFiles="*.sdb.technologynursery.org"
+        ;;
+    local)
+        sourceFiles="*.sdb"
+        ;;
+    qa)
+        sourceFiles="*.sdb"
+        ;;
+    prod)
+        sourceFiles="*.sdb"
+        ;;
+    *)
+        [ "${DOCKER_HOST_SYSTEM}" == "LinuxServer" ] && sourceFiles="*.sdb.technologynursery.org" || sourceFiles="*.sdb"
+        ;;
+esac
+
+cd sites-available
+if cp -p ${sourceFiles} ../sites-enabled/ ; then
+    msg INFO "Sites ${sourceFiles} copied successfully"
+    cd ..
     ls -l sites-available sites-enabled
     exit 0
 else
     msg ERROR "Not all sites copied successfully to sites-enabled.  Exiting."
+    cd ..
     ls -l sites-available sites-enabled
     exit 1
 fi
+
+msg END "... done."

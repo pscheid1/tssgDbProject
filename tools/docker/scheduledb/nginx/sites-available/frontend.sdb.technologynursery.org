@@ -2,10 +2,10 @@ server {
     listen 80;
     listen [::]:80;
     
-    server_name website.sdb;
+    server_name frontend.sdb.technologynursery.org;
 
     location / {
-        set $upstream http://website:8088;
+        set $upstream http://frontend:4200;
         proxy_pass $upstream;
     }
 }

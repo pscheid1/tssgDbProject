@@ -25,7 +25,7 @@ services:
     environment:
       - SDB_HOST_IP=${SDB_HOST_IP}
     ports:
-      - 80:80
+      - ${SDB_HOST_PORT}:80
     dns:
       - ${SDB_HOST_IP}
   

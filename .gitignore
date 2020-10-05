@@ -9,6 +9,7 @@ out/
 tmp/
 logs/
 target/
+rsync/
 
 node_modules/
 nginx/backup/
