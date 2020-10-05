@@ -26,7 +26,7 @@ msg INFO "Initialize the tssg-tech mongo database when the service is ready ..."
 docker exec scheduledb_mongo_1 bash -c "\
     while (! mongo -u root -p sch3dul3db --eval 'db.stats()' | grep -q '\"ok\" : 1') 
     do
-        echo 'checking mongo health ...'
+        echo 'checking mongo health again in 5s ...'
         sleep 5s
     done"
 
@@ -44,7 +44,7 @@ msg INFO "... done."
 
 msg INFO "Mongo can be accessed on port 27017"
 if docker ps | grep -q mongo-express ; then
-    msg INFO "Mongo Express can be accessed on port 8081"
+    msg INFO "Mongo Express can be accessed at mongo-express.sdb"
 else
     msg INFO "Mongo Express was not started."
 fi
