@@ -85,6 +85,8 @@ services:
     environment:
       BACKEND_VERSION: ${backendVersion}
       FRONTEND_VERSION: ${frontendVersion}
+      WEBSITE_URL: ${WEBSITE_URL}
+      WEBSITE_PORT: ${WEBSITE_PORT}
       NODE_ENV: production
       TSSGAPIURL: ${TSSGAPIURL}
       # - NODE_ENV=production
