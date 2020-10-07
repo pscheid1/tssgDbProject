@@ -89,6 +89,7 @@ services:
       WEBSITE_PORT: ${WEBSITE_PORT}
       NODE_ENV: production
       TSSGAPIURL: ${TSSGAPIURL}
+      TSSGAPIPORT: ${TSSGAPIPORT}
       # - NODE_ENV=production
       # - TSSGAPIURL
     expose:
@@ -107,7 +108,7 @@ services:
       BACKEND_BASE_URL: ${BACKEND_BASE_URL}
       BACKEND_BASE_PORT: ${BACKEND_BASE_PORT}
     expose:
-      - ${WEBSITE_PORT}
+      - "${WEBSITE_PORT}"
     command: /bin/bash website.start
 
   wireshark:
