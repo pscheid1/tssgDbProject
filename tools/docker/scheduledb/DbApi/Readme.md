@@ -193,9 +193,9 @@ project.
 
 **Name              Value**
 
-BACKEND_BASE_URL    the IP address DbApi will listen on
+BACKEND_URL         the IP address DbApi will listen on
 
-BACKEND_BASE_PORT   the port DbApi (server.js) will listen on
+BACKEND_PORT        the port DbApi (server.js) will listen on
 
 tssgJwtExp          the JWT expiry time in minutes. Must be \>= to 1 and \<= 240. Default is 30 minutes.
 

@@ -37,9 +37,9 @@ const isProd = environment === 'prod'; // 'true' or 'false'
   Host system environment variables win out over duplicate definitions.
 */
 // console.log(`set-env.ts TSSGAPIURL ${process.env.TSSGAPIURL}`);
-// console.log(`set-env.ts BACKEND_BASE_URL ${process.env.BACKEND_BASE_URL}`);
+// console.log(`set-env.ts BACKEND_URL ${process.env.BACKEND_URL}`);
 // console.log(`set-env.ts TSSGAPIPORT ${process.env.TSSGAPIPORT}`);
-// console.log(`set-env.ts BACKEND_BASE_PORT ${process.env.BACKEND_BASE_PORT}`);
+// console.log(`set-env.ts BACKEND_PORT ${process.env.BACKEND_PORT}`);
 // console.log(`set-env.ts WEBSITE_URL ${process.env.WEBSITE_URL}`);
 // console.log(`set-env.ts WEBSITE_PORT ${process.env.WEBSITE_PORT}`);
 // console.log(`set-env.ts backendVersion ${process.env.backendVersion}`);
@@ -50,8 +50,8 @@ const isProd = environment === 'prod'; // 'true' or 'false'
 const dir = 'src/env.js';
 // get the desired environmet variables
 const var1 = process.env.FRONTEND_DEBUG || 'true';
-const var2 = process.env.TSSGAPIURL || process.env.BACKEND_BASE_URL;
-const var3 = process.env.TSSGAPIPORT || process.env.BACKEND_BASE_PORT;
+const var2 = process.env.TSSGAPIURL || process.env.BACKEND_URL;
+const var3 = process.env.TSSGAPIPORT || process.env.BACKEND_PORT;
 const var4 = process.env.backendVersion || process.env.BACKEND_VERSION;
 const var5 = process.env.frontendVersion || process.env.FRONTEND_VERSION;
 const var6 = process.env.WEBSITE_URL;
@@ -104,7 +104,7 @@ writeFile(dir, buf, (err) => {
   code below is the original code. It would create the
   src/environments/environment.dev.ts file.  This is
   a typescript file that is used in the angular transpile
-  to javascript during the angular compilation. Ig is basically
+  to javascript during the angular compilation. It is basically
   a list of name/value pairs (environement variables.)
 */
 /*
@@ -114,8 +114,8 @@ export const environment = {
   production: ${isProd},
   superSecretKey: "${process.env.SUPER_SECRET_CRED1}",
   superDoubleSecret: "${process.env.SUPER_SECRET_CRED2}",
-  backendURL: "${process.env.BACKEND_BASE_URL}",
-  backendPORT:  "${process.env.BACKEND_BASE_PORT}",
+  backendURL: "${process.env.BACKEND_URL}",
+  backendPORT:  "${process.env.BACKEND_PORT}",
   mongoDB: "${process.env.MONGO_WIN_CONTAINER_URL}",
   TSSGAPPURL: "${process.env.TSSGAPPURL}"
 };

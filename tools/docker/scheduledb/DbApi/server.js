@@ -20,8 +20,8 @@ global.PackageName = Folders[Folders.length - 1];
 
 let protocol; // not using any more, but we'll leave it in for now.
 
-const port = process.env.BACKEND_BASE_PORT || 7010;
-let host = (process.env.BACKEND_BASE_URL || 'http://backend').toLowerCase();
+const port = process.env.BACKEND_PORT || 7010;
+let host = (process.env.BACKEND_URL || 'http://backend').toLowerCase();
 
 // strip any protocol off.  We're forcing to http down below.
 if (host.includes('://')) {

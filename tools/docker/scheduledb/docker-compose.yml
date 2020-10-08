@@ -72,7 +72,7 @@ services:
       BACKEND_VERSION: ${backendVersion}
       FRONTEND_VERSION: ${frontendVersion}
     expose:
-      - ${BACKEND_BASE_PORT}
+      - ${BACKEND_PORT}
     command: /bin/bash backend.start
 
   frontend:
@@ -105,8 +105,8 @@ services:
     working_dir: /home/node/app
     environment:
       NODE_ENV: production
-      BACKEND_BASE_URL: ${BACKEND_BASE_URL}
-      BACKEND_BASE_PORT: ${BACKEND_BASE_PORT}
+      BACKEND_URL: ${BACKEND_URL}
+      BACKEND_PORT: ${BACKEND_PORT}
     expose:
       - "${WEBSITE_PORT}"
     command: /bin/bash website.start
