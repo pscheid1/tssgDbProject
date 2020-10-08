@@ -7,7 +7,7 @@
     "start": "npm run config && ng serve",
     "ngstart": "ng serve",
     "comment_start": "ng serve --ssl",
-    "ostart": "npm run config set scripts-prepend-node-path auto && ng serve -o --port 4200",
+    "ostart": "npm run config set scripts-prepend-node-path auto && ng serve -o --port 4300",
     "ngostart": "ng serve -o --port 4200",
     "comment_ostart": "ng serve -o --ssl --port 4300",
     "build": "  npm run config set scripts-prepend-node-path auto && ng build",
