@@ -183,7 +183,7 @@ if desired.
 
 **tssgConf.json –**
 
-This JSON file contains two objects, backendVersion and fronendVersion. These
+This JSON file contains two objects, BACKEND_VERSION and fronendVersion. These
 variables are inserted into the logon return data and displayed on the home
 page. They are informational only. At some point, this file should be replaced
 by some form of automation, so the versions are consistent throughout the

@@ -50,7 +50,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: sch3dul3db
 
   backend:
-    image: tssg-node-backend:${backendVersion}
+    image: tssg-node-backend:${BACKEND_VERSION}
     build:
         context: .
         dockerfile: backend-Dockerfile
@@ -69,29 +69,27 @@ services:
       # BACKEND_REFRESH_JWT sets the refresh jwt validity length in MINUTES.
       # set BACKEND_REFRESH_JWT > BACKEND_ACCESS_JWT and <= 240 or backend code will force it to default value.
       BACKEND_REFRESH_JWT: ${BACKEND_REFRESH_JWT}
-      BACKEND_VERSION: ${backendVersion}
-      FRONTEND_VERSION: ${frontendVersion}
+      BACKEND_VERSION: ${BACKEND_VERSION}
+      FRONTEND_VERSION: ${FRONTEND_VERSION}
     expose:
       - ${BACKEND_PORT}
     command: /bin/bash backend.start
 
   frontend:
-    image: tssg-node-frontend:${frontendVersion}
+    image: tssg-node-frontend:${FRONTEND_VERSION}
     build:
         context: .
         dockerfile: frontend-Dockerfile
     user: "node"
     working_dir: /home/node/app
     environment:
-      BACKEND_VERSION: ${backendVersion}
-      FRONTEND_VERSION: ${frontendVersion}
+      BACKEND_VERSION: ${BACKEND_VERSION}
+      FRONTEND_VERSION: ${FRONTEND_VERSION}
       WEBSITE_URL: ${WEBSITE_URL}
       WEBSITE_PORT: ${WEBSITE_PORT}
       NODE_ENV: production
-      TSSGAPIURL: ${TSSGAPIURL}
-      TSSGAPIPORT: ${TSSGAPIPORT}
-      # - NODE_ENV=production
-      # - TSSGAPIURL
+      BACKEND_URL: ${BACKEND_URL}
+      BACKEND_PORT: ${BACKEND_PORT}
     expose:
       - ${FRONTEND_PORT}
     command: /bin/bash frontend.start

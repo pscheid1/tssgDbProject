@@ -5,7 +5,6 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Meeting } from 'src/app/_models/meeting';
-// import { environment } from 'src/environments/environment';
 import { EnvService } from '../env.service';
 
 
@@ -18,8 +17,7 @@ export class MeetingService {
   private uri: string;
 
   constructor(private http: HttpClient, private env: EnvService) {
-    // this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/meetings';
-    this.uri = `${env.TSSGAPIURL}:${env.TSSGAPIPORT}/meetings`;
+    this.uri = `${env.BACKEND_URL}:${env.BACKEND_PORT}/meetings`;
   }
 
   private extractData(res: HttpResponse<Meeting>) {
@@ -33,9 +31,6 @@ export class MeetingService {
   }
 
   async addMeeting(obj: Meeting) {
-    // console.log('meeting.service.addMeeting: meetingDate = ' + obj._id + ' - ' + obj.meetingDate);
-    // console.log('meeting.service.addMeeting: startTime = ' + obj._id + ' - ' + obj.startTime);
-    // console.log('meeting.service.addMeeting: endTime = ' + obj._id + ' - ' + obj.endTime);
     return await this.http.post(`${this.uri}/add`, obj)
       .toPromise()
       .then(this.extractData)

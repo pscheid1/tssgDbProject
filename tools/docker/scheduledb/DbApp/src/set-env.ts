@@ -36,24 +36,21 @@ const isProd = environment === 'prod'; // 'true' or 'false'
   file (these can be considered default values) and the host system.
   Host system environment variables win out over duplicate definitions.
 */
-// console.log(`set-env.ts TSSGAPIURL ${process.env.TSSGAPIURL}`);
 // console.log(`set-env.ts BACKEND_URL ${process.env.BACKEND_URL}`);
-// console.log(`set-env.ts TSSGAPIPORT ${process.env.TSSGAPIPORT}`);
 // console.log(`set-env.ts BACKEND_PORT ${process.env.BACKEND_PORT}`);
+// console.log(`set-env.ts BACKEND_VERSION ${process.env.BACKEND_VERSION}`);
+// console.log(`set-env.ts FRONTEND_VERSION ${process.env.FRONTEND_VERSION}`);
 // console.log(`set-env.ts WEBSITE_URL ${process.env.WEBSITE_URL}`);
 // console.log(`set-env.ts WEBSITE_PORT ${process.env.WEBSITE_PORT}`);
-// console.log(`set-env.ts backendVersion ${process.env.backendVersion}`);
-// console.log(`set-env.ts BACKEND_VERSION ${process.env.BACKEND_VERSION}`);
-// console.log(`set-env.ts frontendVersion ${process.env.frontendVersion}`);
-// console.log(`set-env.ts FRONTEND_VERSION ${process.env.FRONTEND_VERSION}`);
+
 // create file in project/src folder
 const dir = 'src/env.js';
 // get the desired environmet variables
-const var1 = process.env.FRONTEND_DEBUG || 'true';
-const var2 = process.env.TSSGAPIURL || process.env.BACKEND_URL;
-const var3 = process.env.TSSGAPIPORT || process.env.BACKEND_PORT;
-const var4 = process.env.backendVersion || process.env.BACKEND_VERSION;
-const var5 = process.env.frontendVersion || process.env.FRONTEND_VERSION;
+const var1 = process.env.FRONTEND_DEBUG || 'false';
+const var2 = process.env.BACKEND_URL;
+const var3 = process.env.BACKEND_PORT;
+const var4 = process.env.BACKEND_VERSION;
+const var5 = process.env.FRONTEND_VERSION;
 const var6 = process.env.WEBSITE_URL;
 const var7 = process.env.WEBSITE_PORT;
 
@@ -74,9 +71,9 @@ const str1 = '\n\
   window.__env.enableDebug = "';
 const str2 = '";\n\n\
   // environment variables\n\
-  window.__env.TSSGAPIURL = "';
+  window.__env.BACKEND_URL = "';
 // build the remaining constant sections
-const str3 = '";\n  window.__env.TSSGAPIPORT = "';
+const str3 = '";\n  window.__env.BACKEND_PORT = "';
 const str4 = '";\n  window.__env.BACKEND_VERSION = "';
 const str5 = '";\n  window.__env.FRONTEND_VERSION = "';
 const str6 = '";\n  window.__env.WEBSITE_URL = "';
@@ -117,7 +114,7 @@ export const environment = {
   backendURL: "${process.env.BACKEND_URL}",
   backendPORT:  "${process.env.BACKEND_PORT}",
   mongoDB: "${process.env.MONGO_WIN_CONTAINER_URL}",
-  TSSGAPPURL: "${process.env.TSSGAPPURL}"
+  FRONTEND_URL: "${process.env.FRONTEND_URL}"
 };
 `
 writeFile(targetPath, envConfigFile, function (err) {

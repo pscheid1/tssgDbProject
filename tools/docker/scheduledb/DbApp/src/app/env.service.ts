@@ -19,12 +19,12 @@ export class EnvService {
   public enableDebug = true;
 
   // environment variables
-  public TSSGAPIURL = 'http://backend.sdb';
-  public TSSGAPIPORT = '80';
-  public TSSGAPPURL = 'http://frontend.sdb';
-  public TSSGAPP_PORT = '80';
-  public BACKEND_VERSION = '1.4';
-  public FRONTEND_VERSION = '1.6'
+  public BACKEND_URL = 'http://backend.sdb';
+  public BACKEND_PORT = '80';
+  public BACKEND_VERSION = '1.5';
+  public FRONTEND_URL = 'http://frontend.sdb';
+  public FRONTEND_PORT = '80';
+  public FRONTEND_VERSION = '1.7'
   public WEBSITE_URL = 'http://website.sdb';
   public WEBSITE_PORT = '80';
 

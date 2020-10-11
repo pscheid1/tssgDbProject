@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/_models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
-// import { environment } from 'src/environments/environment';
 import { EnvService } from '../env.service';
 
 @Injectable({ providedIn: 'root' })
@@ -19,8 +18,7 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
     // console.log(`authentication.service BACKEND_URL:BACKEND_PORT ${env.BACKEND_URL}:${env.BACKEND_PORT}`);
-    // this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT;
-    this.uri = `${env.TSSGAPIURL}:${env.TSSGAPIPORT}`;
+    this.uri = `${env.BACKEND_URL}:${env.BACKEND_PORT}`;
 
   }
 

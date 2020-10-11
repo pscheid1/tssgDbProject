@@ -5,7 +5,6 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Venue } from 'src/app/_models/venue';
-// import { environment } from 'src/environments/environment';
 import { EnvService } from '../env.service';
 
 @Injectable({
@@ -15,8 +14,7 @@ import { EnvService } from '../env.service';
 export class VenueService {
   private uri: string;
   constructor(private http: HttpClient, private env: EnvService) {
-    // this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/venues';
-    this.uri = `${env.TSSGAPIURL}:${env.TSSGAPIPORT}/venues`;
+    this.uri = `${env.BACKEND_URL}:${env.BACKEND_PORT}/venues`;
   }
 
 

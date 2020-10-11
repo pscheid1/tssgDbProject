@@ -15,7 +15,7 @@ imagesDanglingRemove
 
 msg INFO "Remove the frontend image ..."
 msg INFO "$( exec 2>&1
-docker rmi tssg-node-frontend:${frontendVersion}
+docker rmi tssg-node-frontend:${FRONTEND_VERSION}
 )"
 
 msg INFO "Build the frontend image & start container ..."
@@ -28,7 +28,7 @@ docker-compose up -d --build frontend
 #maxTries=120
 #try=0
 #waitSecsToRetry=5
-#until curl -Is "${TSSGAPPURL}" | grep -q '200 OK'
+#until curl -Is "${FRONTEND_URL}" | grep -q '200 OK'
 #do
 #    sleep ${waitSecsToRetry}s
 #    ((++try))
@@ -41,5 +41,5 @@ docker-compose up -d --build frontend
 #done
 #)" | grep -q ERROR && exit 1
 
-msg SUCCESS "Frontend can be accessed at ${TSSGAPPURL}"
+msg SUCCESS "Frontend can be accessed at ${FRONTEND_URL}"
 msg END "... done."

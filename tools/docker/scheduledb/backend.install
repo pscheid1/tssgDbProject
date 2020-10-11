@@ -14,7 +14,7 @@ imagesDanglingRemove
 
 msg INFO "Remove the backend image ..."
 msg INFO "$( exec 2>&1
-docker rmi tssg-node-backend:${backendVersion}
+docker rmi tssg-node-backend:${BACKEND_VERSION}
 )"
 msg INFO "Build backend image & start container ..."
 msg INFO "$( exec 2>&1

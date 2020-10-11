@@ -8,7 +8,6 @@ import {
 } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/_models/user';
-// import { environment } from 'src/environments/environment';
 import { EnvService } from '../env.service';
 
 @Injectable({ providedIn: 'root' })
@@ -24,8 +23,7 @@ export class UserService {
     private http: HttpClient,
     private env: EnvService
   ) {
-    // this.uri = environment.TSSGAPIURL + ':' + environment.TSSGAPIPORT + '/users';
-    this.uri = `${env.TSSGAPIURL}:${env.TSSGAPIPORT}/users`;
+    this.uri = `${env.BACKEND_URL}:${env.BACKEND_PORT}/users`;
   }
 
   private extractData(res: HttpResponse<User>) {
