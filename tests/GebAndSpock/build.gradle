@@ -171,6 +171,8 @@ tasks.withType(Test) {
     // Pass system properties to the Geb JVM from the Gradle JVM
     systemProperties['browser.location'] = System.properties['browser.location']
     systemProperties['geb.build.baseUrl'] = System.properties['geb.build.baseUrl']
+    systemProperties['geb.build.frontendUrl'] = System.properties['geb.build.frontendUrl']
+    systemProperties['geb.build.backendUrl'] = System.properties['geb.build.backendUrl']
 
     // Pass system properties to the build executable JVM from the Gradle JVM
     systemProperties['mongo.host'] = System.properties['mongo.host']

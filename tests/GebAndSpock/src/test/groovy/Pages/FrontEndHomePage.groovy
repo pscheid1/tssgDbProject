@@ -4,7 +4,7 @@ import Common.FrontEndBasePage
 
 class FrontEndHomePage extends FrontEndBasePage {
 
-    static url = "/home"
+    static url = "${System.properties['geb.build.frontendUrl']}/home"
 
     static at = {
         titleText
@@ -12,6 +12,5 @@ class FrontEndHomePage extends FrontEndBasePage {
 
     static content = {
         titleText { waitfor { $("h4", text: "User") } }
-
     }
 }

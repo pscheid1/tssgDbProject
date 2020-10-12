@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement
 
 class FrontEndBasePage extends Page {
 
+    static url = "${System.properties['geb.build.frontendUrl']}"
+
     static at = {
         title == "TssgDbApp"
         $("h1 strong", text:"GENERAL MEETING INFORMATION").displayed
@@ -15,6 +17,8 @@ class FrontEndBasePage extends Page {
     static content = {
         // Header
         homeLinkIcon { $("a img", src: "assets/tssg_logo.png").parent() }
+        mainMenuUsers { $("a", text: contains("Users")) }
+        usersMenuListAllUsers { $("a", text: "List All Users") }
     }
 
     /**

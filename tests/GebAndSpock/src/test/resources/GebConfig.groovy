@@ -75,17 +75,29 @@ environments {
 // For example: in gradle configuration set this VM Option to use the qa environment
 // -Dgeb.build.baseUrl=qa
 baseUrl = System.properties['geb.build.baseUrl']
+def frontendUrl = System.properties['geb.build.frontendUrl']
+def backendUrl = System.properties['geb.build.backendUrl']
+
 switch (baseUrl) {
     case ["dev", "scheduledb"]:
-        baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
+        //baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
+        baseUrl = "https://website.sdb.technologynursery.org/"
+        frontendUrl = "https://frontend.sdb.technologynursery.org/"
+        backendUrl = "https://backend.sdb.technologynursery.org/"
         break
     case ["toolbox"]:
-        hostIP = "docker-machine ip".execute().in.text.trim()
-        println "hostIP = ${hostIP}"
-        baseUrl = "http://${hostIP}:4200/"
+        //hostIP = "docker-machine ip".execute().in.text.trim()
+        // This environment depends on these hostnames being set in /etc/hosts
+        baseUrl = "http://website.sdb/"
+        frontendUrl = "http://frontend.sdb/"
+        backendUrl = "http://backend.sdb/"
         break
     case ["localhost"]:
-        baseUrl = "http://localhost:4200/"
+        //baseUrl = "http://localhost:4200/"
+        // This environment depends on these hostnames being set in /etc/hosts
+        baseUrl = "http://website.sdb/"
+        frontendUrl = "http://frontend.sdb/"
+        backendUrl = "http://backend.sdb/"
         break
     case ["multipage"]:
         baseUrl = "https://technologynursery.org/tssgTechMultipage/"
@@ -100,7 +112,9 @@ switch (baseUrl) {
         baseUrl = "https://technologynursery.org/tssgTech/"
         break
     default:
-        baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
+        // Assume that this is a valid URL being passed in the baseUrl property
+        //baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
         break
 }
-
+System.properties['geb.build.frontendUrl'] = frontendUrl
+System.properties['geb.build.backendUrl'] = backendUrl
