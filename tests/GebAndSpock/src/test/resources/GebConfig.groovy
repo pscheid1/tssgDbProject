@@ -7,7 +7,7 @@
 
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.firefox.FirefoxProfile
+//import org.openqa.selenium.firefox.FirefoxProfile
 import org.openqa.selenium.Platform
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
@@ -17,6 +17,7 @@ waiting {
 }
 
 reportsDir = 'target/geb-reports'
+println "reportsDir = ${reportsDir}"
 
 environments {
 	
@@ -118,3 +119,7 @@ switch (baseUrl) {
 }
 System.properties['geb.build.frontendUrl'] = frontendUrl
 System.properties['geb.build.backendUrl'] = backendUrl
+
+println "baseUrl = ${baseUrl}"
+println "frontendUrl = ${frontendUrl}"
+println "backendUrl = ${backendUrl}"
