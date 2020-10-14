@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { NavbarService } from 'src/app/_services/navbar.service';
 
 @Component({
   selector: 'app-user-login',
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private us: UserService,
-    private as: AuthenticationService
+    private as: AuthenticationService,
+    private ns: NavbarService
   ) {
     // // redirect to home if already logged in
     // if (this.as.currentUserValue) {
@@ -55,6 +57,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this.user = data;
+          this.ns.updateNavAfterAuth(this.user.role);
           this.router.navigate(['home']);
         },
         err => {

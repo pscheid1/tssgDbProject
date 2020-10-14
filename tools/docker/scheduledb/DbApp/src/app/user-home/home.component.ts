@@ -5,6 +5,8 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnvService } from '../env.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Role } from '../_models/role';
+import { NavbarService } from 'src/app/_services/navbar.service';
 
 const jwtHelper = new JwtHelperService();
 
@@ -28,7 +30,8 @@ export class HomeComponent implements OnInit {
     private us: UserService,
     private router: Router,
     private as: AuthenticationService,
-    private env: EnvService
+    private env: EnvService,
+    private ns: NavbarService
   ) {
     this.currentUser = this.as.currentUserValue;
     this.BACKEND_VERSION = env.BACKEND_VERSION;
@@ -69,6 +72,9 @@ export class HomeComponent implements OnInit {
       alert('M007\nYour access JWT has expired.\nYou have been automatically logged out.\nPlease login again.');
       this.router.navigate(['user/login']);
     }
+
+    // set up n the avbar
+    this.ns.updateNavAfterAuth(user.role);
 
     const body = document.getElementsByTagName('body');
     if (body.length > 0) {

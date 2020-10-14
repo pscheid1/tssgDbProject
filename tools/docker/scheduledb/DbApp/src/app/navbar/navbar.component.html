@@ -3,29 +3,31 @@
     <!-- <div style="float:left; margin-left:20px;"> -->
     <div>
       <span class="navbar-brand">
+
         <a>
           <img class="tssg-logo" href="#" src="assets/tssg_logo.png" routerLink="user/login" routerLinkActive="active">
         </a>
+
         <!-- The following line will open the website in the current browser tab -->
         <!-- <a style="color:white" [href]=website_url appExternalUrl > -->
         <!-- The following line will open the website in a new browser tab -->
-        <a style="color:white" [href]=website_url target="_blank">
+        <a style="color:white" [href]=websiteURL target="_blank">
           <img class="navbar-brand web-icon" href="#" src="assets/website_logo.png" routerLinkActive="active">
         </a>
+
       </span>
     </div>
+
     <button class="navbar-toggler nb_toggle" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
       aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa fa-bars"></i>
       <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- for now we put venue item last as it has the least wide dropdown menu.  bootstrap uses the widest (meetings) dropdown to
-        calculate position of all navbar menue items and therefore the dropdown positions.  If you change the order, you will
-        see the right most menue item push up against the right edge and possibly partially out of view.
-    -->
-    <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;"> -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;">
+    <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
       <ul class="navbar-nav ml-auto">
+
         <!-- adding the data-toggle and data-target classes will cause the verticle menu items to collaps when a dropdown is selected -->
         <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
@@ -33,17 +35,18 @@
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item nav-link nb_style" routerLink="user/login" routerLinkActive="active">Login</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="user/create" routerLinkActive="active">Add User</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="user/get-all" routerLinkActive="active">List All
+            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/create" routerLinkActive="active">Add User</a>
+            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/get-all" routerLinkActive="active">List All
               Users</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="user/get" routerLinkActive="active">List Current
+            <a *ngIf="isLoggedIn" class="dropdown-item nav-link nb_style" routerLink="user/get" routerLinkActive="active">List Current
               User
             </a>
             <!-- <div class="dropdown-divider nb_style"></div> -->
             <a class="dropdown-item nav-link nb_style" routerLink="user/logout" routerLinkActive="active">Logout</a>
           </div>
         </li>
-        <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+
+        <li *ngIf="isRoleAdmin"  class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
             Teams
           </a>
@@ -53,7 +56,19 @@
             <a class="dropdown-item nav-link nb_style" routerLink="team" routerLinkActive="active">List Teams</a>
           </div>
         </li>
-        <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+
+        <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+          <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
+            Venues
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item nav-link nb_style" routerLink="venue/create" routerLinkActive="active">Create
+              Venue</a>
+            <a class="dropdown-item nav-link nb_style" routerLink="venue" routerLinkActive="active">List Venues</a>
+          </div>
+        </li>
+
+        <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
             Meetings
           </a>
@@ -66,17 +81,14 @@
               Team Schedule (3)</a>
           </div>
         </li>
-        <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
-            Venues
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item nav-link nb_style" routerLink="venue/create" routerLinkActive="active">Create
-              Venue</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="venue" routerLinkActive="active">List Venues</a>
-          </div>
+        <!-- The
+          following empty dropdown provides space on the right to display User dropdown when all other menue items are hidden -->
+        <li class="nav-item dropdown" data-toggle="collapse">
+          <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
         </li>
+
       </ul>
     </div>
   </div>
+
 </nav>
