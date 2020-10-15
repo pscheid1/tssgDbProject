@@ -1,7 +1,7 @@
 package Tests
 import geb.spock.GebReportingSpec
 import spock.lang.Stepwise
-import Pages.FrontEndPage
+import Pages.FrontEndUserLoginPage
 import Pages.FrontEndHomePage
 import Pages.FrontEndListAllUsersPage
 
@@ -25,8 +25,8 @@ class FrontEndSpec extends GebReportingSpec {
         and: "the backend service is up"
         and: "the mongo database is healthy"
 
-        when: "log into the FrondEndPage"
-            to FrontEndPage
+        when: "login to the FrondEndUserLoginPage"
+            to FrontEndUserLoginPage
             username = "admin"
             password = "adminpw"
             loginButton.click()
