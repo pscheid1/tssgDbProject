@@ -11,14 +11,13 @@ class FrontEndBasePage extends Page {
 
     static at = {
         title == "TssgDbApp"
-        $("h1 strong", text:"GENERAL MEETING INFORMATION").displayed
     }
 
     static content = {
         // Header
         homeLinkIcon { $("a img", src: "assets/tssg_logo.png").parent() }
-        mainMenuUsers { $("a", text: contains("Users")) }
-        usersMenuListAllUsers { $("a", text: "List All Users") }
+        mainMenuUsers { waitFor { $("a", text: contains("Users")) } }
+        usersMenuListAllUsers { waitFor { $("a", text: "List All Users") } }
     }
 
     /**
