@@ -117,6 +117,7 @@ switch (baseUrl) {
         //baseUrl = "https://technologynursery.org/tssgTechScheduledb/"
         break
 }
+System.properties['geb.build.baseUrl'] = baseUrl
 System.properties['geb.build.frontendUrl'] = frontendUrl
 System.properties['geb.build.backendUrl'] = backendUrl
 
