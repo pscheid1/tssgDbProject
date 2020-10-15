@@ -19,7 +19,7 @@ class FrontEndSpec extends GebReportingSpec {
 
     }
 
-    def "Login to frontend as admin user"() {
+    def "01 Login to frontend as admin user"() {
         testKey = "TWS-333"
         given: "the scheduledb frontend service is up"
         and: "the backend service is up"
@@ -34,10 +34,10 @@ class FrontEndSpec extends GebReportingSpec {
             at FrontEndHomePage
     }
 
-    def "Can navigate to List All Users menu"() {
+    def "02 Can navigate to List All Users menu"() {
         testKey = "TWS-333"
         given: "The admin user is logged in to FrontEnd"
-            to FrontEndHomePage
+            //to FrontEndHomePage
         and: "the backend service is up"
         and: "the mongo database is healthy"
 
