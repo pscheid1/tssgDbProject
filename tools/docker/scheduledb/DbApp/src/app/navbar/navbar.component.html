@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm nb_style">
   <div class="container-fluid">
     <!-- <div style="float:left; margin-left:20px;"> -->
-    <div>
+    <div style="position: fixed; width:60px;">
       <span class="navbar-brand">
 
         <a>
@@ -18,15 +18,17 @@
       </span>
     </div>
 
-    <button class="navbar-toggler nb_toggle" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
-      aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler nb_toggle" type="button" style="margin-left: 400px;" data-toggle="collapse"
+      data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
+      aria-label="Toggle navigation">
       <i class="fa fa-bars"></i>
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;">
-    <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
-      <ul class="navbar-nav ml-auto">
+      <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
+      <!-- <ul class="navbar-nav ml-auto"> -->
+      <ul class="navbar-nav" style="position: fixed; margin-left: 200px;">
 
         <!-- adding the data-toggle and data-target classes will cause the verticle menu items to collaps when a dropdown is selected -->
         <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
@@ -35,10 +37,13 @@
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item nav-link nb_style" routerLink="user/login" routerLinkActive="active">Login</a>
-            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/create" routerLinkActive="active">Add User</a>
-            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/get-all" routerLinkActive="active">List All
+            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/create"
+              routerLinkActive="active">Add User</a>
+            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/get-all"
+              routerLinkActive="active">List All
               Users</a>
-            <a *ngIf="isLoggedIn" class="dropdown-item nav-link nb_style" routerLink="user/get" routerLinkActive="active">List Current
+            <a *ngIf="isLoggedIn" class="dropdown-item nav-link nb_style" routerLink="user/get"
+              routerLinkActive="active">List Current
               User
             </a>
             <!-- <div class="dropdown-divider nb_style"></div> -->
@@ -46,7 +51,7 @@
           </div>
         </li>
 
-        <li *ngIf="isRoleAdmin"  class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+        <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
             Teams
           </a>
@@ -81,14 +86,13 @@
               Team Schedule (3)</a>
           </div>
         </li>
-        <!-- The
-          following empty dropdown provides space on the right to display User dropdown when all other menue items are hidden -->
+
+        <!-- The following empty dropdown provides space on the right to display User dropdown when all other menue items are hidden -->
         <li class="nav-item dropdown" data-toggle="collapse">
           <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
         </li>
-
       </ul>
+
     </div>
   </div>
-
 </nav>

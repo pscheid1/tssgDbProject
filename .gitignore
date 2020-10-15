@@ -21,3 +21,5 @@ tools/docker/scheduledb/DbApp/package-lock.json
 tools/docker/scheduledb/DbApi/package-lock.json
 tools/docker/scheduledb/tssgTech/package-lock.json
 tools/docker/scheduledb/DbApp/src/env.js
+tools/docker/scheduledb/DbApp/debug.log
+
