@@ -4,7 +4,7 @@ import Common.FrontEndBasePage
 
 class FrontEndUserLoginPage extends FrontEndBasePage {
 
-    static url = "${System.properties['geb.build.frontendUrl']}user/login"
+    static url = "${System.properties['geb.build.frontendUrl']}/user/login"
 
     static at = {
         titleText

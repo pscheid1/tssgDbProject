@@ -4,7 +4,7 @@ import Common.FrontEndBasePage
 
 class FrontEndHomePage extends FrontEndBasePage {
 
-    static url = "${System.properties['geb.build.frontendUrl']}home"
+    static url = "${System.properties['geb.build.frontendUrl']}/home"
 
     static at = {
         titleText
