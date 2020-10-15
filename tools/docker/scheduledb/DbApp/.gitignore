@@ -46,7 +46,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-/certificates
+src/env.js
 
 .vscode/settings.json

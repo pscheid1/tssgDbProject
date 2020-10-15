@@ -5,20 +5,20 @@
       <span class="navbar-brand">
 
         <a>
-          <img class="tssg-logo" href="#" src="assets/tssg_logo.png" routerLink="user/login" routerLinkActive="active">
+          <img id="nb-logo" class="tssg-logo" href="#" src="assets/tssg_logo.png" routerLink="user/login" routerLinkActive="active">
         </a>
 
         <!-- The following line will open the website in the current browser tab -->
         <!-- <a style="color:white" [href]=website_url appExternalUrl > -->
         <!-- The following line will open the website in a new browser tab -->
         <a style="color:white" [href]=websiteURL target="_blank">
-          <img class="navbar-brand web-icon" href="#" src="assets/website_logo.png" routerLinkActive="active">
+          <img id="nb-ws" class="navbar-brand web-icon" href="#" src="assets/website_logo.png" routerLinkActive="active">
         </a>
 
       </span>
     </div>
 
-    <button class="navbar-toggler nb_toggle" type="button" style="margin-left: 400px;" data-toggle="collapse"
+    <button id="nb-hb" class="navbar-toggler nb_toggle" type="button" style="margin-left: 400px;" data-toggle="collapse"
       data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
       aria-label="Toggle navigation">
       <i class="fa fa-bars"></i>
@@ -27,70 +27,71 @@
 
     <div class="collapse navbar-collapse" id="collapsibleNavbar" style="float:left;">
       <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
-      <!-- <ul class="navbar-nav ml-auto"> -->
+      <!-- <ul class="navbar-nav ml-auto">  ml-auto will slide menu items right -->
       <ul class="navbar-nav" style="position: fixed; margin-left: 200px;">
 
         <!-- adding the data-toggle and data-target classes will cause the verticle menu items to collaps when a dropdown is selected -->
         <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
+          <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-um" data-toggle="dropdown">
             Users
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item nav-link nb_style" routerLink="user/login" routerLinkActive="active">Login</a>
-            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/create"
+            <a id="nb-li" class="dropdown-item nav-link nb_style" routerLink="user/login" routerLinkActive="active">Login</a>
+            <a *ngIf="isRoleAdmin" id="nb-au" class="dropdown-item nav-link nb_style" routerLink="user/create"
               routerLinkActive="active">Add User</a>
-            <a *ngIf="isRoleAdmin" class="dropdown-item nav-link nb_style" routerLink="user/get-all"
+            <a *ngIf="isRoleAdmin" id="nb-lu" class="dropdown-item nav-link nb_style" routerLink="user/get-all"
               routerLinkActive="active">List All
               Users</a>
-            <a *ngIf="isLoggedIn" class="dropdown-item nav-link nb_style" routerLink="user/get"
+            <a *ngIf="isLoggedIn" id="nb-cu" class="dropdown-item nav-link nb_style" routerLink="user/get"
               routerLinkActive="active">List Current
               User
             </a>
             <!-- <div class="dropdown-divider nb_style"></div> -->
-            <a class="dropdown-item nav-link nb_style" routerLink="user/logout" routerLinkActive="active">Logout</a>
+            <a id="nb-lo" class="dropdown-item nav-link nb_style" routerLink="user/logout" routerLinkActive="active">Logout</a>
           </div>
         </li>
 
         <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
+          <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-tm" data-toggle="dropdown">
             Teams
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item nav-link nb_style" routerLink="team/create" routerLinkActive="active">Create
-              Teams</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="team" routerLinkActive="active">List Teams</a>
+            <a id="nb-ct" class="dropdown-item nav-link nb_style" routerLink="team/create" routerLinkActive="active">Create
+              Team</a>
+            <a id="nb-lt" class="dropdown-item nav-link nb_style" routerLink="team" routerLinkActive="active">List Teams</a>
           </div>
         </li>
 
         <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
+          <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-vm" data-toggle="dropdown">
             Venues
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item nav-link nb_style" routerLink="venue/create" routerLinkActive="active">Create
+            <a id="nb-cv" class="dropdown-item nav-link nb_style" routerLink="venue/create" routerLinkActive="active">Create
               Venue</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="venue" routerLinkActive="active">List Venues</a>
+            <a id="nb-lv" class="dropdown-item nav-link nb_style" routerLink="venue" routerLinkActive="active">List Venues</a>
           </div>
         </li>
 
         <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <a class="nav-link dropdown-toggle nb_style" href="#" id="navbarDropdown" data-toggle="dropdown">
+          <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-mm" data-toggle="dropdown">
             Meetings
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item nav-link nb_style" routerLink="meeting/create" routerLinkActive="active">Create
+            <a id="nb-cm" class="dropdown-item nav-link nb_style" routerLink="meeting/create" routerLinkActive="active">Create
               Meeting</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="meeting" routerLinkActive="active">List All
+            <a id="nb-lm" class="dropdown-item nav-link nb_style" routerLink="meeting" routerLinkActive="active">List All
               Meetings</a>
-            <a class="dropdown-item nav-link nb_style" routerLink="meeting/get/schedule" routerLinkActive="active">List
+            <a id="nb-ls" class="dropdown-item nav-link nb_style" routerLink="meeting/get/schedule" routerLinkActive="active">List
               Team Schedule (3)</a>
           </div>
         </li>
 
         <!-- The following empty dropdown provides space on the right to display User dropdown when all other menue items are hidden -->
-        <li class="nav-item dropdown" data-toggle="collapse">
+        <!--  Because we moved menu to the left, we nolonger need this
+          <li class="nav-item dropdown" data-toggle="collapse">
           <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-        </li>
+        </li> -->
       </ul>
 
     </div>
