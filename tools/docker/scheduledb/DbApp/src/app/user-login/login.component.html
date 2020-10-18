@@ -1,16 +1,16 @@
 <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h4 class="panel-title">Login</h4>
+      <h4 id="pannel-title" class="panel-title">Login</h4>
     </div>
     <p>&nbsp;</p>
     <div class="panel-body">
       <div class="form-group" [class.has-error]="username.invalid && username.touched"
         [class.has-success]="username.valid">
         <label for="username" class="control-label"> Username</label>
-        <input autofocus required id="username" name="username" type="text" class="form-control" [(ngModel)]="user.username"
+        <input id="username" autofocus required id="username" name="username" type="text" class="form-control" [(ngModel)]="user.username"
           #username="ngModel">
-        <span class="alert alert-danger" *ngIf="username.invalid && username.touched">
+        <span id="username-msg" class="alert alert-danger" *ngIf="username.invalid && username.touched">
           Username is required
         </span>
       </div>
@@ -19,7 +19,7 @@
         <label for="password" class="control-label">Password</label>
         <input required id="password" name="password" type="password" class="form-control" [(ngModel)]="user.password"
           #password="ngModel">
-        <span class="alert alert-danger"  *ngIf="password.invalid && password.touched">
+        <span id="password-msg" class="alert alert-danger"  *ngIf="password.invalid && password.touched">
           Password is required
         </span>
       </div>
@@ -29,6 +29,6 @@
     </div>
   </div>
 </form>
-<div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+<div *ngIf="errorMsg" id="err-msg" class="alert alert-danger">{{errorMsg}}</div>
 <div><br/><a id="bottom"></a></div>
 <br/><br/>    <!-- Ensure error messages are displayed when bottom is selected -->

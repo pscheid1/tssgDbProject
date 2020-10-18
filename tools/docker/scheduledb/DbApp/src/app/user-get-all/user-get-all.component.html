@@ -1,10 +1,10 @@
 <form #userForm="ngForm">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h4 class="panel-title">List All Users</h4>
+      <h4 id="pannel-title" class="panel-title">List All Users</h4>
       <p>&nbsp;</p>
     </div>
-    <table class="table-fixed">
+    <table id="list-table" class="table-fixed">
       <thead>
         <tr>
           <th>User Name</th>&nbsp;
@@ -25,31 +25,31 @@
           table header. The three following blank rows
           push the body below the header.
         -->
+        <!-- <tr>&nbsp;</tr> -->
         <tr>&nbsp;</tr>
         <tr>&nbsp;</tr>
-        <tr>&nbsp;</tr>
-        <tr *ngFor="let user of users" style="line-height: 1.9">
-          <td>{{user.username}}</td>&nbsp;
-          <td>{{user.firstname}}</td>&nbsp;
-          <td>{{user.lastname}}</td>&nbsp;
-          <td>{{user.role}}</td>&nbsp;
-          <td>{{user.email}}</td>&nbsp;
-          <td>{{user.mobile}}</td>&nbsp;
-          <td>{{!user.inActive}}</td>&nbsp;
-          <td><a [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
-          <td><a (click)="deleteUser(user._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
+        <tr id="list-row" *ngFor="let user of users" style="line-height: 1.9">
+          <td id="username">{{user.username}}</td>&nbsp;
+          <td id="firstname">{{user.firstname}}</td>&nbsp;
+          <td id="lastname">{{user.lastname}}</td>&nbsp;
+          <td id="role">{{user.role}}</td>&nbsp;
+          <td id="email">{{user.email}}</td>&nbsp;
+          <td id="mobile">{{user.mobile}}</td>&nbsp;
+          <td id="inactive">{{!user.inActive}}</td>&nbsp;
+          <td><a id="edit-btn" [routerLink]="['edit', user._id]" class="btn btn-primary btn-sm">Edit</a></td>&nbsp;
+          <td><a id="cancel-btn" (click)="deleteUser(user._id)" class="btn btn-danger btn-sm" style="color: white">Del</a></td>
         </tr>
         <tr>&nbsp;</tr>
-        <tr *ngIf="!users && !errorMsg">
+        <tr id="wait-on-load-msg" *ngIf="!users && !errorMsg">
           <td colspan="5">Loading data. Please wait... </td>
         </tr>
-        <tr *ngIf="users && users.length==0 && !errorMsg" class="alert alert-danger">
+        <tr id="no-data-msg" *ngIf="users && users.length==0 && !errorMsg" class="alert alert-danger">
           <td colspan="5">No Users to display</td>
         </tr>
       </tbody>
     </table>
   </div>
 </form>
-<div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+<div id="err-msg" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
 <div><br/><a id="bottom"></a></div>
 <br/><br/>    <!-- Ensure error messages are displayed when bottom is selected -->
