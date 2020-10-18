@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VenueService } from '../_services/venue.service';
 import { Venue } from 'src/app/_models/venue';
 import { UserService } from '../_services/user.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-venue-edit',
   templateUrl: './venue-edit.component.html',
@@ -32,9 +33,10 @@ export class VenueEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private vs: VenueService,
-    private us: UserService
+    private us: UserService,
+    private titleService:Title
   ) {
-
+    this.titleService.setTitle('TSSG Edit Venue');
   }
 
   // get the data from the node server and display in venue-edit.component.html file

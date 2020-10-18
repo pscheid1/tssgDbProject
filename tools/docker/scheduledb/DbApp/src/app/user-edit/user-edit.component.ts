@@ -6,7 +6,7 @@ import { UserService } from '../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-edit',
@@ -42,9 +42,11 @@ export class UserEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private as: AuthenticationService,
-    private us: UserService
+    private us: UserService,
+    private titleService:Title
   ) {
     this.currentUser = this.as.currentUserValue;
+    this.titleService.setTitle('TSSG Edit User');
   }
 
   ngOnInit() {

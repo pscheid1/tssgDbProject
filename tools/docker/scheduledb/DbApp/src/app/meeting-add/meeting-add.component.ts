@@ -6,7 +6,7 @@ import { Meeting } from 'src/app/_models/meeting';
 import { VenueService } from '../_services/venue.service';
 import { TeamService } from '../_services/team.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-meeting-add',
@@ -40,8 +40,10 @@ export class MeetingAddComponent implements OnInit {
     private router: Router,
     private ms: MeetingService,
     private vs: VenueService,
-    private ts: TeamService
+    private ts: TeamService,
+    private titleService:Title
   ) {
+    this.titleService.setTitle('TSSG Add Meeting');
     this.datePickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
       showWeekNumbers: false,

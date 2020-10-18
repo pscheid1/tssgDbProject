@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TeamService } from '../_services/team.service';
 import { MeetingService } from '../_services/meeting.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-meeting-get-schedule',
@@ -17,8 +18,11 @@ export class MeetingGetScheduleComponent implements OnInit {
   constructor(
     private router: Router,
     private ms: MeetingService,
-    private ts: TeamService
-  ) { }
+    private ts: TeamService,
+    private titleService:Title
+  ) {
+    this.titleService.setTitle('TSSG Select Team for Schedule');
+   }
 
   ngOnInit() {
     this.ts.listTeams().subscribe(t => {

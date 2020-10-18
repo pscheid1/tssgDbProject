@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/_models/team';
 import { TeamService } from '../_services/team.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-team-get',
@@ -15,7 +16,11 @@ export class TeamGetComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ts: TeamService) { }
+    private ts: TeamService,
+    private titleService:Title
+    ) {
+      this.titleService.setTitle('TSSG List Teams');
+    }
 
   ngOnInit() {
     this.ts.getteams().subscribe((data: Team[]) => {

@@ -3,6 +3,7 @@ import { first } from 'rxjs/operators';
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-user-get-all',
   templateUrl: './user-get-all.component.html',
@@ -14,8 +15,11 @@ export class UserGetAllComponent implements OnInit {
   errorMsg = '';
 
   constructor(
-    private us: UserService
-  ) { }
+    private us: UserService,
+    private titleService:Title
+  ) {
+    this.titleService.setTitle('TSSG List All Users');
+  }
 
   ngOnInit() {
     this.errorMsg = '';

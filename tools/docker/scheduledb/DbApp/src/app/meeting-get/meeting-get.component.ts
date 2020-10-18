@@ -3,6 +3,7 @@ import { Meeting } from '../_models/meeting';
 import { MeetingService } from '../_services/meeting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-meeting-get',
   templateUrl: './meeting-get.component.html',
@@ -17,8 +18,11 @@ export class MeetingGetComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ms: MeetingService
-  ) { }
+    private ms: MeetingService,
+    private titleService:Title
+  ) {
+    this.titleService.setTitle('TSSG List Meetings for Team');
+   }
 
   ngOnInit() {
     if (this.route.snapshot.data.type === 'edit') {

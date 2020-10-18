@@ -5,9 +5,9 @@ import { Role } from '../_models/role';
 import { UserService } from '../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { NavbarService } from 'src/app/_services/navbar.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-login',
@@ -36,12 +36,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private us: UserService,
     private as: AuthenticationService,
-    private ns: NavbarService
+    private ns: NavbarService,
+    private titleService:Title
   ) {
     // // redirect to home if already logged in
     // if (this.as.currentUserValue) {
     //   this.router.navigate(['home']);
     // }
+    this.titleService.setTitle('TSSG Login');
   }
 
 

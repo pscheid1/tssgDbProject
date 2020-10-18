@@ -4,8 +4,7 @@ import { User } from '../_models/user';
 import { Role } from '../_models/role';
 import { UserService } from '../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-create',
@@ -30,8 +29,11 @@ export class UserCreateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private us: UserService
-  ) { }
+    private us: UserService,
+    private titleService:Title
+  ) {
+    this.titleService.setTitle('TSSG Add User');
+   }
 
   ngOnInit() { }
 

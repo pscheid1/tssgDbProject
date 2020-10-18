@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../_services/team.service';
 import { Team } from 'src/app/_models/team';
 import { UserService } from '../_services/user.service';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-team-edit',
@@ -35,8 +35,11 @@ export class TeamEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ts: TeamService,
-    private us: UserService
-  ) { }
+    private us: UserService,
+    private titleService:Title
+  ) {
+    this.titleService.setTitle('TSSG Edit Team');
+   }
 
   ngOnInit() {
     this.us.listUsers().subscribe(u => {

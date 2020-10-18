@@ -5,8 +5,8 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnvService } from '../env.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Role } from '../_models/role';
 import { NavbarService } from 'src/app/_services/navbar.service';
+import { Title } from '@angular/platform-browser';
 
 const jwtHelper = new JwtHelperService();
 
@@ -31,11 +31,13 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private as: AuthenticationService,
     private env: EnvService,
-    private ns: NavbarService
+    private ns: NavbarService,
+    private titleService:Title
   ) {
     this.currentUser = this.as.currentUserValue;
     this.BACKEND_VERSION = env.BACKEND_VERSION;
     this.FRONTEND_VERSION = env.FRONTEND_VERSION;
+    this.titleService.setTitle('TSSG Home');
   }
 
   ngOnInit() {

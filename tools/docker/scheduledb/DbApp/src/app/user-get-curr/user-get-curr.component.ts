@@ -5,6 +5,7 @@ import { UserService } from 'src/app/_services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-user-get-curr',
   templateUrl: './user-get-curr.component.html',
@@ -19,9 +20,11 @@ export class UserGetCurrComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private us: UserService,
-    private as: AuthenticationService
+    private as: AuthenticationService,
+    private titleService:Title
   ) {
     this.currentUser = this.as.currentUserValue;
+    this.titleService.setTitle('TSSG List Current User');
   }
 
   ngOnInit() {

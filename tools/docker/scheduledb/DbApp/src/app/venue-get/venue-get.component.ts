@@ -3,7 +3,7 @@ import { Venue } from 'src/app/_models/venue';
 import { VenueService } from '../_services/venue.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-venue-get',
   templateUrl: './venue-get.component.html',
@@ -16,7 +16,11 @@ export class VenueGetComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private vs: VenueService) { }
+    private vs: VenueService,
+    private titleService:Title
+    ) {
+      this.titleService.setTitle('TSSG List Venues');
+    }
 
   ngOnInit() {
     // this.vs.getVenues().subscribe((data: Venue[]) => {
