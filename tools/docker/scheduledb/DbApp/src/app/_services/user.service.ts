@@ -82,11 +82,10 @@ export class UserService {
         .toPromise()
         .then(this.extractData)
         .catch(err => {
-          console.log(`user.service.deleteUser err = ${err} <<<<<<<<<<<<<<<<<<<<<<<<`);
           throw new HttpErrorResponse({ status: 401, statusText: err, url: `${this.uri}/delete` });
         });
     }
-    console.log(`user.service.deleteUser Error: ??????? <<<<<<<<<<<<<<<<<<<<<<<<`);
+
     return;
 
   }
