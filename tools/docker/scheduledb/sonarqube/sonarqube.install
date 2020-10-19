@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# sonarqube.install                              # Build and run the sonarqube and db services
+
+. ./scheduledb.env
+
+# Set the docker host prerequisites
+sudo bash -c ' 
+  sysctl -w vm.max_map_count=262144
+  sysctl -w fs.file-max=65536
+  ulimit -n 65536
+  ulimit -u 4096
+'
+
+docker-compose up -d
+
+while ! curl -Ifs localhost:9000 2>&1 >/dev/null
+do
+    echo "Waiting 5s for Sonarqube to come up ..."
+    sleep 5s
+done
+
+# Launch Sonarqube in the browser
+case sysType in $DOCKER_HOST_SYSTEM
+    LinuxLocal)
+        google-chrome http://localhost:9000
+        ;;
+    DockerDesktop)
+        "/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" "${SDB_HOST_IP}:9000"
+        ;;
+    DockerToolbox)
+        "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" "${SDB_HOST_IP}:9000"
+        ;;
+    *)
+        echo "ERROR: System type unrecognized."
+        echo "Let DevOps team know the path to your google chrome executable."
+        echo "Exiting."
+        exit 1
+        ;;
+esac
+
+echo "Login with credentials: admin/admin"
+
