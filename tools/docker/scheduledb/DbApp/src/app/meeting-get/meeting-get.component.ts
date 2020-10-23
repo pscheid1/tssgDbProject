@@ -32,14 +32,15 @@ export class MeetingGetComponent implements OnInit {
     }
     if (this.route.snapshot.data.type === 'schedule') {
       this.route.params.subscribe(params => {
+        this.titleService.setTitle(`TSSG List Meetings for ${params.team}`);
         this.heading = 'Meetings for Team: ' + params.team;
         this.ms.getSchedule(`${params.team}`).subscribe((data: Meeting[]) => {
           this.meetings = data;
         });
       });
     } else {
+      this.titleService.setTitle(`TSSG List All Meetings`);
       this.heading = 'List All Meetings';
-      // this.ms.getMeetings().subscribe((data: Meeting[]) => {
       this.ms.getMeetings()
         .then((data: Meeting[]) => {
           this.meetings = data;
