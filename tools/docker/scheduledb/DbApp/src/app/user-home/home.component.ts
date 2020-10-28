@@ -47,25 +47,10 @@ export class HomeComponent implements OnInit {
       this.errorMsg = '';
     }
 
-    if (this.currentUser === null) {
-      // console.log('home.component.ts.currentUser is null ');
-      this.router.navigate(['user/login']);
-    }
-
-    // console.error('home.component.ts.currentUser: ' + this.currentUser.username);
-
-    // cannot use as.currentUserValue as it is cached. Get currentUser directly from local storage
     const user: User = JSON.parse(localStorage.getItem('currentUser'));
-    // console.log(`auth.guard.canActivate current user: ${JSON.stringify(user)}`);
-    const token = this.currentUser.token;
-    // console.log(`auth.guard.canActivate current access token: ${token}`);
-
-    // const userTokenInfo = this.jwtService.decodeToken(token);
-    // const cuTokenInfo = this.jwtService.decodeToken(cu.token);
-    // const currentTime = new Date().getTime() / 1000;
-    // console.log(`\nauth.guard.canActivate currentTime: ${currentTime}`);
-    // console.log(`auth.guard.canActivate user.token expiring time: ${userTokenInfo.exp}`);
-    // console.log(`auth.guard.canActivate cu.token expiring time: ${cuTokenInfo.exp}\n`)
+    console.log(`home.component current user: ${JSON.stringify(user)}`);
+    const token = user.token;
+    console.error(`home.component current access token: ${token} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<`);
 
     // Check whether token is valid.  If expired, display msg & go to user/login page; otherwise continue
     if (jwtHelper.isTokenExpired(token)) {
@@ -75,7 +60,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['user/login']);
     }
 
-    // set up n the avbar
+    // set up the navbar
+    console.error(`home.component.ts - calling ns.updateNavAfterAuth(${user.role})`);
     this.ns.updateNavAfterAuth(user.role);
 
     const body = document.getElementsByTagName('body');
@@ -88,9 +74,10 @@ export class HomeComponent implements OnInit {
       // console.log(`ng-version: ${this.ngVersion})}`);
     }
 
-    this.us.getById(this.currentUser._id)
+    this.us.getById(user._id)
       .then(res => {
         const usr = res as User;
+        this.currentUser = usr;
         if (usr.createdDate) {
           this.dspCreatedDate = usr.createdDate.toString().substring(0, 10);
         }

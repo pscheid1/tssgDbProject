@@ -37,12 +37,12 @@
           </a>
           <div class="dropdown-menu">
             <a id="nb-li" class="dropdown-item nav-link nb_style" routerLink="user/login" routerLinkActive="active">Login</a>
-            <a *ngIf="isRoleAdmin" id="nb-au" class="dropdown-item nav-link nb_style" routerLink="user/create"
+            <a *ngIf=getRoleStatus() id="nb-au" class="dropdown-item nav-link nb_style" routerLink="user/create"
               routerLinkActive="active">Add User</a>
-            <a *ngIf="isRoleAdmin" id="nb-lu" class="dropdown-item nav-link nb_style" routerLink="user/get-all"
+            <a *ngIf=getRoleStatus() id="nb-lu" class="dropdown-item nav-link nb_style" routerLink="user/get-all"
               routerLinkActive="active">List All
               Users</a>
-            <a *ngIf="isLoggedIn" id="nb-cu" class="dropdown-item nav-link nb_style" routerLink="user/get"
+            <a *ngIf=getLoggedInStatus() id="nb-cu" class="dropdown-item nav-link nb_style" routerLink="user/get"
               routerLinkActive="active">List Current
               User
             </a>
@@ -51,7 +51,7 @@
           </div>
         </li>
 
-        <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+        <li *ngIf=getRoleStatus() class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-tm" data-toggle="dropdown">
             Teams
           </a>
@@ -61,7 +61,7 @@
           </div>
         </li>
 
-        <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+        <li *ngIf=getRoleStatus() class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-vm" data-toggle="dropdown">
             Venues
           </a>
@@ -71,7 +71,7 @@
           </div>
         </li>
 
-        <li *ngIf="isRoleAdmin" class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
+        <li *ngIf=getRoleStatus() class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
           <a class="nav-link dropdown-toggle nb_style" href="#" id="nb-mm" data-toggle="dropdown">
             Meetings
           </a>

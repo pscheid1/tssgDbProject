@@ -7,18 +7,29 @@ import { NavbarService } from 'src/app/_services/navbar.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
+
 export class NavbarComponent implements OnInit {
+
   public websiteURL: string;
-  constructor(private env: EnvService,  private ns: NavbarService) {
+
+  constructor(
+    private env: EnvService,
+    private ns: NavbarService
+    ) {
     this.websiteURL = `${env.WEBSITE_URL}:${env.WEBSITE_PORT}`;
    }
 
-   isLoggedIn = false;
-   isRoleAdmin = false;
-
   ngOnInit() {
-    this.ns.getLoginStatus().subscribe(status => this.isLoggedIn = status);
-    this.ns.getRoleStatus().subscribe(status => this.isRoleAdmin = status);
+
+  }
+
+  getLoggedInStatus() {
+    return this.ns.isLoggedIn;
+  }
+
+  getRoleStatus() {
+    return this.ns.isRoleAdmin;
   }
 
 }

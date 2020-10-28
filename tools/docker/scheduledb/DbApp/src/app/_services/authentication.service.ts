@@ -52,6 +52,7 @@ export class AuthenticationService {
       .then(user => {
         // console.log(`authentication.service.refresh user: ${JSON.stringify(user)}`);
         localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(null);
       })
       .catch(err => {
         // authentication.service.refresh err = ${err}`);
