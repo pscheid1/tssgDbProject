@@ -83,11 +83,11 @@ export class MeetingService {
         .toPromise()
         .then(this.extractData)
         .catch(err => {
-          console.log(`meeting.service.deleteMeeting Error: ${JSON.stringify(err)}`);
+          // console.log(`meeting.service.deleteMeeting Error: ${JSON.stringify(err)}`);
           throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}/delete` });
         });
     }
-    console.log(`meeting.service.deleteMeeting Meeting delete canceled`);
+    // console.log(`meeting.service.deleteMeeting Meeting delete canceled`);
     return;
   }
 

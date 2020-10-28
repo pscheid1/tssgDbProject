@@ -46,12 +46,13 @@ export class LoginComponent implements OnInit {
     // redirect to home if already logged in
     const user: User = JSON.parse(localStorage.getItem('currentUser'));
     if (user) {
-      console.error(`login.component.ts.ngOnInit - Logged on, calling ns.updateNavAfterAuth(${this.user.role})`);
+      // console.error(`login.component.ts.ngOnInit - Logged on, calling ns.updateNavAfterAuth(${this.user.role})`);
       this.ns.updateNavAfterAuth(this.user.role);
       this.router.navigate(['home']);
+      return;
     }
 
-    console.error(`login.component.ts.ngOnInit - Not logged on, calling ns.updateNavAfterAuth(' ')`);
+    // console.error(`login.component.ts.ngOnInit - Not logged on, calling ns.updateNavAfterAuth(' ')`);
     this.ns.updateNavAfterAuth(' ');
   }
 
@@ -61,14 +62,14 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.user = data;
-          console.error(`login.component.ts.onSubmit - Logged on, calling ns.updateNavAfterAuth(${this.user.role})`);
+          // console.error(`login.component.ts.onSubmit - Logged on, calling ns.updateNavAfterAuth(${this.user.role})`);
           this.ns.updateNavAfterAuth(this.user.role);
 
           this.router.navigate(['home']);
         },
         err => {
           this.errorMsg = err;
-          console.log(`logn.components.onSubmit:  ${this.errorMsg}`);
+          // console.log(`logn.components.onSubmit:  ${this.errorMsg}`);
           if (this.errorMsg.includes('Unknown')) {
             this.errorMsg += ' - Possible no connection with backend server.';
           }

@@ -61,7 +61,7 @@ export class VenueService {
     .toPromise()
     .then(this.extractData)
     .catch(err => {
-      console.log(`venue.service.getVenues: ${err}`);
+      // console.log(`venue.service.getVenues: ${err}`);
       throw new HttpErrorResponse({ status: 404, statusText: err, url: `${this.uri}` });
     });
 

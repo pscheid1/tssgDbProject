@@ -74,7 +74,7 @@ module.exports = {
     })
       .then(venues => res.json(venues))
       .catch(err => {
-        console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
+        // console.log(`404 - err.name: ${err.name}, err.message: ${err.message}`);
         res.status(404).json({ message: err.message });
       });
   },

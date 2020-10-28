@@ -82,7 +82,7 @@ if (mongo_destination === 'container') {
 const dir = 'Site/Scripts/tssgBackendURL.js';
 fs.writeFile(dir, buf, (err) => {
   if (err) {
-    console.log(`backend_base_url.js writeFile error: ${err.message}`);
+    console.error(`backend_base_url.js writeFile error: ${err.message}`);
   }
 });
 

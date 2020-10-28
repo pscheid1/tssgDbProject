@@ -30,13 +30,13 @@ function setActive() {
 
 
 function getPageName(url) {
-  console.log("In getPageName with url=" + url);
+  // console.log("In getPageName with url=" + url);
   // copied from Stack Overflow: https://stackoverflow.com/questions/16286384/how-to-get-the-pagename-from-the-url-without-the-extension-through-jquery
   var index = url.lastIndexOf("/") + 1;
   var filenameWithExtension = url.substr(index);
-  var filename = filenameWithExtension.split(".")[0]; // <-- added this line
-  console.log(`getPageName.filename: ${filename}`);
-  return filename;                                    // <-- added this line
+  var filename = filenameWithExtension.split(".")[0];
+  // console.log(`getPageName.filename: ${filename}`);
+  return filename;
 }
 
 /* Code to load and display the testimonials that are listed in testimonials.js.

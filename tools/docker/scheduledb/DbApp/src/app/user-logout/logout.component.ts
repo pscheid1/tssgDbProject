@@ -24,7 +24,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.logout();
-    console.error(`logout.component.ts - calling ns.updateNavAfterAuth(' ')`);
+    // console.error(`logout.component.ts - calling ns.updateNavAfterAuth(' ')`);
     this.ns.updateNavAfterAuth(' ');
     this.router.navigate(['user/login']);
   }

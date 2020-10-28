@@ -65,14 +65,14 @@ export class AuthenticationService {
     // get currentUser from local storage, convert string to JSON object
     const user: User = JSON.parse(localStorage.getItem('currentUser'));
     if (!user) {
-      return ' ';
+      return;
     }
 
     // console.log(`authentication.service.logout user: ${user.username}`);
     const token = user.token;
     if (!token) {
       localStorage.removeItem('currentUser');
-      return ' ';
+      return;
     }
 
     const jwtService = new JwtHelperService();

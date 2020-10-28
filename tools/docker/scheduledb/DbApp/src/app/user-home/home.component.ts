@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     private as: AuthenticationService,
     private env: EnvService,
     private ns: NavbarService,
-    private titleService:Title
+    private titleService: Title
   ) {
     this.currentUser = this.as.currentUserValue;
     this.BACKEND_VERSION = env.BACKEND_VERSION;
@@ -48,9 +48,15 @@ export class HomeComponent implements OnInit {
     }
 
     const user: User = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(`home.component current user: ${JSON.stringify(user)}`);
+    if (user === null || user.token === null) {
+      this.as.logout();
+      this.router.navigate(['user/login']);
+      return;
+    }
+
+    // console.log(`home.component current user: ${JSON.stringify(user)}`);
     const token = user.token;
-    console.error(`home.component current access token: ${token} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<`);
+    // console.error(`home.component current access token: ${token}`);
 
     // Check whether token is valid.  If expired, display msg & go to user/login page; otherwise continue
     if (jwtHelper.isTokenExpired(token)) {
@@ -58,10 +64,11 @@ export class HomeComponent implements OnInit {
       this.as.logout();
       alert('M007\nYour access JWT has expired.\nYou have been automatically logged out.\nPlease login again.');
       this.router.navigate(['user/login']);
+      return;
     }
 
     // set up the navbar
-    console.error(`home.component.ts - calling ns.updateNavAfterAuth(${user.role})`);
+    // console.error(`home.component.ts - calling ns.updateNavAfterAuth(${user.role})`);
     this.ns.updateNavAfterAuth(user.role);
 
     const body = document.getElementsByTagName('body');
